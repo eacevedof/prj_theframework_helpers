@@ -64,11 +64,7 @@ class TheFrameworkHelper
     //HelperStyle
     protected $oStyle = NULL;
     
-    public function __construct()
-    {
-        // clientbrowser, isMobileDevice,consolecalled,permalink
-        parent::__construct();
-    }
+    public function __construct(){}
     
     /**
      * Remplaza el atributo _class con las clases añadidas a arClasses

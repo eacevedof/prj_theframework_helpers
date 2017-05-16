@@ -2,10 +2,10 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.3.3
+ * @version 1.4.0
  * @name HelperForm
  * @file helper_form.php
- * @date 01-08-2016 07:22 (SPAIN)
+ * @date 30-04-2016 07:22 (SPAIN)
  * @observations: core library
  */
 namespace TheFramework\Helpers;
@@ -74,7 +74,9 @@ class HelperForm extends TheFrameworkHelper
                 }
                 $this->_inner_html .= $oObject->get_html();
             }
-    }    
+            elseif(is_string($mxValue))
+                $this->_inner_html .= $mxValue;
+    }//load_inner_objects
     
     public function get_opentag()
     {

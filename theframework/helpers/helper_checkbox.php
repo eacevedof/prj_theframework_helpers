@@ -2,15 +2,18 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.1.1
+ * @version 1.3.0
  * @name HelperCheckbox
  * @file helper_checkbox.php
- * @date 08-01-2017 11:55 (SPAIN)
+ * @date 03-05-2017 11:55 (SPAIN)
  * @observations:
  */
 namespace TheFramework\Helpers;
 use TheFramework\Helpers\TheFrameworkHelper;
-import_helper("label");
+use TheFramework\Helpers\HelperLabel;
+use TheFramework\Helpers\HelperLegend;
+use TheFramework\Helpers\HelperFieldset;
+
 class HelperCheckbox extends TheFrameworkHelper
 {
     private $arOptions;
@@ -48,6 +51,7 @@ class HelperCheckbox extends TheFrameworkHelper
         $this->_idprefix = "";
         $this->_name = $name;
         $this->_id = $name;
+        $this->isLabeled = FALSE;//permite customizar por defecto la etiqueta
         $this->arOptions = $mxOptions;
         $this->arValuesToCheck = $mxValuesToCheck;
         $this->arValuesDisabled = $mxValuesDisabled;
@@ -56,7 +60,7 @@ class HelperCheckbox extends TheFrameworkHelper
         $this->arExtras = $arExtras;
         $this->oLegend = $oLegend;
         $this->oFieldset = $oFieldset;
-    }
+    }//__construct
 
     public function get_html()
     {  
@@ -64,7 +68,7 @@ class HelperCheckbox extends TheFrameworkHelper
         if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
 
         if($this->oFieldset) $sHtmlToReturn .= $this->oFieldset->get_opentag();
-        if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_opentag();
+        if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_html();
         
         $iOption=0;
         $iNumOptions = count($this->arOptions);
@@ -83,9 +87,9 @@ class HelperCheckbox extends TheFrameworkHelper
         }//foreach($this->arOptions)
 
         if($this->oFieldset) $sHtmlToReturn .= $this->oFieldset->get_closetag();
-        if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_closetag();
+        //if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_closetag();
         return $sHtmlToReturn;
-    }
+    }//get_html
 
     private function build_check($id, $sValue, $sOutText, $isChecked=false, $isReadOnly=false)
     {
@@ -144,12 +148,14 @@ class HelperCheckbox extends TheFrameworkHelper
         //out text
         if($this->isLabeled)
         {
-            $oLabel = new HelperLabel($id, $sOutText);
+            $oLabel = new HelperLabel($id,$sOutText);
             $sHtmlCheckbox .= $oLabel->get_html();
             //$sHtmlCheckbox .= "</div>";
         }
+        elseif($sOutText)
+            $sHtmlCheckbox .= "$sOutText";
         return $sHtmlCheckbox;
-    }    
+    }//build_check
 
     private function conv_string_to_array(&$mxStrArray,$isValIndex=0)
     {
@@ -169,7 +175,8 @@ class HelperCheckbox extends TheFrameworkHelper
                 $mxStrArray = $arIndex;
             }
         }//is string
-    }
+    }//conv_string_to_array
+
     //**********************************
     //             SETS
     //**********************************
@@ -180,7 +187,7 @@ class HelperCheckbox extends TheFrameworkHelper
     public function not_grouped_name($isOn=false){$this->isGrouped = $isOn;}
     public function set_checks_per_line($iNumChecks){$this->iChecksPerLine = $iNumChecks;}
     public function set_options($mxOptions){$this->conv_string_to_array($mxOptions,1);$this->arOptions=$mxOptions;}
-    public function set_unlabeled($isOn=false){$this->isLabeled=$isOn;}
+    public function set_unlabeled($isOn=TRUE){$this->isLabeled=!$isOn;}
     public function set_name($value){$this->_name=$value;}
     
     //**********************************
@@ -192,4 +199,4 @@ class HelperCheckbox extends TheFrameworkHelper
     //**********************************
     //public function show_opentag(){parent::show_opentag();}
     //public function show_closetag(){parent::show_closetag();}    
-}
+}//HelperCheckbox

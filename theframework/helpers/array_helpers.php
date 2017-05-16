@@ -1,16 +1,17 @@
 <?php
-//file: array_helpers.php 1.0.0
+//file: array_helpers.php 1.0.2
 $arHelpers = [
      "TheFrameworkHelper"=>"theframework_helper",
      "HelperAnchor"=>"helper_anchor",
      "HelperButtonBasic"=>"helper_button_basic",
      "HelperCheckbox"=>"helper_checkbox",
-     "HelperCss"=>"helper_css",
+     "HelperLink"=>"helper_link",
      "HelperDiv"=>"helper_div",
      "HelperFieldset"=>"helper_form_fieldset",
      "HelperLegend"=>"helper_form_legend",
      "HelperForm"=>"helper_form",
-     "HelperFpdfCell"=>"helper_google_maps_3",
+     "HelperFpdfCell"=>"helper_fpdf_cell",
+     "HelperGoogleMaps3"=>"helper_google_maps_3",
      "HelperImage"=>"helper_image",
      "HelperImagelist"=>"helper_imagelist",
      "HelperDate"=>"helper_input_date",

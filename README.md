@@ -1,4 +1,4 @@
-# The Framework Helpers Version 0.0.1
+# The Framework Helpers Version 0.0.2
 PHP view helpers for rendering html elements using objects
 <ul>
     <li>
