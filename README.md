@@ -5,3 +5,6 @@ PHP view helpers for rendering html elements using objects
         <a href="http://helpers.theframework.es/" target="_blank">helpers.theframework.es</a>
     </li>
 </ul>
+<!--
+https://getcomposer.org/doc/04-schema.md#psr-0
+-->
