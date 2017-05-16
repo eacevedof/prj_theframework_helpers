@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-0" : {
-            "Weaverryan\\DangerZone" : "src"
+            "Theframework\\Helpers" : "src"
         }
     }    
 }
