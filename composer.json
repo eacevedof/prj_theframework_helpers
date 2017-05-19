@@ -1,12 +1,12 @@
 {
     "version":"0.0.2",
     "updated":"20170514",
-    "name": "theframework",
+    "name": "theframework/helpers",
     "type":"library",
     "description": "Library for helping to create html elements using objects",
     "minimum-stability": "stable",
     "keywords": [
-        "helpers","html elements","view helpers","OOP php"
+        "helpers","html elements","view helpers"
     ],
     "homepage": "https://github.com/eacevedof/prj_theframework_helpers",
     "license": "MIT",
