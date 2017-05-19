@@ -1,9 +1,9 @@
 {
-    "version":"0.0.2",
+    "version":"0.0.3",
     "updated":"20170514",
     "name": "theframework/helpers",
     "type":"library",
-    "description": "Library for helping to create html elements using objects",
+    "description": "Library that helps you to create html elements using OOP",
     "minimum-stability": "stable",
     "keywords": [
         "helpers","html elements","view helpers"
