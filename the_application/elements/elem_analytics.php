@@ -1,9 +1,10 @@
-<!--elem_analytics 1.0.0-->
+<!--elem_analytics 1.0.1-->
 <?php
 $sRemoteIp = $_SERVER["REMOTE_ADDR"];
 $arNoGoogle = [
     "83.56.121.212", //hme
     "217.116.5.17",  //job
+    "127.0.0.1",
 ];
 if(!in_array($sRemoteIp,$arNoGoogle)):
 ?>

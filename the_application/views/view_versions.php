@@ -1,5 +1,6 @@
-<!--view_versions 1.0.1-->
+<!--view_versions 1.0.2-->
 <?php
+use TheApplication\Components\ComponentDownload;
 $oDownload = new ComponentDownload($oAppMain);
 $arVersions = $oDownload->get_versions();
 $arVersions = $arVersions["version"];
