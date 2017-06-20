@@ -8,6 +8,10 @@ $oAppBoot->autoload();
 //carga: functions_debug,functions_string,autoload,array_helpers,component_download
 $oAppBoot->load_files();
 $arHelpers = $oAppBoot->get_helpers_list();
+
+//=====================
+//CONTROLADOR PRINCIPAL
+//=====================
 use TheApplication\Controllers\ControllerAppMain;
 $oAppMain = new ControllerAppMain($arHelpers);
 //bugg();
