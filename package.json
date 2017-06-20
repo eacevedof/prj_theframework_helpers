@@ -1,0 +1,29 @@
+{
+  "name": "prj_theframework_helpers",
+  "version": "1.0.0",
+  "description": "Theframework Helpers",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack the_public/js/libs/app.js the_public/js/bundles/bundle.js",
+    "build:prod": "webpack the_public/js/libs/app.js the_public/js/bundles/bundle.js -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://eacevedof@github.com/eacevedof/prj_theframework_helpers.git"
+  },
+  "keywords": [
+    "Php",
+    "helpers"
+  ],
+  "author": "Eduardo A.F.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eacevedof/prj_theframework_helpers/issues"
+  },
+  "homepage": "https://github.com/eacevedof/prj_theframework_helpers#readme",
+  "devDependencies": {
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}

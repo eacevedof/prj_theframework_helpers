@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<url>
+  <loc>http://helpers.theframework.es/</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=theframeworkhelper</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=theframeworkhelper</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperanchor</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperanchor</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperbuttonbasic</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperbuttonbasic</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helpercheckbox</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helpercheckbox</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helpercss</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helpercss</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperdiv</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperdiv</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperfieldset</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperfieldset</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperlegend</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperlegend</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperform</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperform</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperfpdfcell</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperfpdfcell</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperimage</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperimage</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperimagelist</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperimagelist</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperdate</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperdate</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperinputfile</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperinputfile</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperinputhidden</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperinputhidden</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperinputpassword</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperinputpassword</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperinputtext</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperinputtext</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperlabel</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperlabel</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperp</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperp</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperradio</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperradio</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperraw</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperraw</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperselect</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperselect</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperspan</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperspan</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperstyle</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperstyle</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helpertablebasic</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helpertablebasic</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helpertableraw</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helpertableraw</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helpertabletd</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helpertabletd</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helpertabletr</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helpertabletr</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helpertextarea</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helpertextarea</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperulli</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperulli</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?example=helperul</loc>
+  <changefreq>hourly</changefreq>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/index.php?content=helperul</loc>
+  <changefreq>hourly</changefreq>
+</url>
+</urlset>
