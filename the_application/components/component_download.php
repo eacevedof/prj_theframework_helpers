@@ -2,7 +2,7 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.0
+ * @version 1.0.1
  * @name ComponentDownload
  * @file component_download.php 
  * @date 29-04-20170426 08:41 (SPAIN)
@@ -22,7 +22,8 @@ class ComponentDownload
     public function __construct(ControllerAppMain $oAppMain)
     {
         $this->sPathRoot = $_SERVER["DOCUMENT_ROOT"];
-        $this->sPathJson = $this->sPathRoot."/download/counter.json";
+        //pr($this->sPathRoot);pr(__DIR__);pr(__FILE__);
+        $this->sPathJson = $this->sPathRoot."/../the_application/models/counter.json";
         $this->oAppMain = $oAppMain;
     }//__construct
     
