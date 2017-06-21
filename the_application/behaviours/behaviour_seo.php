@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.0.0
+ * @version 1.0.1
  * @date 29-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -51,6 +51,7 @@ class BehaviourSeo
     {
         foreach($this->arData as $arUrl)
         {
+            if(!$arUrl["url"])continue;
             if($isInv)
             {
                 if(strstr($this->sReqUrl,$arUrl["url"]))
@@ -81,9 +82,13 @@ class BehaviourSeo
         {
             $arUrlInConf = $this->get_like();
             $arUrlInReq = $this->get_like(1);
+            
+            $iConf = 0; $iReq = 0;
+            if(isset($arUrlInConf["url"])) $iConf = $arUrlInConf["url"];
+            if(isset($arUrlInReq["url"])) $iReq = $arUrlInReq["url"];
             //si se ha encontrado una url configurada
             //y se ha encontrado una configurada en la de peticion
-            if(strlen($arUrlInConf["url"])>strlen($arUrlInReq["url"]))
+            if($iConf>$iReq)
                 return $arUrlInConf;
             return $arUrlInReq;
         }
