@@ -62,12 +62,13 @@ class BehaviourSeo
         $arScrumbs = [
             ["url"=>"/"
                 ,"scrumbs"=>[
-                    ["href"=>"","text"=>""]
+                    ["href"=>"/","text"=>"Start"]
                 ]
             ],
             ["url"=>"/index.php?view=versions"
                 ,"scrumbs"=>[
-                    ["href"=>"","text"=>""]
+                    ["href"=>"/","text"=>"Start"],
+                    ["href"=>"/index.php?view=versions","text"=>"Versiones"]
                 ]                
             ],
         ];
