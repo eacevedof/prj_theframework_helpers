@@ -1,4 +1,4 @@
-<!--elem_buttondownload 1.0.3-->
+<!--elem_buttondownload 1.0.4-->
 <?php
 use TheApplication\Components\ComponentDownload;
 $oDownload = new ComponentDownload($oAppMain);
@@ -11,5 +11,9 @@ $sReleased = $arLatest[$sVersion]["released"];
 $sInnerText = "<b>DOWNLOAD version $sVersion</b><br/>"
         . "<small>released at $sReleased </small>";
 ?>
-            <p><a class="btn btn-primary btn-lg" href="/index.php?download=v-<?=$sVersionDwl?>" role="button"><?php s($sInnerText)?></a></p>
-<!--/elem_buttondownload-->        
+            <p>
+                <a class="btn btn-primary btn-lg" href="/index.php?download=v-<?=$sVersionDwl?>" role="button" rel="nofollow">
+                    <?php s($sInnerText)?>
+                </a>
+            </p>
+<!--/elem_buttondownload-->

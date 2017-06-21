@@ -2,9 +2,9 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.1
  * @name ComponentDownload
  * @file component_download.php 
+ * @version 1.0.2
  * @date 29-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -51,11 +51,14 @@ class ComponentDownload
         if($isLatest)
         {
             $arVersions = $arVersions["version"];
-            krsort($arVersions,SORT_NUMERIC);
+            //bug($arVersions);
+            //krsort($arVersions,SORT_NUMERIC); no lo hace bien
+            krsort($arVersions);
+            //bug($arVersions,"despues de sort");
             reset($arVersions);//se mueve al primer elemento
         }
         return $arVersions;
-    }
+    }//get_versions
     
     private function get_parsed($sUrlVersion)
     {

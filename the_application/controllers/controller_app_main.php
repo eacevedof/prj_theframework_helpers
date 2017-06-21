@@ -2,9 +2,9 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.1.0
  * @name ControllerAppMain
  * @file controller_app_main.php 
+ * @version 1.1.0
  * @date 26-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
