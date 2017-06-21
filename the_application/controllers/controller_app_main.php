@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name ControllerAppMain
  * @file controller_app_main.php 
- * @version 1.1.0
+ * @version 1.2.0
  * @date 26-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -12,6 +12,7 @@
 namespace TheApplication\Controllers;
 
 use TheApplication\Components\ComponentDownload;
+use TheApplication\Behaviours\BehaviourSeo;
 
 class ControllerAppMain
 {
