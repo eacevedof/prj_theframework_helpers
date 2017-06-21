@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.0.2
+ * @version 1.2.0
  * @date 29-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -15,13 +15,17 @@ class BehaviourSeo
 {
     private $sReqUrl;
     private $arData = [];
+    private $arScrumbs = [];
     private $arReplace = [];
+    private $arUrlFound = [];
+    private $arScrumbFound = [];
     
     public function __construct()
     {
         $this->sReqUrl = $_SERVER["REQUEST_URI"];
         pr($this->sReqUrl);
         $this->load_data();
+        $this->load_scrumbs();
     }//__construct
     
     private function load_data()
@@ -40,24 +44,34 @@ class BehaviourSeo
                     Eg. \$oObject->set_{html property}(value)
                 </code>
                 "
-             ],
+            ],
             
-            ["url"=>"/"
-                ,"title"=>"The Framework PHP Helpers Library"
-                ,"description"=>"Open source php view helpers library. Classes that help you to render html elements using OOP"
-                ,"keywords"=>"PHP helpers oop classes html"
-                ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library",
-                "resume"=>"
-                This PHP library tries to simplify the way of creating html elements in any php project.
-                You are able to apply any html attribute by its methods.
-                <br/>
-                <code>
-                    Eg. \$oObject->set_{html property}(value)
-                </code>
-                "
+            ["url"=>"/index.php?view=versions"
+                ,"title"=>"The Framework PHP Helpers library Versions"
+                ,"description"=>"The Framework PHP Helpers library Versions"
+                ,"keywords"=>"PHP helpers oop classes html versions"
+                ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library Versions",
+                "resume"=>""
              ],
         ];
         $this->arData = $arData;
+    }
+    
+    private function load_scrumbs()
+    {
+        $arScrumbs = [
+            ["url"=>"/"
+                ,"scrumbs"=>[
+                    ["href"=>"","text"=>""]
+                ]
+            ],
+            ["url"=>"/index.php?view=versions"
+                ,"scrumbs"=>[
+                    ["href"=>"","text"=>""]
+                ]                
+            ],
+        ];
+        $this->arScrumbs = $arScrumbs;
     }
     
     private function get_equal()
@@ -128,9 +142,27 @@ class BehaviourSeo
         $arUrl = $this->find_url();
         if($arUrl)
             $this->replace($arUrl);
+        $this->arUrlFound = $arUrl;
         return $arUrl;
     }
     
+    public function get_scrumbs()
+    {
+        if($this->arUrlFound)
+        {
+            $sUrl = $this->arUrlFound["url"];
+            foreach($this->arScrumbs as $arScrumb)
+                if($arScrumb["url"]==$sUrl)
+                {
+                    $this->arScrumbFound = $arScrumb["scrumb"];
+                    return $arScrumb["scrumb"];
+                }
+        }
+        return [];
+    }
+    
     public function add_replace($sTag,$sVal){$this->arReplace["%%$sTag%%"] = $sVal;}
+    public function get_found_url(){return $this->arUrlFound;}
+    public function get_found_scrumb(){return $this->arScrumbFound;}
     
 }//BehaviourSeo

@@ -24,6 +24,9 @@ class ControllerAppMain
 
     public function __construct($arHelpers=[])
     {
+        $oBehSeo = new BehaviourSeo();
+        $arUrl = $oBehSeo->get_data();
+        bug($arUrl);die;
         //bug($arHelpers);
         $this->arHelpers = $arHelpers;
         $this->arScrumbs[] = ["url"=>"/","description"=>"Home"];
