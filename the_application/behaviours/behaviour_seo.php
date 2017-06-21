@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.0.1
+ * @version 1.0.2
  * @date 29-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -20,14 +20,42 @@ class BehaviourSeo
     public function __construct()
     {
         $this->sReqUrl = $_SERVER["REQUEST_URI"];
+        pr($this->sReqUrl);
         $this->load_data();
     }//__construct
     
     private function load_data()
     {
         $arData = [
-            ["url"=>"","title"=>"","description"=>"","keywords"=>"","h1"=>"","resume"=>""],
-            ["url"=>"","title"=>"","description"=>"","keywords"=>"","h1"=>"","resume"=>""],
+            ["url"=>"/"
+                ,"title"=>"The Framework PHP Helpers Library"
+                ,"description"=>"Open source php view helpers library. Classes that help you to render html elements using OOP"
+                ,"keywords"=>"PHP helpers oop classes html"
+                ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library",
+                "resume"=>"
+                This PHP library tries to simplify the way of creating html elements in any php project.
+                You are able to apply any html attribute by its methods.
+                <br/>
+                <code>
+                    Eg. \$oObject->set_{html property}(value)
+                </code>
+                "
+             ],
+            
+            ["url"=>"/"
+                ,"title"=>"The Framework PHP Helpers Library"
+                ,"description"=>"Open source php view helpers library. Classes that help you to render html elements using OOP"
+                ,"keywords"=>"PHP helpers oop classes html"
+                ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library",
+                "resume"=>"
+                This PHP library tries to simplify the way of creating html elements in any php project.
+                You are able to apply any html attribute by its methods.
+                <br/>
+                <code>
+                    Eg. \$oObject->set_{html property}(value)
+                </code>
+                "
+             ],
         ];
         $this->arData = $arData;
     }
