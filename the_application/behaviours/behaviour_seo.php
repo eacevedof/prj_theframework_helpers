@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.3.3
+ * @version 1.3.4
  * @date 22-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
@@ -66,21 +66,21 @@ class BehaviourSeo
             [
                 "url"=>"/"
                 ,"scrumbs"=>[
-                    ["href"=>"/","text"=>"Start"]
+                    ["href"=>"/","description"=>"Start"]
                 ]
             ],
             [
                 "url"=>"/index.php?view=versions"
                 ,"scrumbs"=>[
-                    ["href"=>"/","text"=>"Start"],
-                    ["href"=>"/index.php?view=versions","text"=>"Versiones"]
+                    ["href"=>"/","description"=>"Start"],
+                    ["href"=>"/index.php?view=versions","description"=>"Versiones"]
                 ]                
             ],
             [
                 "url"=>"/index.php?view=%%classname%%"
                 ,"scrumbs"=>[
-                    ["href"=>"/","text"=>"Start"],
-                    ["href"=>"/index.php?view=%%classname%%","text"=>"%%class%%"]
+                    ["href"=>"/","description"=>"Start"],
+                    ["href"=>"/index.php?view=%%classname%%","description"=>"%%class%%"]
                 ]                
             ],            
         ];
