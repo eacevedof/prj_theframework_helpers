@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.3.2
+ * @version 1.3.3
  * @date 22-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
@@ -191,9 +191,9 @@ class BehaviourSeo
     
     public function get_data()
     {
-        pr($this->arData,"get_data");
+        //pr($this->arData,"get_data");
         $this->replace_seo();
-        pr($this->arData,"get_data 2");
+        //pr($this->arData,"get_data 2");
         
         $arUrl = $this->find_url();
         if($arUrl)
@@ -203,9 +203,9 @@ class BehaviourSeo
     
     public function get_scrumbs()
     {
-        pr($this->arScrumbs,"get-scrumbs");
+        //pr($this->arScrumbs,"get-scrumbs");
         $this->replace_scrumbs();
-        pr($this->arScrumbs,"get-scrumbs 2");
+        //pr($this->arScrumbs,"get-scrumbs 2");
         
         if($this->arUrlFound)
         {
@@ -217,8 +217,8 @@ class BehaviourSeo
                     return $this->arScrumbFound;
                 }
         }
-        return [];
-    }
+        return $this->arScrumbFound;
+    }//get_scrumbs
     
     public function add_replace($sTag,$sVal){$this->arReplace["%%$sTag%%"] = $sVal;}
     public function get_found_url(){return $this->arUrlFound;}
