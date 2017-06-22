@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.3.1
+ * @version 1.3.2
  * @date 22-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
@@ -32,7 +32,8 @@ class BehaviourSeo
     private function load_data()
     {
         $arData = [
-            ["url"=>"/"
+            [
+                "url"=>"/"
                 ,"title"=>"The Framework PHP Helpers Library"
                 ,"description"=>"Open source php view helpers library. Classes that help you to render html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html"
@@ -47,7 +48,8 @@ class BehaviourSeo
                 "
             ],
             
-            ["url"=>"/index.php?view=versions"
+            [
+                "url"=>"/index.php?view=versions"
                 ,"title"=>"The Framework PHP Helpers library Versions"
                 ,"description"=>"The Framework PHP Helpers library Versions"
                 ,"keywords"=>"PHP helpers oop classes html versions"
@@ -56,23 +58,26 @@ class BehaviourSeo
              ],
         ];
         $this->arData = $arData;
-    }
+    }//load_data
     
     private function load_scrumbs()
     {
         $arScrumbs = [
-            ["url"=>"/"
+            [
+                "url"=>"/"
                 ,"scrumbs"=>[
                     ["href"=>"/","text"=>"Start"]
                 ]
             ],
-            ["url"=>"/index.php?view=versions"
+            [
+                "url"=>"/index.php?view=versions"
                 ,"scrumbs"=>[
                     ["href"=>"/","text"=>"Start"],
                     ["href"=>"/index.php?view=versions","text"=>"Versiones"]
                 ]                
             ],
-            ["url"=>"/index.php?view=%%classname%%"
+            [
+                "url"=>"/index.php?view=%%classname%%"
                 ,"scrumbs"=>[
                     ["href"=>"/","text"=>"Start"],
                     ["href"=>"/index.php?view=%%classname%%","text"=>"%%class%%"]
@@ -80,7 +85,7 @@ class BehaviourSeo
             ],            
         ];
         $this->arScrumbs = $arScrumbs;
-    }
+    }//load_scrumbs
     
     private function get_equal()
     {
@@ -123,6 +128,8 @@ class BehaviourSeo
     {
         foreach($arValues as $k=>$sValue)
         {
+            if(!is_string($sValue)) continue;
+            
             foreach($this->arReplace as $sTag=>$sRep)
                 $sValue = str_replace($sTag,$sRep,$sValue);
 
@@ -147,6 +154,10 @@ class BehaviourSeo
         $arScrumbsCfg = $this->arScrumbs;
         foreach($arScrumbsCfg as $i=>$arConfig)
         {
+            //solo remplaza la url
+            $this->replace($arConfig);
+            $arScrumbsCfg[$i]["url"] = $arConfig["url"];
+                
             $arScrumbs = $arConfig["scrumbs"];
             foreach($arScrumbs as $j=>$arScrumb)
             {
@@ -180,7 +191,10 @@ class BehaviourSeo
     
     public function get_data()
     {
+        pr($this->arData,"get_data");
         $this->replace_seo();
+        pr($this->arData,"get_data 2");
+        
         $arUrl = $this->find_url();
         if($arUrl)
             $this->arUrlFound = $arUrl;
@@ -189,7 +203,10 @@ class BehaviourSeo
     
     public function get_scrumbs()
     {
+        pr($this->arScrumbs,"get-scrumbs");
         $this->replace_scrumbs();
+        pr($this->arScrumbs,"get-scrumbs 2");
+        
         if($this->arUrlFound)
         {
             $sUrl = $this->arUrlFound["url"];
