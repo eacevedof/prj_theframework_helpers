@@ -4,8 +4,8 @@
  * @link www.eduardoaf.com
  * @name ControllerAppMain
  * @file controller_app_main.php 
- * @version 1.2.0
- * @date 26-04-20170426 08:41 (SPAIN)
+ * @version 1.2.0B
+ * @date 22-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
  */
@@ -25,8 +25,12 @@ class ControllerAppMain
     public function __construct($arHelpers=[])
     {
         $oBehSeo = new BehaviourSeo();
-        $arUrl = $oBehSeo->get_data();
-        bug($arUrl);die;
+        $oBehSeo->add_replace("classname","someclass-here");
+        $oBehSeo->add_replace("class","SomeClass");
+        $arSEO = $oBehSeo->get_data();
+        $arScrumb = $oBehSeo->get_scrumbs();
+        bug($arScrumb,"scrumb");
+        bug($arSEO,"seo");die;
         //bug($arHelpers);
         $this->arHelpers = $arHelpers;
         $this->arScrumbs[] = ["url"=>"/","description"=>"Home"];
