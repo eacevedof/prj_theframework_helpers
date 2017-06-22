@@ -4,8 +4,8 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.2.0
- * @date 29-04-20170426 08:41 (SPAIN)
+ * @version 1.3.1
+ * @date 22-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
  */
@@ -22,6 +22,7 @@ class BehaviourSeo
     
     public function __construct()
     {
+        //filter_input(INPUT_SERVER,"SERVER_NAME",FILTER_SANITIZE_STRING)
         $this->sReqUrl = $_SERVER["REQUEST_URI"];
         pr($this->sReqUrl);
         $this->load_data();
@@ -71,6 +72,12 @@ class BehaviourSeo
                     ["href"=>"/index.php?view=versions","text"=>"Versiones"]
                 ]                
             ],
+            ["url"=>"/index.php?view=%%classname%%"
+                ,"scrumbs"=>[
+                    ["href"=>"/","text"=>"Start"],
+                    ["href"=>"/index.php?view=%%classname%%","text"=>"%%class%%"]
+                ]                
+            ],            
         ];
         $this->arScrumbs = $arScrumbs;
     }
@@ -107,16 +114,49 @@ class BehaviourSeo
         return [];
     }
     
-    private function replace(&$arUrl)
+    /**
+     * Busca solo en los valores y los remplaza
+     * Ejemplo: ["url"=>"some-text-with-%%tag%%","another-text-and-%%tag2%%"]
+     * @param array $arValues
+     */
+    private function replace(&$arValues)
     {
-        foreach($arUrl as $k=>$sValue)
+        foreach($arValues as $k=>$sValue)
         {
             foreach($this->arReplace as $sTag=>$sRep)
                 $sValue = str_replace($sTag,$sRep,$sValue);
 
-            $arUrl[$k] = $sValue;
+            $arValues[$k] = $sValue;
         }        
     }//replace
+    
+    private function replace_seo()
+    {
+        $arDataSEO = $this->arData;
+        //urls seo configuradas
+        foreach($arDataSEO as $i=>$arSEO)
+        {
+            $this->replace($arSEO);
+            $arDataSEO[$i] = $arSEO;
+        }
+        $this->arData = $arDataSEO;
+    }//replace_seo
+    
+    private function replace_scrumbs()
+    {
+        $arScrumbsCfg = $this->arScrumbs;
+        foreach($arScrumbsCfg as $i=>$arConfig)
+        {
+            $arScrumbs = $arConfig["scrumbs"];
+            foreach($arScrumbs as $j=>$arScrumb)
+            {
+                $this->replace($arScrumb);
+                $arScrumbs[$j] = $arScrumb;
+            }
+            $arScrumbsCfg[$i]["scrumbs"] = $arScrumbs;
+        }
+        $this->arScrumbs = $arScrumbsCfg;
+    }//replace_scrumbs
     
     private function find_url()
     {
@@ -140,23 +180,24 @@ class BehaviourSeo
     
     public function get_data()
     {
+        $this->replace_seo();
         $arUrl = $this->find_url();
         if($arUrl)
-            $this->replace($arUrl);
-        $this->arUrlFound = $arUrl;
-        return $arUrl;
+            $this->arUrlFound = $arUrl;
+        return $this->arUrlFound;
     }
     
     public function get_scrumbs()
     {
+        $this->replace_scrumbs();
         if($this->arUrlFound)
         {
             $sUrl = $this->arUrlFound["url"];
             foreach($this->arScrumbs as $arScrumb)
                 if($arScrumb["url"]==$sUrl)
                 {
-                    $this->arScrumbFound = $arScrumb["scrumb"];
-                    return $arScrumb["scrumb"];
+                    $this->arScrumbFound = $arScrumb["scrumbs"];
+                    return $this->arScrumbFound;
                 }
         }
         return [];
