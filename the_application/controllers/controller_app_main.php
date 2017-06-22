@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name ControllerAppMain
  * @file controller_app_main.php 
- * @version 1.2.0B
+ * @version 1.2.1
  * @date 22-04-20170426 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -28,26 +28,13 @@ class ControllerAppMain
         $oBehSeo->add_replace("classname","someclass-here");
         $oBehSeo->add_replace("class","SomeClass");
         $arSEO = $oBehSeo->get_data();
-        $arScrumb = $oBehSeo->get_scrumbs();
-        bug($arScrumb,"scrumb");
-        bug($arSEO,"seo");die;
-        //bug($arHelpers);
+        $arScrumbs = $oBehSeo->get_scrumbs();
+        
         $this->arHelpers = $arHelpers;
-        $this->arScrumbs[] = ["url"=>"/","description"=>"Home"];
+        $this->arScrumbs = $arScrumbs;
         $this->arView = ["filename"=>"view_list.php","params"=>[]];
-        $this->arPage = [
-            "title"=>"The Framework PHP Helpers Library"
-            ,"description"=>"Open source php view helpers library. Classes that help you to render html elements using OOP"
-            ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library",
-            "resume"=>"
-                This PHP library tries to simplify the way of creating html elements in any php project.
-                You are able to apply any html attribute by its methods.
-                <br/>
-                <code>
-                    Eg. \$oObject->set_{html property}(value)
-                </code>
-            "
-        ];
+        $this->arPage = $arSEO;
+        bug($this->arPage);
         //carga arParmas["classname"]        
         $this->load_params();
         $this->load_helpers_data();
@@ -133,6 +120,7 @@ class ControllerAppMain
         {
             $sClassName = $this->arHelpers[$sParamClass]["classname"];
             $this->arView["params"]["classname"] = $sClassName;
+            
             $sSeo = "";
             if($this->get_get("example"))
             {
@@ -170,10 +158,6 @@ class ControllerAppMain
         }
         elseif($this->get_get("view"))
         {
-            $this->arPage["title"] = "The Framework PHP Helpers library Versions";
-            $this->arPage["description"] = "The Framework PHP Helpers library Versions";
-            $this->arPage["h1"] = "<a href=\"/\">The Framework</a> PHP Helpers library Versions";
-            $this->arPage["resume"] = "";
             $sView = $this->get_get("view");
             $this->arView["filename"] = "view_{$sView}.php";
         }

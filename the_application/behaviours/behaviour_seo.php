@@ -55,7 +55,16 @@ class BehaviourSeo
                 ,"keywords"=>"PHP helpers oop classes html versions"
                 ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library Versions",
                 "resume"=>""
-             ],
+            ],
+            
+            [
+                "url"=>"/index.php?example=theframeworkhelper"
+                ,"title"=>"Examples of PHP Helper class %%classname%%"
+                ,"description"=>"Examples of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
+                ,"keywords"=>"PHP helpers oop classes html versions"
+                ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library Versions",
+                "resume"=>""
+            ],            
         ];
         $this->arData = $arData;
     }//load_data
