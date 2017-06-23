@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.3.4
+ * @version 1.4.0
  * @date 22-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
@@ -46,8 +46,7 @@ class BehaviourSeo
                     Eg. \$oObject->set_{html property}(value)
                 </code>
                 "
-            ],
-            
+            ],            
             [
                 "url"=>"/index.php?view=versions"
                 ,"title"=>"The Framework PHP Helpers library Versions"
@@ -56,13 +55,20 @@ class BehaviourSeo
                 ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library Versions",
                 "resume"=>""
             ],
-            
             [
                 "url"=>"/index.php?example=%%classnamelower%%"
                 ,"title"=>"Examples of PHP Helper class %%classname%%"
                 ,"description"=>"Examples of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html examples"
-                ,"h1"=>"<h1 class=\"display-3\">Examples of PHP Helper class: <b>\"%%classname%%\"</b></h1>",
+                ,"h1"=>"Examples of PHP Helper class: <b>\"%%classname%%\"</b>",
+                "resume"=>""
+            ],
+            [
+                "url"=>"/index.php?content=%%classnamelower%%"
+                ,"title"=>"Code of PHP Helper class %%classname%%"
+                ,"description"=>"Code of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
+                ,"keywords"=>"PHP helpers oop classes html code"
+                ,"h1"=>"Code of PHP Helper class: <b>\"%%classname%%\"</b>",
                 "resume"=>""
             ],            
         ];
