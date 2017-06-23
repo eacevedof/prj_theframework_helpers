@@ -4,8 +4,8 @@
  * @link www.eduardoaf.com
  * @name ComponentDownload
  * @file component_download.php 
- * @version 1.0.2
- * @date 29-04-20170426 08:41 (SPAIN)
+ * @version 1.0.3
+ * @date 23-06-2017 08:41 (SPAIN)
  * @observations:
  * @requires
  */
@@ -35,6 +35,7 @@ class ComponentDownload
         {
             $arVersions["version"][$sVersion]["counter"]++;
             $arVersions["version"][$sVersion]["updated"] = date("Y-m-d H:i:s");
+            $arVersions["version"][$sVersion]["remote_ip"] = $_SERVER["REMOTE_ADDR"];
             $sJson = json_encode($arVersions);
             file_put_contents($this->sPathJson,$sJson);
         }
