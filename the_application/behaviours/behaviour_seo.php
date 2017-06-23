@@ -24,7 +24,7 @@ class BehaviourSeo
     {
         //filter_input(INPUT_SERVER,"SERVER_NAME",FILTER_SANITIZE_STRING)
         $this->sReqUrl = $_SERVER["REQUEST_URI"];
-        pr($this->sReqUrl);
+        //pr($this->sReqUrl);
         $this->load_data();
         $this->load_scrumbs();
     }//__construct
@@ -58,11 +58,11 @@ class BehaviourSeo
             ],
             
             [
-                "url"=>"/index.php?example=theframeworkhelper"
+                "url"=>"/index.php?example=%%classnamelower%%"
                 ,"title"=>"Examples of PHP Helper class %%classname%%"
                 ,"description"=>"Examples of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
-                ,"keywords"=>"PHP helpers oop classes html versions"
-                ,"h1"=>"<a href=\"/\">The Framework</a> PHP helpers Library Versions",
+                ,"keywords"=>"PHP helpers oop classes html examples"
+                ,"h1"=>"<h1 class=\"display-3\">Examples of PHP Helper class: <b>\"%%classname%%\"</b></h1>",
                 "resume"=>""
             ],            
         ];
