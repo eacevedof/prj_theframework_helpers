@@ -4,8 +4,8 @@
  * @link www.eduardoaf.com
  * @name ComponentMailing
  * @file component_mailing.php
- * @version 1.4.0
- * @date 18-05-2016 16:03 (SPAIN)
+ * @version 1.4.1
+ * @date 23-06-2016 16:03 (SPAIN)
  */
 namespace TheApplication\Components;
 
@@ -40,7 +40,6 @@ class ComponentMailing
      */
     public function __construct($mxEmailTo="",$sSubject="",$mxContent="")
     {
-        parent::__construct();
         $this->sFromTitle = "";
         if(defined("APP_MAIL_ISSMTP") && APP_MAIL_ISSMTP!=="") $this->isSmtpUse = APP_MAIL_ISSMTP;
         if(defined("APP_MAIL_SMTP_HOST") && APP_MAIL_SMTP_HOST!=="") $this->sSmtpHost = APP_MAIL_SMTP_HOST;
@@ -65,24 +64,24 @@ class ComponentMailing
         $this->sContent = $mxContent;
         
         //esto recupera datos de: AppComponentExtconfig 
-        if(class_exists("AppComponentExtconfig"))
-        {
-            /*   ray(  "host" => "smtp.packprotecciononline.es",
-                    "port" => "587",
-                    "email_username" => "noreply@packprotecciononline.es",
-                    "email_password" =>  "q4hHJ3R1",
-                    "email_source" => "noreply@packprotecciononline.es",
-                    'mailer'=>'smtp',
-                    'smtppauth'=>true,
-                    'smtpsecure' => 'tls'*/
-            $this->sSmtpHost = AppComponentExtconfig::get_emailzurich1("host");
-            $this->sSmtpUser = AppComponentExtconfig::get_emailzurich1("email_username");
-            $this->sSmtpPassw = AppComponentExtconfig::get_emailzurich1("email_password");
-            $this->sSmtpProtocol = AppComponentExtconfig::get_emailzurich1("mailer");
-            $this->sSmtpPort = AppComponentExtconfig::get_emailzurich1("port");
-            $this->isSmtpAuth = AppComponentExtconfig::get_emailzurich1("smtppauth");
-            $this->sSmtpSecure = AppComponentExtconfig::get_emailzurich1("smtpsecure");
-        }
+//        if(class_exists("AppComponentExtconfig"))
+//        {
+//            /*   ray(  "host" => "smtp.packprotecciononline.es",
+//                    "port" => "587",
+//                    "email_username" => "noreply@packprotecciononline.es",
+//                    "email_password" =>  "q4hHJ3R1",
+//                    "email_source" => "noreply@packprotecciononline.es",
+//                    'mailer'=>'smtp',
+//                    'smtppauth'=>true,
+//                    'smtpsecure' => 'tls'*/
+//            $this->sSmtpHost = AppComponentExtconfig::get_emailzurich1("host");
+//            $this->sSmtpUser = AppComponentExtconfig::get_emailzurich1("email_username");
+//            $this->sSmtpPassw = AppComponentExtconfig::get_emailzurich1("email_password");
+//            $this->sSmtpProtocol = AppComponentExtconfig::get_emailzurich1("mailer");
+//            $this->sSmtpPort = AppComponentExtconfig::get_emailzurich1("port");
+//            $this->isSmtpAuth = AppComponentExtconfig::get_emailzurich1("smtppauth");
+//            $this->sSmtpSecure = AppComponentExtconfig::get_emailzurich1("smtpsecure");
+//        }
     }
     
     private function send_pear()
@@ -219,6 +218,8 @@ class ComponentMailing
             $this->arHeaders[] = "Bcc: ".implode(", ",$this->arEmailsBcc);
     }      
 
+    private function add_error($sMessage){lg($sMessage);}
+    
     //**********************************
     //             SETS
     //**********************************
