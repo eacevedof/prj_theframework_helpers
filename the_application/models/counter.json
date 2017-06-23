@@ -1,15 +1,15 @@
-{
-    "version":{
-        "0.0.1":{
-            "counter":4,
+{  
+    "version":{  
+        "0.0.1":{  
+            "counter":10,
             "released":"2017-04-29 20:09 GMT",
-            "updated":"2017-05-12 16:58:48",
+            "updated":"2017-06-13 06:33:35",
             "published":1
         },
-        "0.0.2":{
-            "counter":0,
+        "0.0.2":{  
+            "counter":12,
             "released":"2017-05-13 22:55 GMT",
-            "updated":"",
+            "updated":"2017-06-20 02:11:49",
             "published":1
         }
     }
