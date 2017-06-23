@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name ComponentDownload
  * @file component_download.php 
- * @version 1.0.3
+ * @version 1.1.0
  * @date 23-06-2017 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -12,6 +12,7 @@
 namespace TheApplication\Components;
 
 use TheApplication\Controllers\ControllerAppMain;
+use TheApplication\Components\ComponentMailing;
 
 class ComponentDownload
 {
@@ -27,6 +28,17 @@ class ComponentDownload
         $this->oAppMain = $oAppMain;
     }//__construct
     
+    private function send($arContent)
+    {
+        $oComponentMail = new ComponentMailing();
+        $oComponentMail->set_title_from("helpers.theframework.es Donwnload");
+        $oComponentMail->set_subject("helpers.theframework.es Donwnload");
+        $oComponentMail->set_content($arContent);
+        $arEmails[] = "tfwtrack@gmail.com";
+        $oComponentMail->set_emails_to($arEmails);
+        $oComponentMail->send();
+    }
+    
     public function update_count($sVersion)
     {
         $arVersions = $this->get_versions();
@@ -38,6 +50,7 @@ class ComponentDownload
             $arVersions["version"][$sVersion]["remote_ip"] = $_SERVER["REMOTE_ADDR"];
             $sJson = json_encode($arVersions);
             file_put_contents($this->sPathJson,$sJson);
+            $this->send($sJson);
         }
         else
         {
