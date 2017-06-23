@@ -1,10 +1,10 @@
-<!--elem_analytics 1.0.1-->
+<!--elem_analytics 1.0.2-->
 <?php
 $sRemoteIp = $_SERVER["REMOTE_ADDR"];
 $arNoGoogle = [
     "83.56.121.212", //hme
     "217.116.5.17",  //job
-    "127.0.0.1",
+    "127.0.0.1",     //localhost
 ];
 if(!in_array($sRemoteIp,$arNoGoogle)):
 ?>
@@ -13,10 +13,8 @@ if(!in_array($sRemoteIp,$arNoGoogle)):
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-98226675-1', 'auto');
-  ga('send', 'pageview');
-
+  ga('create','UA-98226675-1','auto');
+  ga('send','pageview');
 </script>
 <?php
 endif;
