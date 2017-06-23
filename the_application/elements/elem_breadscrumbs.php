@@ -1,7 +1,9 @@
-<!--elem_breadscrumbs-->
+<!--elem_breadscrumbs 1.0.0-->
 <div class="row">
 <?php
+//No se usa de momento
 $arScrumbs = $oAppMain->get_scrumbs();
+//pr($arScrumbs);die;
 ?>
         <ol class="breadcrumb">
 <?php
