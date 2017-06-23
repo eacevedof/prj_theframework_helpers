@@ -4,8 +4,8 @@
  * @link www.eduardoaf.com
  * @name ControllerAppMain
  * @file controller_app_main.php 
- * @version 1.2.1
- * @date 22-04-20170426 08:41 (SPAIN)
+ * @version 2.0.0
+ * @date 23-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
  */
@@ -24,18 +24,10 @@ class ControllerAppMain
 
     public function __construct($arHelpers=[])
     {
-        $oBehSeo = new BehaviourSeo();
-        $oBehSeo->add_replace("classname","someclass-here");
-        $oBehSeo->add_replace("class","SomeClass");
-        $arSEO = $oBehSeo->get_data();
-        $arScrumbs = $oBehSeo->get_scrumbs();
-        
         $this->arHelpers = $arHelpers;
-        $this->arScrumbs = $arScrumbs;
+        //$this->arScrumbs = $arScrumbs;
         $this->arView = ["filename"=>"view_list.php","params"=>[]];
-        $this->arPage = $arSEO;
-        bug($this->arPage);
-        //carga arParmas["classname"]        
+        //$this->arPage = $arSEO;
         $this->load_params();
         $this->load_helpers_data();
         $this->init();
@@ -115,36 +107,25 @@ class ControllerAppMain
    
     private function init()
     {
-        $sParamClass = $this->arParams["classname"];
+        //pr("init");       
+        $oBehSeo = new BehaviourSeo();
+        $this->arPage = $oBehSeo->get_data();
+        $this->arScrumbs = $oBehSeo->get_scrumbs();
+        
+        $sParamClass = $this->arParams["classname"];//devuelve algo como helperanchor
         if($sParamClass)
         {
             $sClassName = $this->arHelpers[$sParamClass]["classname"];
+            $oBehSeo->add_replace("classnamelower",$sParamClass);
+            $oBehSeo->add_replace("classname",$sClassName);
+            $this->arPage = $oBehSeo->get_data();
+            $this->arScrumbs = $oBehSeo->get_scrumbs();
             $this->arView["params"]["classname"] = $sClassName;
-            
-            $sSeo = "";
-            if($this->get_get("example"))
-            {
-                $sSeo = "Examples of";
-                $this->add_scrumb("/index.php?example=$sParamClass","Example of $sClassName");
-            }
-            elseif($this->get_get("content"))
-            {
-                $sSeo = "Code of";
-                $this->add_scrumb("/index.php?content=$sParamClass","Content of $sClassName");
-            }
-            
-            $this->arPage["title"] = "$sSeo PHP Helper class $sClassName";
-            $this->arPage["description"] = "$sSeo The Framework PHP Helper class $sClassName. Render your html elements using OOP";
-            $this->arPage["h1"] = "$sSeo PHP Helper class: <b>\"$sClassName\"</b>";
-            $this->arPage["resume"] = "";
-            //por defecto example
             $this->arView["filename"] = $this->get_example_view($sParamClass);
-            //pr($this->arView);
             if($this->get_get("content"))
             {
                 $this->arView["filename"] = "view_content.php";
                 $this->arView["params"]["filecontent"] = $this->arHelpers[$sParamClass]["filename"].".php";
-                //bug($this->arView);
             }
         }
         elseif($this->get_get("download"))
