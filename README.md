@@ -4,7 +4,6 @@
 
 ```
 sudo npm install -g yarn
-```
 
 /usr/local/bin/yarn -> /usr/local/lib/node_modules/yarn/bin/yarn.js
 /usr/local/bin/yarnpkg -> /usr/local/lib/node_modules/yarn/bin/yarn.js
@@ -216,6 +215,7 @@ sudo npm install -g yarn
     ├─┬ spdx-correct@1.0.2
     │ └── spdx-license-ids@1.2.2
     └── spdx-expression-parse@1.0.4
+```
 
     <hr/>
 
