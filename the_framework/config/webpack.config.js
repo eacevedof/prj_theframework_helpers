@@ -1,11 +1,12 @@
-const debug = process.env.NODE_ENV !== "production"
+console.log("webpack.config.js 1.0.0")
+const isDebug = process.env.NODE_ENV !== "production"
 const oWebpack = require("webpack")
 
 module.exports = {
   context: __dirname,
-  devtool: debug ? "inline-sourcemap" : null,
+  devtool: isDebug ? "inline-sourcemap" : null,
   //punto de entrada de la app.
-  entry: "./app/src/index.js", //el index a transpilar
+  entry: "./the_application/src/index.js", //el index a transpilar
 
   //con el objeto module y el array de loaders se indica que trasnformaciones se desea que haga
   //https://youtu.be/2M5L_uz6GO0?t=296 (explicacion module)
@@ -23,8 +24,8 @@ module.exports = {
       ]
   },
   output: {
-    path: __dirname + "/app/dist/js/",//carpeta donde se guardara lo compilado
-    filename: "index.min.js",//el js minificado final a pasar aproduccion
+    path: __dirname + "./the_public/js/react/",//carpeta donde se guardara lo compilado
+    filename: "bundle.js",//el js minificado final a pasar aproduccion
     public: "/build/", //directorio publico desde donde se podra vincular https://youtu.be/2M5L_uz6GO0?t=227
   },
   //resolve: indica los archivos que webpack debe tener en cuenta
