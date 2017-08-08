@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/eacevedof/prj_theframework_helpers/tree/site_2.0.0",
   "author": "eduardoaf.com <eacevedof@yahoo.es>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^3.5.1"
+  }
 }
