@@ -6,10 +6,21 @@
   "repository": "https://github.com/eacevedof/prj_theframework_helpers/tree/site_2.0.0",
   "author": "eduardoaf.com <eacevedof@yahoo.es>",
   "license": "MIT",
+
   "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
     "webpack": "^3.5.1"
   },
+
   "dependencies": {
     "eslint": "^4.4.1"
+  },
+
+  "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server --progress --content-base ./the_public --inline --hot --colors --config ./the_framework/config/webpack.config.js",
+    "build": "webpack --watch --colors",
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

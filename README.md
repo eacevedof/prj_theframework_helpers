@@ -246,3 +246,5 @@ webpack.config.js
 
 yarn add eslint
 
+yarn add --dev babel-loader babel-core babel-preset-env
+

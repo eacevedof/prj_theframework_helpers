@@ -1,4 +1,5 @@
 console.log("webpack.config.js 1.0.0")
+
 const isDebug = process.env.NODE_ENV !== "production"
 const oWebpack = require("webpack")
 
