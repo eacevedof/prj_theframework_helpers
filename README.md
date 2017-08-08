@@ -217,11 +217,9 @@ sudo npm install -g yarn
     └── spdx-expression-parse@1.0.4
 ```
 
-    <hr/>
-
-    ```
+```
     yarn init
-    ```
+
     yarn init v0.27.5
     question name (prj_theframework_helpers):
     question version (1.0.0): site_2.0.0
@@ -232,3 +230,4 @@ sudo npm install -g yarn
     question license (MIT):
     success Saved package.json
     Done in 110.06s.
+```
