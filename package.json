@@ -8,5 +8,8 @@
   "license": "MIT",
   "devDependencies": {
     "webpack": "^3.5.1"
+  },
+  "dependencies": {
+    "eslint": "^4.4.1"
   }
 }
