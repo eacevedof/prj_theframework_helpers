@@ -13,12 +13,11 @@
     "redux": "^3.7.2",
     "webpack": "^3.5.1"
   },
-  "dependencies": {
-    "eslint": "^4.4.1"
-  },
+
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server --progress --content-base ./the_public --inline --hot --colors --config ./the_framework/config/webpack.config.js",
     "build": "webpack --watch --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
+  
 }
