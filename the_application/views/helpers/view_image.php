@@ -59,6 +59,11 @@ $oImage->show();
 //<div class="text-center">
 //  <img src="..." class="rounded" alt="...">
 //</div>
+use TheFramework\Helpers\HelperDiv;
+
+$oDiv = new HelperDiv();
+$oDiv->add_extras("id","divContainer");
+
 $arImage["facebook"] = new HelperImage();
 $arImage["facebook"]->set_alt("Facebook alt prop");
 $arImage["facebook"]->set_src("https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/facebook-512.png");
@@ -72,8 +77,10 @@ $arImage["twitter"]->set_src("https://cdn4.iconfinder.com/data/icons/miu-gloss-s
 $arImage["twitter"]->add_class("rounded");
 $arImage["twitter"]->add_class("float-right");
 
-foreach($arImage as $oImage)
-    $oImage->show()
+$oDiv->add_inner_object($arImage["facebook"]);
+$oDiv->add_inner_object($arImage["twitter"]);
+
+$oDiv->show();
 
 ?>        
        </div><!--/example-->
