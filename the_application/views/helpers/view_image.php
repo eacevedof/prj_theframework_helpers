@@ -83,18 +83,43 @@ $oDiv->add_inner_object($arImage["facebook"]);
 $oDiv->add_inner_object($arImage["twitter"]);
 
 $oDiv->show();
-
 ?>        
        </div><!--/example-->
-        <br/>        
+        <br/><br/>        
         <h4>PHP Code:</h4>
         <pre class="prettyprint">
 &lt;?php
+use TheFramework\Helpers\HelperImage;
+use TheFramework\Helpers\HelperDiv;
 
+$oDiv = new HelperDiv();
+$oDiv-&gt;add_extras(&quot;id&quot;,&quot;divContainer&quot;);
+
+$arImage[&quot;facebook&quot;] = new HelperImage();
+$arImage[&quot;facebook&quot;]-&gt;set_alt(&quot;Facebook alt prop&quot;);
+$arImage[&quot;facebook&quot;]-&gt;set_src(&quot;https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/facebook-512.png&quot;);
+$arImage[&quot;facebook&quot;]-&gt;add_class(&quot;rounded&quot;);
+$arImage[&quot;facebook&quot;]-&gt;add_class(&quot;float-left&quot;);
+$arImage[&quot;facebook&quot;]-&gt;add_extras(&quot;height&quot;,&quot;50&quot;);
+
+$arImage[&quot;twitter&quot;] = new HelperImage();
+$arImage[&quot;twitter&quot;]-&gt;add_extras(&quot;someattr&quot;,&quot;some value for attr&quot;);
+$arImage[&quot;twitter&quot;]-&gt;set_alt(&quot;twitter alt prop&quot;);
+$arImage[&quot;twitter&quot;]-&gt;set_src(&quot;https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/twitter-512.png&quot;);
+$arImage[&quot;twitter&quot;]-&gt;add_class(&quot;rounded&quot;);
+$arImage[&quot;twitter&quot;]-&gt;add_class(&quot;float-right&quot;);
+$arImage[&quot;twitter&quot;]-&gt;add_extras(&quot;height&quot;,&quot;50&quot;);
+
+$oDiv-&gt;add_inner_object($arImage[&quot;facebook&quot;]);
+$oDiv-&gt;add_inner_object($arImage[&quot;twitter&quot;]);
+
+$oDiv-&gt;show();
 ?&gt;</pre>
         <br/>
         <h4>HTML Result:</h4>
         <pre class="prettyprint">
+&lt;div id=&quot;divContainer&quot;&gt;
+&lt;img src=&quot;https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/facebook-512.png&quot; alt=&quot;Facebook alt prop&quot; class=&quot;rounded float-left&quot; height=&quot;50&quot;&gt;&lt;img src=&quot;https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/twitter-512.png&quot; alt=&quot;twitter alt prop&quot; class=&quot;rounded float-right&quot; someattr=&quot;some value for attr&quot; height=&quot;50&quot;&gt;&lt;/div&gt;
 </pre>
     </div>  
 </div>
