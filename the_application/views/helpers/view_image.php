@@ -69,6 +69,7 @@ $arImage["facebook"]->set_alt("Facebook alt prop");
 $arImage["facebook"]->set_src("https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/facebook-512.png");
 $arImage["facebook"]->add_class("rounded");
 $arImage["facebook"]->add_class("float-left");
+$arImage["facebook"]->add_extras("height","50");
 
 $arImage["twitter"] = new HelperImage();
 $arImage["twitter"]->add_extras("someattr","some value for attr");
@@ -76,6 +77,7 @@ $arImage["twitter"]->set_alt("twitter alt prop");
 $arImage["twitter"]->set_src("https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/twitter-512.png");
 $arImage["twitter"]->add_class("rounded");
 $arImage["twitter"]->add_class("float-right");
+$arImage["twitter"]->add_extras("height","50");
 
 $oDiv->add_inner_object($arImage["facebook"]);
 $oDiv->add_inner_object($arImage["twitter"]);
