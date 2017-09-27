@@ -1,9 +1,9 @@
-<!--view_div 1.1.0-->
+<!--view_img 1.1.0-->
 <div class="col-lg-12">
     <h2>Resume</h2>
     <p>
-        It helps to create html element "div":<br/>
-        <b>&lt;div&gt;...innerhtml...&lt;/div&gt;</b>
+        It helps to create html element "img":<br/>
+        <b>&lt;img src=&quot;...&quot; class=&quot;img-fluid&quot; alt=&quot;Responsive image&quot;&gt;</b>
     </p>
     <h2>
         <span class="badge badge-default">Examples:</span>
@@ -17,54 +17,32 @@
         <h4>Live Html</h4>
         <div>
 <?php
-use TheFramework\Helpers\HelperDiv;
-$oDivCell = new HelperDiv("1 of 2");
-$oDivCell->add_class("col");
-$oDivCell2 = new HelperDiv("2 of 2");
-$oDivCell2->add_class("col");
-
-$oDivRow = new HelperDiv();
-$oDivRow->add_class("row");
-$oDivRow->add_inner_object($oDivCell);
-$oDivRow->add_inner_object($oDivCell2);
-
-$oDivContainer = new HelperDiv();
-$oDivContainer->add_class("container");
-$oDivContainer->add_inner_object($oDivRow);
-$oDivContainer->show();
+//https://cdn3.iconfinder.com/data/icons/inficons-round-brand-set-2/512/twitter-512.png
+//https://cdn4.iconfinder.com/data/icons/miu-gloss-social/60/facebook-512.png
+//<img src="..." class="img-fluid" alt="Responsive image">
+use TheFramework\Helpers\HelperImage;
+$oImage = new HelperImage();
+$oImage->set_src("http://images.locanto.net/2105338549/Best-CDN-Providers-CDN-Solution-Provider_2.png");
+$oImage->set_alt("Responsive image");
+$oImage->set_class("img-fluid");
+$oImage->show();
 ?>
         </div><!--example-->
         <br/>        
         <h4>PHP Code:</h4>
         <pre class="prettyprint">
 &lt;?php
-use TheFramework\Helpers\HelperDiv;
-$oDivCell = new HelperDiv("1 of 2");
-$oDivCell-&gt;add_class("col");
-$oDivCell2 = new HelperDiv("2 of 2");
-$oDivCell2-&gt;add_class("col");
-
-$oDivRow = new HelperDiv();
-$oDivRow-&gt;add_class("row");
-$oDivRow-&gt;add_inner_object($oDivCell);
-$oDivRow-&gt;add_inner_object($oDivCell2);
-
-$oDivContainer = new HelperDiv();
-$oDivContainer-&gt;add_class("container");
-$oDivContainer-&gt;add_inner_object($oDivRow);
-$oDivContainer-&gt;show();
+use TheFramework\Helpers\HelperImage;
+$oImage = new HelperImage();
+$oImage->set_src("http://images.locanto.net/2105338549/Best-CDN-Providers-CDN-Solution-Provider_2.png");
+$oImage->set_alt("Responsive image");
+$oImage->set_class("img-fluid");
+$oImage->show();
 ?&gt;</pre>
         <br/>
         <h4>HTML Result:</h4>
         <pre class="prettyprint">
-&lt;div class="container"&gt;
-&lt;div class="row"&gt;
-&lt;div class="col"&gt;
-1 of 2&lt;/div&gt;
-&lt;div class="col"&gt;
-2 of 2&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</pre>
+&lt;img src=&quot;http://images.locanto.net/2105338549/Best-CDN-Providers-CDN-Solution-Provider_2.png&quot; alt=&quot;Responsive image&quot; class=&quot;img-fluid&quot;&gt;</pre>
     </div>
 <!-------------------------------------------------------------------------------------------------->
 <!-------------------------------------------------------------------------------------------------->    
@@ -158,24 +136,7 @@ $oDivContainer-&gt;show();
         <br/>
         <h4>HTML Result:</h4>
         <pre class="prettyprint">
-&lt;div class="container"&gt;
-&lt;div class="row justify-content-md-center"&gt;
-&lt;div class="col col-lg-2" style="border:1px solid #ccc"&gt;
-1 of 3&lt;/div&gt;
-&lt;div class="col" style="border:1px solid #ccc"&gt;
-Variable width content&lt;/div&gt;
-&lt;div class="col col-lg-2" style="border:1px solid #ccc"&gt;
-3 of 3&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="row"&gt;
-&lt;div class="col" style="border:1px solid #ccc"&gt;
-1 of 3&lt;/div&gt;
-&lt;div class="col-12 col-md-auto" style="border:1px solid #ccc"&gt;
-Variable width content&lt;/div&gt;
-&lt;div class="col col-lg-2" style="border:1px solid #ccc"&gt;
-3 of 3&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</pre>
+</pre>
     </div>  
 </div>
-<!--/view_div-->  
+<!--/view_img-->  

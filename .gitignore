@@ -78,3 +78,4 @@ Icon
 .Trashes
 !/logs/
 /the_public/download/theframework/
+/node_modules/
