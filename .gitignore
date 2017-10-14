@@ -1,6 +1,9 @@
 # version 1.0.0 
 # -- logs
-the_public/js/download/theframework/**
+logs/**
+php.ini
+the_public/js/download/theframework/*
+/the_application/models/json/*
 
 # -- Composer -----------------------------------------
 composer.phar

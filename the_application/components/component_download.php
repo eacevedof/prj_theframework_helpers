@@ -11,7 +11,7 @@
  */
 namespace TheApplication\Components;
 
-use TheApplication\Controllers\ControllerAppMain;
+use TheApplication\Components\ComponentPagedata;
 use TheApplication\Components\ComponentMailing;
 
 class ComponentDownload
@@ -20,9 +20,9 @@ class ComponentDownload
     private $oAppMain;
     private $sPathJson;
     
-    public function __construct(ControllerAppMain $oAppMain)
+    public function __construct(ComponentPagedata $oAppMain)
     {
-        $this->sPathRoot = $_SERVER["DOCUMENT_ROOT"];
+        $this->sPathRoot = TFW_PATH_PUBLIC;
         //pr($this->sPathRoot);pr(__DIR__);pr(__FILE__);
         $this->sPathJson = $this->sPathRoot."/../the_application/models/counter.json";
         $this->oAppMain = $oAppMain;

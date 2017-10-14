@@ -1,76 +1,69 @@
 <?php
-//index.php 1.0.1
-//configura rutas de carga en includepath
-include_once("app_bootstrap.php");
-$oAppBoot = new ThePulic\AppBootstrap();
-$oAppBoot->load_paths();
-$oAppBoot->autoload();
-//carga: functions_debug,functions_string,autoload,array_helpers,component_download
-$oAppBoot->load_files();
-$arHelpers = $oAppBoot->get_helpers_list();
+//index.php 2.0.1
+//carga el loader de composer. Este loader solo tiene registrado el loader de helpers.
+//prj_theframework_helpers\the_public\index.php
+$sPathPublic = dirname(__FILE__);
+$sPathPublic = realpath($sPathPublic);
+define("TFW_PATH_PUBLIC",$sPathPublic);
+define("TFW_PATH_PUBLICDS",TFW_PATH_PUBLIC.DIRECTORY_SEPARATOR);
+$sPathProject = realpath(TFW_PATH_PUBLICDS."..");
+define("TFW_PATH_PROJECT",$sPathProject);
+define("TFW_PATH_PROJECTDS",TFW_PATH_PROJECT.DIRECTORY_SEPARATOR);
+define("TFW_PATH_APPLICATION",TFW_PATH_PROJECTDS."the_application");
+define("TFW_PATH_APPLICATIONDS",TFW_PATH_APPLICATION.DIRECTORY_SEPARATOR);
+define("TFW_PATH_VENDOR",TFW_PATH_PROJECTDS."the_vendor");
+define("TFW_PATH_VENDORDS",TFW_PATH_VENDOR.DIRECTORY_SEPARATOR);
 
-//=====================
-//CONTROLADOR PRINCIPAL
-//=====================
-use TheApplication\Controllers\ControllerAppMain;
-$oAppMain = new ControllerAppMain($arHelpers);
-//bugg();
-?>
-<!-- index 1.0.4 -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php s($oAppMain->get_page("title"));?></title>
-    <meta name="description" content="<?php s($oAppMain->get_page("description"));?>">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/style/google_prettify/prettify.css" />
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <script src="/js/google_prettify/prettify.js"></script>
-    <script>
-    window.onload = (function(){ prettyPrint(); });
-    </script>
-<?php
-include("elem_analytics.php");
-?> 
-</head>
-<body>
-    <div id="divMain" class="container-fluid">
-<?php
-include("elem_navbar.php");
-?>        
-    <div class="row"><br/><br/></div>
-    <div class="jumbotron" style="padding:20px;">
-        <h1 class="display-3"><?php s($oAppMain->get_page("h1"));?></h1>
-        <p class="lead">
-            <?php s($oAppMain->get_page("resume"))?>
-        </p>
-<?php
-include("elem_buttondownload.php");
-?>
-    </div>        
-<?php
-//include("elem_breadscrumbs.php");
-include("elem_gettingstarted.php");
-?>         
-        <div class="row">
-<?php
-include($oAppMain->get_view_file());
-?>
-        </div>
-        <p class="text-center">
-<?php
-include("elem_totop.php");
-?>
-        </p>
-    </div>
-<?php
-include("elem_footer.php");
-?>    
-    <script src="/js/bundles/bundle.js"></script>
-</body>
-</html>
+$arPaths = [
+    get_include_path(),
+    "$sPathProject",
+    "$sPathProject/the_application",
+    "$sPathProject/the_application/boot",
+    "$sPathProject/the_application/behaviours",
+    "$sPathProject/the_application/components",
+    "$sPathProject/the_application/controllers",
+    "$sPathProject/the_application/helpers",
+    "$sPathProject/the_application/models",
+    "$sPathProject/the_application/views",
+    "$sPathProject/the_application/views/elements",
+    "$sPathProject/the_application/views/reactjs",
+    //VENDOR
+//    "$sPathProject/the_vendor",//tiene el autoload de composer
+//    "$sPathProject/the_vendor/fpdf", se cargara 
+    ];
+foreach($arPaths as $i=>$sPaths)
+    if($i>0)
+    {
+        $sPathFix = realpath($sPaths);
+        $arPaths[$i] = $sPathFix;
+    }
+//var_dump($arPaths);
+$sPathInclude = implode(PATH_SEPARATOR,$arPaths);
+set_include_path($sPathInclude);
+
+require_once "the_vendor/bootstrap.php";//autoload para composer
+require_once "boot/bootstrap.php";//the_application/boot/bootsrap.php
+
+use TheApplication\Components\ComponentRouter;
+$arRun = ComponentRouter::run();
+
+//bug($arRun,"arRun");
+if($arRun)
+{
+    //bug($sPathPublic,"pathpublic");
+    $_POST["tfw_controller"] = $arRun["controller"];
+    $_POST["tfw_method"] = $arRun["method"];
+    
+    $oTfwController = new $arRun["nscontroller"]();
+    if(method_exists($oTfwController,$arRun["method"]))
+        $oTfwController->{$arRun["method"]}();
+    else
+    {
+        header("HTTP/1.0 404 Not Found");
+        die("404");
+    }
+}
+else 
+{
+    die("Empty run");
+}

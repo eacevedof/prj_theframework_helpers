@@ -16,7 +16,7 @@ class BehaviourRouter
     private $sPathRoot;
     private $oAppMain;
     
-    public function __construct(ControllerAppMain $oAppMain)
+    public function __construct(ComponentPagedata $oAppMain)
     {
         $this->sPathRoot = $_SERVER["DOCUMENT_ROOT"];
         $this->oAppMain = $oAppMain;
