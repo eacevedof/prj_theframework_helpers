@@ -1,7 +1,7 @@
 <!--elem_buttondownload 1.0.4-->
 <?php
 use TheApplication\Components\ComponentDownload;
-$oDownload = new ComponentDownload($oAppMain);
+$oDownload = new ComponentDownload($oPagedata);
 $arLatest = $oDownload->get_versions(1);
 $sVersion = key($arLatest);
 $sVersionDwl = str_replace(".","-",$sVersion);

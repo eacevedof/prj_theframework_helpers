@@ -1,9 +1,9 @@
 <!--elem_navbar 1.0.3-->
 <?php
 $arActive = ["home" => "","versions"=>""];
-if($oAppMain->is_inrequesturi("versions"))
+if($oPagedata->is_inrequesturi("versions"))
     $arActive["versions"] = "active";
-elseif(!$oAppMain->is_inrequesturi("?"))
+elseif(!$oPagedata->is_inrequesturi("?"))
     $arActive["home"] = "active";
 
 ?>

@@ -22,8 +22,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php s($oAppMain->get_page("title"));?></title>
-    <meta name="description" content="<?php s($oAppMain->get_page("description"));?>">
+    <title><?php s($oPagedata->get_page("title"));?></title>
+    <meta name="description" content="<?php s($oPagedata->get_page("description"));?>">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="/style/google_prettify/prettify.css" />
@@ -45,9 +45,9 @@ include("elem_navbar.php");
 ?>        
     <div class="row"><br/><br/></div>
     <div class="jumbotron" style="padding:20px;">
-        <h1 class="display-3"><?php s($oAppMain->get_page("h1"));?></h1>
+        <h1 class="display-3"><?php s($oPagedata->get_page("h1"));?></h1>
         <p class="lead">
-            <?php s($oAppMain->get_page("resume"))?>
+            <?php s($oPagedata->get_page("resume"))?>
         </p>
 <?php
 include("elem_buttondownload.php");
@@ -59,7 +59,7 @@ include("elem_gettingstarted.php");
 ?>         
         <div class="row">
 <?php
-include($oAppMain->get_view_file());
+include($oPagedata->get_view_file());
 ?>
         </div>
         <p class="text-center">

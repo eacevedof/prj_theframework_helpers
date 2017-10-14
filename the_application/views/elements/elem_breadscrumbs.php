@@ -2,7 +2,7 @@
 <div class="row">
 <?php
 //No se usa de momento
-$arScrumbs = $oAppMain->get_scrumbs();
+$arScrumbs = $oPagedata->get_scrumbs();
 //pr($arScrumbs);die;
 ?>
         <ol class="breadcrumb">

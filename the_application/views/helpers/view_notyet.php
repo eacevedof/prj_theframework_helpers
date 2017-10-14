@@ -1,6 +1,6 @@
 <!--view_notyet 1.0.1-->
 <?php
-$sClassName = $oAppMain->get_view_var("classname");
+$sClassName = $oPagedata->get_view_var("classname");
 ?>
 <div class="col-lg-12">
     <br/>

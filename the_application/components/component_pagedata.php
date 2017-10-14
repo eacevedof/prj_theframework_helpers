@@ -24,6 +24,7 @@ class ComponentPagedata
 
     public function __construct($arHelpers=[])
     {
+        //bugg();
         $this->arHelpers = $arHelpers;
         //$this->arScrumbs = $arScrumbs;
         $this->arView = ["filename"=>"view_list.php","params"=>[]];
@@ -60,8 +61,9 @@ class ComponentPagedata
         $sFilename = str_replace("helper_","view_",$sFilename);
         $sFilename = str_replace("theframework_helper","view_theframework",$sFilename);
         $sFilename .= ".php";
+        $sFilename = "helpers/$sFilename";
         if(!stream_resolve_include_path($sFilename))
-            $sFilename = "view_notyet.php";
+            $sFilename = "helpers/view_notyet.php";
         return $sFilename;
     }//get_example_view
 

@@ -17,15 +17,15 @@ use TheApplication\Components\ComponentMailing;
 class ComponentDownload
 {
     private $sPathRoot;
-    private $oAppMain;
+    private $oPagedata;
     private $sPathJson;
     
-    public function __construct(ComponentPagedata $oAppMain)
+    public function __construct(ComponentPagedata $oPagedata)
     {
         $this->sPathRoot = TFW_PATH_PUBLIC;
         //pr($this->sPathRoot);pr(__DIR__);pr(__FILE__);
         $this->sPathJson = $this->sPathRoot."/../the_application/models/counter.json";
-        $this->oAppMain = $oAppMain;
+        $this->oAppMain = $oPagedata;
     }//__construct
     
     private function send($arContent)

@@ -5,7 +5,7 @@
     </h2>
     <pre class="prettyprint">
 <?php
-$oAppMain->show_content();
+$oPagedata->show_content();
 ?>
     </pre>
 </div>

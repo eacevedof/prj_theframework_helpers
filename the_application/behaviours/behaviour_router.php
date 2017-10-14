@@ -14,12 +14,12 @@ namespace TheApplication\Behaviours;
 class BehaviourRouter
 {
     private $sPathRoot;
-    private $oAppMain;
+    private $oPagedata;
     
-    public function __construct(ComponentPagedata $oAppMain)
+    public function __construct(ComponentPagedata $oPagedata)
     {
         $this->sPathRoot = $_SERVER["DOCUMENT_ROOT"];
-        $this->oAppMain = $oAppMain;
+        $this->oAppMain = $oPagedata;
     }//__construct
 
     

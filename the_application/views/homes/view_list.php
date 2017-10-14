@@ -14,7 +14,7 @@
         $i++;
         $sClassNameLow = strtolower($sClassName);
         $sUrl = "/$sClassNameLow/examples/";
-        $sUrlContent = "/$sClassNameLow/code/";
+        $sUrlContent = "/$sClassNameLow/";
     ?>    
         <tr>
             <th scope="row"><?php s($i);?></th>

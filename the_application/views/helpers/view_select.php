@@ -19,7 +19,7 @@ $oForm = new HelperForm();
 $oForm->add_class("form-inline");
 //$_GET["warning"]=1 test: http://helpers.theframework.es/index.php?example=helperselect&warning=1
 //bugg();
-if($oAppMain->get_get("warning"))
+if($oPagedata->get_get("warning"))
     $oForm->add_style("border:1px solid red;");
 
 $oLabel = new HelperLabel("","Date:");
@@ -60,7 +60,7 @@ $oForm = new HelperForm();
 $oForm-&#x3E;add_class(&#x22;form-inline&#x22;);
 //$_GET[&#x22;warning&#x22;]=1 test: http://helpers.theframework.es/index.php?example=helperselect&#x26;warning=1
 //bugg();
-if($oAppMain-&#x3E;get_get(&#x22;warning&#x22;))
+if($oPagedata-&#x3E;get_get(&#x22;warning&#x22;))
     $oForm-&#x3E;add_style(&#x22;border:1px solid red;&#x22;);
 
 $oLabel = new HelperLabel(&#x22;&#x22;,&#x22;Date:&#x22;);

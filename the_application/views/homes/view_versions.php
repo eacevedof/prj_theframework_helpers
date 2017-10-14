@@ -1,10 +1,6 @@
 <!--view_versions 1.0.3-->
 <?php
-use TheApplication\Components\ComponentDownload;
-$oDownload = new ComponentDownload($oAppMain);
-$arVersions = $oDownload->get_versions();
-$arVersions = $arVersions["version"];
-krsort($arVersions);
+
 ?>
 <div class="col-lg-12">
     <br/>        
@@ -29,7 +25,7 @@ foreach($arVersions as $sVersion=>$arData):
                     <?=$arData["released"]?> <small>(<?=$arData["counter"]?>)<small>
                 </td>                
                 <td>
-                    <a class="btn btn-success" href="/index.php?download=v-<?=$sVer?>" role="button" rel="nofollow">
+                    <a class="btn btn-success" href="/download/v-<?=$sVer?>/" role="button" rel="nofollow">
                         Download version <?=$sVersion?>
                     </a>
                 </td>
