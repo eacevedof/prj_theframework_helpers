@@ -57,7 +57,7 @@ class BehaviourSeo
                 "resume"=>""
             ],
             [
-                "url"=>"/examples/%%classnamelower%%/"
+                "url"=>"/%%classnamelower%%/examples/"
                 ,"title"=>"Examples of PHP Helper class %%classname%%"
                 ,"description"=>"Examples of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html examples"
@@ -82,14 +82,14 @@ class BehaviourSeo
             [
                 "url"=>"/"
                 ,"scrumbs"=>[
-                    ["href"=>"/","description"=>"Start"]
+                    ["href"=>"/","description"=>"Home"]
                 ]
             ],
             [
                 "url"=>"/versions/"
                 ,"scrumbs"=>[
                     ["href"=>"/","description"=>"Start"],
-                    ["href"=>"/versions/","description"=>"Versiones"]
+                    ["href"=>"/versions/","description"=>"Versions"]
                 ]                
             ],
             [
@@ -122,6 +122,7 @@ class BehaviourSeo
     {
         foreach($this->arData as $arUrl)
         {
+            pr($arUrl["url"]);
             if(!$arUrl["url"])continue;
             if($isInv)
             {
@@ -142,6 +143,8 @@ class BehaviourSeo
      */
     private function replace(&$arValues)
     {
+        //bug($this->arReplace);
+        //bug($arValues);
         foreach($arValues as $k=>$sValue)
         {
             if(!is_string($sValue)) continue;

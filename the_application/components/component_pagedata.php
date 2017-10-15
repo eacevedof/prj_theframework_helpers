@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name ComponentPagedata
  * @file component_pagedata.php 
- * @version 2.0.0
+ * @version 2.0.1
  * @date 23-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
@@ -30,64 +30,30 @@ class ComponentPagedata
         $this->arView = ["filename"=>"view_list.php","params"=>[]];
         //$this->arPage = $arSEO;
         $this->load_params();
-        $this->load_helpers_data();
         $this->init();
     }//__construct
 
     private function load_params()
     {
-        $this->arParams["classname"] = $this->get_get("example");
-        if($this->get_get("content")) 
-            $this->arParams["classname"] = $this->get_get("content");
-        //bug($this->arParams,"arParams");
+        $this->arParams["uri_parts"] = $this->get_get("REQUEST_URI");
+        $this->arParams["helper-slug"] = $this->get_get("helper-slug");
+        $this->arParams["uri_parts"] = $this->arParams["uri_parts"]["parts"];
     }//load_params
 
-    private function load_helpers_data()
+    private function get_example_view($sSlug)
     {
-        $arHelpers = $this->arHelpers;
-        //bug($arHelpers);
-        $arHelpLower = [];
-        array_walk($arHelpers,function($sValue,$sKey) use(&$arHelpLower){
-            $sKeyLow = strtolower($sKey);
-            $arHelpLower[$sKeyLow] = ["classname"=>$sKey,"filename"=>$sValue];
-        });
-        $this->arHelpers = $arHelpLower;
-        //bug($this->arHelpers,"arHelpers");
-    }//load_helpers_data
-
-    private function get_example_view($sClassParam)
-    {
-        $sFilename = $this->arHelpers[$sClassParam]["filename"];
-        $sFilename = str_replace("helper_","view_",$sFilename);
-        $sFilename = str_replace("theframework_helper","view_theframework",$sFilename);
-        $sFilename .= ".php";
-        $sFilename = "helpers/$sFilename";
-        if(!stream_resolve_include_path($sFilename))
-            $sFilename = "helpers/view_notyet.php";
-        return $sFilename;
-    }//get_example_view
-
-    public function get_request_uri($sType=0)
-    {
-        $sReqUri = (isset($_SERVER["REQUEST_URI"])?$_SERVER["REQUEST_URI"]:"");
-        //sin get
-        if($sType==1)
-        {
-            if(strstr($sReqUri,"?"))
+        foreach($this->arHelpers as $arHelper)
+            if($arHelper["slug"]===$sSlug)
             {
-                $sReqUri = explode("?",$sReqUri);
-                $sReqUri=$sReqUri[0];
+               $sFileView = $arHelper["view"];
+               break;
             }
-            remove_firstchar($sReqUri);
-            remove_lastchar($sReqUri);            
-        }        
-        elseif($sType==2)
-        {
-            remove_firstchar($sReqUri);
-            remove_lastchar($sReqUri);
-        }
-        return $sReqUri;
-    }//get_request_uri
+        
+        $sFileView = "helpers/$sFileView";
+        if(!stream_resolve_include_path($sFileView))
+            $sFileView = "helpers/view_notyet.php";
+        return $sFileView;
+    }//get_example_view
    
     public function is_inrequesturi($mxSearch)
     {
@@ -114,20 +80,31 @@ class ComponentPagedata
         $this->arPage = $oBehSeo->get_data();
         $this->arScrumbs = $oBehSeo->get_scrumbs();
         
-        $sParamClass = $this->arParams["classname"];//devuelve algo como helperanchor
-        if($sParamClass)
+        $sHelperSlug = $this->arParams["helper-slug"];//devuelve algo como helperanchor
+
+        if($sHelperSlug)
         {
-            $sClassName = $this->arHelpers[$sParamClass]["classname"];
-            $oBehSeo->add_replace("classnamelower",$sParamClass);
-            $oBehSeo->add_replace("classname",$sClassName);
+            foreach($this->arHelpers as $arHelper)
+                if($arHelper["slug"]===$sHelperSlug)
+                {
+                    $sClassName = $arHelper["classname"];
+                    break;
+                }
+            
+            $oBehSeo->add_replace("classnamelower",$sHelperSlug);
+            $oBehSeo->add_replace("classname",$sClassName);            
             $this->arPage = $oBehSeo->get_data();
+            //pr($this->arPage);die;
             $this->arScrumbs = $oBehSeo->get_scrumbs();
             $this->arView["params"]["classname"] = $sClassName;
-            $this->arView["filename"] = $this->get_example_view($sParamClass);
-            if($this->get_get("content"))
+            $this->arView["filename"] = $this->get_example_view($sHelperSlug);
+            
+            //parche: Si no viene la palabra example entonces se busca el contenido de la clase
+            //y no los ejemplos
+            if(!in_array("examples",$this->arParams["uri_parts"]))
             {
                 $this->arView["filename"] = "view_content.php";
-                $this->arView["params"]["filecontent"] = $this->arHelpers[$sParamClass]["filename"].".php";
+                $this->arView["params"]["filecontent"] = $arHelper["filename"];
             }
         }
         elseif($this->get_get("download"))
@@ -142,6 +119,7 @@ class ComponentPagedata
         elseif($this->get_get("view"))
         {
             $sView = $this->get_get("view");
+            //bug($sView);die;
             $this->arView["filename"] = "view_{$sView}.php";
         }
     }//init()

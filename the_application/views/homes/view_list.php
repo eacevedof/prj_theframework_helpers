@@ -9,20 +9,21 @@
         </thead>
         <tbody>
     <?php
-    $i=0;
-    foreach($arHelpers as $sClassName=>$sFileName):
-        $i++;
-        $sClassNameLow = strtolower($sClassName);
-        $sUrl = "/$sClassNameLow/examples/";
-        $sUrlContent = "/$sClassNameLow/";
+    $iRow=0;
+
+    foreach($arHelpers as $i=>$arHelper):
+        $iRow++;
+        $sSlug = $arHelper["slug"];
+        $sUrl = "/$sSlug/examples/";
+        $sUrlContent = "/$sSlug/";
     ?>    
         <tr>
             <th scope="row"><?php s($i);?></th>
             <td>
-                <a class="btn btn-default" href="<?php s($sUrl);?>" role="button"><?php s($sClassName);?></a>
+                <a class="btn btn-default" href="<?php s($sUrl);?>" role="button"><?php s($arHelper["classname"]);?></a>
             </td>
             <td>
-                <a class="btn" href="<?php s($sUrlContent);?>" role="button"><?php s($sFileName);?></a>
+                <a class="btn" href="<?php s($sUrlContent);?>" role="button"><?php s($arHelper["filename"]);?></a>
             </td>
         </tr>
     <?php

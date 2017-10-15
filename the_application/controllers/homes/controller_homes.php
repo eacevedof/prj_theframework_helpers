@@ -14,6 +14,7 @@ namespace TheApplication\Controllers;
 use TheApplication\Controllers\TheApplicationController;
 use TheApplication\Components\ComponentPagedata;
 use TheApplication\Components\ComponentDownload;
+use TheApplication\Models\ModelHelper;
 
 class ControllerHomes extends TheApplicationController
 {
@@ -22,10 +23,11 @@ class ControllerHomes extends TheApplicationController
     
     public function __construct()
     {
-        include("helpers/array_helpers.php"); 
-        $this->arHelpers = $arHelpers;
+        $oModelHelper = new ModelHelper();
+        $oModelHelper->load();
+        $this->arHelpers = $oModelHelper->get_by_props("is_enabled","1");
         //bugpg();
-        $oPagedata = new ComponentPagedata($arHelpers);
+        $oPagedata = new ComponentPagedata($this->arHelpers);
         $this->oPageData = $oPagedata;
     }
     
@@ -62,7 +64,7 @@ class ControllerHomes extends TheApplicationController
     //content:/
     public function code()
     {
-
+        //bug("code");
         $oPagedata = $this->oPageData;        
         include("homes/view_index.php");          
     }    

@@ -4,6 +4,7 @@ logs/**
 php.ini
 the_public/js/download/theframework/*
 /the_application/models/json/*
+!/the_application/models/json/helper.json
 
 # -- Composer -----------------------------------------
 composer.phar

@@ -1,20 +1,5 @@
 <?php
-////index.php 1.0.1
-////configura rutas de carga en includepath
-//include_once("app_bootstrap.php");
-//$oAppBoot = new ThePulic\AppBootstrap();
-//$oAppBoot->load_paths();
-//$oAppBoot->autoload();
-////carga: functions_debug,functions_string,autoload,array_helpers,component_download
-//$oAppBoot->load_files();
-//$arHelpers = $oAppBoot->get_helpers_list();
-
-//=====================
-//CONTROLADOR PRINCIPAL
-//=====================
-
-//bugg();
-//pr("homes/view_index.php");
+//view_index.php 
 ?>
 <!-- index 1.0.4 -->
 <!DOCTYPE html>
@@ -54,11 +39,12 @@ include("elem_buttondownload.php");
 ?>
     </div>        
 <?php
-//include("elem_breadscrumbs.php");
+include("elem_breadscrumbs.php");
 include("elem_gettingstarted.php");
 ?>         
         <div class="row">
 <?php
+//bug($oPagedata->get_view_file());
 include($oPagedata->get_view_file());
 ?>
         </div>

@@ -105,6 +105,8 @@ class ComponentRouter
         self::$sReqUri = $_SERVER["REQUEST_URI"];
         self::$arReqParts = explode("/",self::$sReqUri);
         self::$iReqParts = count(self::$arReqParts);
+        $_GET["REQUEST_URI"]["uri"] = self::$sReqUri;
+        $_GET["REQUEST_URI"]["parts"] = self::$arReqParts;
         
         if(self::check_exact())
             return self::check_exact();
