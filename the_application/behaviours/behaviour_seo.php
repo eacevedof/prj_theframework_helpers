@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.4.0
+ * @version 1.4.1
  * @date 22-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
@@ -60,7 +60,7 @@ class BehaviourSeo
                 ,"title"=>"Examples of PHP Helper class %%slug%%"
                 ,"description"=>"Examples of The Framework PHP Helper class %%slug%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html examples"
-                ,"h1"=>"Examples of PHP Helper class: <b>\"%%slug%%\"</b>",
+                ,"h1"=>"Examples of PHP Helper class: <b>\"%%classname%%\"</b>",
                 "resume"=>""
             ],
             [
@@ -68,7 +68,7 @@ class BehaviourSeo
                 ,"title"=>"Code of PHP Helper class %%slug%%"
                 ,"description"=>"Code of The Framework PHP Helper class %%slug%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html code"
-                ,"h1"=>"Code of PHP Helper class: <b>\"%%slug%%\"</b>",
+                ,"h1"=>"Code of PHP Helper class: <b>\"%%classname%%\"</b>",
                 "resume"=>""
             ],            
         ];
@@ -78,30 +78,30 @@ class BehaviourSeo
     private function load_scrumbs()
     {
         $arScrumbs = [
-//            [
-//                "url"=>"/"
-//                ,"scrumbs"=>[
-//                    ["href"=>"/","description"=>"Home"]
-//                ]
-//            ],
+            [
+                "url"=>"/"
+                ,"scrumbs"=>[
+                    ["href"=>"/","description"=>"PHP Helpers"]
+                ]
+            ],
             [
                 "url"=>"/versions/"
                 ,"scrumbs"=>[
-                    ["href"=>"/","description"=>"Home"],
+                    ["href"=>"/","description"=>"PHP Helpers"],
                     ["href"=>"/versions/","description"=>"Versions"]
                 ]                
             ],
             [
                 "url"=>"/%%slug%%/"
                 ,"scrumbs"=>[
-                    ["href"=>"/","description"=>"Home"],
+                    ["href"=>"/","description"=>"PHP Helpers"],
                     ["href"=>"/%%slug%%/","description"=>"%%classname%% source code"]
                 ]
             ],    
             [
                 "url"=>"/%%slug%%/examples/"
                 ,"scrumbs"=>[
-                    ["href"=>"/","description"=>"Home"],
+                    ["href"=>"/","description"=>"PHP Helpers"],
                     ["href"=>"/%%slug%%/","description"=>"%%classname%% source code"],
                     ["href"=>"/%%slug%%/examples/","description"=>"%%classname%% examples"]
                 ]
