@@ -129,7 +129,7 @@ class BehaviourSeo
     {
         foreach($this->arData as $arUrl)
         {
-            pr($arUrl["url"]);
+            //pr($arUrl["url"]);
             if(!$arUrl["url"])continue;
             if($isInv)
             {

@@ -77,7 +77,7 @@ class ComponentPagedata
     {
         //pr("init");       
         $oBehSeo = new BehaviourSeo();
-        $this->arPage = $oBehSeo->get_data();
+        //$this->arPage = $oBehSeo->get_data();
         $this->arScrumbs = $oBehSeo->get_scrumbs();
         
         $sHelperSlug = $this->arParams["helper-slug"];//devuelve algo como helperanchor
