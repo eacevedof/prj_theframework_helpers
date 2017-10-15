@@ -24,8 +24,8 @@ class ComponentDownload
     {
         $this->sPathRoot = TFW_PATH_PUBLIC;
         //pr($this->sPathRoot);pr(__DIR__);pr(__FILE__);
-        $this->sPathJson = $this->sPathRoot."/../the_application/models/counter.json";
-        $this->oAppMain = $oPagedata;
+        $this->sPathJson = $this->sPathRoot."/../the_application/models/json/counter.json";
+        $this->oPagedata = $oPagedata;
     }//__construct
     
     private function send($arContent)

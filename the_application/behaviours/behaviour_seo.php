@@ -43,12 +43,13 @@ class BehaviourSeo
                 You are able to apply any html attribute by its methods.
                 <br/>
                 <code>
-                    Eg. \$oObject->set_{html property}(value)
+                    Eg. \$oHelperX->set_class(\"some-class\");
+                        \$oHelperX->set_value(\"some value\");
                 </code>
                 "
             ],            
             [
-                "url"=>"/index.php?view=versions"
+                "url"=>"/versions/"
                 ,"title"=>"The Framework PHP Helpers library Versions"
                 ,"description"=>"The Framework PHP Helpers library Versions"
                 ,"keywords"=>"PHP helpers oop classes html versions"
@@ -56,7 +57,7 @@ class BehaviourSeo
                 "resume"=>""
             ],
             [
-                "url"=>"/index.php?example=%%classnamelower%%"
+                "url"=>"/examples/%%classnamelower%%/"
                 ,"title"=>"Examples of PHP Helper class %%classname%%"
                 ,"description"=>"Examples of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html examples"
@@ -64,7 +65,7 @@ class BehaviourSeo
                 "resume"=>""
             ],
             [
-                "url"=>"/index.php?content=%%classnamelower%%"
+                "url"=>"/%%classnamelower%%/"
                 ,"title"=>"Code of PHP Helper class %%classname%%"
                 ,"description"=>"Code of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html code"
@@ -85,18 +86,18 @@ class BehaviourSeo
                 ]
             ],
             [
-                "url"=>"/index.php?view=versions"
+                "url"=>"/versions/"
                 ,"scrumbs"=>[
                     ["href"=>"/","description"=>"Start"],
-                    ["href"=>"/index.php?view=versions","description"=>"Versiones"]
+                    ["href"=>"/versions/","description"=>"Versiones"]
                 ]                
             ],
             [
-                "url"=>"/index.php?view=%%classname%%"
+                "url"=>"/%%classname%%/"
                 ,"scrumbs"=>[
                     ["href"=>"/","description"=>"Start"],
-                    ["href"=>"/index.php?view=%%classname%%","description"=>"%%class%%"]
-                ]                
+                    ["href"=>"/%%classname%%/","description"=>"%%class%%"]
+                ]
             ],            
         ];
         $this->arScrumbs = $arScrumbs;
