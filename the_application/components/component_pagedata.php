@@ -77,11 +77,12 @@ class ComponentPagedata
     {
         //pr("init");       
         $oBehSeo = new BehaviourSeo();
-        $this->arPage = $oBehSeo->get_data();
+        //$this->arPage = $oBehSeo->get_data();
         $this->arScrumbs = $oBehSeo->get_scrumbs();
         
         $sHelperSlug = $this->arParams["helper-slug"];//devuelve algo como helperanchor
 
+        //pr($sHelperSlug,"helper-slug");die;
         if($sHelperSlug)
         {
             foreach($this->arHelpers as $arHelper)
@@ -91,7 +92,8 @@ class ComponentPagedata
                     break;
                 }
             
-            $oBehSeo->add_replace("classnamelower",$sHelperSlug);
+            //bug($sClassName,"className");
+            $oBehSeo->add_replace("slug",$sHelperSlug);
             $oBehSeo->add_replace("classname",$sClassName);            
             $this->arPage = $oBehSeo->get_data();
             //pr($this->arPage);die;

@@ -44,7 +44,6 @@ class BehaviourSeo
                 <br/>
                 <code>
                     Eg. \$oHelperX->set_class(\"some-class\");
-                        \$oHelperX->set_value(\"some value\");
                 </code>
                 "
             ],            
@@ -57,19 +56,19 @@ class BehaviourSeo
                 "resume"=>""
             ],
             [
-                "url"=>"/%%classnamelower%%/examples/"
-                ,"title"=>"Examples of PHP Helper class %%classname%%"
-                ,"description"=>"Examples of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
+                "url"=>"/%%slug%%/examples/"
+                ,"title"=>"Examples of PHP Helper class %%slug%%"
+                ,"description"=>"Examples of The Framework PHP Helper class %%slug%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html examples"
-                ,"h1"=>"Examples of PHP Helper class: <b>\"%%classname%%\"</b>",
+                ,"h1"=>"Examples of PHP Helper class: <b>\"%%slug%%\"</b>",
                 "resume"=>""
             ],
             [
-                "url"=>"/%%classnamelower%%/"
-                ,"title"=>"Code of PHP Helper class %%classname%%"
-                ,"description"=>"Code of The Framework PHP Helper class %%classname%%. Render your html elements using OOP"
+                "url"=>"/%%slug%%/"
+                ,"title"=>"Code of PHP Helper class %%slug%%"
+                ,"description"=>"Code of The Framework PHP Helper class %%slug%%. Render your html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html code"
-                ,"h1"=>"Code of PHP Helper class: <b>\"%%classname%%\"</b>",
+                ,"h1"=>"Code of PHP Helper class: <b>\"%%slug%%\"</b>",
                 "resume"=>""
             ],            
         ];
@@ -79,26 +78,34 @@ class BehaviourSeo
     private function load_scrumbs()
     {
         $arScrumbs = [
-            [
-                "url"=>"/"
-                ,"scrumbs"=>[
-                    ["href"=>"/","description"=>"Home"]
-                ]
-            ],
+//            [
+//                "url"=>"/"
+//                ,"scrumbs"=>[
+//                    ["href"=>"/","description"=>"Home"]
+//                ]
+//            ],
             [
                 "url"=>"/versions/"
                 ,"scrumbs"=>[
-                    ["href"=>"/","description"=>"Start"],
+                    ["href"=>"/","description"=>"Home"],
                     ["href"=>"/versions/","description"=>"Versions"]
                 ]                
             ],
             [
-                "url"=>"/%%classname%%/"
+                "url"=>"/%%slug%%/"
                 ,"scrumbs"=>[
-                    ["href"=>"/","description"=>"Start"],
-                    ["href"=>"/%%classname%%/","description"=>"%%class%%"]
+                    ["href"=>"/","description"=>"Home"],
+                    ["href"=>"/%%slug%%/","description"=>"%%classname%% source code"]
                 ]
-            ],            
+            ],    
+            [
+                "url"=>"/%%slug%%/examples/"
+                ,"scrumbs"=>[
+                    ["href"=>"/","description"=>"Home"],
+                    ["href"=>"/%%slug%%/","description"=>"%%classname%% source code"],
+                    ["href"=>"/%%slug%%/examples/","description"=>"%%classname%% examples"]
+                ]
+            ],             
         ];
         $this->arScrumbs = $arScrumbs;
     }//load_scrumbs
@@ -215,6 +222,7 @@ class BehaviourSeo
         //pr($this->arData,"get_data 2");
         
         $arUrl = $this->find_url();
+        //pr($arUrl,"get_data.find_url");die;
         if($arUrl)
             $this->arUrlFound = $arUrl;
         return $this->arUrlFound;
@@ -229,9 +237,12 @@ class BehaviourSeo
         if($this->arUrlFound)
         {
             $sUrl = $this->arUrlFound["url"];
+            //pr($sUrl,"get_scrumbs.url");
+            //bug($this->arScrumbs);die;
             foreach($this->arScrumbs as $arScrumb)
                 if($arScrumb["url"]==$sUrl)
                 {
+                    //bug($arScrumb["scrumbs"]);die;
                     $this->arScrumbFound = $arScrumb["scrumbs"];
                     return $this->arScrumbFound;
                 }
