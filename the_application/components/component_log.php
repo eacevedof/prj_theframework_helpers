@@ -28,17 +28,18 @@ class ComponentLog
     {
         $sReturn = "::".date("Ymd-His")."::\n";
         if($sTitle) $sReturn .= $sTitle.":\n";
-        if($sContent) $sReturn .= $sContent."\n";
+        if($sContent) $sReturn .= $sContent."\n\n";
         return $sReturn;
     }
     
-    public function write($sContent,$sTitle=NULL)
+    public function save($sContent,$sTitle=NULL)
     {
         $sPathFile = $this->sPathFolder."/$this->sSubfType/$this->sFileName";
-        //soruce file
-        //x: Creación y apertura para sónlo escritura; coloca el puntero al principio del archivo.
-        $oCursor = fopen($sPathFile,"x");
-        //bug($this->_target_content,"content");
+        if(is_file($sPathFile))
+            $oCursor = fopen($sPathFile,"a");
+        else
+            $oCursor = fopen($sPathFile,"x");
+
         if($oCursor !== FALSE)
         {
             $sToSave = $this->merge($sContent,$sTitle);

@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name ComponentPagedata
  * @file component_pagedata.php 
- * @version 2.0.1
+ * @version 2.1.0
  * @date 23-06-2017 20:41 (SPAIN)
  * @observations:
  * @requires
@@ -13,6 +13,7 @@ namespace TheApplication\Components;
 
 use TheApplication\Components\ComponentDownload;
 use TheApplication\Behaviours\BehaviourSeo;
+use TheApplication\Components\ComponentLog;
 
 class ComponentPagedata
 {
@@ -119,6 +120,10 @@ class ComponentPagedata
             $sVersion = $this->get_get("download");
             if($sVersion)
             {
+                $oLog = new ComponentLog();
+                $oLog->set_subfolder("custom");
+                $oLog->set_filename("download_".date("Ymd"));
+                $oLog->save("download version $sVersion","ip: {$_SERVER["REMOTE_ADDR"]}");
                 $oDownload = new ComponentDownload($this);
                 $oDownload->returnfile($sVersion);
             }
