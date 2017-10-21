@@ -11,6 +11,8 @@
  */
 namespace TheApplication\Behaviours;
 
+//como llevar a tu web a la primera página de google
+//https://www.youtube.com/watch?v=bhY3wnocMdc
 class BehaviourSeo
 {
     private $sReqUrl;
