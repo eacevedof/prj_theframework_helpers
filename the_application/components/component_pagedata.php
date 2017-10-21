@@ -30,7 +30,9 @@ class ComponentPagedata
         $this->arView = ["filename"=>"view_list.php","params"=>[]];
         //$this->arPage = $arSEO;
         $this->load_params();
-        $this->init();
+        $is404 = $this->init();
+        if($is404) $this->arView["filename"]="status/$is404";
+        
     }//__construct
 
     private function load_params()
@@ -85,14 +87,17 @@ class ComponentPagedata
         //pr($sHelperSlug,"helper-slug");die;
         if($sHelperSlug)
         {
+            $sClassName = "";
             foreach($this->arHelpers as $arHelper)
                 if($arHelper["slug"]===$sHelperSlug)
                 {
                     $sClassName = $arHelper["classname"];
                     break;
                 }
-            
+            //se sale
+            if(!$sClassName) return "404.php";
             //bug($sClassName,"className");
+            //bugpg();
             $oBehSeo->add_replace("slug",$sHelperSlug);
             $oBehSeo->add_replace("classname",$sClassName);            
             $this->arPage = $oBehSeo->get_data();
@@ -124,6 +129,7 @@ class ComponentPagedata
             //bug($sView);die;
             $this->arView["filename"] = "view_{$sView}.php";
         }
+        return FALSE;
     }//init()
     
     private function add_scrumb($sUrl,$sDescription){$this->arScrumbs[] = ["url"=>$sUrl,"description"=>$sDescription];}

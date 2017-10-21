@@ -1,7 +1,8 @@
 <?php
-//index.php 2.0.1
+ob_start();
+//index.php 2.1.0
 //carga el loader de composer. Este loader solo tiene registrado el loader de helpers.
-//prj_theframework_helpers\the_public\index.php
+//<project>\the_public\index.php
 $sPathPublic = dirname(__FILE__);
 $sPathPublic = realpath($sPathPublic);
 define("TFW_PATH_PUBLIC",$sPathPublic);
@@ -57,13 +58,18 @@ if($arRun)
     $oTfwController = new $arRun["nscontroller"]();
     if(method_exists($oTfwController,$arRun["method"]))
         $oTfwController->{$arRun["method"]}();
+    elseif(method_exists($oTfwController,"status_404"))
+        $oTfwController->{"status_404"}();        
     else
-    {
+    {   
         header("HTTP/1.0 404 Not Found");
-        die("404");
+        die("Error 404: Content Not Found!!");
     }
 }
 else 
 {
-    die("Empty run");
+    header("HTTP/1.0 404 Not Found");
+    include("views/status/404.php");
+    die();
 }
+ob_end_flush();

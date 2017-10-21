@@ -12,12 +12,42 @@
 namespace TheApplication\Controllers;
 
 use TheFramework\Main\TheFrameworkController;
+use TheApplication\Components\ComponentLog;
 
 class TheApplicationController extends TheFrameworkController
 {
     public function __construct()
     {
-
+        parent::__construct();
     }
 
+    protected function log_debug($sContent,$sTitle="")
+    {
+        if(!is_string($sContent)) 
+            $sContent = var_export($sContent,1);
+        $this->oLog->set_subfolder("debug");
+        $this->oLog->save($sContent,$sTitle);
+    }
+    
+    protected function log_error($sContent,$sTitle="")
+    {
+        if(!is_string($sContent))
+            $sContent = var_export($sContent,1);
+        $this->oLog->set_subfolder("error");
+        $this->oLog->save($sContent,$sTitle);
+    }
+    
+    protected function log_custom($sContent,$sTitle="")
+    {
+        if(!is_string($sContent))
+            $sContent = var_export($sContent,1);
+        $this->oLog->set_subfolder("custom");
+        $this->oLog->save($sContent,$sTitle);
+    }    
+    
+    public function status_404()
+    {
+        header("HTTP/1.0 404 Not Found");
+        include("views/status/404.php");
+    }
 }//TheApplicationController

@@ -29,6 +29,12 @@ class ControllerHomes extends TheApplicationController
         //bugpg();
         $oPagedata = new ComponentPagedata($this->arHelpers);
         $this->oPageData = $oPagedata;
+        $sView = $this->oPageData->get_view_file();
+        if(in_string("404.php",$sView))
+        {
+            $this->status_404();
+            exit();
+        }
     }
     
     //
