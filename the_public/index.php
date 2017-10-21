@@ -70,6 +70,5 @@ else
 {
     header("HTTP/1.0 404 Not Found");
     include("views/status/404.php");
-    die();
 }
 ob_end_flush();
