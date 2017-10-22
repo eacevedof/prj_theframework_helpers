@@ -1,8 +1,9 @@
 <?php
-ob_start();
-//index.php 2.1.0
+//index.php 2.2.0
 //carga el loader de composer. Este loader solo tiene registrado el loader de helpers.
 //<project>\the_public\index.php
+session_start();
+ob_start();
 $sPathPublic = dirname(__FILE__);
 $sPathPublic = realpath($sPathPublic);
 define("TFW_PATH_PUBLIC",$sPathPublic);
@@ -46,6 +47,9 @@ require_once "the_vendor/bootstrap.php";//autoload para composer
 require_once "boot/bootstrap.php";//the_application/boot/bootsrap.php
 
 use TheApplication\Components\ComponentRouter;
+//necesario para guardar trazas de la visita
+use TheApplication\Controllers\TheApplicationController;
+$oAppCntrl = new TheApplicationController();
 $arRun = ComponentRouter::run();
 
 //bug($arRun,"arRun");
@@ -57,17 +61,25 @@ if($arRun)
     
     $oTfwController = new $arRun["nscontroller"]();
     if(method_exists($oTfwController,$arRun["method"]))
+    {
+        $oAppCntrl->log_visit("202 method ok");
         $oTfwController->{$arRun["method"]}();
+    }
     elseif(method_exists($oTfwController,"status_404"))
+    {
+        $oAppCntrl->log_visit("404 by method");
         $oTfwController->{"status_404"}();        
+    }
     else
     {   
+        $oAppCntrl->log_visit("404 by no method");        
         header("HTTP/1.0 404 Not Found");
         die("Error 404: Content Not Found!!");
     }
 }
 else 
 {
+    $oAppCntrl->log_visit("404 not in routes");
     header("HTTP/1.0 404 Not Found");
     include("views/status/404.php");
 }

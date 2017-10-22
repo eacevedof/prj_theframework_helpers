@@ -23,6 +23,7 @@ class ControllerHomes extends TheApplicationController
     
     public function __construct()
     {
+        parent::__construct();
         $oModelHelper = new ModelHelper();
         $oModelHelper->load();
         $this->arHelpers = $oModelHelper->get_by_props("is_enabled","1");
