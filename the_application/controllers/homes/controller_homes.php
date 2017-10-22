@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name TheApplication\Controllers\ControllerHomes
  * @file controller_homes.php 
- * @version 1.0.0
+ * @version 1.0.1
  * @date 08-10-2017 08:44 (SPAIN)
  * @observations:
  * @requires  
@@ -78,7 +78,7 @@ class ControllerHomes extends TheApplicationController
     //download/version:/
     public function download()
     {
-        
+        //Este metodo debe existir, pero la lógica se gestiona en page data.
     }    
     
 }//ControllerHomes
