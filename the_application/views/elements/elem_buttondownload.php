@@ -6,7 +6,7 @@ $arLatest = $oDownload->get_versions(1);
 $sVersion = key($arLatest);
 $sVersionDwl = str_replace(".","-",$sVersion);
 //bug($sVersion);
-$sReleased = $arLatest[$sVersion]["released"];
+$sReleased = (isset($arLatest[$sVersion]["released"])?$arLatest[$sVersion]["released"]:"[not found]");
 
 $sInnerText = "<b>DOWNLOAD version $sVersion</b><br/>"
         . "<small>released at $sReleased </small>";
