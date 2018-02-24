@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name ComponentDownload
  * @file component_download.php 
- * @version 1.1.0
+ * @version 1.1.1
  * @date 23-06-2017 08:41 (SPAIN)
  * @observations:
  * @requires
@@ -64,7 +64,7 @@ class ComponentDownload
         $arVersions = json_decode($sJson,1);
         if($isLatest)
         {
-            $arVersions = $arVersions["version"];
+            $arVersions = (isset($arVersions["version"])?$arVersions["version"]:["version"=>"[not found]"]);
             //bug($arVersions);
             //krsort($arVersions,SORT_NUMERIC); no lo hace bien
             krsort($arVersions);
