@@ -11,7 +11,6 @@
     {"id":"10", "classname":"HelperFpdfCell", "filename":"helper_fpdf_cell.php", "view":"view_fpdf_cell.php", "slug":"helper-pdf-cell", "is_enabled":"1"},
     {"id":"11", "classname":"HelperGoogleMaps3", "filename":"helper_google_maps_3.php", "view":"view_google_maps_3.php", "slug":"helper-googlemaps-3", "is_enabled":"1"},
     {"id":"12", "classname":"HelperImage", "filename":"helper_image.php", "view":"view_image.php", "slug":"helper-image", "is_enabled":"1"},
-    {"id":"13", "classname":"HelperImagelist", "filename":"helper_imagelist.php", "view":"view_imagelist.php", "slug":"helper-imagelist", "is_enabled":"1"},
     {"id":"14", "classname":"HelperDate", "filename":"helper_input_date.php", "view":"view_input_date.php", "slug":"helper-input-date", "is_enabled":"1"},
     {"id":"15", "classname":"HelperInputFile", "filename":"helper_input_file.php", "view":"view_input_file.php", "slug":"helper-input-file", "is_enabled":"1"},
     {"id":"16", "classname":"HelperInputHidden", "filename":"helper_input_hidden.php", "view":"view_input_hidden.php", "slug":"helper-input-hidden", "is_enabled":"1"},
