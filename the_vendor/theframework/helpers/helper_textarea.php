@@ -2,7 +2,7 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.2.2
+ * @version 1.2.3
  * @name HelperTextarea
  * @date 21-11-2016 22:24 (SPAIN)
  * @file helper_textarea.php
@@ -18,7 +18,7 @@ class HelperTextarea extends TheFrameworkHelper
     private $isCounterJs;
     
     public function __construct
-    ($id="",$name="",$innerhtml="",$arExtras="",$maxlength=-1
+    ($id="",$name="",$innerhtml="",$arExtras=[],$maxlength=-1
     ,$cols=40,$rows=8,$class="",$style="",HelperLabel $oLabel=NULL)
     {
         $this->_type = "textarea";

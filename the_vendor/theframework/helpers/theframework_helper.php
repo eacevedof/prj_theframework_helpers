@@ -21,7 +21,7 @@ class TheFrameworkHelper
     protected $_maxlength = "";
     
     protected $_inner_html = ""; 
-    protected $arExtras;
+    protected $arExtras = array();
     protected $_placeholder;
     
     protected $_display = TRUE;
@@ -174,6 +174,8 @@ class TheFrameworkHelper
     public function set_extras(array $value){$this->arExtras = array(); if($value) $this->arExtras = $value;}
     public function add_extras($sKey,$sValue)
     {
+        bug($this->arExtras);
+        bug($sKey);
         if($sKey)
             $this->arExtras[$sKey] = $sValue;
         else
@@ -220,6 +222,7 @@ class TheFrameworkHelper
         $arExtras = array();
         if($asString)
         {
+            pr($this->arExtras);
             foreach($this->arExtras as $sKey=>$sValue)
             {
                 //Esto no funcionaría si aplicase valores para mostrar un atributo 0="nuevo"
