@@ -174,8 +174,8 @@ class TheFrameworkHelper
     public function set_extras(array $value){$this->arExtras = array(); if($value) $this->arExtras = $value;}
     public function add_extras($sKey,$sValue)
     {
-        bug($this->arExtras);
-        bug($sKey);
+        //bug($this->arExtras);
+        //bug($sKey);
         if($sKey)
             $this->arExtras[$sKey] = $sValue;
         else
@@ -206,10 +206,10 @@ class TheFrameworkHelper
     protected function set_inner_objects($arObjHelpers){$this->arInnerObjects=$arObjHelpers;}
     protected function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     protected function get_cleaned($sString)
-            {
+    {
         $sString = str_replace("\"","&quot;",$sString);
         return $sString;
-            }
+    }
     
     //**********************************
     //             GETS
@@ -222,7 +222,7 @@ class TheFrameworkHelper
         $arExtras = array();
         if($asString)
         {
-            pr($this->arExtras);
+            //pr($this->arExtras);
             foreach($this->arExtras as $sKey=>$sValue)
             {
                 //Esto no funcionaría si aplicase valores para mostrar un atributo 0="nuevo"
