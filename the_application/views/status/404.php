@@ -1,5 +1,5 @@
 <?php
-//404.php 1.0.0
+//404.php 1.0.1
 $sRequestUri = $_SERVER["REQUEST_URI"];
 //bug($sRequestUri);
 //helper-span -> helper-span/examples
@@ -23,8 +23,8 @@ if(strstr($sRequestUri,"content"))
         $sClassName = (isset($arMap[$sClassName])?$arMap[$sClassName]:"");
         if($sClassName)
         {
-            $sText = "Content of $sClassName";
-            $sUrl = "http://helpers.theframework.es/$sClassName";
+            $sText = "Go to content of $sClassName";
+            $sUrl = "http://helpers.theframework.es/$sClassName/";
         }
     }
 }
@@ -36,8 +36,8 @@ elseif(strstr($sRequestUri,"example"))
         $sClassName = (isset($arMap[$sClassName])?$arMap[$sClassName]:"");
         if($sClassName)
         {
-            $sText = "Examples of <br/> $sClassName";
-            $sUrl = "http://helpers.theframework.es/$sClassName/examples";
+            $sText = "Go to examples of <br/> $sClassName";
+            $sUrl = "http://helpers.theframework.es/$sClassName/examples/";
         }
     }    
 }
