@@ -1,5 +1,5 @@
 <?php
-//index.php 2.2.0
+//index.php 2.3.0
 //carga el loader de composer. Este loader solo tiene registrado el loader de helpers.
 //<project>\the_public\index.php
 session_start();
@@ -62,24 +62,24 @@ if($arRun)
     $oTfwController = new $arRun["nscontroller"]();
     if(method_exists($oTfwController,$arRun["method"]))
     {
-        $oAppCntrl->log_visit("202 method ok");
+        $oAppCntrl->log_visit("202 method ok - ip:{$_SERVER["REMOTE_ADDR"]}");
         $oTfwController->{$arRun["method"]}();
     }
     elseif(method_exists($oTfwController,"status_404"))
     {
-        $oAppCntrl->log_visit("404 by method");
+        $oAppCntrl->log_visit("404 by method - ip:{$_SERVER["REMOTE_ADDR"]}");
         $oTfwController->{"status_404"}();        
     }
     else
     {   
-        $oAppCntrl->log_visit("404 by no method");        
+        $oAppCntrl->log_visit("404 by no method - ip:{$_SERVER["REMOTE_ADDR"]}");        
         header("HTTP/1.0 404 Not Found");
         die("Error 404: Content Not Found!!");
     }
 }
 else 
 {
-    $oAppCntrl->log_visit("404 not in routes");
+    $oAppCntrl->log_visit("404 not in routes - ip:{$_SERVER["REMOTE_ADDR"]}");
     header("HTTP/1.0 404 Not Found");
     include("views/status/404.php");
 }
