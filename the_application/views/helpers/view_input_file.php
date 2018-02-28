@@ -1,4 +1,4 @@
-<!--view_input_file 1.0.0-->
+<!--view_input_file 1.0.1-->
 <div class="col-lg-12">
     <h2>Resume</h2>
     <p>
@@ -39,7 +39,7 @@ $oFile->add_class("form-control-file");
 $oFile->add_extras("aria-describedby","fileHelp");
 $oFile->add_extras("autofocus","autofocus");
 
-//there is no such a "HelperSmall" thats why I use HelperRaw in place.
+//there is no such a "HelperSmall" that is why I use HelperRaw in place.
 $oRaw = new HelperRaw("<small id=\"fileHelp\" class=\"form-text text-muted\">"
         . "This is some placeholder block-level help text for the above input. "
         . "It's a bit lighter and easily wraps to a new line."
@@ -95,7 +95,7 @@ $oFile-&gt;add_class(&quot;form-control-file&quot;);
 $oFile-&gt;add_extras(&quot;aria-describedby&quot;,&quot;fileHelp&quot;);
 $oFile-&gt;add_extras(&quot;autofocus&quot;,&quot;autofocus&quot;);
 
-//there is no such a &quot;HelperSmall&quot; thats why I use HelperRaw in place.
+//there is no such a &quot;HelperSmall&quot; that is why I use HelperRaw in place.
 $oRaw = new HelperRaw(&quot;&lt;small id=\&quot;fileHelp\&quot; class=\&quot;form-text text-muted\&quot;&gt;&quot;
         . &quot;This is some placeholder block-level help text for the above input. &quot;
         . &quot;It&#39;s a bit lighter and easily wraps to a new line.&quot;
