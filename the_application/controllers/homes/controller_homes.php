@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name TheApplication\Controllers\ControllerHomes
  * @file controller_homes.php 
- * @version 1.0.1
+ * @version 2.0.0
  * @date 08-10-2017 08:44 (SPAIN)
  * @observations:
  * @requires  
@@ -27,10 +27,14 @@ class ControllerHomes extends TheApplicationController
         $oModelHelper = new ModelHelper();
         $oModelHelper->load();
         $this->arHelpers = $oModelHelper->get_by_props("is_enabled","1");
+        $oCompHlp = new \TheApplication\Components\ComponentHelpers();
+        $this->arHelpers = $oCompHlp->add_exists($this->arHelpers);
+        //bug($this->arHelpers);
         //bugpg();
         $oPagedata = new ComponentPagedata($this->arHelpers);
         $this->oPageData = $oPagedata;
         $sView = $this->oPageData->get_view_file();
+        //bug($sView);die;
         if(in_string("404.php",$sView))
         {
             $this->status_404();
