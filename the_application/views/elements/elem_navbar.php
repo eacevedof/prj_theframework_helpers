@@ -1,6 +1,6 @@
-<!--elem_navbar 1.0.3-->
+<!--elem_navbar 1.0.4-->
 <?php
-$arActive = ["home" => "","versions"=>""];
+$arActive = ["home" => "","versions"=>"","issues"=>""];
 if($oPagedata->is_inrequesturi("versions"))
     $arActive["versions"] = "active";
 elseif(!$oPagedata->is_inrequesturi("?"))
@@ -16,6 +16,9 @@ elseif(!$oPagedata->is_inrequesturi("?"))
             <li class="nav-item">
                 <a class="nav-link <?=$arActive["versions"]?>" href="/versions/">Versions</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link <?=$arActive["issues"]?>" rel="nofollow" target="_blank" href="https://github.com/eacevedof/prj_theframework_helpers/issues">Github Issues</a>
+            </li>            
             <li class="nav-item">
                 <a class="nav-link" rel="nofollow" target="_blank" href="https://github.com/eacevedof/prj_theframework_helpers">Github</a>
             </li>
