@@ -5,6 +5,7 @@
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<!-- sitemap.xml 1.0.1 -->
 <url>
   <loc>http://helpers.theframework.es/</loc>
 </url>
@@ -82,9 +83,6 @@
 </url>
 <url>
   <loc>http://helpers.theframework.es/helper-image/</loc>
-</url>
-<url>
-  <loc>http://helpers.theframework.es/helper-imagelist/examples/</loc>
 </url>
 <url>
   <loc>http://helpers.theframework.es/helper-imagelist/</loc>
