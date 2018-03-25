@@ -1,4 +1,4 @@
-<!--view_input_date 1.1.0-->
+<!--view_input_date 1.1.1-->
 <div class="col-lg-12">
     <h2>Resume</h2>
     <p>
@@ -33,7 +33,7 @@ if(isset($_POST["datDate"]))//required
     //pr(): is an echo function
     pr("{datDate:{$_POST["datDate"]},datTime:{$_POST["datTime"]}}","\$_POST");
 
-//FIELD 1   PHONE
+//FIELD 1   DATE
 $oLabel = new HelperLabel();
 $oLabel->set_for("datDate");
 $oLabel->add_class("col-2 col-form-label");
@@ -105,11 +105,102 @@ $oForm->show(); //show() is the same as echo $oForm->get_html();
         <br/>        
         <h4>PHP Code:</h4>
         <pre class="prettyprint">
-</pre>
+&lt;?php
+use TheFramework\Helpers\HelperLabel;
+use TheFramework\Helpers\HelperDate;
+use TheFramework\Helpers\HelperDiv;
+use TheFramework\Helpers\HelperButtonBasic;
+use TheFramework\Helpers\HelperForm;
+
+if(isset($_POST[&quot;datDate&quot;]))//required
+    //pr(): is an echo function
+    pr(&quot;{datDate:{$_POST[&quot;datDate&quot;]},datTime:{$_POST[&quot;datTime&quot;]}}&quot;,&quot;\$_POST&quot;);
+
+//FIELD 1   DATE
+$oLabel = new HelperLabel();
+$oLabel-&gt;set_for(&quot;datDate&quot;);
+$oLabel-&gt;add_class(&quot;col-2 col-form-label&quot;);
+$oLabel-&gt;set_innerhtml(&quot;Date:&quot;);
+
+$oDate = new HelperDate();
+$oDate-&gt;set_type(&quot;date&quot;); //you can change to phone format.
+$oDate-&gt;set_separator(&quot;/&quot;);
+$oDate-&gt;set_id(&quot;datDate&quot;);
+$oDate-&gt;set_name(&quot;datDate&quot;);
+$oDate-&gt;add_class(&quot;form-control col-2&quot;);
+$oDate-&gt;set_value((isset($_POST[&quot;datDate&quot;])?$_POST[&quot;datDate&quot;]:NULL));
+
+$oDivrow = new HelperDiv();
+$oDivrow-&gt;add_class(&quot;form-group row&quot;);
+
+$oTmp = new HelperDiv();
+$oTmp-&gt;set_class(&quot;col-10&quot;);
+$oTmp-&gt;add_inner_object($oDate);
+
+$oDivrow-&gt;add_inner_object($oLabel);
+$oDivrow-&gt;add_inner_object($oTmp);
+
+//FIELD 2   TIME
+$oLabel2 = clone $oLabel;
+$oLabel2-&gt;set_for(&quot;datTime&quot;);
+$oLabel2-&gt;add_class(&quot;col-2 col-form-label&quot;);
+$oLabel2-&gt;set_innerhtml(&quot;Time:&quot;);
+
+$oTime = new HelperDate();
+$oTime-&gt;set_type(&quot;time&quot;);
+$oTime-&gt;set_separator(&quot;:&quot;);
+$oTime-&gt;set_id(&quot;datTime&quot;);
+$oTime-&gt;set_name(&quot;datTime&quot;);
+$oTime-&gt;add_class(&quot;form-control col-2&quot;);
+//$oTime-&gt;add_style(&quot;border: black 1px dashed&quot;);
+$oTime-&gt;required();
+$oTime-&gt;set_value((isset($_POST[&quot;datTime&quot;])?$_POST[&quot;datTime&quot;]:NULL));
+if(isset($_POST[&quot;datTime&quot;]))
+    $oTime-&gt;add_extras(&quot;autofocus&quot;,&quot;autofocus&quot;);
+
+$oDivrow2 = new HelperDiv();
+$oDivrow2-&gt;add_class(&quot;form-group row&quot;);
+
+$oTmp = new HelperDiv();
+$oTmp-&gt;set_class(&quot;col-10&quot;);
+$oTmp-&gt;add_inner_object($oTime);
+
+$oDivrow2-&gt;add_inner_object($oLabel2);
+$oDivrow2-&gt;add_inner_object($oTmp);
+
+$oButton = new HelperButtonBasic();
+$oButton-&gt;set_type(&quot;submit&quot;);
+$oButton-&gt;add_class(&quot;btn btn-primary&quot;);
+$oButton-&gt;set_innerhtml(&quot;Submit&quot;);
+
+$oForm = new HelperForm();
+$oForm-&gt;set_id(&quot;myForm&quot;);
+$oForm-&gt;set_method(&quot;post&quot;);
+$oForm-&gt;add_style(&quot;border:1px dashed #4f9fcf;&quot;);
+$oForm-&gt;add_style(&quot;padding:5px;&quot;);
+//$oForm-&gt;add_class(&quot;form-inline&quot;);
+$oForm-&gt;add_inner_object($oDivrow);
+$oForm-&gt;add_inner_object($oDivrow2);
+$oForm-&gt;add_inner_object($oButton);
+$oForm-&gt;show(); //show() is the same as echo $oForm-&gt;get_html();
+?&gt;</pre>
         <br/>
         <h4>HTML Result:</h4>
         <pre class="prettyprint">
-</pre>
+&lt;form id=&quot;myForm&quot; method=&quot;post&quot; style=&quot;border:1px dashed #4f9fcf;;padding:5px;&quot;&gt;
+&lt;div class=&quot;form-group row&quot;&gt;
+&lt;label for=&quot;datDate&quot; class=&quot;col-2 col-form-label&quot;&gt;Date:&lt;/label&gt;
+&lt;div class=&quot;col-10&quot;&gt;
+&lt;input type=&quot;date&quot; id=&quot;datDate&quot; name=&quot;datDate&quot; class=&quot;form-control col-2&quot; as=&quot;date&quot; data-options=&quot;{&amp;quot;useClearButton&amp;quot;:true}&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;form-group row&quot;&gt;
+&lt;label for=&quot;datTime&quot; class=&quot;col-2 col-form-label col-2 col-form-label&quot;&gt;Time:&lt;/label&gt;
+&lt;div class=&quot;col-10&quot;&gt;
+&lt;input type=&quot;time&quot; id=&quot;datTime&quot; name=&quot;datTime&quot; required=&quot;&quot; class=&quot;form-control col-2&quot; as=&quot;date&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;
+Submit&lt;/button&gt;
+&lt;/form&gt;</pre>
     </div>
 <!-- example 2 -->  
 </div>
