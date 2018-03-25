@@ -1,4 +1,4 @@
-<!--view_input_date 1.0.0-->
+<!--view_input_date 1.1.0-->
 <div class="col-lg-12">
     <h2>Resume</h2>
     <p>
@@ -28,50 +28,62 @@ use TheFramework\Helpers\HelperDate;
 use TheFramework\Helpers\HelperDiv;
 use TheFramework\Helpers\HelperButtonBasic;
 use TheFramework\Helpers\HelperForm;
-use TheFramework\Helpers\HelperRaw;
 
 if(isset($_POST["datDate"]))//required
     //pr(): is an echo function
-    pr("{date:{$_POST["datDate"]},time:{$_POST["datTime"]}}","\$_POST");
+    pr("{datDate:{$_POST["datDate"]},datTime:{$_POST["datTime"]}}","\$_POST");
 
 //FIELD 1   PHONE
 $oLabel = new HelperLabel();
 $oLabel->set_for("datDate");
-$oLabel->add_class("sr-only");//hides label
+$oLabel->add_class("col-2 col-form-label");
+$oLabel->set_innerhtml("Date:");
 
 $oDate = new HelperDate();
 $oDate->set_type("date"); //you can change to phone format.
+$oDate->set_separator("/");
 $oDate->set_id("datDate");
 $oDate->set_name("datDate");
-$oDate->add_class("form-control");
+$oDate->add_class("form-control col-2");
 $oDate->set_value((isset($_POST["datDate"])?$_POST["datDate"]:NULL));
 
-$oDiv = new HelperDiv();
-$oDiv->set_comments("divrow");
-$oDiv->add_class("col-4 input-group mb-2 mr-sm-2 mb-sm-0");
-$oDiv->add_inner_object(new HelperDiv("Date",NULL,"input-group-addon"));
-$oDiv->add_inner_object($oDate);
+$oDivrow = new HelperDiv();
+$oDivrow->add_class("form-group row");
+
+$oTmp = new HelperDiv();
+$oTmp->set_class("col-10");
+$oTmp->add_inner_object($oDate);
+
+$oDivrow->add_inner_object($oLabel);
+$oDivrow->add_inner_object($oTmp);
 
 //FIELD 2   TIME
 $oLabel2 = clone $oLabel;
-$oLabel2->set_for("datTimeX");
-$oLabel2->set_class("sr-only");//hides label
+$oLabel2->set_for("datTime");
+$oLabel2->add_class("col-2 col-form-label");
+$oLabel2->set_innerhtml("Time:");
 
 $oTime = new HelperDate();
-$oTime->set_type("time");//changed type
-$oTime->set_id("datTimeX");
-$oTime->set_name("datTimeX");
-$oTime->add_class("form-control");
-$oTime->add_style("border: black 1px dashed");
+$oTime->set_type("time");
+$oTime->set_separator(":");
+$oTime->set_id("datTime");
+$oTime->set_name("datTime");
+$oTime->add_class("form-control col-2");
+//$oTime->add_style("border: black 1px dashed");
 $oTime->required();
-$oTime->set_value((isset($_POST["datTimeX"])?$_POST["datTimeX"]:NULL));
-if(isset($_POST["datTimeX"]))
+$oTime->set_value((isset($_POST["datTime"])?$_POST["datTime"]:NULL));
+if(isset($_POST["datTime"]))
     $oTime->add_extras("autofocus","autofocus");
 
-$oDiv2 = new HelperDiv();
-$oDiv2->add_class("col-4 input-group mb-2 mr-sm-2 mb-sm-0");
-$oDiv2->add_inner_object(new HelperDiv("Time",NULL,"input-group-addon","background:black;color:white"));
-$oDiv2->add_inner_object($oTime);
+$oDivrow2 = new HelperDiv();
+$oDivrow2->add_class("form-group row");
+
+$oTmp = new HelperDiv();
+$oTmp->set_class("col-10");
+$oTmp->add_inner_object($oTime);
+
+$oDivrow2->add_inner_object($oLabel2);
+$oDivrow2->add_inner_object($oTmp);
 
 $oButton = new HelperButtonBasic();
 $oButton->set_type("submit");
@@ -83,12 +95,9 @@ $oForm->set_id("myForm");
 $oForm->set_method("post");
 $oForm->add_style("border:1px dashed #4f9fcf;");
 $oForm->add_style("padding:5px;");
-$oForm->add_class("form-inline");
-$oForm->add_inner_object($oLabel);
-$oForm->add_inner_object($oDiv);
-$oForm->add_inner_object(new HelperRaw("<br/>"));
-$oForm->add_inner_object($oLabel2);
-$oForm->add_inner_object($oDiv2);
+//$oForm->add_class("form-inline");
+$oForm->add_inner_object($oDivrow);
+$oForm->add_inner_object($oDivrow2);
 $oForm->add_inner_object($oButton);
 $oForm->show(); //show() is the same as echo $oForm->get_html();
 ?>
