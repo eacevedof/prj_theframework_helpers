@@ -2,7 +2,7 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.13
+ * @version 1.0.14
  * @name HelperDate
  * @file helper_input_date.php
  * @date 21-11-2016 09:08 (SPAIN)
@@ -40,6 +40,7 @@ class HelperDate extends TheFrameworkHelper
         $sAnyDate = trim($sAnyDate);
         if($sAnyDate)
         {
+            $cSep = "";
             $sAnyDate = str_replace(" ","",$sAnyDate);
             if(strstr($sAnyDate,"/"))
                $cSep = "/";
@@ -135,7 +136,7 @@ class HelperDate extends TheFrameworkHelper
     //             SETS
     //**********************************
     public function set_name($value){$this->_name = $value;}
-    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;/*bug("value:$value,this->value:$this->_value")*/;}
     public function set_today(){$this->_convert_date_before_show = false;$this->_value = date("d/m/Y");}
     public function in_fieldsetdiv($isOn=true){$this->_inFieldsetDiv = $isOn;}
     public function use_clearbutton($isOn=true){$this->_useClearButton = $isOn;}
