@@ -4,8 +4,8 @@
  * @link www.eduardoaf.com
  * @name BehaviourSeo
  * @file behaviour_seo.php 
- * @version 1.4.1
- * @date 22-06-2017 20:41 (SPAIN)
+ * @version 1.4.2
+ * @date 11-04-2018 11:04 (SPAIN)
  * @observations:
  * @requires
  */
@@ -59,16 +59,16 @@ class BehaviourSeo
             ],
             [
                 "url"=>"/%%slug%%/examples/"
-                ,"title"=>"Examples of PHP Helper class %%slug%%"
-                ,"description"=>"Examples of The Framework PHP Helper class %%slug%%. Render your html elements using OOP"
+                ,"title"=>"Examples of PHP Helper class %%classname%% (%%slug%%)"
+                ,"description"=>"Examples of The Framework PHP Helper class %%classname%% (%%slug%%). %%classname%% helps you to render html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html examples"
                 ,"h1"=>"Examples of PHP Helper class: <b>\"%%classname%%\"</b>",
                 "resume"=>""
             ],
             [
                 "url"=>"/%%slug%%/"
-                ,"title"=>"Code of PHP Helper class %%slug%%"
-                ,"description"=>"Code of The Framework PHP Helper class %%slug%%. Render your html elements using OOP"
+                ,"title"=>"Code of PHP Helper class %%classname%% (%%slug%%)"
+                ,"description"=>"Code of The Framework PHP Helper class %%classname%% (%%slug%%). %%classname%% helps you to render html elements using OOP"
                 ,"keywords"=>"PHP helpers oop classes html code"
                 ,"h1"=>"Code of PHP Helper class: <b>\"%%classname%%\"</b>",
                 "resume"=>""
