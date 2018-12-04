@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @version 1.0.6
  * @name Helper Hidden
- * @date 21-11-2016 08:58 (SPAIN)
+ * @date 04-12-2018 17:56 (SPAIN)
  * @file helper_input_hidden.php
  */
 namespace TheFramework\Helpers\Form\Input;

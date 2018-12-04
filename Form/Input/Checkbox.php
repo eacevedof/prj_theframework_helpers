@@ -2,10 +2,10 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.3.0
- * @name HelperCheckbox
- * @file helper_checkbox.php
- * @date 03-05-2017 11:55 (SPAIN)
+ * @version 1.0.0
+ * @name \TheFramework\Helpers\Form\Input\CheckBox
+ * @file Checkbox.php
+ * @date 04-12-2018 17:56 (SPAIN)
  * @observations:
  */
 namespace TheFramework\Helpers\Form\Input;
@@ -14,7 +14,7 @@ use TheFramework\Helpers\HelperLabel;
 use TheFramework\Helpers\HelperLegend;
 use TheFramework\Helpers\HelperFieldset;
 
-class HelperCheckbox extends TheFrameworkHelper
+class CheckBox extends TheFrameworkHelper
 {
     private $arOptions;
     private $arValuesToCheck;
@@ -199,4 +199,4 @@ class HelperCheckbox extends TheFrameworkHelper
     //**********************************
     //public function show_opentag(){parent::show_opentag();}
     //public function show_closetag(){parent::show_closetag();}    
-}//HelperCheckbox
+}//CheckBox

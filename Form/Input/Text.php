@@ -2,28 +2,27 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.1
- * @name HelperInputFile
- * @date 20-04-2014 20:21 (SPAIN)
- * @file helper_input_file.php
- * @observations
- * @requires:
+ * @version 1.0.8
+ * @name HelperInputText
+ * @date 04-12-2018 17:56 (SPAIN)
+ * @file helper_input_text.php
  */
 namespace TheFramework\Helpers\Form\Input;
 use TheFramework\Helpers\TheFrameworkHelper;
-class HelperInputFile extends TheFrameworkHelper
+class HelperInputText extends TheFrameworkHelper
 {
-    protected $_maxsize;
-    protected $_accept;
-  //<input accept="audio/*|video/*|image/*|MIME_type"> 
+    //private $_name;
+  
     public function __construct
-    ($id="", $name="", $class="", HelperLabel $oLabel=null)
+    ($id="", $name="", $value="", $length=50, $class="", HelperLabel $oLabel=null)
     {
         $this->oLabel = $oLabel;
         $this->_idprefix = "";
-        $this->_type = "file";
+        $this->_type = "text";
         $this->_id = $id;
         $this->_name = $name;
+        $this->_value = $value;
+        $this->_maxlength = $length;
         if($class) $this->arClasses[] = $class;
         $this->oLabel = $oLabel;
     }
@@ -38,11 +37,11 @@ class HelperInputFile extends TheFrameworkHelper
         if($this->_type) $sHtmlToReturn .= " type=\"$this->_type\"";
         if($this->_id) $sHtmlToReturn .= " id=\"$this->_idprefix$this->_id\"";
         if($this->_name) $sHtmlToReturn .= " name=\"$this->_idprefix$this->_name\"";
-        if($this->_value || $this->_value=="0") $sHtmlToReturn .= " value=\"$this->_value\"";
-        //bug($this->_value,"input_file $this->_id");
+        if($this->_value || $this->_value=="0") 
+            $sHtmlToReturn .= " value=\"{$this->get_cleaned($this->_value)}\"";
+        //bug($this->_value,"input_text $this->_id");
         //propiedades html5
-        if($this->_accept) $sHtmlToReturn .= " accept=\"$this->_accept\"";
-        if($this->_maxsize) $sHtmlToReturn .= " maxsize=\"$this->_maxsize\"";
+        if($this->_maxlength) $sHtmlToReturn .= " maxlength=\"$this->_maxlength\"";
         if($this->_isDisabled) $sHtmlToReturn .= " disabled";
         if($this->_isReadOnly) $sHtmlToReturn .= " readonly"; 
         if($this->_isRequired) $sHtmlToReturn .= " required"; 
@@ -87,17 +86,17 @@ class HelperInputFile extends TheFrameworkHelper
     //             SETS
     //**********************************
     public function set_name($value){$this->_name = $value;}
-    public function set_value($value,$sVoid=NULL){$this->_value = $value;}
-    public function set_maxsize($iNumBytes){$this->_maxsize = $iNumBytes;}
+    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function set_maxlength($iNumChars){$this->_maxlength = $iNumChars;}
     public function readonly($isReadOnly=true){$this->_isReadOnly=$isReadOnly;}
     public function disabled($isDisabled=true){$this->_isDisabled=$isDisabled;}
     public function required($isRequired = true){$this->_isRequired=$isRequired;}
-    public function set_accept($sAccept){$this->_accept=$sAccept;}
+    
     //**********************************
     //             GETS
     //**********************************
     public function get_name(){return $this->_name;}
-    public function get_maxsize(){return $this->_maxsize;}
+    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
+    public function get_maxlength(){return $this->_maxlength;}
     public function is_readonly(){return $this->_isReadOnly;}
-    public function get_accept(){return $this->_accept;}
 }

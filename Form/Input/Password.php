@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @version 1.0.3
  * @name HelperInputPassword
- * @date 22-11-2016 09:00
+ * @date 04-12-2018 17:56 (SPAIN)
  * @file helper_input_password.php
  */
 namespace TheFramework\Helpers\Form\Input;
