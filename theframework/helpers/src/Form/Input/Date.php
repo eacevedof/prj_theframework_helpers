@@ -23,8 +23,6 @@ class Date extends TheFrameworkHelper
     public function __construct
     ($id="", $name="", $value="", $arExtras=array(), $maxlength="", $class="", Label $oLabel=NULL)
     {
-        //$this->_type = "date";
-        $this->_type = "date";//12/11/2013 lo cambio a text pq el tipo date en dispositivos moviles no se comporta como se desea
         $this->_idprefix = "";//dtb
         $this->cSeparator = "/";
         $this->_id = $id;
@@ -69,7 +67,7 @@ class Date extends TheFrameworkHelper
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = "<input";
-        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        $arHtml[] = " type=\"date\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         if($this->_convert_date_before_show) $this->_value = $this->to_user_date($this->_value);        
@@ -93,9 +91,6 @@ class Date extends TheFrameworkHelper
         if($this->_class) $arHtml[] = " class=\"$this->_class\"";
         $this->load_style();
         if($this->_style) $arHtml[] = " style=\"$this->_style\"";
-        
-        //atributos extras 18/04/2014 este atributo lo dejo siempre para cualquier terminal
-        if(!$this->_isReadOnly) $arHtml[] = "readonly";
             
         if($this->_placeholder) $arHtml[] = " placeholder=\"$this->_placeholder\"";
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
@@ -110,8 +105,6 @@ class Date extends TheFrameworkHelper
     //**********************************
     //             SETS
     //**********************************
-    //evito que se pueda usar set_type
-    private function set_type($value) {parent::set_type($value);}
     public function set_name($value){$this->_name = $value;}
     public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     public function set_today(){$this->_convert_date_before_show = false;$this->_value = date("d/m/Y");}
