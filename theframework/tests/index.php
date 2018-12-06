@@ -11,12 +11,16 @@ $oDiv->show();
 
 ?>
 <script type="text/javascript">
-var iThread = setTimeout("location.reload(true);",10000);
+//fuente: https://stackoverflow.com/questions/4644027/how-to-automatically-reload-a-page-after-a-given-period-of-inactivity
+var iTimeSec = 10
+
+iTimeSec = iTimeSec * (1000)
+var iThread = setTimeout("location.reload(true);",iTimeSec)
 console.log("iThread:",iThread)
 
 function resetTimeout(){
     consolo.log("Removing thread:",iThread)
     clearTimeout(iThread);
-    iThread = setTimeout("location.reload(true);",10000);
-}
+    iThread = setTimeout("location.reload(true);",iTimeSec)
+}//resetTimeout
 </script>
