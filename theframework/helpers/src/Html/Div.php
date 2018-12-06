@@ -9,9 +9,10 @@
  */
 namespace TheFramework\Helpers\Html;
 use TheFramework\Helpers\TheFrameworkHelper;
+
 class Div extends TheFrameworkHelper
 {
-    
+   
     public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=array())
     {
         $this->_type = "div";

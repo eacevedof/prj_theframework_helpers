@@ -11,7 +11,7 @@ set_include_path($sPathInclude);
 //pr(get_include_path(),"sPathInclude");//die;
 spl_autoload_register(function($sNameSpacePath)
 {
-    bug($sNameSpacePath);
+    //bug($sNameSpacePath);
     $sPackage = "TheFramework\\Helpers\\";
     //si es un helper
     if(strstr($sNameSpacePath,$sPackage))
@@ -21,11 +21,11 @@ spl_autoload_register(function($sNameSpacePath)
         $sPathSrc = realpath($sPathSrc);
 
         $sNsPath = str_replace($sPackage,"",$sNameSpacePath);
-        bug($sNsPath);
+        //bug($sNsPath);
         $sNsPath = str_replace("\\",TFW_DS,$sNsPath);
 
         $sPathClass = $sPathSrc.TFW_DS.$sNsPath.".php";
-        pr($sPathClass,"TO INCLUDE");
+        //pr($sPathClass,"TO INCLUDE");
         include_once($sPathClass);
     }
 });//spl_autoload_register
