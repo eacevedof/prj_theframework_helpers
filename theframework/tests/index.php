@@ -9,4 +9,5 @@ $oDiv = new Div();
 $oDiv->set_innerhtml("gato");
 $oDiv->show();
 ?>
+<!-- hot reload -->
 <meta http-equiv="refresh" content="5">
