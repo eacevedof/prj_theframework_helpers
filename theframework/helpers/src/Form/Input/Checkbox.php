@@ -9,10 +9,11 @@
  * @observations:
  */
 namespace TheFramework\Helpers\Form\Input;
+
 use TheFramework\Helpers\TheFrameworkHelper;
-use TheFramework\Helpers\HelperLabel;
-use TheFramework\Helpers\HelperLegend;
-use TheFramework\Helpers\HelperFieldset;
+use TheFramework\Helpers\Html\Label;
+use TheFramework\Helpers\Form\Legend;
+use TheFramework\Helpers\Form\Fieldset;
 
 class Checkbox extends TheFrameworkHelper
 {
@@ -36,12 +37,12 @@ class Checkbox extends TheFrameworkHelper
      * @param string $class
      * @param array $arExtras
      * @param type $isGrouped
-     * @param HelperLegend $oLegend
-     * @param HelperFieldset $oFieldset
+     * @param Legend $oLegend
+     * @param Fieldset $oFieldset
      */
     public function __construct($mxOptions=array(), $name="", 
             $mxValuesToCheck=array(), $mxValuesDisabled=array(), $class="", $arExtras="",$isGrouped=true,
-            HelperLegend $oLegend=null, HelperFieldset $oFieldset=null )
+            Legend $oLegend=null, Fieldset $oFieldset=null )
     {
         $this->conv_string_to_array($mxOptions,1);
         $this->conv_string_to_array($mxValuesToCheck);
@@ -151,7 +152,7 @@ class Checkbox extends TheFrameworkHelper
         //out text
         if($this->isLabeled)
         {
-            $oLabel = new HelperLabel($id,$sOutText);
+            $oLabel = new Label($id,$sOutText);
             $sHtmlCheckbox .= $oLabel->get_html();
             //$sHtmlCheckbox .= "</div>";
         }
@@ -183,8 +184,8 @@ class Checkbox extends TheFrameworkHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_fieldset(HelperFieldset $oFieldset){$this->oFieldset = $oFieldset;}
-    public function set_legend(HelperLegend $oLegend){$this->oLegend = $oLegend;}
+    public function set_fieldset(Fieldset $oFieldset){$this->oFieldset = $oFieldset;}
+    public function set_legend(Legend $oLegend){$this->oLegend = $oLegend;}
     //public function set_value($value){$this->conv_string_to_array($value);$this->arValuesToCheck = $value;}
     public function set_values_to_check($mxValues){$this->conv_string_to_array($mxValues);$this->arValuesToCheck = $mxValues;}
     public function not_grouped_name($isOn=false){$this->isGrouped = $isOn;}
