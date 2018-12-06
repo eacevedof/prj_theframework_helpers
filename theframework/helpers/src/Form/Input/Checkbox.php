@@ -5,7 +5,7 @@
  * @version 1.0.0
  * @name \TheFramework\Helpers\Form\Input\Checkbox
  * @file Checkbox.php
- * @date 04-12-2018 17:56 (SPAIN)
+ * @date 06-12-2018 13:13 (SPAIN)
  * @observations:
  */
 namespace TheFramework\Helpers\Form\Input;
