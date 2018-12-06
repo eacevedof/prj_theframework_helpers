@@ -13,10 +13,27 @@
 ```
 #### Ejecutar servidor (en PHP):
 ```
+cd theframework
 php -S localhost:3000 -t tests
 ```
 
 #### Tests
 ```
 #tests
+```
+
+```js
+//autoreload
+//fuente: https://stackoverflow.com/questions/4644027/how-to-automatically-reload-a-page-after-a-given-period-of-inactivity
+var iTimeSec = 10
+
+iTimeSec = iTimeSec * (1000)
+var iThread = setTimeout("location.reload(true);",iTimeSec)
+console.log("iThread:",iThread)
+
+function resetTimeout(){
+    consolo.log("Removing thread:",iThread)
+    clearTimeout(iThread);
+    iThread = setTimeout("location.reload(true);",iTimeSec)
+}//resetTimeout
 ```
