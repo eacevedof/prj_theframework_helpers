@@ -3,7 +3,7 @@
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
  * @version 1.0.0
- * @name \TheFramework\Helpers\Form\Input\CheckBox
+ * @name \TheFramework\Helpers\Form\Input\Checkbox
  * @file Checkbox.php
  * @date 04-12-2018 17:56 (SPAIN)
  * @observations:
@@ -14,7 +14,7 @@ use TheFramework\Helpers\HelperLabel;
 use TheFramework\Helpers\HelperLegend;
 use TheFramework\Helpers\HelperFieldset;
 
-class CheckBox extends TheFrameworkHelper
+class Checkbox extends TheFrameworkHelper
 {
     private $arOptions;
     private $arValuesToCheck;
@@ -74,6 +74,7 @@ class CheckBox extends TheFrameworkHelper
         $iNumOptions = count($this->arOptions);
         foreach($this->arOptions as $sValue=>$sOutText)
         {
+            $sCheckId = "";
             $isChecked = in_array($sValue,$this->arValuesToCheck);
             $isReadOnly = in_array($sValue,$this->arValuesDisabled);
             if($this->_id) $sCheckId = "$this->_idprefix$this->_id";
@@ -93,6 +94,8 @@ class CheckBox extends TheFrameworkHelper
 
     private function build_check($id, $sValue, $sOutText, $isChecked=false, $isReadOnly=false)
     {
+        $sName = $this->_name;
+        if(!$sName) $sName = "noname";
         //$this->sOutText = $sOutText;
         $sHtmlCheckbox ="";
         //if($this->isLabeled) $sHtmlCheckbox .= "<div>";
@@ -100,7 +103,7 @@ class CheckBox extends TheFrameworkHelper
         $sHtmlCheckbox .= " type=\"$this->_type\" ";
 
         if($id) $sHtmlCheckbox .= " id=\"$id\"";
-        $sHtmlCheckbox .= " name=\"$this->_idprefix$this->_name";
+        $sHtmlCheckbox .= " name=\"$this->_idprefix$sName";
         if($this->isGrouped) $sHtmlCheckbox .= "[]";
         $sHtmlCheckbox .= "\"";
         $sHtmlCheckbox .= " value=\"$sValue\"";
@@ -199,4 +202,4 @@ class CheckBox extends TheFrameworkHelper
     //**********************************
     //public function show_opentag(){parent::show_opentag();}
     //public function show_closetag(){parent::show_closetag();}    
-}//CheckBox
+}//Checkbox
