@@ -2,15 +2,16 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.13
+ * @version 1.0.0
  * @name TheFramework\Helpers\Form\Input\Date
  * @file Date.php
- * @date 04-12-2018 17:56 (SPAIN)
+ * @date 06-12-2018 13:48 (SPAIN)
  * @observations:
  * @requires:
  */
 namespace TheFramework\Helpers\Form\Input;
 use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\Html\Label;
 
 class Date extends TheFrameworkHelper
 {
@@ -20,10 +21,10 @@ class Date extends TheFrameworkHelper
     private $cSeparator;
 
     public function __construct
-    ($id="", $name="", $value="", $arExtras=array(), $maxlength="", $class="", HelperLabel $oLabel=NULL)
+    ($id="", $name="", $value="", $arExtras=array(), $maxlength="", $class="", Label $oLabel=NULL)
     {
         //$this->_type = "date";
-        $this->_type = "text";//12/11/2013 lo cambio a text pq el tipo date en dispositivos moviles no se comporta como se desea
+        $this->_type = "date";//12/11/2013 lo cambio a text pq el tipo date en dispositivos moviles no se comporta como se desea
         $this->_idprefix = "";//dtb
         $this->cSeparator = "/";
         $this->_id = $id;
@@ -64,77 +65,53 @@ class Date extends TheFrameworkHelper
     
     public function get_html()
     {  
-        //$this->isIpadIphone = 1;
-        $sHtmlToReturn ="";               
-        if($this->_isReadOnly || $this->isIpadIphone) $this->_type = "text"; 
-        if($this->oLabel) $sHtmlToReturn .= $this->oLabel->get_html();
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
-        $sHtmlToReturn .= "<input";
-        if($this->_type) $sHtmlToReturn .= " type=\"$this->_type\"";
-        if($this->_id) $sHtmlToReturn .= " id=\"$this->_idprefix$this->_id\"";
-        if($this->_name) $sHtmlToReturn .= " name=\"$this->_idprefix$this->_name\"";
+        $arHtml = array();               
+        if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        $arHtml[] = "<input";
+        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         if($this->_convert_date_before_show) $this->_value = $this->to_user_date($this->_value);        
-        if($this->_value) $sHtmlToReturn .= " value=\"{$this->get_cleaned($this->_value)}\"";
+        if($this->_value) $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
         //propiedades html5
-        if($this->_maxlength)$sHtmlToReturn .= " maxlength=\"$this->_maxlength\"";
-        if($this->_isDisabled) $sHtmlToReturn .= " disabled";
-        if($this->_isReadOnly) $sHtmlToReturn .= " readonly"; 
-        if($this->_isRequired) $sHtmlToReturn .= " required"; 
+        if($this->_maxlength)$arHtml[] = " maxlength=\"$this->_maxlength\"";
+        if($this->_isDisabled) $arHtml[] = " disabled";
+        if($this->_isReadOnly) $arHtml[] = " readonly"; 
+        if($this->_isRequired) $arHtml[] = " required"; 
         //eventos
-        if($this->_js_onblur) $sHtmlToReturn .= " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange && $this->_isPostback) 
-            $sHtmlToReturn .= " onchange=\"$this->_js_onchange;postback(this);\"";
-        elseif($this->_js_onchange)$sHtmlToReturn .= " onchange=\"$this->_js_onchange\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isPostback) $sHtmlToReturn .= " onchange=\"postback(this);\"";
-        
-        if($this->_js_onclick) $sHtmlToReturn .= " onclick=\"$this->_js_onclick\"";
-        
-        if($this->_js_onkeypress && $this->_isEnterInsert) 
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterUpdate)
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterSubmit)
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";        
-        elseif($this->_js_onkeypress) $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $sHtmlToReturn .= " onkeypress=\"onenter_insert(event);\"";
-        elseif($this->_isEnterUpdate) $sHtmlToReturn .= " onkeypress=\"onenter_update(event);\"";
-        elseif($this->_isEnterSubmit) $sHtmlToReturn .= " onkeypress=\"onenter_submit(event);\"";
-        
-        if($this->_js_onfocus) $sHtmlToReturn .= " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $sHtmlToReturn .= " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $sHtmlToReturn .= " onmouseout=\"$this->_js_onmouseout\"";
+        if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
+        if($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
+        if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
+        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
+        if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
+        if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
+        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $sHtmlToReturn .= " class=\"$this->_class\"";
+        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
         $this->load_style();
-        if($this->_style) $sHtmlToReturn .= " style=\"$this->_style\"";
+        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         
         //atributos extras 18/04/2014 este atributo lo dejo siempre para cualquier terminal
-        if(!$this->_isReadOnly) $sHtmlToReturn .= " as=\"date\"";
+        if(!$this->_isReadOnly) $arHtml[] = "readonly";
             
-        if($this->_placeholder) $sHtmlToReturn .= " placeholder=\"$this->_placeholder\"";
-        if($this->_isPrimaryKey) $sHtmlToReturn .= " pk=\"pk\"";
-        if($this->_attr_dbfield) $sHtmlToReturn .= " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $sHtmlToReturn .= " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->arExtras) $sHtmlToReturn .= " ".$this->get_extras();
-        //if($this->_inFieldsetDiv) $sHtmlDate = $sHtmlFieldSet.$sHtmlDate.$sHtmlFieldSetEnd;
+        if($this->_placeholder) $arHtml[] = " placeholder=\"$this->_placeholder\"";
+        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
+        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
+        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";              
+        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        $arHtml[] = ">";
         
-        //no funciona de este modo data-options=\"'useClearButton':true}\" con comillas simples encerrrando
-        //a useClearButton
-        if($this->_type=="date" && $this->_useClearButton)
-        {    $sHtmlToReturn .= " data-options='{\"useClearButton\":true}'"; }
-        elseif($this->_type=="date" && !$this->_useClearButton) 
-        {    $sHtmlToReturn .= " data-options='{\"useClearButton\":false}'"; }
-        $sHtmlToReturn .= ">";
-        return $sHtmlToReturn;
-    }
+        return implode("",$arHtml);
+    }//get_html
 
     //**********************************
     //             SETS
     //**********************************
+    //evito que se pueda usar set_type
+    private function set_type($value) {parent::set_type($value);}
     public function set_name($value){$this->_name = $value;}
     public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     public function set_today(){$this->_convert_date_before_show = false;$this->_value = date("d/m/Y");}
@@ -150,8 +127,8 @@ class Date extends TheFrameworkHelper
     //**********************************
     public function get_name(){return $this->_name;}
     public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
-   
-}
+    
+}//Date
 
 /*
 <fieldset data-role="controlgroup" data-type="horizontal">
