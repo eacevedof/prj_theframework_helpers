@@ -1,4 +1,6 @@
 # Development Branch v2.0.0-alpha
+## 06/12/2018 - Madird
+#### Eduardo A. F. @eacevedof
 
 #### Ejemplo de versionado:
 ```
