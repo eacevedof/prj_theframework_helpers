@@ -95,70 +95,53 @@ class Checkbox extends TheFrameworkHelper
 
     private function build_check($id, $sValue, $sOutText, $isChecked=false, $isReadOnly=false)
     {
+        $arHtml = array();
         $sName = $this->_name;
         if(!$sName) $sName = "noname";
-        //$this->sOutText = $sOutText;
-        $sHtmlCheckbox ="";
-        //if($this->isLabeled) $sHtmlCheckbox .= "<div>";
-        $sHtmlCheckbox .= "<input";
-        $sHtmlCheckbox .= " type=\"$this->_type\" ";
 
-        if($id) $sHtmlCheckbox .= " id=\"$id\"";
-        $sHtmlCheckbox .= " name=\"$this->_idprefix$sName";
-        if($this->isGrouped) $sHtmlCheckbox .= "[]";
-        $sHtmlCheckbox .= "\"";
-        $sHtmlCheckbox .= " value=\"$sValue\"";
+        $arHtml[] = "<input";
+        $arHtml[] = " type=\"$this->_type\" ";
+
+        if($id) $arHtml[] = " id=\"$id\"";
+        $arHtml[] = " name=\"$this->_idprefix$sName";
+        if($this->isGrouped) $arHtml[] = "[]";
+        $arHtml[] = "\"";
+        $arHtml[] = " value=\"$sValue\"";
         
         //eventos
-        if($this->_js_onblur) $sHtmlCheckbox .= " onblur=\"$this->_js_onblur\"";
-
-        if($this->_js_onchange && $this->_isPostback) 
-            $sHtmlCheckbox .= " onchange=\"$this->_js_onchange;postback(this);\"";
-        elseif($this->_js_onchange)$sHtmlCheckbox .= " onchange=\"$this->_js_onchange\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isPostback) $sHtmlCheckbox .= " onchange=\"postback(this);\"";
-
-        if($this->_js_onclick) $sHtmlCheckbox .= " onclick=\"$this->_js_onclick\"";
-        //if($this->_js_onkeypress) $sHtmlCheckbox .= " onkeypress=\"$this->_js_onkeypress\"";
-        if($this->_js_onkeypress && $this->_isEnterInsert) 
-            $sHtmlCheckbox .= " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterUpdate)
-            $sHtmlCheckbox .= " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterSubmit)
-            $sHtmlCheckbox .= " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";        
-        elseif($this->_js_onkeypress)$sHtmlCheckbox .= " onkeypress=\"$this->_js_onkeypress\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $sHtmlCheckbox .= " onkeypress=\"onenter_insert(event);\"";
-        elseif($this->_isEnterUpdate) $sHtmlCheckbox .= " onkeypress=\"onenter_update(event);\"";
-        elseif($this->_isEnterSubmit) $sHtmlCheckbox .= " onkeypress=\"onenter_submit(event);\"";
-                        
-        if($this->_js_onfocus) $sHtmlCheckbox .= " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $sHtmlCheckbox .= " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $sHtmlCheckbox .= " onmouseout=\"$this->_js_onmouseout\"";
+        if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
+        if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange;\"";
+        if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
+        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress;\"";
+        if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
+        if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
+        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $sHtmlCheckbox .= " class=\"$this->_class\"";
+        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
         $this->load_style();
-        if($this->_style) $sHtmlCheckbox .= " style=\"$this->_style\"";
-        //atributos extras
-        if($this->_attr_dbfield) $sHtmlCheckbox .= " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $sHtmlCheckbox .= " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->arExtras) $sHtmlCheckbox .= " ".$this->get_extras();
+        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         
-        if($isChecked) $sHtmlCheckbox .= " checked";
-        if($isReadOnly) $sHtmlCheckbox .= " disabled";
-        $sHtmlCheckbox .= ">";
+        //atributos extras
+        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
+        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
+        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        
+        if($isChecked) $arHtml[] = " checked";
+        if($isReadOnly) $arHtml[] = " disabled";
+        $arHtml[] = ">";
+        
         //out text
         if($this->isLabeled)
         {
             $oLabel = new Label($id,$sOutText);
-            $sHtmlCheckbox .= $oLabel->get_html();
-            //$sHtmlCheckbox .= "</div>";
+            $arHtml[] =  $oLabel->get_html();
         }
         elseif($sOutText)
-            $sHtmlCheckbox .= "$sOutText";
-        return $sHtmlCheckbox;
+            $arHtml[] = "$sOutText";
+        
+        return implode("",$arHtml);
     }//build_check
 
     private function conv_string_to_array(&$mxStrArray,$isValIndex=0)
