@@ -34,31 +34,58 @@ class Date extends TheFrameworkHelper
         $this->oLabel = $oLabel;        
     }
 
-    private function to_user_date($sAnyDate)
+    private function get_date_arranged($arDate)
     {
-        $sUserDate = "";
+        $arReturn = ["y"=>"","m"=>"","d"=>""];
+        $sDate0 = (isset($arDate[0])?$arDate[0]:"");
+        $sDate2 = (isset($arDate[2])?$arDate[2]:"");
+        $arReturn["m"] = (isset($arDate[1])?$arDate[1]:"");
+        if(strlen($sDate0)===4)
+        {
+            $arReturn["y"] = $sDate0;
+            $arReturn["d"] = $sDate2;
+        }
+        else 
+        {
+            $arReturn["d"] = $sDate0;
+            $arReturn["y"] = $sDate2;
+        }
+        return $arReturn;
+    }//get_date_arranged
+    
+    /**
+     * Pasa cualquier fecha la formato que debe tener value para que se pinte bien en el html
+     * value debe tener el siguiente formato: dd-mm-yyyy
+     * @param type $sAnyDate
+     * @return type
+     */
+    private function get_converted($sAnyDate)
+    {
+        $sInputDate = "";
         $sAnyDate = trim($sAnyDate);
         if($sAnyDate)
         {
             $sAnyDate = str_replace(" ","",$sAnyDate);
+            $cSep = $this->cSeparator;
+            
             if(strstr($sAnyDate,"/"))
-               $cSep = "/";
+                $cSep = "/";
             elseif(strstr($sAnyDate,"-"))
                 $cSep = "-";
+
             //si tiene formato hydra
-            if(!$cSep)
+            if($cSep)
             {
-                $cSep = $this->cSeparator;
-                //bug($sHydraDate); die; 2001 10 25
-                $sYear = substr($sAnyDate,0,4);
-                $sMonth = substr($sAnyDate,4,2);
-                $sDay = substr($sAnyDate,6,2);
-                $sUserDate = "$sDay$cSep$sMonth$cSep$sYear";
+                //pr($sAnyDate);
+                $arDate = explode($cSep,$sAnyDate);
+                $arDate = $this->get_date_arranged($arDate);
+                //bug($arDate);die;
+                $sInputDate = "{$arDate["y"]}-{$arDate["m"]}-{$arDate["d"]}";
             }
             else
-                $sUserDate = $sAnyDate;
+                $sInputDate = $sAnyDate;
         }
-        return $sUserDate;
+        return $sInputDate;
     }
     
     public function get_html()
@@ -70,8 +97,8 @@ class Date extends TheFrameworkHelper
         $arHtml[] = " type=\"date\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
-        if($this->_convert_date_before_show) $this->_value = $this->to_user_date($this->_value);        
-        if($this->_value) $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
+        if($this->_value) $arHtml[] = " value=\"".$this->get_converted($this->_value)."\"";
+
         //propiedades html5
         if($this->_maxlength)$arHtml[] = " maxlength=\"$this->_maxlength\"";
         if($this->_isDisabled) $arHtml[] = " disabled";

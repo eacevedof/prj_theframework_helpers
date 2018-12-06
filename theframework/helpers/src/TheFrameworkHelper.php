@@ -204,10 +204,10 @@ class TheFrameworkHelper
     protected function set_inner_objects($arObjHelpers){$this->arInnerObjects=$arObjHelpers;}
     protected function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     protected function get_cleaned($sString)
-            {
+    {
         $sString = str_replace("\"","&quot;",$sString);
         return $sString;
-            }
+    }
     
     //**********************************
     //             GETS
