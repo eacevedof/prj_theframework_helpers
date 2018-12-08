@@ -37,7 +37,7 @@ class Fieldset extends TheFrameworkHelper
         $arHtml[] = $this->_inner_html;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
-    }
+    }//get_html
         
     public function get_opentag()
     {
@@ -64,7 +64,7 @@ class Fieldset extends TheFrameworkHelper
         //if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";  
         $arOpenTag[] =">";        
         return implode("",$arOpenTag);        
-    }    
+    }//get_opentag  
         
     //**********************************
     //             SETS
@@ -81,4 +81,4 @@ class Fieldset extends TheFrameworkHelper
     public function show_opentag(){parent::show_opentag();}
     public function show_closetag(){parent::show_closetag();}
     
-}
+}//Fieldset
