@@ -3,11 +3,11 @@
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
  * @version 1.0.6
- * @name TheFramework\Helpers\Html\Label
+ * @name TheFramework\Helpers\Form\Label
  * @date 09-01-2017 12:55 (SPAIN)
  * @file Label.php
  */
-namespace TheFramework\Helpers\Html;
+namespace TheFramework\Helpers\Form;
 use TheFramework\Helpers\TheFrameworkHelper;
 class Label extends TheFrameworkHelper
 {

@@ -11,7 +11,7 @@
 namespace TheFramework\Helpers\Form\Input;
 
 use TheFramework\Helpers\TheFrameworkHelper;
-use TheFramework\Helpers\Html\Label;
+use TheFramework\Helpers\Form\Label;
 use TheFramework\Helpers\Form\Legend;
 use TheFramework\Helpers\Form\Fieldset;
 
