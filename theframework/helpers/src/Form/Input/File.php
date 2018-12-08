@@ -73,7 +73,7 @@ class File extends TheFrameworkHelper
         
         $arHtml[] = ">\n";
         return implode("",$arHtml);
-    }
+    }//get_html
 
     //**********************************
     //             SETS
