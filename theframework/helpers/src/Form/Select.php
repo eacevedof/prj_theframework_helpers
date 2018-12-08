@@ -3,12 +3,13 @@
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
  * @version 1.1.0
- * @name TheFramework\Helpers\Form\Select.php
+ * @name TheFramework\Helpers\Form\Select
  * @date 17-02-2016 17:27
  * @file Select.php
  */
-namespace TheFramework\Helpers\Input;
+namespace TheFramework\Helpers\Form;
 use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\Form\Label;
 
 class Select extends TheFrameworkHelper
 {
@@ -20,7 +21,7 @@ class Select extends TheFrameworkHelper
     
     public function __construct
     ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
-     , $isMultiple=FALSE, $arExtras="", $class="", $isReadOnly=FALSE)
+     ,$isMultiple=FALSE, $arExtras=array(), $class="", $isReadOnly=FALSE)
     {
         $this->_type = "select";
         $this->mxValuesToSelect = $mxValueToSelect;
@@ -83,7 +84,7 @@ class Select extends TheFrameworkHelper
             if(!$this->_isMultiple)
             {
                 //Hay dos opciones y una es vacia.
-                if(count($this->arOptions)<=2 && key_exists("", $this->arOptions))
+                if(count($this->arOptions)<=2 && key_exists("",$this->arOptions))
                 {
                     unset($this->arOptions[""]);
                     $arItemReadonly = $this->arOptions;
@@ -107,13 +108,14 @@ class Select extends TheFrameworkHelper
         //FIN OPTIONS
         
         $arHtml[] = $this->get_closetag();
+        //el valor seleccionado se crea como hidden
         $arHtml[] = $this->_selected_as_hidden;
         return implode("",$arHtml);
-    }
+    }//get_html
         
     public function get_opentag()
     {
-        $sHtmlToReturn = "<$this->_type";
+        $arHtml[] = "<$this->_type";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         //Nombre dependiendo si es multiple o no
         if($this->_isMultiple) $arHtml[] = " name=\"$this->_idprefix$this->_name[]\"";
@@ -122,31 +124,14 @@ class Select extends TheFrameworkHelper
         if($this->_size) $arHtml[] = " size=\"$this->_size\"";
         if($this->_isMultiple) $arHtml[] = " multiple";
         if($this->_isDisabled) $arHtml[] = " disabled";
-        //if($this->_isReadOnly) $arHtml[] = " readonly"; no existe esta propiedad para select
+        //if($this->_isReadOnly) $arHtml[] = " readonly"; //no existe esta propiedad para select
         if($this->_isRequired) $arHtml[] = " required"; 
+        
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
-        
-        if($this->_js_onchange && $this->_isPostback) 
-            $arHtml[] = " onchange=\"$this->_js_onchange;postback(this);\"";
-        elseif($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isPostback) $arHtml[] = " onchange=\"postback(this);\"";
-
+        if($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        
-        if($this->_js_onkeypress && $this->_isEnterInsert) 
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterUpdate)
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterSubmit)
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";        
-        elseif($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $arHtml[] = " onkeypress=\"onenter_insert(event);\"";
-        elseif($this->_isEnterUpdate) $arHtml[] = " onkeypress=\"onenter_update(event);\"";
-        elseif($this->_isEnterSubmit) $arHtml[] = " onkeypress=\"onenter_submit(event);\"";
-        
+        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
@@ -163,7 +148,7 @@ class Select extends TheFrameworkHelper
         if($this->arExtras) $arHtml[] = " ".$this->get_extras();
         $arHtml[] = ">\n";
         return implode("",$arHtml);        
-    }    
+    }//get_opentag
    
     /**
      * @param array $arOptions
@@ -205,6 +190,7 @@ class Select extends TheFrameworkHelper
     {
         $sOption = "";
         $sOption .= "\t<option";
+        $value = $this->get_cleaned($value);
         $sOption .= " value=\"$value\"";
         if($isSelected) $sOption .= " selected";
         $sOption .= ">";
