@@ -103,55 +103,55 @@ class Textarea extends TheFrameworkHelper
     
     public function get_opentag()
     {
-        $sHtmlOpenTag = "<$this->_type ";
-        if($this->_id) $sHtmlOpenTag .= "id=\"$this->_idprefix$this->_id\" ";
-        if($this->_name) $sHtmlOpenTag .= "name=\"$this->_idprefix$this->_name\" ";
-        if($this->_rows) $sHtmlOpenTag .= "rows=\"$this->_rows\" ";
-        if($this->_cols) $sHtmlOpenTag .= "cols=\"$this->_cols\" ";
+        $arOpenTag[] = "<$this->_type ";
+        if($this->_id) $arOpenTag[] = "id=\"$this->_idprefix$this->_id\" ";
+        if($this->_name) $arOpenTag[] = "name=\"$this->_idprefix$this->_name\" ";
+        if($this->_rows) $arOpenTag[] = "rows=\"$this->_rows\" ";
+        if($this->_cols) $arOpenTag[] = "cols=\"$this->_cols\" ";
         //propiedades html5
-        if($this->_isDisabled) $sHtmlOpenTag .= "disabled ";
-        if($this->_isReadOnly) $sHtmlOpenTag .= "readonly "; 
-        if($this->_isRequired) $sHtmlOpenTag .= "required "; 
+        if($this->_isDisabled) $arOpenTag[] = "disabled ";
+        if($this->_isReadOnly) $arOpenTag[] = "readonly "; 
+        if($this->_isRequired) $arOpenTag[] = "required "; 
         //eventos
-        if($this->_js_onfocus) $sHtmlOpenTag .= "onfocus=\"$this->_js_onfocus\" ";
-        if($this->_js_onblur) $sHtmlOpenTag .= "onblur=\"$this->_js_onblur\" ";
-        if($this->_js_onchange) $sHtmlOpenTag .= "onchange=\"$this->_js_onchange\" ";
-        if($this->_js_onclick) $sHtmlOpenTag .= "onclick=\"$this->_js_onclick\" ";
+        if($this->_js_onfocus) $arOpenTag[] = "onfocus=\"$this->_js_onfocus\" ";
+        if($this->_js_onblur) $arOpenTag[] = "onblur=\"$this->_js_onblur\" ";
+        if($this->_js_onchange) $arOpenTag[] = "onchange=\"$this->_js_onchange\" ";
+        if($this->_js_onclick) $arOpenTag[] = "onclick=\"$this->_js_onclick\" ";
         
         if($this->_js_onkeypress)
         {
             if($this->_isEnterInsert)
-                $sHtmlOpenTag .= "onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\" ";
+                $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\" ";
             elseif($this->_isEnterUpdate)
-                $sHtmlOpenTag .= "onkeypress=\"$this->_js_onkeypress;onenter_update(event);\" ";
+                $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress;onenter_update(event);\" ";
             elseif($this->_isEnterSubmit)
-                $sHtmlOpenTag .= "onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\" ";
-            $sHtmlOpenTag .= "onkeypress=\"$this->_js_onkeypress\" ";
+                $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\" ";
+            $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress\" ";
         }
         
-        if($this->_js_onkeydown) $sHtmlOpenTag .= "onkeydown=\"$this->_js_onkeydown\" ";
-        if($this->_js_onkeyup) $sHtmlOpenTag .= "onkeyup=\"$this->_js_onkeyup\" ";
+        if($this->_js_onkeydown) $arOpenTag[] = "onkeydown=\"$this->_js_onkeydown\" ";
+        if($this->_js_onkeyup) $arOpenTag[] = "onkeyup=\"$this->_js_onkeyup\" ";
         //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $sHtmlOpenTag .= "onkeypress=\"onenter_insert(event);\" ";
-        elseif($this->_isEnterUpdate) $sHtmlOpenTag .= "onkeypress=\"onenter_update(event);\" ";
-        elseif($this->_isEnterSubmit) $sHtmlOpenTag .= "onkeypress=\"onenter_submit(event);\" ";
+        elseif($this->_isEnterInsert) $arOpenTag[] = "onkeypress=\"onenter_insert(event);\" ";
+        elseif($this->_isEnterUpdate) $arOpenTag[] = "onkeypress=\"onenter_update(event);\" ";
+        elseif($this->_isEnterSubmit) $arOpenTag[] = "onkeypress=\"onenter_submit(event);\" ";
         
-        if($this->_js_onmouseover) $sHtmlOpenTag .= "onmouseover=\"$this->_js_onmouseover\" ";
-        if($this->_js_onmouseout) $sHtmlOpenTag .= "onmouseout=\"$this->_js_onmouseout\" ";
+        if($this->_js_onmouseover) $arOpenTag[] = "onmouseover=\"$this->_js_onmouseover\" ";
+        if($this->_js_onmouseout) $arOpenTag[] = "onmouseout=\"$this->_js_onmouseout\" ";
 
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $sHtmlOpenTag .= "class=\"$this->_class\" ";
+        if($this->_class) $arOpenTag[] = "class=\"$this->_class\" ";
         $this->load_style();
-        if($this->_style) $sHtmlOpenTag .= "style=\"$this->_style\" ";
+        if($this->_style) $arOpenTag[] = "style=\"$this->_style\" ";
         //atributos extras
-        if($this->_maxlength) $sHtmlOpenTag .= "maxlength=\"$this->_maxlength\" ";
-        if($this->arExtras) $sHtmlOpenTag .= " ".$this->get_extras();
-        if($this->_isPrimaryKey) $sHtmlOpenTag .= "pk=\"pk\" ";
-        if($this->_attr_dbtype) $sHtmlOpenTag .= "dbtype=\"$this->_attr_dbtype\" ";
+        if($this->_maxlength) $arOpenTag[] = "maxlength=\"$this->_maxlength\" ";
+        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->_isPrimaryKey) $arOpenTag[] = "pk=\"pk\" ";
+        if($this->_attr_dbtype) $arOpenTag[] = "dbtype=\"$this->_attr_dbtype\" ";
         
-        $sHtmlOpenTag .= ">\n";        
-        return $sHtmlOpenTag;
+        $arOpenTag[] = ">\n";        
+        return implode("",$arOpenTag);
     }//get_opentag
     
     //**********************************

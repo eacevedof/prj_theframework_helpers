@@ -54,8 +54,8 @@ class Image extends TheFrameworkHelper
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";              
         if($this->arExtras) $arHtml[] = " ".$this->get_extras();
-        //if($this->_isPrimaryKey) $sHtmlOpenTag .= " pk=\"pk\"";
-        //if($this->_attr_dbtype) $sHtmlOpenTag .= " dbtype=\"$this->_attr_dbtype\"";  
+        //if($this->_isPrimaryKey) $arOpenTag[] = " pk=\"pk\"";
+        //if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";  
         $sHtmlToReturn .=">";        
         return implode("",$arHtml);
     }

@@ -27,7 +27,7 @@ class ButtonBasic extends TheFrameworkHelper
     public function get_html()
     {  
         $arHtml = array();
-        if($this->_comments) $sHtmlToReturn = "<!-- $this->_comments -->\n";
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         //$this->load_inner_objects(); A un boton no se le puede pasar objetos embebidos
