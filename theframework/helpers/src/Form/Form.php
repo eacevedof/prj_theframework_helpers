@@ -43,19 +43,19 @@ class Form extends TheFrameworkHelper
 
     public function get_html()
     {  
-        $sHtmlToReturn = "";
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";       
-        $sHtmlToReturn .= $this->get_opentag();
-        if($this->oFieldset) $sHtmlToReturn .= $this->oFieldset->get_opentag();
-        if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_opentag();
+        $arHtml = array();
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";       
+        $arHtml[] = $this->get_opentag();
+        if($this->oFieldset) $arHtml[] = $this->oFieldset->get_opentag();
+        if($this->oLegend) $arHtml[] = $this->oLegend->get_opentag();
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto
         $this->load_inner_objects();
-        if($this->_inner_html)$sHtmlToReturn .= "$this->_inner_html\n";
-        if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_closetag();
-        if($this->oFieldset) $sHtmlToReturn .= $this->oFieldset->get_closetag();
-        $sHtmlToReturn .= $this->get_closetag();
+        if($this->_inner_html)$arHtml[] = "$this->_inner_html\n";
+        if($this->oLegend) $arHtml[] = $this->oLegend->get_closetag();
+        if($this->oFieldset) $arHtml[] = $this->oFieldset->get_closetag();
+        $arHtml[] = $this->get_closetag();
 
-        return $sHtmlToReturn;
+        return implode("",$arHtml);
     }
     
     protected function load_inner_objects()

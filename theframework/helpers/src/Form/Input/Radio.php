@@ -38,9 +38,9 @@ class Radio extends TheFrameworkHelper
         $sHtmlToReturn ="";
         //$sHtmlFieldSet = "<fieldset>\n";
         //$sHtmlFieldSetEnd = "</fieldset>\n";
-        $sHtmlToReturn = "";
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
-        if($this->_legendtext) $sHtmlToReturn .= "<legend>$this->_legendtext</legend>\n";
+        $arHtml = array();
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->_legendtext) $arHtml[] = "<legend>$this->_legendtext</legend>\n";
 
         $i=0;
         foreach($this->_arOptions as $sValue => $sLabel)
@@ -48,71 +48,71 @@ class Radio extends TheFrameworkHelper
             $isChecked = ($this->_value_to_check == $sValue);
             $id = $this->_idprefix.$this->_name."_".$i;
             $id = str_replace("[]","",$id);
-            $oLabel = new HelperLabel($id, $sLabel, "lbl$id");
-            $sHtmlToReturn .= $this->build_input_radio($id, $sValue, $oLabel, $isChecked);
+            $oLabel = new Label($id, $sLabel, "lbl$id");
+            $arHtml[] = $this->build_input_radio($id, $sValue, $oLabel, $isChecked);
             $i++;            
         }
         //if($this->_inFieldsetDiv) $sHtmlToReturn = $sHtmlFieldSet.$sHtmlToReturn.$sHtmlFieldSetEnd;
-        return $sHtmlToReturn;
+        return implode("",$arHtml);
     }
 
-    private function build_input_radio($id, $value, HelperLabel $oLabel=null, $isChecked=false)
+    private function build_input_radio($id, $value, Label $oLabel=null, $isChecked=false)
     {
         $this->_id = $id;
         
         $sHtmlToReturn ="";
-        $sHtmlToReturn .= "<input";
-        if($this->_type) $sHtmlToReturn .= " type=\"$this->_type\"";
-        if($this->_id) $sHtmlToReturn .= " id=\"$id\"";
-        if($this->_name) $sHtmlToReturn .= " name=\"$this->_idprefix$this->_name\"";
-        if($value) $sHtmlToReturn .= " value=\"$value\"";
-        if($isChecked) $sHtmlToReturn .= " checked" ;
+        $arHtml[] = "<input";
+        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->_id) $arHtml[] = " id=\"$id\"";
+        if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
+        if($value) $arHtml[] = " value=\"$value\"";
+        if($isChecked) $arHtml[] = " checked" ;
         //propiedades html5
-        //if($this->_maxlength)$sHtmlToReturn .= " maxlength=\"$this->_maxlength\"";
-        if($this->_isDisabled) $sHtmlToReturn .= " disabled";
-        if($this->_isReadOnly) $sHtmlToReturn .= " readonly"; 
-        //if($this->_isRequired) $sHtmlToReturn .= " required"; 
+        //if($this->_maxlength)$arHtml[] = " maxlength=\"$this->_maxlength\"";
+        if($this->_isDisabled) $arHtml[] = " disabled";
+        if($this->_isReadOnly) $arHtml[] = " readonly"; 
+        //if($this->_isRequired) $arHtml[] = " required"; 
         //eventos
-        if($this->_js_onblur) $sHtmlToReturn .= " onblur=\"$this->_js_onblur\"";
+        if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
 
         if($this->_js_onchange && $this->_isPostback) 
-            $sHtmlToReturn .= " onchange=\"$this->_js_onchange;postback(this);\"";
-        elseif($this->_js_onchange)$sHtmlToReturn .= " onchange=\"$this->_js_onchange\"";
+            $arHtml[] = " onchange=\"$this->_js_onchange;postback(this);\"";
+        elseif($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
         //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isPostback) $sHtmlToReturn .= " onchange=\"postback(this);\"";
+        elseif($this->_isPostback) $arHtml[] = " onchange=\"postback(this);\"";
         
-        if($this->_js_onclick) $sHtmlToReturn .= " onclick=\"$this->_js_onclick\"";
+        if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
         
         if($this->_js_onkeypress && $this->_isEnterInsert) 
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
+            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
         elseif($this->_js_onkeypress && $this->_isEnterUpdate)
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
+            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
         elseif($this->_js_onkeypress && $this->_isEnterSubmit)
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";
-        elseif($this->_js_onkeypress) $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress\"";
+            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";
+        elseif($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
         //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $sHtmlToReturn .= " onkeypress=\"onenter_insert(event);\"";
-        elseif($this->_isEnterUpdate) $sHtmlToReturn .= " onkeypress=\"onenter_update(event);\"";
-        elseif($this->_isEnterSubmit) $sHtmlToReturn .= " onkeypress=\"onenter_submit(event);\"";
+        elseif($this->_isEnterInsert) $arHtml[] = " onkeypress=\"onenter_insert(event);\"";
+        elseif($this->_isEnterUpdate) $arHtml[] = " onkeypress=\"onenter_update(event);\"";
+        elseif($this->_isEnterSubmit) $arHtml[] = " onkeypress=\"onenter_submit(event);\"";
         
-        if($this->_js_onfocus) $sHtmlToReturn .= " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $sHtmlToReturn .= " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $sHtmlToReturn .= " onmouseout=\"$this->_js_onmouseout\""; 
+        if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
+        if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
+        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $sHtmlToReturn .= " class=\"$this->_class\"";
+        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
         $this->load_style();
-        if($this->_style) $sHtmlToReturn .= " style=\"$this->_style\"";
+        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         //atributos extras pe. para usar el quryselector
-        if($this->_attr_dbfield) $sHtmlToReturn .= " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $sHtmlToReturn .= " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $sHtmlToReturn .= " pk=\"pk\"";
-        if($this->arExtras) $sHtmlToReturn .= " ".$this->get_extras();
-        $sHtmlToReturn .= " />\n";
-        if($oLabel) $sHtmlToReturn .= $oLabel->get_html();
+        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
+        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
+        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
+        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        $arHtml[] = " />\n";
+        if($oLabel) $arHtml[] = $oLabel->get_html();
 
-        return $sHtmlToReturn;
+        return implode("",$arHtml);
     }    
 
     //**********************************

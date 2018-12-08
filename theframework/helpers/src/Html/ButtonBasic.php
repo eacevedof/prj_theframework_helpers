@@ -26,43 +26,43 @@ class ButtonBasic extends TheFrameworkHelper
     
     public function get_html()
     {  
-        $sHtmlToReturn = "";
+        $arHtml = array();
         if($this->_comments) $sHtmlToReturn = "<!-- $this->_comments -->\n";
-        $sHtmlToReturn .= $this->get_opentag();
+        $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         //$this->load_inner_objects(); A un boton no se le puede pasar objetos embebidos
-        if($this->sIcon) $sHtmlToReturn .= "<span class=\"$this->sIcon\"> </span> ";
-        $sHtmlToReturn .= $this->_inner_html;
-        $sHtmlToReturn .= "</button>";
-        return $sHtmlToReturn;
+        if($this->sIcon) $arHtml[] = "<span class=\"$this->sIcon\"> </span> ";
+        $arHtml[] = $this->_inner_html;
+        $arHtml[] = "</button>";
+        return implode("",$arHtml);
     }
         
     public function get_opentag()
     {    
         $sHtmlToReturn = "<button";
-        if($this->_type) $sHtmlToReturn .= " type=\"$this->_type\"";
-        if($this->_id) $sHtmlToReturn .= " id=\"$this->_idprefix$this->_id\"";
-        if($this->_isDisabled) $sHtmlToReturn .= " disabled"; 
+        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->_isDisabled) $arHtml[] = " disabled"; 
          
-        if($this->_js_onblur) $sHtmlToReturn .= " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange) $sHtmlToReturn .= " onchange=\"$this->_js_onchange\"";
-        if($this->_js_onclick) $sHtmlToReturn .= " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onkeypress) $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress\"";
-        if($this->_js_onfocus) $sHtmlToReturn .= " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $sHtmlToReturn .= " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $sHtmlToReturn .= " onmouseout=\"$this->_js_onmouseout\"";
+        if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
+        if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
+        if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
+        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
+        if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
+        if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
+        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";
         
         $this->load_cssclass();
-        if($this->_class) $sHtmlToReturn .= " class=\"$this->_class\"";
+        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
         $this->load_style();
-        if($this->_style) $sHtmlToReturn .= " style=\"$this->_style\"";
+        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         //atributos extra
-        if($this->_attr_dbfield) $sHtmlToReturn .= " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $sHtmlToReturn .= " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->arExtras) $sHtmlToReturn .= " ".$this->get_extras();
+        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
+        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";              
+        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
  
-        $sHtmlToReturn .= ">\n";
-        return $sHtmlToReturn;
+        $arHtml[] = ">\n";
+        return implode("",$arHtml);
     }
     
     public function set_icon($sClass){$this->sIcon=$sClass;}

@@ -60,10 +60,10 @@ class TableRaw extends TheFrameworkHelper
         //LABELS EN COLUMNAS
         if($this->arLabels)
         {
-            $sHtmlToReturn .= "<tr>";
+            $arHtml[] = "<tr>";
             foreach($this->arLabels as $sLabel)
-                $sHtmlToReturn .= "<th>$sLabel</th>";
-            $sHtmlToReturn .= "</tr>\n";
+                $arHtml[] = "<th>$sLabel</th>";
+            $arHtml[] = "</tr>\n";
         }       
         
         //DATOS
@@ -71,15 +71,15 @@ class TableRaw extends TheFrameworkHelper
         {
             foreach($this->arRows as $arRows)
             {
-                $sHtmlToReturn .= "<tr>";
+                $arHtml[] = "<tr>";
                 foreach($arRows as $sValue)
-                    $sHtmlToReturn .= "<td>$sValue</td>";    
-                $sHtmlToReturn .= "</tr>\n";
+                    $arHtml[] = "<td>$sValue</td>";    
+                $arHtml[] = "</tr>\n";
             }
         }
 
-        $sHtmlToReturn .= "</table>";
-        return $sHtmlToReturn;
+        $arHtml[] = "</table>";
+        return implode("",$arHtml);
     }//get_html
     
     public function set_data($arRows){$this->arRows = $arRows;}

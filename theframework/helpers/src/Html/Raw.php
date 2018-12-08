@@ -22,10 +22,10 @@ class Raw extends TheFrameworkHelper
     public function get_html()
     {  
         //Agrega a inner_html los valores obtenidos con get_html
-        $sHtmlToReturn = "";
+        $arHtml = array();
         $this->load_inner_objects();
-        $sHtmlToReturn .= $this->_inner_html;
-        return $sHtmlToReturn;
+        $arHtml[] = $this->_inner_html;
+        return implode("",$arHtml);
     }
     
     //Escondo este metodo

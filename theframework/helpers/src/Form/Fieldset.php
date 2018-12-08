@@ -29,14 +29,14 @@ class Fieldset extends TheFrameworkHelper
     //Fieldset
     public function get_html()
     {  
-        $sHtmlToReturn = "";
+        $arHtml = array();
         if($this->_comments) $sHtmlToReturn = "<!-- $this->_comments -->\n";
-        $sHtmlToReturn .= $this->get_opentag(); 
+        $arHtml[] = $this->get_opentag(); 
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto
         $this->load_inner_objects();
-        $sHtmlToReturn .= $this->_inner_html;
-        $sHtmlToReturn .= $this->get_closetag();
-        return $sHtmlToReturn;
+        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->get_closetag();
+        return implode("",$arHtml);
     }
         
     public function get_opentag()

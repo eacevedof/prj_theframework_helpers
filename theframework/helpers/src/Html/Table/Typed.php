@@ -53,7 +53,7 @@ class Typed extends HelperTableBasic
         $this->useThead = true;
         $this->useTfoot =true;
         
-        $sHtmlToReturn = "";
+        $arHtml = array();
         $oFieldset = new HelperFieldset();
         $oForm = new HelperForm($this->sFormId);
         //@TODOTEMPLATE
@@ -61,27 +61,27 @@ class Typed extends HelperTableBasic
         //@TODOTEMPLATE
         $oForm->add_style("margin:0;padding:0;border:0;");
         
-        $sHtmlToReturn .= $oForm->get_opentag();
-        $sHtmlToReturn .= $oFieldset->get_opentag();
+        $arHtml[] = $oForm->get_opentag();
+        $arHtml[] = $oFieldset->get_opentag();
         //Los campos que se mostrarán antes del listado
-        $sHtmlToReturn .= $this->get_fields_as_string();
-        $sHtmlToReturn .= $oFieldset->get_closetag();
+        $arHtml[] = $this->get_fields_as_string();
+        $arHtml[] = $oFieldset->get_closetag();
         //Barra de navegacion por paginas
         if($this->isPaginateBar)
-            $sHtmlToReturn .= $this->build_paginate_bar();
+            $arHtml[] = $this->build_paginate_bar();
         //crea la etiqueta table
-        $sHtmlToReturn .= $this->get_opentag();
+        $arHtml[] = $this->get_opentag();
         //Filas.  Se carga en la propiedad arObjTrs de tfw_helper se utiliza el metodo tr_as_string (tablerow as string)
         //para imprimir en formato cadena el array de objetos de tipo Tr
         $this->load_array_object_tr();
-        $sHtmlToReturn .= $this->get_html_rows();
+        $arHtml[] = $this->get_html_rows();
         //Fin Filas
-        $sHtmlToReturn .= $this->get_closetag();
-        $sHtmlToReturn .= $this->build_hidden_fields();
-        $sHtmlToReturn .= $oForm->get_closetag();
+        $arHtml[] = $this->get_closetag();
+        $arHtml[] = $this->build_hidden_fields();
+        $arHtml[] = $oForm->get_closetag();
         //Fin formulario
-        $sHtmlToReturn .= $this->build_js();
-        return $sHtmlToReturn;
+        $arHtml[] = $this->build_js();
+        return implode("",$arHtml);
     }   
     
     protected function build_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)

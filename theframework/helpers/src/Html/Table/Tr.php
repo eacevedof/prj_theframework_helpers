@@ -44,38 +44,38 @@ class TableTr extends TheFrameworkHelper
         $sHtmlToReturn = $this->get_opentag();
         //$this->_inner_html .= $this->get_tds_as_string();
         $this->load_inner_objects();
-        if($this->_inner_html) $sHtmlToReturn .= $this->_inner_html;
-        $sHtmlToReturn .= $this->get_closetag();
-        return $sHtmlToReturn;
+        if($this->_inner_html) $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->get_closetag();
+        return implode("",$arHtml);
     }
     
     public function get_opentag() 
     {
          //tr
         $sHtmlToReturn = "<$this->_type";
-        if($this->_id) $sHtmlToReturn .= " id=\"$this->_idprefix$this->_id\"";
-        if($this->iRowSpan) $sHtmlToReturn .= " rowspan=\"$this->iRowSpan\"";
+        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->iRowSpan) $arHtml[] = " rowspan=\"$this->iRowSpan\"";
         //eventos
-        if($this->_js_onblur) $sHtmlToReturn .= " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange) $sHtmlToReturn .= " onchange=\"$this->_js_onchange\"";
-        if($this->_js_onclick) $sHtmlToReturn .= " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onkeypress) $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress\"";
-        if($this->_js_onfocus) $sHtmlToReturn .= " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $sHtmlToReturn .= " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $sHtmlToReturn .= " onmouseout=\"$this->_js_onmouseout\""; 
+        if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
+        if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
+        if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
+        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
+        if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
+        if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
+        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $sHtmlToReturn .= " class=\"$this->_class\"";
+        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
         $this->load_style();
-        if($this->_style) $sHtmlToReturn .= " style=\"$this->_style\"";
+        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         //atributos extras
-        if($this->arExtras) $sHtmlToReturn .= " ".$this->get_extras();
-        if($this->_isPrimaryKey) $sHtmlToReturn .= " pk=\"pk\"";
-        if($this->_attr_dbtype) $sHtmlToReturn .= " dbtype=\"$this->_attr_dbtype\"";  
-        if($this->sAttrRownumber!=="") $sHtmlToReturn .= " rownumber=\"$this->sAttrRownumber\"";  
+        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
+        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";  
+        if($this->sAttrRownumber!=="") $arHtml[] = " rownumber=\"$this->sAttrRownumber\"";  
         $sHtmlToReturn .=">\n";
-        return $sHtmlToReturn;
+        return implode("",$arHtml);
     }
     
     public function get_closetag(){ return parent::get_closetag();}

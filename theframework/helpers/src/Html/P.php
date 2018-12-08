@@ -31,9 +31,9 @@ class P extends TheFrameworkHelper
         $sHtmlToReturn = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         $this->load_inner_objects();
-        $sHtmlToReturn .= $this->_inner_html;
-        $sHtmlToReturn .= $this->get_closetag();
-        return $sHtmlToReturn;
+        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->get_closetag();
+        return implode("",$arHtml);
     }
         
     public function get_opentag() 

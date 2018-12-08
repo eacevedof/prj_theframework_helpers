@@ -59,7 +59,7 @@ class TheFrameworkHelper
     protected $_attr_dbfield = NULL;
     
     protected $oBD = NULL;
-    //HelperLabel
+    //Label
     protected $oLabel = NULL;
     //HelperStyle
     protected $oStyle = NULL;
@@ -194,7 +194,7 @@ class TheFrameworkHelper
     
     protected function set_name($value){$this->_name = $value;}
 
-    protected function set_label(HelperLabel $oLabel){$this->oLabel = $oLabel;}
+    protected function set_label(Label $oLabel){$this->oLabel = $oLabel;}
     public function set_class($class){$this->arClasses=array();if($class)$this->arClasses[] = $class;}    
     public function set_style($value){$this->arStyles=array();if($value) $this->arStyles[] = $value;}
     protected function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}

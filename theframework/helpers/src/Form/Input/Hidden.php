@@ -26,24 +26,24 @@ class Hidden extends TheFrameworkHelper
 
     public function get_html()
     {  
-        $sHtmlToReturn = "";
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
-        $sHtmlToReturn .= "<input";
-        if($this->_type) $sHtmlToReturn .= " type=\"$this->_type\"";
-        if($this->_id) $sHtmlToReturn .= " id=\"$this->_idprefix$this->_id\"";
-        if($this->_name) $sHtmlToReturn .= " name=\"$this->_idprefix$this->_name\"";
+        $arHtml = array();
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        $arHtml[] = "<input";
+        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         if($this->_value || $this->_value=="0") 
-            $sHtmlToReturn .= " value=\"{$this->get_cleaned($this->_value)}\"";
+            $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
         //propiedades html5
-        if($this->_maxlength)$sHtmlToReturn .= " maxlength=\"$this->_maxlength\"";
+        if($this->_maxlength)$arHtml[] = " maxlength=\"$this->_maxlength\"";
         //atributos extras pe. para usar el quryselector
-        if($this->_attr_dbfield) $sHtmlToReturn .= " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $sHtmlToReturn .= " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $sHtmlToReturn .= " pk=\"pk\"";
-        if($this->arExtras) $sHtmlToReturn .= " ".$this->get_extras();
+        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
+        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
+        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
+        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
         
-        $sHtmlToReturn .= ">\n";
-        return $sHtmlToReturn;
+        $arHtml[] = ">\n";
+        return implode("",$arHtml);
     }
     
     //**********************************

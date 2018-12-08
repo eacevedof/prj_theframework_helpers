@@ -19,7 +19,7 @@ class Select extends TheFrameworkHelper
     private $_size;
     
     public function __construct
-    ($arOptions, $id="", $name="", HelperLabel $oLabel=null, $mxValueToSelect ="", $size=1
+    ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
      , $isMultiple=FALSE, $arExtras="", $class="", $isReadOnly=FALSE)
     {
         $this->_type = "select";
@@ -40,10 +40,10 @@ class Select extends TheFrameworkHelper
 
     public function get_html()
     {  
-        $sHtmlToReturn = "";
-        if($this->oLabel) $sHtmlToReturn .= $this->oLabel->get_html();
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
-        $sHtmlToReturn .= $this->get_opentag(); 
+        $arHtml = array();
+        if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        $arHtml[] = $this->get_opentag(); 
         //INICIO OPTIONS
         if(!is_array($this->mxValuesToSelect)) 
             $mxValueToSelect = (string)$this->mxValuesToSelect;
@@ -61,7 +61,7 @@ class Select extends TheFrameworkHelper
                     $sOptionValue = (string)$sValue;
                     //bug("$mxValueToSelect===$sOptionValue");
                     $isSelected = ($mxValueToSelect===$sOptionValue);
-                    $sHtmlToReturn .= $this->build_htmloption($sValue, $sInnerText, $isSelected);
+                    $arHtml[] = $this->build_htmloption($sValue, $sInnerText, $isSelected);
                 }
             }
             //Multiple
@@ -73,7 +73,7 @@ class Select extends TheFrameworkHelper
                         $isSelected = in_array($sValue, $mxValueToSelect);
                     else
                         $isSelected = ($mxValueToSelect==((string)$sValue));
-                    $sHtmlToReturn .= $this->build_htmloption($sValue, $sInnerText, $isSelected);
+                    $arHtml[] = $this->build_htmloption($sValue, $sInnerText, $isSelected);
                 }
             }
         }
@@ -95,7 +95,7 @@ class Select extends TheFrameworkHelper
                     $arItemReadonly = $this->get_item_readonly($this->arOptions,$mxValueToSelect);
                 }
                 foreach($arItemReadonly as $sValue => $sText)
-                    $sHtmlToReturn .= $this->build_htmloption($sValue, $sText, true);
+                    $arHtml[] = $this->build_htmloption($sValue, $sText, true);
             }
             //es readonly y multiple
             else
@@ -106,63 +106,63 @@ class Select extends TheFrameworkHelper
         }//fin es readonly
         //FIN OPTIONS
         
-        $sHtmlToReturn .= $this->get_closetag();
-        $sHtmlToReturn .= $this->_selected_as_hidden;
-        return $sHtmlToReturn;
+        $arHtml[] = $this->get_closetag();
+        $arHtml[] = $this->_selected_as_hidden;
+        return implode("",$arHtml);
     }
         
     public function get_opentag()
     {
         $sHtmlToReturn = "<$this->_type";
-        if($this->_id) $sHtmlToReturn .= " id=\"$this->_idprefix$this->_id\"";
+        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         //Nombre dependiendo si es multiple o no
-        if($this->_isMultiple) $sHtmlToReturn .= " name=\"$this->_idprefix$this->_name[]\"";
-        else $sHtmlToReturn .= " name=\"$this->_idprefix$this->_name\"";
+        if($this->_isMultiple) $arHtml[] = " name=\"$this->_idprefix$this->_name[]\"";
+        else $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         
-        if($this->_size) $sHtmlToReturn .= " size=\"$this->_size\"";
-        if($this->_isMultiple) $sHtmlToReturn .= " multiple";
-        if($this->_isDisabled) $sHtmlToReturn .= " disabled";
-        //if($this->_isReadOnly) $sHtmlToReturn .= " readonly"; no existe esta propiedad para select
-        if($this->_isRequired) $sHtmlToReturn .= " required"; 
+        if($this->_size) $arHtml[] = " size=\"$this->_size\"";
+        if($this->_isMultiple) $arHtml[] = " multiple";
+        if($this->_isDisabled) $arHtml[] = " disabled";
+        //if($this->_isReadOnly) $arHtml[] = " readonly"; no existe esta propiedad para select
+        if($this->_isRequired) $arHtml[] = " required"; 
         //eventos
-        if($this->_js_onblur) $sHtmlToReturn .= " onblur=\"$this->_js_onblur\"";
+        if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
         
         if($this->_js_onchange && $this->_isPostback) 
-            $sHtmlToReturn .= " onchange=\"$this->_js_onchange;postback(this);\"";
-        elseif($this->_js_onchange)$sHtmlToReturn .= " onchange=\"$this->_js_onchange\"";
+            $arHtml[] = " onchange=\"$this->_js_onchange;postback(this);\"";
+        elseif($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
         //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isPostback) $sHtmlToReturn .= " onchange=\"postback(this);\"";
+        elseif($this->_isPostback) $arHtml[] = " onchange=\"postback(this);\"";
 
-        if($this->_js_onclick) $sHtmlToReturn .= " onclick=\"$this->_js_onclick\"";
+        if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
         
         if($this->_js_onkeypress && $this->_isEnterInsert) 
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
+            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
         elseif($this->_js_onkeypress && $this->_isEnterUpdate)
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
+            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
         elseif($this->_js_onkeypress && $this->_isEnterSubmit)
-            $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";        
-        elseif($this->_js_onkeypress) $sHtmlToReturn .= " onkeypress=\"$this->_js_onkeypress\"";
+            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";        
+        elseif($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
         //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $sHtmlToReturn .= " onkeypress=\"onenter_insert(event);\"";
-        elseif($this->_isEnterUpdate) $sHtmlToReturn .= " onkeypress=\"onenter_update(event);\"";
-        elseif($this->_isEnterSubmit) $sHtmlToReturn .= " onkeypress=\"onenter_submit(event);\"";
+        elseif($this->_isEnterInsert) $arHtml[] = " onkeypress=\"onenter_insert(event);\"";
+        elseif($this->_isEnterUpdate) $arHtml[] = " onkeypress=\"onenter_update(event);\"";
+        elseif($this->_isEnterSubmit) $arHtml[] = " onkeypress=\"onenter_submit(event);\"";
         
-        if($this->_js_onfocus) $sHtmlToReturn .= " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $sHtmlToReturn .= " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $sHtmlToReturn .= " onmouseout=\"$this->_js_onmouseout\""; 
+        if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
+        if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
+        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $sHtmlToReturn .= " class=\"$this->_class\"";
+        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
         $this->load_style();
-        if($this->_style) $sHtmlToReturn .= " style=\"$this->_style\"";
+        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         //atributos extras pe. para usar el quryselector
-        if($this->_attr_dbfield) $sHtmlToReturn .= " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $sHtmlToReturn .= " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $sHtmlToReturn .= " pk=\"pk\"";
-        if($this->arExtras) $sHtmlToReturn .= " ".$this->get_extras();
-        $sHtmlToReturn .= ">\n";
-        return $sHtmlToReturn;        
+        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
+        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
+        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
+        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        $arHtml[] = ">\n";
+        return implode("",$arHtml);        
     }    
    
     /**

@@ -25,13 +25,13 @@ class Xl extends TheFrameworkHelper
     
     public function get_html()
     {  
-        $sHtmlToReturn = "";
+        $arHtml = array();
         if(!$this->_inner_html) $this->_inner_html = $this->get_array_li_as_string();
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
-        $sHtmlToReturn .= $this->get_opentag();
-        $sHtmlToReturn .= $this->_inner_html;
-        $sHtmlToReturn .= $this->get_closetag();
-        return $sHtmlToReturn;
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        $arHtml[] = $this->get_opentag();
+        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->get_closetag();
+        return implode("",$arHtml);
     }
 
     private function get_array_li_as_string()
@@ -70,8 +70,8 @@ class Xl extends TheFrameworkHelper
         if($this->_style) $sHtmlOpenTag .= " style=\"$this->_style\"";
         //atributos extras
         if($this->arExtras) $sHtmlOpenTag .= " ".$this->get_extras();
-        //if($this->_isPrimaryKey) $sHtmlToReturn .= " pk=\"pk\"";
-        //if($this->_attr_dbtype) $sHtmlToReturn .= " dbtype=\"$this->_attr_dbtype\"";
+        //if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
+        //if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";
         $sHtmlOpenTag .=">\n";
         return $sHtmlOpenTag;
     }    

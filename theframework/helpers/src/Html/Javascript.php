@@ -664,7 +664,7 @@ class Javascript extends TheFrameworkHelper
     oInput = oInput.get_element();
     oForm.add_field(oInput,eCount);
     
-    oInput = new HelperLabel("lblBot","txtBot");
+    oInput = new Label("lblBot","txtBot");
     oInput.add_attribute("class","control-label");
     oInput.set_innerhtml("-");
     oInput = oInput.get_element();

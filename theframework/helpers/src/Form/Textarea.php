@@ -20,7 +20,7 @@ class Textarea extends TheFrameworkHelper
     
     public function __construct
     ($id="",$name="",$innerhtml="",$arExtras="",$maxlength=-1
-    ,$cols=40,$rows=8,$class="",$style="",HelperLabel $oLabel=NULL)
+    ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=NULL)
     {
         $this->_type = "textarea";
 
@@ -81,24 +81,24 @@ class Textarea extends TheFrameworkHelper
     
     public function get_html()
     {  
-        $sHtmlToReturn = "";
-        if($this->oLabel) $sHtmlToReturn .= $this->oLabel->get_html();
+        $arHtml = array();
+        if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
         if($this->_maxlength>-1)
             $this->_js_onkeyup .= " return fn_txamaxlength(this,event);";
         
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
-        $sHtmlToReturn .= $this->get_opentag();
-        $sHtmlToReturn .= htmlentities($this->_inner_html);
-        $sHtmlToReturn .= $this->get_closetag();
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        $arHtml[] = $this->get_opentag();
+        $arHtml[] = htmlentities($this->_inner_html);
+        $arHtml[] = $this->get_closetag();
         
         if($this->isCounterSpan)
-            $sHtmlToReturn .= "\n<span id=\"sp$this->_idprefix$this->_id\"></span>"; 
+            $arHtml[] = "\n<span id=\"sp$this->_idprefix$this->_id\"></span>"; 
         
         if($this->isCounterJs)
             $this->js_counter();
         
-        return $sHtmlToReturn;
+        return implode("",$arHtml);
     }//get_html
     
     public function get_opentag()

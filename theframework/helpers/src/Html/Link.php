@@ -27,13 +27,13 @@ class Link extends TheFrameworkHelper
     
     public function get_html()
     {
-        $sHtmlToReturn = "";
+        $arHtml = array();
         foreach($this->arHrefs as $sHrefPath)
         {
             if($sHrefPath)
-                $sHtmlToReturn .= "<link type=\"$this->sType\" rel=\"$this->sRel\" href=\"$sHrefPath\">\n";
+                $arHtml[] = "<link type=\"$this->sType\" rel=\"$this->sRel\" href=\"$sHrefPath\">\n";
         }
-        return $sHtmlToReturn;
+        return implode("",$arHtml);
     }//get_html
     
     public function show(){echo $this->get_html();}

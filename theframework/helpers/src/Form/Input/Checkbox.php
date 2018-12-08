@@ -66,10 +66,10 @@ class Checkbox extends TheFrameworkHelper
     public function get_html()
     {  
         $sHtmlToReturn ="";
-        if($this->_comments) $sHtmlToReturn .= "<!-- $this->_comments -->\n";
+        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
 
-        if($this->oFieldset) $sHtmlToReturn .= $this->oFieldset->get_opentag();
-        if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_html();
+        if($this->oFieldset) $arHtml[] = $this->oFieldset->get_opentag();
+        if($this->oLegend) $arHtml[] = $this->oLegend->get_html();
         
         $iOption=0;
         $iNumOptions = count($this->arOptions);
@@ -82,15 +82,15 @@ class Checkbox extends TheFrameworkHelper
             if($iNumOptions>1) $sCheckId.="_$iOption";
             //bug($sCheckId);
             //calculo de checkboxes por linea. Si cumple se hace un salto
-            if(($iOption%($this->iChecksPerLine))==0 && $iOption>0) $sHtmlToReturn .= "<br/>";
-            $sHtmlToReturn .= $this->build_check($sCheckId,$sValue,$sOutText,$isChecked,$isReadOnly);
+            if(($iOption%($this->iChecksPerLine))==0 && $iOption>0) $arHtml[] = "<br/>";
+            $arHtml[] = $this->build_check($sCheckId,$sValue,$sOutText,$isChecked,$isReadOnly);
             //bug($sHtmlToReturn); die;
             $iOption++;            
         }//foreach($this->arOptions)
 
-        if($this->oFieldset) $sHtmlToReturn .= $this->oFieldset->get_closetag();
-        //if($this->oLegend) $sHtmlToReturn .= $this->oLegend->get_closetag();
-        return $sHtmlToReturn;
+        if($this->oFieldset) $arHtml[] = $this->oFieldset->get_closetag();
+        //if($this->oLegend) $arHtml[] = $this->oLegend->get_closetag();
+        return implode("",$arHtml);
     }//get_html
 
     private function build_check($id, $sValue, $sOutText, $isChecked=false, $isReadOnly=false)
