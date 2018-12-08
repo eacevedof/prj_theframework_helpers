@@ -86,7 +86,7 @@ class TheFrameworkHelper
                 $this->_inner_html .= $mxValue;
 //            elseif(is_array($mxValue))
 //                die;
-    }
+    }//load_inner_objects
     
     protected function concat_param_value($sParamName,$sValue)
     {
