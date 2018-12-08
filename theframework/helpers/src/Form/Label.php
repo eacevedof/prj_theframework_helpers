@@ -9,6 +9,7 @@
  */
 namespace TheFramework\Helpers\Form;
 use TheFramework\Helpers\TheFrameworkHelper;
+
 class Label extends TheFrameworkHelper
 {
     private $_for = "";

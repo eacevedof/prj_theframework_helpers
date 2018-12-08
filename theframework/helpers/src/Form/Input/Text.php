@@ -9,11 +9,10 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\Form\Label;
 
-class InputText extends TheFrameworkHelper
-{
-    //private $_name;
-  
+class Text extends TheFrameworkHelper
+{ 
     public function __construct
     ($id="", $name="", $value="", $length=50, $class="", Label $oLabel=null)
     {
@@ -40,33 +39,22 @@ class InputText extends TheFrameworkHelper
         if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         if($this->_value || $this->_value=="0") 
             $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
-        //bug($this->_value,"input_text $this->_id");
+
         //propiedades html5
         if($this->_maxlength) $arHtml[] = " maxlength=\"$this->_maxlength\"";
         if($this->_isDisabled) $arHtml[] = " disabled";
         if($this->_isReadOnly) $arHtml[] = " readonly"; 
         if($this->_isRequired) $arHtml[] = " required"; 
-        //bug($this->_isRequired,  $this->_id);
+
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        
-        if($this->_js_onkeypress && $this->_isEnterInsert) 
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterUpdate)
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterSubmit)
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";        
-        elseif($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $arHtml[] = " onkeypress=\"onenter_insert(event);\"";
-        elseif($this->_isEnterUpdate) $arHtml[] = " onkeypress=\"onenter_update(event);\"";
-        elseif($this->_isEnterSubmit) $arHtml[] = " onkeypress=\"onenter_submit(event);\"";
-        
+        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";        
+        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";   
+        
         //aspecto
         $this->load_cssclass();
         if($this->_class) $arHtml[] = " class=\"$this->_class\"";
@@ -81,7 +69,7 @@ class InputText extends TheFrameworkHelper
         
         $arHtml[] = ">\n";
         return implode("",$arHtml);
-    }
+    }//get_html
 
     //**********************************
     //             SETS
@@ -100,4 +88,5 @@ class InputText extends TheFrameworkHelper
     public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
     public function get_maxlength(){return $this->_maxlength;}
     public function is_readonly(){return $this->_isReadOnly;}
-}
+
+}//class Text
