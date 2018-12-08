@@ -172,7 +172,7 @@ class TheFrameworkHelper
     public function add_inner_object($mxValue){if($mxValue) $this->arInnerObjects[] = $mxValue;}
     
     public function set_extras(array $value){$this->arExtras = array(); if($value) $this->arExtras = $value;}
-    public function add_extras($sKey,$sValue)
+    public function add_extras($sKey,$sValue=NULL)
     {
         if($sKey)
             $this->arExtras[$sKey] = $sValue;
@@ -227,8 +227,10 @@ class TheFrameworkHelper
                 {
                     if(strstr($sValue,"="))
                         $arExtras[] = $sValue;
-                    else
-                        $arExtras[] = "$sKey=\"$sValue\"";    
+                    elseif($sValue!==NULL)
+                        $arExtras[] = "$sKey=\"$sValue\"";
+                    else 
+                        $arExtras[] = $sKey;
                 }
                 else 
                 {

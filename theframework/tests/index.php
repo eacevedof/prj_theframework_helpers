@@ -4,24 +4,25 @@
 include_once "../helpers/autoload_nc.php";
 
 use TheFramework\Helpers\Form\Form;
-use TheFramework\Helpers\Form\Select;
+use TheFramework\Helpers\Form\Textarea;
 use TheFramework\Helpers\Form\Input\Generic;
 use TheFramework\Helpers\Form\Label;
 
-/*
-($id="", $name="", $method="post", $innerhtml=""
-,$action="", $class="", $style="", $arExtras=array(), $enctype="", $onsubmit="")
-*/
 $oForm = new Form("SomeFormId");
 $oForm->set_method("post");
-$oLabel = new Label("POST-name","Select one:");
-$oSelect = new Select([""=>"...","key1"=>"Txt 1","key2"=>"Txt 2","key3"=>"Txt 3","key4"=>"Txt 4"]);
-$oSelect->set_label($oLabel);
-//$oSelect->set_value_to_select("key3"); autoselect by key
-//$oSelect->readonly(); //autoselect by key and removes other keys
+$oLabel = new Label("idTextarea","Type your article:");
+$oTextarea = new Textarea("idTextarea","nameTextarea");
+$oTextarea->set_innerhtml("this is an example text");
+$oTextarea->add_extras("autofocus");
+$oTextarea->set_label($oLabel);
+$oTextarea->set_maxlength(25);
+//$oTextarea->set_counterspan(); //activa render de <span> contador </span>
+//renderiza js que gestiona maxlength y actualiza span contador, tiene que estar activado counterspan
+//$oTextarea->set_counterjs();
+//$oTextarea->readonly();
 $oButton = new Generic("Save");
 $oButton->add_extras("type","submit");
-$oForm->add_control($oSelect);
+$oForm->add_control($oTextarea);
 $oForm->add_control($oButton);
 $oForm->show();
 ?>

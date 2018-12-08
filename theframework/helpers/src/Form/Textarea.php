@@ -8,8 +8,9 @@
  * @file Textarea.php
  * @observations
  */
-namespace TheFramework\Helpers\Input;
+namespace TheFramework\Helpers\Form;
 use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\Form\Label;
 
 class Textarea extends TheFrameworkHelper
 { 
@@ -19,7 +20,7 @@ class Textarea extends TheFrameworkHelper
     private $isCounterJs;
     
     public function __construct
-    ($id="",$name="",$innerhtml="",$arExtras="",$maxlength=-1
+    ($id="",$name="",$innerhtml="",$arExtras=array(),$maxlength=-1
     ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=NULL)
     {
         $this->_type = "textarea";
@@ -38,12 +39,13 @@ class Textarea extends TheFrameworkHelper
         $this->arExtras = $arExtras;
         $this->oLabel = $oLabel;
         
-        $this->isCounterSpan = TRUE;
-        $this->isCounterJs = TRUE;        
+        $this->isCounterSpan = FALSE;
+        $this->isCounterJs = FALSE;        
     }//__construct
     
     private function js_counter()
     {
+        //pr("js_counter.in");
 ?>
 
 <script type="text/javascript" helper="textarea.js_counter">
@@ -83,21 +85,26 @@ class Textarea extends TheFrameworkHelper
     {  
         $arHtml = array();
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
-        if($this->_maxlength>-1)
-            $this->_js_onkeyup .= " return fn_txamaxlength(this,event);";
-        
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
+        if($this->_maxlength>-1 && $this->isCounterJs && $this->isCounterSpan) 
+            $this->_js_onkeyup .= " return fn_txamaxlength(this,event);";              
         $arHtml[] = $this->get_opentag();
         $arHtml[] = htmlentities($this->_inner_html);
         $arHtml[] = $this->get_closetag();
-        
+
+        //addon contador
         if($this->isCounterSpan)
+        {
             $arHtml[] = "\n<span id=\"sp$this->_idprefix$this->_id\"></span>"; 
-        
-        if($this->isCounterJs)
-            $this->js_counter();
-        
+            //se imprime el js que gestiona el contador (si se desea)
+            if($this->isCounterJs) 
+            {              
+                //bug("js_counter");die;
+                $this->js_counter();
+            }
+        }
+
         return implode("",$arHtml);
     }//get_html
     
@@ -117,25 +124,9 @@ class Textarea extends TheFrameworkHelper
         if($this->_js_onblur) $arOpenTag[] = "onblur=\"$this->_js_onblur\" ";
         if($this->_js_onchange) $arOpenTag[] = "onchange=\"$this->_js_onchange\" ";
         if($this->_js_onclick) $arOpenTag[] = "onclick=\"$this->_js_onclick\" ";
-        
-        if($this->_js_onkeypress)
-        {
-            if($this->_isEnterInsert)
-                $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\" ";
-            elseif($this->_isEnterUpdate)
-                $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress;onenter_update(event);\" ";
-            elseif($this->_isEnterSubmit)
-                $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\" ";
-            $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress\" ";
-        }
-        
+        if($this->_js_onkeypress) $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress\" ";        
         if($this->_js_onkeydown) $arOpenTag[] = "onkeydown=\"$this->_js_onkeydown\" ";
         if($this->_js_onkeyup) $arOpenTag[] = "onkeyup=\"$this->_js_onkeyup\" ";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $arOpenTag[] = "onkeypress=\"onenter_insert(event);\" ";
-        elseif($this->_isEnterUpdate) $arOpenTag[] = "onkeypress=\"onenter_update(event);\" ";
-        elseif($this->_isEnterSubmit) $arOpenTag[] = "onkeypress=\"onenter_submit(event);\" ";
-        
         if($this->_js_onmouseover) $arOpenTag[] = "onmouseover=\"$this->_js_onmouseover\" ";
         if($this->_js_onmouseout) $arOpenTag[] = "onmouseout=\"$this->_js_onmouseout\" ";
 
