@@ -120,3 +120,26 @@ $oFs->add_inner_object($oTxt2);
 $oFs->show();
 (new Form())->show_closetag();
 ```
+
+```php
+//Example: https://developer.mozilla.org/es/docs/Web/HTML/Elemento/form
+use TheFramework\Helpers\Form\Form;
+use TheFramework\Helpers\Form\Input\Text;
+use TheFramework\Helpers\Form\Input\Generic;
+use TheFramework\Helpers\Form\Label;
+
+/*
+($id="", $name="", $method="post", $innerhtml=""
+,$action="", $class="", $style="", $arExtras=array(), $enctype="", $onsubmit="")
+*/
+$oForm = new Form("SomeFormId");
+$oForm->set_method("post");
+$oLabel = new Label("POST-name","Nombre:");
+$oTxt = new Text("POST-name","name");
+$oTxt->set_label($oLabel);
+$oButton = new Generic("Save");
+$oButton->add_extras("type","submit");
+$oForm->add_control($oTxt);
+$oForm->add_control($oButton);
+$oForm->show();
+```
