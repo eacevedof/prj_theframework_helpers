@@ -51,3 +51,17 @@ $o->set_value("this-is-a-date: 2018-12-08 09:02:00");
 $o->show();
 ```
 
+```php
+use TheFramework\Helpers\Form\Input\Password;
+
+$oL = new TheFramework\Helpers\Form\Label;
+$oL->set_for("someId");
+$oL->set_innerhtml("Type your password her:");
+$oL->show();
+
+$o = new Password("someId","someName","mySecretKey",20);
+$o->add_style("border:1px solid rgb(255,0,0)");
+$o->add_style("color:blue");
+$o->show();
+```
+
