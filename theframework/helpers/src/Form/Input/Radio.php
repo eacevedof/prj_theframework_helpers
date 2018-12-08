@@ -9,17 +9,16 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\Form\Label;
 
 class Radio extends TheFrameworkHelper
 {
     private $_arOptions;
     private $_value_to_check;
-   
-    //private $_name;
     private $_legendtext;
-    //private $_inFieldsetDiv=true;
     
-    public function __construct($arOptions, $grpname, $legendtext="", $valuetocheck="", $class="", $arExtras=array())
+    public function __construct($arOptions, $grpname, $legendtext=""
+            , $valuetocheck="", $class="", $arExtras=array())
     {
         //$this->_id = ""; el id se aplica por check no por legend
         $this->_type = "radio";
@@ -35,9 +34,6 @@ class Radio extends TheFrameworkHelper
 
     public function get_html()
     {  
-        $sHtmlToReturn ="";
-        //$sHtmlFieldSet = "<fieldset>\n";
-        //$sHtmlFieldSetEnd = "</fieldset>\n";
         $arHtml = array();
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         if($this->_legendtext) $arHtml[] = "<legend>$this->_legendtext</legend>\n";
@@ -54,13 +50,12 @@ class Radio extends TheFrameworkHelper
         }
         //if($this->_inFieldsetDiv) $sHtmlToReturn = $sHtmlFieldSet.$sHtmlToReturn.$sHtmlFieldSetEnd;
         return implode("",$arHtml);
-    }
+    }//get_html
 
     private function build_input_radio($id, $value, Label $oLabel=null, $isChecked=false)
     {
         $this->_id = $id;
-        
-        $sHtmlToReturn ="";
+        $arHtml = array();
         $arHtml[] = "<input";
         if($this->_type) $arHtml[] = " type=\"$this->_type\"";
         if($this->_id) $arHtml[] = " id=\"$id\"";
@@ -74,27 +69,9 @@ class Radio extends TheFrameworkHelper
         //if($this->_isRequired) $arHtml[] = " required"; 
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
-
-        if($this->_js_onchange && $this->_isPostback) 
-            $arHtml[] = " onchange=\"$this->_js_onchange;postback(this);\"";
-        elseif($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isPostback) $arHtml[] = " onchange=\"postback(this);\"";
-        
+        if($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        
-        if($this->_js_onkeypress && $this->_isEnterInsert) 
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_insert(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterUpdate)
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_update(event);\"";
-        elseif($this->_js_onkeypress && $this->_isEnterSubmit)
-            $arHtml[] = " onkeypress=\"$this->_js_onkeypress;onenter_submit(event);\"";
-        elseif($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
-        //postback(): Funcion definida en HelperJavascript
-        elseif($this->_isEnterInsert) $arHtml[] = " onkeypress=\"onenter_insert(event);\"";
-        elseif($this->_isEnterUpdate) $arHtml[] = " onkeypress=\"onenter_update(event);\"";
-        elseif($this->_isEnterSubmit) $arHtml[] = " onkeypress=\"onenter_submit(event);\"";
-        
+        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
@@ -113,7 +90,7 @@ class Radio extends TheFrameworkHelper
         if($oLabel) $arHtml[] = $oLabel->get_html();
 
         return implode("",$arHtml);
-    }    
+    }//build_input_radio
 
     //**********************************
     //             SETS
