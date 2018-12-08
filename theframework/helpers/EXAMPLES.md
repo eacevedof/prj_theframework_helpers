@@ -77,3 +77,15 @@ $o = new Radio(["key-1"=>"val-1","key-2"=>"val-2","key-3"=>"val-3"],"myRadioGrou
 $o->show();
 ``` 
 
+```php
+use TheFramework\Helpers\Form\Input\Text;
+
+$oL = new TheFramework\Helpers\Form\Label;
+$oL->set_for("someTextId");
+$oL->set_innerhtml("Set a value:");
+
+$o = new Text("someTextId","someName");
+$o->set_label($oL);
+$o->add_extras("placeholder"," this is placeholder");
+$o->show();
+```
