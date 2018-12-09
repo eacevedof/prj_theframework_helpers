@@ -192,3 +192,25 @@ $oForm->add_control($oTextarea);
 $oForm->add_control($oButton);
 $oForm->show();
 ```
+
+```php
+use TheFramework\Helpers\Html\Table\Raw;
+
+$arData = [
+    0=>["col0"=>"val_r0_col_0"
+    ,"col1"=>"val_r0_col_1"
+    ,"col2"=>"val_r0_col_2"],
+    1=>["col0"=>"val_r1_col_0"
+    ,"col1"=>"val_r1_col_1"
+    ,"col2"=>"val_r1_col_2"],
+    2=>["col0"=>"val_r2_col_0"
+    ,"col1"=>"val_r2_col_1"
+    ,"col2"=>"val_r2_col_2"]    
+];
+
+$arLabel = ["colName0" ,"colName1" ,"colName2"];
+
+//$oHlpTable = new Raw($arData); //works fine
+$oHlpTable = new Raw($arData,$arLabel);
+$oHlpTable->show();
+```
