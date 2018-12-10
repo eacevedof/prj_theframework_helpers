@@ -3,15 +3,15 @@
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
  * @version 1.8.0
- * @name TheFramework\Helpers\Html\Table\TableBasic
+ * @name TheFramework\Helpers\Html\Table\Basic
  * @date 18-02-2017 13:06 (SPAIN)
- * @file TableBasic.php
+ * @file Basic.php
  * @requires
  */
 namespace TheFramework\Helpers\Html\Table;
 
 //import_helper("select,form,form_fieldset,input_hidden,checkbox,table");
-class TableBasic extends HelperTable
+class Basic extends HelperTable
 {
     //Campos a crear antes del listado
     protected $arObjFields;
@@ -76,7 +76,7 @@ class TableBasic extends HelperTable
     public function __construct($arRows=[],$arColumns=[],$sIdForm="frmList",$sModule="")
     {
         //table,innert,classes,extra,style, parent=HelperTable
-        //Mientras que helper table trabaja con $arObjTr TableBasic Lo hace solo con array de datos
+        //Mientras que helper table trabaja con $arObjTr Basic Lo hace solo con array de datos
         //con estos array de datos posteriormente reutiliza arobjtr
         parent::__construct();
         $this->isPaginateBar = TRUE;
@@ -522,7 +522,7 @@ class TableBasic extends HelperTable
     
     protected function build_js()
     {
-        $sHtmlJs = "<script helper=\"tablebasic.build_js\" type=\"text/javascript\">\n";
+        $sHtmlJs = "<script helper=\"Basic.build_js\" type=\"text/javascript\">\n";
         $sHtmlJs .= $this->js_fn_rowchange();
         $sHtmlJs .= $this->js_fn_form_submit();
         $sHtmlJs .= $this->js_fn_check_all();
