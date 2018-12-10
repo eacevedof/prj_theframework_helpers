@@ -5,61 +5,37 @@
 <pre>php -S localhost:3000 -t tests</pre>
 <?php
 //index.php
-//include_once "../components/autoload.php";
 include_once "../helpers/autoload_nc.php";
 
-use TheFramework\Helpers\Html\Table\Tr;
-use TheFramework\Helpers\Html\Table\Td;
-use TheFramework\Helpers\Html\Table\Table;
+use TheFramework\Helpers\Html\Xl\Xl;
+use TheFramework\Helpers\Html\Xl\Li;
 
-$arData = [
-    0 => ["col0"=>"val_r0_col_0","col1"=>"val_r0_col_1","col2"=>"val_r0_col_2"],
-    1 => ["col0"=>"val_r1_col_0","col1"=>"val_r1_col_1","col2"=>"val_r1_col_2"],
-    2 => ["col0"=>"val_r2_col_0","col1"=>"val_r2_col_1","col2"=>"val_r2_col_2"]    
+$arItems = [
+    0 => "list item 0",1 => "list item 1"
+    ,2 => "list item 2",3 => "list item 3",
 ];
 
-$arLabel = ["colName0" ,"colName1" ,"colName2"];
+$oUl = new Xl();
+$oUl->add_style("background:grey");
+$oUl->add_style("width:100px");
 
-$arTrs = [];
+$oOl = new Xl();
+$oOl->set_type("ol");
+$oOl->add_style("background:yellow;width:200px;");
 
-$oTr = new Tr();
-foreach($arLabel as $sLabel)
+foreach($arItems as $i=>$sText)
 {
-    $oTh = new Td();
-    $oTh->set_type("th");
-    $oTh->set_comments(" this is a comment before Th");
-    $oTh->set_js_onclick("alert('clicked on {$sLabel}')");
-    $oTh->set_innerhtml($sLabel);
-    $oTr->add_td($oTh);
-}
-$arTrs[] = $oTr;
-
-foreach($arData as $iRow=>$arRow)
-{
-    $oTr = new Tr();
-    $oTr->set_attr_rownumber($iRow);
-    foreach($arRow as $sFieldName=>$sFieldValue)
-    {
-        $oTd = new Td();
-        if($iRow==0)
-            $oTd->add_style("border:1px solid red");
-        elseif($iRow==1)
-            $oTd->add_style("border:1px solid green");
-        else
-            $oTd->add_style("border:1px solid blue");
-
-        $oTd->set_attr_rownumber($iRow);
-        $oTd->set_attr_colnumber($sFieldName);
-        $oTd->set_innerhtml($sFieldValue);
-        $oTr->add_td($oTd);
-    }
-    $arTrs[] = $oTr;
+    $oLi = new Li($sText);
+    $oLi->add_style("border:1px dashed green");
+    $oUl->add_li($oLi);
+    $oOl->add_li($oLi);
 }//foreach
 
+echo "Unordered List (ul):<br/>";
+$oUl->show();
+echo "Ordered List (ol):<br/>";
+$oOl->show();
 
-//$oHlpTable = new Raw($arData); //works fine
-$oHlpTable = new Table($arTrs,"someTblId");
-$oHlpTable->add_style("background:#cccccc");
-$oHlpTable->add_style("border:1px dashed #FF0000");
-$oHlpTable->show();
+
+
 ?>

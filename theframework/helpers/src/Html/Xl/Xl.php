@@ -5,16 +5,17 @@
  * @version 1.0.2
  * @name TheFramework\Helpers\Html\Xl\Xl
  * @date 06-09-2013 16:58 (SPAIN)
- * @file helper_ul.php
+ * @file Xl.php
  */
-namespace TheFramework\Helpers\Html;
+namespace TheFramework\Helpers\Html\Xl;
 use TheFramework\Helpers\TheFrameworkHelper;
+
 class Xl extends TheFrameworkHelper
 {
     protected $arObjLi;
   
     public function __construct
-    ($id, $innerhtml="", $arObjLi=array())
+    ($innerhtml="",$id="",$arObjLi=array())
     {
         $this->_idprefix = "";
         $this->_type = "ul";
@@ -32,7 +33,7 @@ class Xl extends TheFrameworkHelper
         $arHtml[] = $this->_inner_html;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
-    }
+    }//get_html
 
     private function get_array_li_as_string()
     {
@@ -74,17 +75,18 @@ class Xl extends TheFrameworkHelper
         //if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";
         $arOpenTag[] =">\n";
         return implode("",$arOpenTag);
-    }    
+
+    }//get_opentag
 
     //**********************************
     //             SETS
     //**********************************
     public function set_array_li($arObjLi){$this->arObjLi = $arObjLi;}
-    
+    public function add_li($oLi){$this->arObjLi[] = $oLi;}
     
     //**********************************
     //             GETS
     //**********************************
     public function get_array_li(){return $this->arObjLi;}
-}
-?>
+
+}//Xl
