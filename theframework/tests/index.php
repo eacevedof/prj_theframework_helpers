@@ -8,35 +8,25 @@
 //index.php
 include_once "../helpers/autoload_nc.php";
 
-use TheFramework\Helpers\Html\Xl\Xl;
-use TheFramework\Helpers\Html\Xl\Li;
+use TheFramework\Helpers\Html\Anchor;
 
-$arItems = [
-    0 => "list item 0",1 => "list item 1"
-    ,2 => "list item 2",3 => "list item 3",
+$arLinks = [
+    "blank"=>["href"=>"https://github.com/eacevedof","innerhtml"=>"My Github (blank)"],
+    "self" =>["href"=>"http://theframework.es","innerhtml"=>"Site example (self)"]
 ];
 
-$oUl = new Xl();
-$oUl->add_style("background:grey");
-$oUl->add_style("width:100px");
-
-$oOl = new Xl();
-$oOl->set_type("ol");
-$oOl->add_style("background:yellow;width:200px;");
-
-foreach($arItems as $i=>$sText)
+foreach($arLinks as $sTarget => $arLink)
 {
-    $oLi = new Li($sText);
-    $oLi->add_style("border:1px dashed green");
-    $oUl->add_li($oLi);
-    $oOl->add_li($oLi);
-}//foreach
-
-echo "Unordered List (ul):<br/>";
-$oUl->show();
-echo "Ordered List (ol):<br/>";
-$oOl->show();
-
-
+    $sHref = $arLink["href"];
+    $sInnerHtml = $arLink["innerhtml"];
+    $oAnchor = new Anchor($sInnerHtml);
+    $oAnchor->set_href($sHref);
+    $oAnchor->add_style("background:yellow");
+    if($sTarget=="blank")
+        $oAnchor->add_style("background:#99FF00");
+    $oAnchor->set_target($sTarget);
+    $oAnchor->show();
+    echo "<br/>";
+}
 
 ?>

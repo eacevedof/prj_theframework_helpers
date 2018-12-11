@@ -302,3 +302,26 @@ $oUl->show();
 echo "Ordered List (ol):<br/>";
 $oOl->show();
 ```
+
+```php
+use TheFramework\Helpers\Html\Anchor;
+
+$arLinks = [
+    "blank"=>["href"=>"https://github.com/eacevedof","innerhtml"=>"My Github (blank)"],
+    "self" =>["href"=>"http://theframework.es","innerhtml"=>"Site example (self)"]
+];
+
+foreach($arLinks as $sTarget => $arLink)
+{
+    $sHref = $arLink["href"];
+    $sInnerHtml = $arLink["innerhtml"];
+    $oAnchor = new Anchor($sInnerHtml);
+    $oAnchor->set_href($sHref);
+    $oAnchor->add_style("background:yellow");
+    if($sTarget=="blank")
+        $oAnchor->add_style("background:#99FF00");
+    $oAnchor->set_target($sTarget);
+    $oAnchor->show();
+    echo "<br/>";
+}
+```
