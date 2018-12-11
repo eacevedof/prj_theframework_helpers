@@ -11,6 +11,7 @@
  */
 namespace TheFramework\Helpers\Html;
 use TheFramework\Helpers\TheFrameworkHelper;
+
 class Image extends TheFrameworkHelper
 {
     protected $_src;
@@ -29,13 +30,12 @@ class Image extends TheFrameworkHelper
         $this->arExtras = $arExtras;
     }
     
-    //Fieldset
     public function get_html()
     {  
-        $sHtmlToReturn = "<$this->_type";
+        $arHtml[] = "<$this->_type";
         if($this->_src) $arHtml[] = " src=\"$this->_src\"";
-        if($this->_alt) $arHtml[] = " alt=\"$this->_alt\"";
-        if($this->_title) $arHtml[] = " title=\"$this->_title\"";
+        if($this->_alt) $arHtml[] = " alt=\"{$this->get_cleaned($this->_alt)}\"";
+        if($this->_title) $arHtml[] = " title=\"{$this->get_cleaned($this->_title)}\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
@@ -56,9 +56,9 @@ class Image extends TheFrameworkHelper
         if($this->arExtras) $arHtml[] = " ".$this->get_extras();
         //if($this->_isPrimaryKey) $arOpenTag[] = " pk=\"pk\"";
         //if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";  
-        $sHtmlToReturn .=">";        
+        $arHtml[] = ">";
         return implode("",$arHtml);
-    }
+    }//get_html
         
         
     //**********************************

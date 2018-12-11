@@ -11,27 +11,34 @@ include_once "../helpers/autoload_nc.php";
 use TheFramework\Helpers\Html\Div;
 use TheFramework\Helpers\Html\Xl\Xl;
 use TheFramework\Helpers\Html\Xl\Li;
+use TheFramework\Helpers\Html\Image;
 
-$oDivMain = new Div("","divMain");
-$oDivMain->add_style("border:1px dashed blue");
+$arImages = [
+    ["src"=>"","alt"=>"","title"=>"","text"=>""],
+    ["src"=>"","alt"=>"","title"=>"","text"=>""],
+    ["src"=>"","alt"=>"","title"=>"","text"=>""],
+];
 
-$oUl = new Xl();
-$oUl->add_li((new Li("Item One")));
-$oUl->add_li((new Li("Item Two")));
-$oUl->add_li((new Li("Item Three")));
+$arObj = [];
 
-$oDiv1 = new Div();
-$oDiv1->set_id("divOne");
-$oDiv1->add_style("background:#ccc");
-$oDiv1->add_inner_object($oUl);
+foreach($arImages as $i=>$arImage)
+{
+    $sSrc = $arImage["src"];
+    $sAlt = $arImage["alt"];
+    $sTitle = $arImage["title"];
+    $sText = $arImage["text"];
 
-$oDiv2 = new Div("","divTwo");
-$oDiv2->add_style("border:1px solid magenta");
-$oDiv2->add_inner_object("this is a simple text");
+    $oImage = new Image();
+    $oImage->set_src($sSrc);
+    $oImage->set_alt($sAlt);
+    $oImage->set_title($sAlt);
+    $oImage->set_text($sText);
 
-$oDivMain->add_inner_object($oDiv1);
-$oDivMain->add_inner_object($oDiv2);
+    $arObj[] = $oImage;
+}//foreach
 
-$oDivMain->show();
+
+
+
 
 ?>
