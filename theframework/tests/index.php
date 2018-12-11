@@ -8,43 +8,30 @@
 //index.php
 include_once "../helpers/autoload_nc.php";
 
-use TheFramework\Helpers\Html\Button;
+use TheFramework\Helpers\Html\Div;
+use TheFramework\Helpers\Html\Xl\Xl;
+use TheFramework\Helpers\Html\Xl\Li;
 
-$arButtons = [
-    "submit" => "im a submitter",
-    "reset" => "im a resetter",
-    "button" => "im a common button"
-];
+$oDivMain = new Div("","divMain");
+$oDivMain->add_style("border:1px dashed blue");
 
-foreach($arButtons as $sType=>$sInnerHtml)
-    (new Button($sInnerHtml,$sType))->show();
+$oUl = new Xl();
+$oUl->add_li((new Li("Item One")));
+$oUl->add_li((new Li("Item Two")));
+$oUl->add_li((new Li("Item Three")));
 
-echo "<br/><br/>";
+$oDiv1 = new Div();
+$oDiv1->set_id("divOne");
+$oDiv1->add_style("background:#ccc");
+$oDiv1->add_inner_object($oUl);
 
-foreach($arButtons as $sType=>$sInnerHtml)
-{
-    $oButton = new Button();
-    $oButton->set_type($sType);
+$oDiv2 = new Div("","divTwo");
+$oDiv2->add_style("border:1px solid magenta");
+$oDiv2->add_inner_object("this is a simple text");
 
-    $oButton->set_innerhtml($sInnerHtml);
-    if($sType=="submit")
-    {
-        $oButton->set_style("background:red;color:white");
-        $oButton->set_js_onclick("alert('submit.clicked')");
-    }
-    elseif($sType=="reset")
-    {
-        $oButton->set_style("background:green;color:white");
-        $oButton->set_js_onmouseover("alert('reset.moseover')");
-    }
-    else 
-    {
-        $oButton->set_style("background:cyan");
-        $oButton->set_js_onmouseout("alert('reset.mouseout')");
-    }
+$oDivMain->add_inner_object($oDiv1);
+$oDivMain->add_inner_object($oDiv2);
 
-    $oButton->show();    
-}//foreach(arButtons)
-
+$oDivMain->show();
 
 ?>

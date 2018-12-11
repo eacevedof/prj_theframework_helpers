@@ -29,7 +29,7 @@ class Div extends TheFrameworkHelper
     //Fieldset
     public function get_html()
     {  
-        $sHtmlToReturn = $this->get_opentag();
+        $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         $this->load_inner_objects();
         $arHtml[] = $this->_inner_html;
@@ -61,7 +61,7 @@ class Div extends TheFrameworkHelper
         $arOpenTag[] = ">\n";
         return implode("",$arOpenTag);
         //TODO
-    }
+    }//get_opentag
 
     //**********************************
     //             SETS
@@ -76,4 +76,5 @@ class Div extends TheFrameworkHelper
     //**********************************
     public function show_opentag(){parent::show_opentag();}
     public function show_closetag(){parent::show_closetag();}
-}
+
+}//Div
