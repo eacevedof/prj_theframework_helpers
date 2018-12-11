@@ -325,3 +325,43 @@ foreach($arLinks as $sTarget => $arLink)
     echo "<br/>";
 }
 ```
+
+```php
+use TheFramework\Helpers\Html\Button;
+
+$arButtons = [
+    "submit" => "im a submitter",
+    "reset" => "im a resetter",
+    "button" => "im a common button"
+];
+
+foreach($arButtons as $sType=>$sInnerHtml)
+    (new Button($sInnerHtml,$sType))->show();
+
+echo "<br/><br/>";
+
+foreach($arButtons as $sType=>$sInnerHtml)
+{
+    $oButton = new Button();
+    $oButton->set_type($sType);
+
+    $oButton->set_innerhtml($sInnerHtml);
+    if($sType=="submit")
+    {
+        $oButton->set_style("background:red;color:white");
+        $oButton->set_js_onclick("alert('submit.clicked')");
+    }
+    elseif($sType=="reset")
+    {
+        $oButton->set_style("background:green;color:white");
+        $oButton->set_js_onmouseover("alert('reset.moseover')");
+    }
+    else 
+    {
+        $oButton->set_style("background:cyan");
+        $oButton->set_js_onmouseout("alert('reset.mouseout')");
+    }
+
+    $oButton->show();    
+}//foreach(arButtons)
+```

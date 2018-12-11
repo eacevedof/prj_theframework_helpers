@@ -8,25 +8,43 @@
 //index.php
 include_once "../helpers/autoload_nc.php";
 
-use TheFramework\Helpers\Html\Anchor;
+use TheFramework\Helpers\Html\Button;
 
-$arLinks = [
-    "blank"=>["href"=>"https://github.com/eacevedof","innerhtml"=>"My Github (blank)"],
-    "self" =>["href"=>"http://theframework.es","innerhtml"=>"Site example (self)"]
+$arButtons = [
+    "submit" => "im a submitter",
+    "reset" => "im a resetter",
+    "button" => "im a common button"
 ];
 
-foreach($arLinks as $sTarget => $arLink)
+foreach($arButtons as $sType=>$sInnerHtml)
+    (new Button($sInnerHtml,$sType))->show();
+
+echo "<br/><br/>";
+
+foreach($arButtons as $sType=>$sInnerHtml)
 {
-    $sHref = $arLink["href"];
-    $sInnerHtml = $arLink["innerhtml"];
-    $oAnchor = new Anchor($sInnerHtml);
-    $oAnchor->set_href($sHref);
-    $oAnchor->add_style("background:yellow");
-    if($sTarget=="blank")
-        $oAnchor->add_style("background:#99FF00");
-    $oAnchor->set_target($sTarget);
-    $oAnchor->show();
-    echo "<br/>";
-}
+    $oButton = new Button();
+    $oButton->set_type($sType);
+
+    $oButton->set_innerhtml($sInnerHtml);
+    if($sType=="submit")
+    {
+        $oButton->set_style("background:red;color:white");
+        $oButton->set_js_onclick("alert('submit.clicked')");
+    }
+    elseif($sType=="reset")
+    {
+        $oButton->set_style("background:green;color:white");
+        $oButton->set_js_onmouseover("alert('reset.moseover')");
+    }
+    else 
+    {
+        $oButton->set_style("background:cyan");
+        $oButton->set_js_onmouseout("alert('reset.mouseout')");
+    }
+
+    $oButton->show();    
+}//foreach(arButtons)
+
 
 ?>
