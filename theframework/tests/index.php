@@ -8,37 +8,12 @@
 //index.php
 include_once "../helpers/autoload_nc.php";
 
-use TheFramework\Helpers\Html\Div;
-use TheFramework\Helpers\Html\Xl\Xl;
-use TheFramework\Helpers\Html\Xl\Li;
-use TheFramework\Helpers\Html\Image;
-
-$arImages = [
-    ["src"=>"","alt"=>"","title"=>"","text"=>""],
-    ["src"=>"","alt"=>"","title"=>"","text"=>""],
-    ["src"=>"","alt"=>"","title"=>"","text"=>""],
-];
-
-$arObj = [];
-
-foreach($arImages as $i=>$arImage)
-{
-    $sSrc = $arImage["src"];
-    $sAlt = $arImage["alt"];
-    $sTitle = $arImage["title"];
-    $sText = $arImage["text"];
-
-    $oImage = new Image();
-    $oImage->set_src($sSrc);
-    $oImage->set_alt($sAlt);
-    $oImage->set_title($sAlt);
-    $oImage->set_text($sText);
-
-    $arObj[] = $oImage;
-}//foreach
+use TheFramework\Helpers\Html\Script;
 
 
-
+$oScript = new Script();
+$oScript->add_inner_object("var i=0;");
+$oScript->show();
 
 
 ?>

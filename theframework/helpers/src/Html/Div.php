@@ -26,7 +26,7 @@ class Div extends TheFrameworkHelper
         $this->arExtras = $arExtras;
     }
     
-    //Fieldset
+    //Div
     public function get_html()
     {  
         $arHtml[] = $this->get_opentag();
