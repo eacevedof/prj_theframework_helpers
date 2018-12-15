@@ -8,32 +8,14 @@
 //index.php
 include_once "../helpers/autoload_nc.php";
 
-use TheFramework\Helpers\Html\Script;
+use TheFramework\Helpers\Html\Span;
 
-$oScript = new Script();
-
-//making public some private js
-$sPathFrom = realpath(__DIR__."/../helpers/src/Vendor/Google/GoogleMaps3.js");
-$sPathTo = realpath(__DIR__."/js/");
-if($sPathTo) $sPathTo .= DIRECTORY_SEPARATOR."GoogleMaps3.js";
-$oScript->add_public($sPathFrom,$sPathTo);
-$oScript->move_topublic();
-
-$oScript->add_src("/js/GoogleMaps3.js");
-$oScript->add_srcext("https://code.jquery.com/jquery-3.3.1.js",[
-        "integrity"=>"sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=",
-        "crossorigin"=>"anonymous",
-        "media"=>"all",
-        "id"=>"idJquery331"
-    ]);
-$oScript->add_src("https://cdnjs.cloudflare.com/ajax/libs/ramda/0.26.1/ramda.js");
-$oScript->add_srcext("https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js",["comm"=>"vue2 v2"]);
-$oScript->show_htmlsrc();
-
-$oScript->add_inner_object("var i=0;");
-$oScript->add_inner_object("i++;");
-$oScript->add_inner_object("function my_alert(s){console.log('myalert:',s)}");
-$oScript->add_inner_object("my_alert(i);");
-$oScript->show();
-
+$oSpan = new Span();
+$oSpan->set_id("idSpan1");
+$oSpan->add_extras("title","Some title for span one");
+$oSpan->add_style("border:1px solid green");
+if($oSpan->get_id()=="idSpan1")
+    $oSpan->add_style("background:yellow");
+$oSpan->add_inner_object("What is Lorem Ipsum?");
+$oSpan->show();
 ?>

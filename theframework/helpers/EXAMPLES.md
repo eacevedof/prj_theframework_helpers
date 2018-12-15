@@ -423,3 +423,16 @@ $oScript->add_inner_object("function my_alert(s){console.log('myalert:',s)}");
 $oScript->add_inner_object("my_alert(i);");
 $oScript->show();
 ```
+
+```php
+use TheFramework\Helpers\Html\Span;
+
+$oSpan = new Span();
+$oSpan->set_id("idSpan1");
+$oSpan->add_extras("title","Some title for span one");
+$oSpan->add_style("border:1px solid green");
+if($oSpan->get_id()=="idSpan1")
+    $oSpan->add_style("background:yellow");
+$oSpan->add_inner_object("What is Lorem Ipsum?");
+$oSpan->show();
+```
