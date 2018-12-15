@@ -28,6 +28,4 @@ $oScript->add_inner_object("my_alert(i)");
 $oScript->show();
 
 
-
-
 ?>
