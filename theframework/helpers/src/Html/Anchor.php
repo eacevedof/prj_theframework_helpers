@@ -84,4 +84,5 @@ class Anchor extends TheFrameworkHelper
     //**********************************
     //             GETS
     //**********************************
-}
+    
+}//Anchor

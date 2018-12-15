@@ -10,8 +10,8 @@
  *      requires: FPDF
  */
 namespace TheFramework\Helpers\Vendor;
-use TheFramework\Helpers\TheFrameworkHelper;
-class FpdfCell extends TheFrameworkHelper
+
+class FpdfCell 
 {
     protected $isSingle;//=FALSE;//single,multi
     
@@ -117,4 +117,4 @@ class FpdfCell extends TheFrameworkHelper
     public function get_backcolor(){return $this->iBackColor;}
     public function is_resetcolors(){return $this->isResetColors;}
     
-}
+}//FpdfCell
