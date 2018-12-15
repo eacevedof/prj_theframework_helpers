@@ -72,13 +72,59 @@ class Script extends TheFrameworkHelper
         
     }//get_htmlsrc
     
+    private function move($sFrom,$sTo,$sMode)
+    {
+        //bug("$sFrom,$sTo,$sMode","move");die;
+        switch($sMode) 
+        {
+            //solo copia si no existe
+            case "c":
+                if(is_file($sFrom) && !is_file($sTo))
+                {
+                    //pr("copying...");
+                    copy($sFrom,$sTo);
+                }
+            break;
+
+            //rescribe siempre
+            case "rw":
+                if(is_file($sFrom) && is_file($sTo))
+                {
+                    unlink($sTo);
+                    copy($sFrom,$sTo);
+                }
+            break;
+        
+            default:
+            break;
+        }//switch(mode)
+    }//move
+    
+    public function move_topublic()
+    {
+        foreach($this->arPublic as $arPublic)
+        {
+            //pr($arPublic,"arPublic");
+            $sFrom = $arPublic["from"];
+            $sTo = $arPublic["to"];
+            $sMode = $arPublic["mode"];
+            $this->move($sFrom,$sTo,$sMode);
+        }
+    }//move_topublic
+    
     //**********************************
     //             SETS
     //**********************************
     public function set_src($arSrc=[]){$this->arSrc = $arSrc;}    
     public function add_src($sSrc){$this->arSrc[] = $sSrc;}
     public function add_srcext($sSrc,$arExtra=[]){$this->arSrc[] = array_merge(["src"=>$sSrc],$arExtra);}
- 
+    public function add_public($sPathFrom,$sPathTo,$sMode="c")
+    {
+        //pr("pathfrom:$sPathFrom,pathto:$sPathTo");
+        if($sPathFrom && $sPathTo)
+            $this->arPublic[] = ["from"=>$sPathFrom, "to"=>$sPathTo, "mode"=>$sMode];
+    }//add_public
+    
     //**********************************
     //             GETS
     //**********************************
