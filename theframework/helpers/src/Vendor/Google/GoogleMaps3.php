@@ -4,12 +4,11 @@
  * @link www.eduardoaf.com
  * @version 1.1.11
  * @name TheFramework\Helpers\Vendor\GoogleMaps3  
- * @date 27-10-2014 14:50
+ * @date 16-12-2018 14:50
  * @file GoogleMaps3.php
  * @requires js_google_map_3.js v1.1.4, jquery v1.7+ 
  */
 namespace TheFramework\Helpers\Vendor;
-use TheFramework\Helpers\TheFrameworkHelper;
 
 class GoogleMaps3
 {
