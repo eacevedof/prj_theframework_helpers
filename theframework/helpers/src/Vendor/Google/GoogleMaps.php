@@ -71,35 +71,36 @@ class GoogleMaps
     <div id="<?= $this->sDivId ?>"></div>
     <script>
     //https://stackoverflow.com/questions/3059044/google-maps-js-api-v3-simple-multiple-marker-example
-        // Initialize and add the map
-        function initMap()
-        {
+    // Initialize and add the map
+    function initMap()
+    {
             var arMarkers = <?= $this->get_markers_injs();?>
+            let eDivMap = document.getElementById("<?= $this->sDivId ?>");
+            let oMap = new google.maps.Map(eDivMap,{
+                zoom: 10,
+                center: new google.maps.LatLng(-33.92, 151.25),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: new google.maps.LatLng(-33.92, 151.25),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
+            var infowindow = new google.maps.InfoWindow();
 
-    var infowindow = new google.maps.InfoWindow();
+        var oMarker, i;
 
-    var marker, i;
+        for (i = 0; i < arMarkers.length; i++) 
+        {  
+            oMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(arMarkers[i][1], arMarkers[i][2]),
+                map: oMap
+            });
 
-    for (i = 0; i < arMarkers.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(arMarkers[i][1], arMarkers[i][2]),
-        map: map
-      });
-
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent(arMarkers[i][0]);
-          infowindow.open(map, marker);
+            google.maps.event.addListener(oMarker, 'click', (function(marker, i) {
+            return function() {
+                infowindow.setContent(arMarkers[i][0]);
+                infowindow.open(map, marker);
+            }
+            })(oMarker, i));
         }
-      })(marker, i));
-    }
-        }
+    }//initMap()
     </script>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
