@@ -86,7 +86,7 @@ class GoogleMaps
 
         var oMarker, i;
 
-        for (i = 0; i < arMarkers.length; i++) 
+        for(i= 0; i<arMarkers.length; i++) 
         {  
             oMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(arMarkers[i][1], arMarkers[i][2]),
