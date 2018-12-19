@@ -21,6 +21,7 @@ class GoogleMaps
     
     public function __construct($sApikey="") 
     {
+        $this->arMarkers = [];
         $this->sApikey = $sApikey;
         $this->load_map_attribs();
     }
@@ -32,6 +33,24 @@ class GoogleMaps
         $this->sDivWidth = "100%";
     }
     
+    public function get_markers(){return $this->arMarkers;}
+    public function get_markers_injs()
+    {
+        $arJs = [];
+        foreach($this->arMarkers as $i=>$arMarker)
+        {
+            $j = $i+1;
+            $sText = isset($arMarker["text"])?$arMarker["text"]:"";
+            $sLat = isset($arMarker["lat"])?$arMarker["lat"]:"0.0";
+            $sLong = isset($arMarker["long"])?$arMarker["long"]:"0.0";
+
+            $arJs[] = "['$sText',$sLat,$sLong,$j]";
+        }
+        if($arJs)
+            return "[".implode(",",$arJs)."];";
+        return "[];";
+    }
+
     public function show_style()
     {
 ?>
@@ -55,13 +74,7 @@ class GoogleMaps
         // Initialize and add the map
         function initMap()
         {
-            var locations = [
-      ['Bondi Beach', -33.890542, 151.274856, 4],
-      ['Coogee Beach', -33.923036, 151.259052, 5],
-      ['Cronulla Beach', -34.028249, 151.157507, 3],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-      ['Maroubra Beach', -33.950198, 151.259302, 1]
-    ];
+            var arMarkers = <?= $this->get_markers_injs();?>
 
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
@@ -73,15 +86,15 @@ class GoogleMaps
 
     var marker, i;
 
-    for (i = 0; i < locations.length; i++) {  
+    for (i = 0; i < arMarkers.length; i++) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(arMarkers[i][1], arMarkers[i][2]),
         map: map
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
-          infowindow.setContent(locations[i][0]);
+          infowindow.setContent(arMarkers[i][0]);
           infowindow.open(map, marker);
         }
       })(marker, i));
