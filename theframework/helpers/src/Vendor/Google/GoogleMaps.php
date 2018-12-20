@@ -23,15 +23,17 @@ class GoogleMaps
         $this->arMarkers = [];
         $this->arCenter = [];
         $this->sApikey = $sApikey;
-        $this->load_map_attribs();
+        $this->arCenter[0] = ["lat"=>"0.0","long"=>"0.0"];
+        $this->load_attr_div();
     }
     
-    private function load_map_attribs()
+    private function load_attr_div()
     {
         $this->arDiv["id"] = "map";
         $this->arDiv["height"] = "400px";
         $this->arDiv["width"] = "100%";
-        $this->arCenter[0] = ["lat"=>"0.0","long"=>"0.0"];
+        $this->arDiv["margin"] = "0";
+        $this->arDiv["padding"] = "0";
     }
     
     public function get_markers(){return $this->arMarkers;}
@@ -60,6 +62,9 @@ class GoogleMaps
     #<?= $this->arDiv["id"]; ?> {
         height: <?= $this->arDiv["height"]; ?>;  /* The height is 400 pixels */
         width: <?= $this->arDiv["width"]; ?>;  /* The width is the width of the web page */
+        margin: <?= $this->arDiv["margin"]; ?>;
+        padding: <?= $this->arDiv["padding"]; ?>;
+        
     }
 </style>
 <?php
@@ -71,20 +76,28 @@ class GoogleMaps
     <!--The div element for the map -->
     <div id="<?= $this->arDiv["id"]; ?>"></div>
     <script>
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();    
     //https://stackoverflow.com/questions/3059044/google-maps-js-api-v3-simple-multiple-marker-example
     // Initialize and add the map
     function initMap()
     {
+        directionsDisplay = new google.maps.DirectionsRenderer();
         var oInfoWindow = new google.maps.InfoWindow();
+        
         var oMarker, i;
+        var oRequest = {
+            travelMode: google.maps.TravelMode.DRIVING
+        };
 
-        let arMarkers = <?= $this->get_markers_injs();?>
+        let arMarkers = <?= $this->get_markers_injs(); ?>
         let eDivMap = document.getElementById("<?= $this->arDiv["id"]; ?>");
         let oMap = new google.maps.Map(eDivMap,{
             zoom: 10,
             center: new google.maps.LatLng(<?= $this->arCenter[0]["lat"]; ?>,<?= $this->arCenter[0]["long"]; ?>),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        directionsDisplay.setMap(oMap);
 
 
         for(i=0; i<arMarkers.length; i++) 
@@ -101,8 +114,24 @@ class GoogleMaps
                     oInfoWindow.open(map,marker);
                 }
             })(oMarker,i));
+
+            if(i == 0) oRequest.origin = oMarker.getPosition();
+            else if(i == arMarkers.length - 1) oRequest.destination = oMarker.getPosition();
+            else 
+            {
+                if (!oRequest.waypoints) oRequest.waypoints = [];
+                oRequest.waypoints.push({
+                    location: oMarker.getPosition(),
+                    stopover: true
+                });
+            }
         }//for(markers)
 
+        directionsService.route(oRequest, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(result);
+            }
+        });
     }//initMap()
 
     </script>
