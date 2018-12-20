@@ -22,7 +22,7 @@ $oScript->add_src("/js/GoogleMaps3.js");
 $oGoogleMap = new GoogleMaps("AIzaSyDjgTpYTwwgJtthbRh3vYZUS1xkpC-bf0k");
 $oGoogleMap->set_center("-33.92","151.25");
 $oGoogleMap->add_attr_div("width","50%");
-$oGoogleMap->add_marker("-33.950198","151.259302","Maroubra Beach");
+$oGoogleMap->add_marker("-33.950198","151.259302","<b>Maroubra Beach</b>");
 $oGoogleMap->add_marker("-33.923036","151.259052","Coogee Beach");
 $oGoogleMap->add_marker("-34.028249","151.157507","Cronulla Beach");
 $oGoogleMap->add_marker("-33.80010128657071","151.28747820854187","Manly Beach");
@@ -32,12 +32,14 @@ $oGoogleMap->add_marker("-33.890542","151.274856","Bondi Beach");
 <html>
 <head>
 <?php
+//muestra estilo
 $oGoogleMap->show_style();
 ?>
 </head>
 <body>
     <h3>My Google Maps Demo</h3>
 <?php
+//muestra el mapa pintado
 $oGoogleMap->show_div();
 ?>
 </body>
