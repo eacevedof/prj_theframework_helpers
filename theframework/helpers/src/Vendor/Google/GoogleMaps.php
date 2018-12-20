@@ -94,7 +94,7 @@ class GoogleMaps
                 map: oMap
             });
 
-            google.maps.event.addListener(oMarker, 'click', (function(marker, i) {
+            google.maps.event.addListener(oMarker,'click',(function(marker,i){
                 return function() {
                     //html dentro del bocadillo
                     oInfoWindow.setContent(arMarkers[i][0]);
