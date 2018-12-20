@@ -15,11 +15,13 @@ class GoogleMaps
     private $sApikey;
     private $arMarkers;
     private $arDiv;
+    private $arCenter;
     
     public function __construct($sApikey="") 
     {
         $this->arDiv = [];
         $this->arMarkers = [];
+        $this->arCenter = [];
         $this->sApikey = $sApikey;
         $this->load_map_attribs();
     }
@@ -29,6 +31,7 @@ class GoogleMaps
         $this->arDiv["id"] = "map";
         $this->arDiv["height"] = "400px";
         $this->arDiv["width"] = "100%";
+        $this->arCenter[0] = ["lat"=>"0.0","long"=>"0.0"];
     }
     
     public function get_markers(){return $this->arMarkers;}
@@ -72,19 +75,19 @@ class GoogleMaps
     // Initialize and add the map
     function initMap()
     {
-            var arMarkers = <?= $this->get_markers_injs();?>
-            let eDivMap = document.getElementById("<?= $this->arDiv["id"]; ?>");
-            let oMap = new google.maps.Map(eDivMap,{
-                zoom: 10,
-                center: new google.maps.LatLng(-33.92, 151.25),
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-
-            var infowindow = new google.maps.InfoWindow();
-
+        var oInfoWindow = new google.maps.InfoWindow();
         var oMarker, i;
 
-        for(i= 0; i<arMarkers.length; i++) 
+        let arMarkers = <?= $this->get_markers_injs();?>
+        let eDivMap = document.getElementById("<?= $this->arDiv["id"]; ?>");
+        let oMap = new google.maps.Map(eDivMap,{
+            zoom: 10,
+            center: new google.maps.LatLng(<?= $this->arCenter[0]["lat"]; ?>,<?= $this->arCenter[0]["long"]; ?>),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+
+        for(i=0; i<arMarkers.length; i++) 
         {  
             oMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(arMarkers[i][1], arMarkers[i][2]),
@@ -93,12 +96,15 @@ class GoogleMaps
 
             google.maps.event.addListener(oMarker, 'click', (function(marker, i) {
                 return function() {
-                    infowindow.setContent(arMarkers[i][0]);
-                    infowindow.open(map, marker);
+                    //html dentro del bocadillo
+                    oInfoWindow.setContent(arMarkers[i][0]);
+                    oInfoWindow.open(map,marker);
                 }
-            })(oMarker, i));
-        }
+            })(oMarker,i));
+        }//for(markers)
+
     }//initMap()
+
     </script>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
@@ -112,5 +118,5 @@ class GoogleMaps
     public function set_aplikey($sKey){$this->sApikey=$sKey;}
     public function add_attr_div($sKey,$mxValue){$this->arDiv[$sKey]=$mxValue;}
     public function add_marker($sLat,$sLong,$sText=""){$this->arMarkers[]=["text"=>$sText,"lat"=>$sLat,"long"=>$sLong];}
-
+    public function set_center($sLat,$sLong){$this->arCenter[0] = ["lat"=>$sLat,"long"=>$sLong];}
 }//GoogleMaps

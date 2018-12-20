@@ -20,7 +20,8 @@ $oScript->move_topublic();
 $oScript->add_src("/js/GoogleMaps3.js");
 
 $oGoogleMap = new GoogleMaps("AIzaSyDjgTpYTwwgJtthbRh3vYZUS1xkpC-bf0k");
-
+$oGoogleMap->set_center("-33.92","151.25");
+$oGoogleMap->add_attr_div("width","50%");
 $oGoogleMap->add_marker("-33.950198","151.259302","Maroubra Beach");
 $oGoogleMap->add_marker("-33.923036","151.259052","Coogee Beach");
 $oGoogleMap->add_marker("-34.028249","151.157507","Cronulla Beach");
