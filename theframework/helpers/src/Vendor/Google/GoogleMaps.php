@@ -13,14 +13,12 @@ class GoogleMaps
 {
     
     private $sApikey;
-    private $sDivId;
-    private $sDivWidth;
-    private $sDivHeight;
-
     private $arMarkers;
+    private $arDiv;
     
     public function __construct($sApikey="") 
     {
+        $this->arDiv = [];
         $this->arMarkers = [];
         $this->sApikey = $sApikey;
         $this->load_map_attribs();
@@ -28,9 +26,9 @@ class GoogleMaps
     
     private function load_map_attribs()
     {
-        $this->sDivId = "map";
-        $this->sDivHeight = "400px";
-        $this->sDivWidth = "100%";
+        $this->arDiv["id"] = "map";
+        $this->arDiv["height"] = "400px";
+        $this->arDiv["width"] = "100%";
     }
     
     public function get_markers(){return $this->arMarkers;}
@@ -56,9 +54,9 @@ class GoogleMaps
 ?>
 <style>
     /* Set the size of the div element that contains the map */
-    #<?= $this->sDivId; ?> {
-        height: <?= $this->sDivHeight; ?>;  /* The height is 400 pixels */
-        width: <?= $this->sDivWidth; ?>;  /* The width is the width of the web page */
+    #<?= $this->arDiv["id"]; ?> {
+        height: <?= $this->arDiv["height"]; ?>;  /* The height is 400 pixels */
+        width: <?= $this->arDiv["width"]; ?>;  /* The width is the width of the web page */
     }
 </style>
 <?php
@@ -68,14 +66,14 @@ class GoogleMaps
     {
 ?>
     <!--The div element for the map -->
-    <div id="<?= $this->sDivId ?>"></div>
+    <div id="<?= $this->arDiv["id"]; ?>"></div>
     <script>
     //https://stackoverflow.com/questions/3059044/google-maps-js-api-v3-simple-multiple-marker-example
     // Initialize and add the map
     function initMap()
     {
             var arMarkers = <?= $this->get_markers_injs();?>
-            let eDivMap = document.getElementById("<?= $this->sDivId ?>");
+            let eDivMap = document.getElementById("<?= $this->arDiv["id"]; ?>");
             let oMap = new google.maps.Map(eDivMap,{
                 zoom: 10,
                 center: new google.maps.LatLng(-33.92, 151.25),
@@ -94,10 +92,10 @@ class GoogleMaps
             });
 
             google.maps.event.addListener(oMarker, 'click', (function(marker, i) {
-            return function() {
-                infowindow.setContent(arMarkers[i][0]);
-                infowindow.open(map, marker);
-            }
+                return function() {
+                    infowindow.setContent(arMarkers[i][0]);
+                    infowindow.open(map, marker);
+                }
             })(oMarker, i));
         }
     }//initMap()
@@ -112,6 +110,7 @@ class GoogleMaps
     }//show_div
     
     public function set_aplikey($sKey){$this->sApikey=$sKey;}
+    public function add_attr_div($sKey,$mxValue){$this->arDiv[$sKey]=$mxValue;}
     public function add_marker($sLat,$sLong,$sText=""){$this->arMarkers[]=["text"=>$sText,"lat"=>$sLat,"long"=>$sLong];}
 
 }//GoogleMaps
