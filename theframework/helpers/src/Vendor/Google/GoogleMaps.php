@@ -113,14 +113,14 @@ class GoogleMaps
                 return function() {
                     //html dentro del bocadillo
                     oInfoWindow.setContent(arMarkers[i][0]);
-                    oInfoWindow.open(map,marker);
+                    oInfoWindow.open(oMap,marker);
                 }
             })(oMarker,i));
 
         }//for(markers)
 
-        var l=GmapsLines()
-        l.run()
+        //var l=GmapsLines()
+        //l.run()
     }//initMap()
 
     </script>
