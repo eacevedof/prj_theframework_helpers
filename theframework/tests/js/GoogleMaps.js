@@ -1,4 +1,4 @@
-var GmapsLines = (function lines_factory(){
+var GmapsLines = function() {
     //https://medium.com/@vvkchandra/essential-javascript-mastering-immediately-invoked-function-expressions-67791338ddc6
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 3,
@@ -26,7 +26,4 @@ var GmapsLines = (function lines_factory(){
             flightPath.setMap(map);
         }
     }
-    
-    
-    //alert("puntos");
-}());
+}

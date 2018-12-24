@@ -119,6 +119,8 @@ class GoogleMaps
 
         }//for(markers)
 
+        var l=GmapsLines()
+        l.run()
     }//initMap()
 
     </script>
