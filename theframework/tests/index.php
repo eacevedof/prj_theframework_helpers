@@ -1,7 +1,9 @@
 <!-- hot reload -->
-<meta http-equiv="refresh" content="500">
+<meta http-equiv="refresh" content="20000">
 <a href="https://github.com/eacevedof/prj_theframework_helpers/tree/develop" target="_blank">Repo</a>
 <a href="https://github.com/eacevedof/prj_theframework_helpers/blob/develop/theframework/helpers/EXAMPLES.md" target="_blank">Examples</a>
+
+
 <pre>php -S localhost:3000 -t theframework/tests</pre>
 
 <?php
@@ -12,12 +14,13 @@ use TheFramework\Helpers\Html\Script;
 use TheFramework\Helpers\Vendor\Google\GoogleMaps;
 
 $oScript = new Script();
-$sPathFrom = realpath(__DIR__."/../helpers/src/Vendor/Google/GoogleMaps3.js");
+$sPathFrom = realpath(__DIR__."/../helpers/src/Vendor/Google/GoogleMaps.js");
 $sPathTo = realpath(__DIR__."/js/");
-if($sPathTo) $sPathTo .= DIRECTORY_SEPARATOR."GoogleMaps3.js";
-$oScript->add_public($sPathFrom,$sPathTo);
+if($sPathTo) $sPathTo .= DIRECTORY_SEPARATOR."GoogleMaps.js";
+
+$oScript->add_public($sPathFrom,$sPathTo,"rw");
 $oScript->move_topublic();
-$oScript->add_src("/js/GoogleMaps3.js");
+$oScript->add_src("/js/GoogleMaps.js");
 
 $oGoogleMap = new GoogleMaps("AIzaSyDjgTpYTwwgJtthbRh3vYZUS1xkpC-bf0k");
 $oGoogleMap->set_center("-33.92","151.25");
@@ -42,6 +45,7 @@ $oGoogleMap->show_style();
 <?php
 //muestra el mapa pintado
 $oGoogleMap->show_div();
+$oScript->show_htmlsrc();
 ?>
 </body>
 </html>
