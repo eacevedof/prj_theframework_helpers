@@ -27,9 +27,9 @@ abstract class AbsHelper
     protected $_display = true;
     protected $_class = "";
     protected $_style = "";
-    protected $arClasses = array();
-    protected $arStyles = array();
-    protected $arInnerObjects = array();
+    protected $arClasses = [];
+    protected $arStyles = [];
+    protected $arInnerObjects = [];
     protected $_value;
 
     //Esto emula el atributo bloqueado. Si esta a TRUE crea el control autoseleccionado con un
@@ -94,9 +94,9 @@ abstract class AbsHelper
         return "$sParamName=$sValue";
     }  
     
-    protected function build_uri_params_with_keys($arKeysAndValues=array())
+    protected function build_uri_params_with_keys($arKeysAndValues=[])
     {
-        $arDestinyKeys = array();
+        $arDestinyKeys = [];
         $sDestinyKeys = "";
         foreach($arKeysAndValues as $sFieldName=>$value)
             $arDestinyKeys[]=$this->concat_param_value($sFieldName, $value);
@@ -108,7 +108,7 @@ abstract class AbsHelper
     
     protected function extract_fields_and_values($arFields, $arFieldNames)
     {
-        $arExtracted = array();
+        $arExtracted = [];
         foreach($arFields as $sFieldName=>$value)
             if(in_array($sFieldName, $arFieldNames))
                 $arExtracted[$sFieldName] = $value;
@@ -126,7 +126,7 @@ abstract class AbsHelper
      */
     protected function extract_values($arFields, $arFieldNames, $asArray=FALSE, $sSeparator="-")
     {
-        $arExtracted = array(); $sExtracted="";
+        $arExtracted = []; $sExtracted="";
         foreach($arFields as $sFieldName=>$value)
             if(in_array($sFieldName, $arFieldNames)) 
                 $arExtracted[] = $value;
@@ -171,7 +171,7 @@ abstract class AbsHelper
      */
     public function add_inner_object($mxValue){if($mxValue) $this->arInnerObjects[] = $mxValue;}
     
-    public function set_extras(array $value){$this->arExtras = array(); if($value) $this->arExtras = $value;}
+    public function set_extras(array $value){$this->arExtras = []; if($value) $this->arExtras = $value;}
     public function add_extras($sKey,$sValue=NULL)
     {
         if($sKey)
@@ -195,12 +195,12 @@ abstract class AbsHelper
     protected function set_name($value){$this->_name = $value;}
 
     public function set_label(\TheFramework\Helpers\Form\Label $oLabel){$this->oLabel = $oLabel;}
-    public function set_class($class){$this->arClasses=array();if($class)$this->arClasses[] = $class;}    
-    public function set_style($value){$this->arStyles=array();if($value) $this->arStyles[] = $value;}
+    public function set_class($class){$this->arClasses=[];if($class)$this->arClasses[] = $class;}    
+    public function set_style($value){$this->arStyles=[];if($value) $this->arStyles[] = $value;}
     protected function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
-    protected function reset_class(){$this->arClasses=array();$this->_class="";}
-    protected function reset_style(){$this->arStyles=array();$this->_style="";}
-    protected function reset_inner_object(){$this->arInnerObjects=array();}
+    protected function reset_class(){$this->arClasses=[];$this->_class="";}
+    protected function reset_style(){$this->arStyles=[];$this->_style="";}
+    protected function reset_inner_object(){$this->arInnerObjects=[];}
     protected function set_inner_objects($arObjHelpers){$this->arInnerObjects=$arObjHelpers;}
     protected function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     protected function get_cleaned($sString)
@@ -217,7 +217,7 @@ abstract class AbsHelper
     public function get_class(){return $this->_class;}
     public function get_extras($asString=TRUE)
     {
-        $arExtras = array();
+        $arExtras = [];
         if($asString)
         {
             foreach($this->arExtras as $sKey=>$sValue)

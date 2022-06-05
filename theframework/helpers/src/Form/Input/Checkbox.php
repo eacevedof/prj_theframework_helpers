@@ -40,8 +40,8 @@ class Checkbox extends AbsHelper
      * @param Legend $oLegend
      * @param Fieldset $oFieldset
      */
-    public function __construct($mxOptions=array(), $name="", 
-            $mxValuesToCheck=array(), $mxValuesDisabled=array(), $class="", $arExtras="",$isGrouped=true,
+    public function __construct($mxOptions=[], $name="", 
+            $mxValuesToCheck=[], $mxValuesDisabled=[], $class="", $arExtras="",$isGrouped=true,
             Legend $oLegend=null, Fieldset $oFieldset=null )
     {
         $this->conv_string_to_array($mxOptions,1);
@@ -95,7 +95,7 @@ class Checkbox extends AbsHelper
 
     private function build_check($id, $sValue, $sOutText, $isChecked=false, $isReadOnly=false)
     {
-        $arHtml = array();
+        $arHtml = [];
         $sName = $this->_name;
         if(!$sName) $sName = "noname";
 
@@ -156,7 +156,7 @@ class Checkbox extends AbsHelper
             //ser index1->texto1,index2->texto2
             if($isValIndex)
             {
-                $arIndex = array();
+                $arIndex = [];
                 foreach($mxStrArray as $v)
                     $arIndex[$v]="";
                 $mxStrArray = $arIndex;

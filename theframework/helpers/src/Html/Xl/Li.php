@@ -23,7 +23,7 @@ class Li extends AbsHelper
     //li
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
@@ -65,7 +65,7 @@ class Li extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    //public function set_array_items($arItems=array()){$this->_arItems = $arItems;}
+    //public function set_array_items($arItems=[]){$this->_arItems = $arItems;}
     
     //**********************************
     //             GETS

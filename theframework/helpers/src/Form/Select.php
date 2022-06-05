@@ -21,7 +21,7 @@ class Select extends AbsHelper
     
     public function __construct
     ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
-     ,$isMultiple=FALSE, $arExtras=array(), $class="", $isReadOnly=FALSE)
+     ,$isMultiple=FALSE, $arExtras=[], $class="", $isReadOnly=FALSE)
     {
         $this->_type = "select";
         $this->mxValuesToSelect = $mxValueToSelect;
@@ -41,7 +41,7 @@ class Select extends AbsHelper
 
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag(); 
@@ -172,9 +172,9 @@ class Select extends AbsHelper
      * @param array $arValuesToSelect
      * @return array
      */
-    private function get_items_readonly($arOptions,$arValuesToSelect=array())
+    private function get_items_readonly($arOptions,$arValuesToSelect=[])
     {
-        $arItemReadOnly = array();
+        $arItemReadOnly = [];
         
         foreach($arOptions as $sOptValue=>$sOptText)
             foreach($arValuesToSelect as $sValue)

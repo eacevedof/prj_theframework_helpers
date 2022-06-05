@@ -32,7 +32,7 @@ class File extends AbsHelper
     
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";

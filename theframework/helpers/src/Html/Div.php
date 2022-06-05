@@ -13,7 +13,7 @@ use TheFramework\Helpers\AbsHelper;
 class Div extends AbsHelper
 {
    
-    public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=array())
+    public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=[])
     {
         $this->_type = "div";
         $this->_idprefix = "";

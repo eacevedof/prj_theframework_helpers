@@ -12,7 +12,7 @@ use TheFramework\Helpers\AbsHelper;
 class Span extends AbsHelper
 {    
     public function __construct($innerhtml="", $id="", 
-            $class="", $style="", $arExtras=array())
+            $class="", $style="", $arExtras=[])
     {
         $this->_type = "span";
         $this->_idprefix = "";
@@ -27,7 +27,7 @@ class Span extends AbsHelper
     //span
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag(); 
         $this->load_inner_objects();

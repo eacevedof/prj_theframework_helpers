@@ -20,7 +20,7 @@ class Textarea extends AbsHelper
     private $isCounterJs;
     
     public function __construct
-    ($id="",$name="",$innerhtml="",$arExtras=array(),$maxlength=-1
+    ($id="",$name="",$innerhtml="",$arExtras=[],$maxlength=-1
     ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=NULL)
     {
         $this->_type = "textarea";
@@ -83,7 +83,7 @@ class Textarea extends AbsHelper
     
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         //Una longitud de 0 tiene un comportamiento parecido a un bloqueado

@@ -15,7 +15,7 @@ class Label extends AbsHelper
     private $_for = "";
     
     public function __construct($for="", $innerhtml="", $id="", 
-            $class="", $style="", $arExtras=array())
+            $class="", $style="", $arExtras=[])
     {
         $this->_type = "label";
         $this->_idprefix = "";
@@ -32,7 +32,7 @@ class Label extends AbsHelper
     //label
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";        
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 

@@ -148,7 +148,7 @@ function bugpf($sKey)
 {
     if($sKey=="")
     {
-        $arPG = array();
+        $arPG = [];
         $arPG["FILES"] = $_FILES;
         bug($arPG,"FILES");
     }
@@ -189,7 +189,7 @@ function bugdir($sDirPath,$sVarName="var", $isDie=false)
 
 function bugpg($sTitle="")
 {
-    $arPG = array();
+    $arPG = [];
     $arPG["POST"] = $_POST;
     $arPG["GET"] = $_GET;
     $arPG["FILES"] = $_FILES;
@@ -200,7 +200,7 @@ function bugp($sKey="")
 {
     if($sKey=="")
     {
-        $arPG = array();
+        $arPG = [];
         $arPG["POST"] = $_POST;
         bug($arPG,"POST");
     }
@@ -212,7 +212,7 @@ function bugg($sKey="")
 {
     if($sKey=="")
     {
-        $arPG = array();
+        $arPG = [];
         $arPG["GET"] = $_GET;
         bug($arPG,"GET");    
     }
@@ -224,7 +224,7 @@ function bugss($sKey="")
 {
     if($sKey=="")
     {
-        $arPG = array();
+        $arPG = [];
         $arPG["session_id()"] = session_id();
         $arPG["SESSION"] = $_SESSION;
         bug($arPG,"SESSION");    
@@ -283,7 +283,7 @@ function bugf($sKey="")
 {
     if($sKey=="")
     {
-        $arPG = array();
+        $arPG = [];
         $arPG["FILES"] = $_FILES;
         bug($arPG,"FILES");
     }

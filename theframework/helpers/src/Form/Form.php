@@ -23,7 +23,7 @@ class Form extends AbsHelper
     private $oLegend;
 
     public function __construct($id="", $name="", $method="post", $innerhtml=""
-            , $action="", $class="", $style="", $arExtras=array(), $enctype="", $onsubmit="")
+            , $action="", $class="", $style="", $arExtras=[], $enctype="", $onsubmit="")
     {
         //enctype="multipart/form-data"
         $this->_type = "form";
@@ -43,7 +43,7 @@ class Form extends AbsHelper
 
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";       
         $arHtml[] = $this->get_opentag();
         if($this->oFieldset) $arHtml[] = $this->oFieldset->get_opentag();
@@ -80,7 +80,7 @@ class Form extends AbsHelper
     
     public function get_opentag()
     {
-        $arOpenTag = array();
+        $arOpenTag = [];
         $arOpenTag[] = "<$this->_type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
 

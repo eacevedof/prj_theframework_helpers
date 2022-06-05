@@ -21,7 +21,7 @@ class Date extends AbsHelper
     private $cSeparator;
 
     public function __construct
-    ($id="", $name="", $value="", $arExtras=array(), $maxlength="", $class="", Label $oLabel=NULL)
+    ($id="", $name="", $value="", $arExtras=[], $maxlength="", $class="", Label $oLabel=NULL)
     {
         $this->_idprefix = "";//dtb
         $this->cSeparator = "/";
@@ -90,7 +90,7 @@ class Date extends AbsHelper
     
     public function get_html()
     {  
-        $arHtml = array();               
+        $arHtml = [];               
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = "<input";

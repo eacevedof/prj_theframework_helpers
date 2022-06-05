@@ -15,7 +15,7 @@ class Xl extends AbsHelper
     protected $arObjLi;
   
     public function __construct
-    ($innerhtml="",$id="",$arObjLi=array())
+    ($innerhtml="",$id="",$arObjLi=[])
     {
         $this->_idprefix = "";
         $this->_type = "ul";
@@ -26,7 +26,7 @@ class Xl extends AbsHelper
     
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if(!$this->_inner_html) $this->_inner_html = $this->get_array_li_as_string();
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag();

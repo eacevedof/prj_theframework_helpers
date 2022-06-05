@@ -27,7 +27,7 @@ class Link extends AbsHelper
     
     public function get_html()
     {
-        $arHtml = array();
+        $arHtml = [];
         foreach($this->arHrefs as $sHrefPath)
         {
             if($sHrefPath)

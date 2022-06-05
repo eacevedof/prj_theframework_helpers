@@ -91,7 +91,7 @@ class GoogleMaps3
     private $_arNarrowLong = array("min"=>-9, "max"=>4); //Eje X
     
     //TODO: Direcciones a geolocalizar. Lo dejaré para otra versión.
-    private $_arAddresses = array();
+    private $_arAddresses = [];
     //Indica si se ha de esperar x microsegundos a que responda la url de petición
     private $_useDelay = true;
     private $_iDelayTime = 250;
@@ -99,7 +99,7 @@ class GoogleMaps3
     //Indicadores del estado de la petición de geolocalización.
     private $_is_error = false;
     private $_message = "";
-    private $_arRoutes = array();
+    private $_arRoutes = [];
     
     /**
      * Formato del array de marcadores:
@@ -113,7 +113,7 @@ class GoogleMaps3
      * @param array $arRutas Array anidado tipo tabla filas x columnas 
      * @param array $arAddresses TODO próxima entrega ;0) 
      */
-    public function __construct($arRutas=array(),$arAddresses=array(),$sApikey="") 
+    public function __construct($arRutas=[],$arAddresses=[],$sApikey="") 
     { 
         $this->_arRoutes = $arRutas;
         $this->_arAddresses = $arAddresses;
@@ -173,7 +173,7 @@ class GoogleMaps3
     
     private function get_js_as_array_from_routes()
     {
-        $arJsRoutes = array();
+        $arJsRoutes = [];
         $sJsArray = "[";
         foreach($this->_arRoutes as $arRouteData)
         {
@@ -197,7 +197,7 @@ class GoogleMaps3
     private function get_js_as_array_table_from_markers($arMarkers)
     {
         if(empty($arMarkers))$arMarkers=$this->_arMarkers;
-        $arItems = array();
+        $arItems = [];
         $sJsArray = "[";
         foreach($arMarkers as $arRow)
             $arItems[] = $this->get_as_js_array_row($arRow);
@@ -231,7 +231,7 @@ class GoogleMaps3
     {
         $arTable = $this->_arMarkers;
         //bug($arTable,"a pasar a js");
-        $arItems = array();
+        $arItems = [];
         $sJsArray = "[";
         foreach($arTable as $arRow)
             $arItems[] = $this->get_as_js_array_row($arRow);
@@ -246,9 +246,9 @@ class GoogleMaps3
      * @param array $arRowMarker tipo array("nombre_columna"=>"valor",..,)
      * @return string Cadena de texto en formato array 
      */
-    private function get_as_js_array_row($arRowMarker=array())
+    private function get_as_js_array_row($arRowMarker=[])
     {
-        $arItems = array();
+        $arItems = [];
         $sJsArray = "[";
         foreach($arRowMarker as $key=>$sFieldValue)
         {
@@ -312,7 +312,7 @@ class GoogleMaps3
         $fX2 = $arPoint2["latitude"];
         $fY2 = $arPoint2["longitude"];
         
-        $arParams = array();
+        $arParams = [];
         
         if(!empty($this->_sClientId) )$arParams["clientid"]="client=$this->_sClientId";
         if(!empty($this->_sChannel)) $arParams["channel"]="channel=$this->_sChannel";
@@ -728,7 +728,7 @@ class GoogleMaps3
 //======================
     
     //TODO Corregir en el futuro
-    public function set_markers($arMarkers=array()){ $this->_arMarkers = $arMarkers; }
+    public function set_markers($arMarkers=[]){ $this->_arMarkers = $arMarkers; }
     public function set_markers_numbers_off($isOn=false){$this->_useMakersNumbers = $isOn;}
     
     public function set_maptype($sValue){$this->_sMapType = strtolower("'$sValue'");}

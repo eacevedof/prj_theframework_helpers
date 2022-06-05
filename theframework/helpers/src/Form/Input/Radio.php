@@ -18,7 +18,7 @@ class Radio extends AbsHelper
     private $_legendtext;
     
     public function __construct($arOptions, $grpname, $legendtext=""
-            , $valuetocheck="", $class="", $arExtras=array())
+            , $valuetocheck="", $class="", $arExtras=[])
     {
         //$this->_id = ""; el id se aplica por check no por legend
         $this->_type = "radio";
@@ -34,7 +34,7 @@ class Radio extends AbsHelper
 
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         if($this->_legendtext) $arHtml[] = "<legend>$this->_legendtext</legend>\n";
 
@@ -55,7 +55,7 @@ class Radio extends AbsHelper
     private function build_input_radio($id, $value, Label $oLabel=null, $isChecked=false)
     {
         $this->_id = $id;
-        $arHtml = array();
+        $arHtml = [];
         $arHtml[] = "<input";
         if($this->_type) $arHtml[] = " type=\"$this->_type\"";
         if($this->_id) $arHtml[] = " id=\"$id\"";

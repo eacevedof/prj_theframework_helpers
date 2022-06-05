@@ -18,7 +18,7 @@ class Image extends AbsHelper
     protected $_alt;
     protected $_title;
 
-    public function __construct($src="", $id="", $class="", $style="", $arExtras=array())
+    public function __construct($src="", $id="", $class="", $style="", $arExtras=[])
     {
         $this->_type = "img";
         $this->_idprefix = "";

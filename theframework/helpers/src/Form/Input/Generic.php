@@ -12,7 +12,7 @@ use TheFramework\Helpers\AbsHelper;
 
 class Generic extends AbsHelper
 {
-    public function __construct($value,$arExtras=array())
+    public function __construct($value,$arExtras=[])
     {
         $this->_value = $value;
         $this->arExtras = $arExtras;
@@ -20,7 +20,7 @@ class Generic extends AbsHelper
 
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = "<input";
         if($this->_value || $this->_value=="0") 

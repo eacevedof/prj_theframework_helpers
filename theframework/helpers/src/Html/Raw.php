@@ -22,7 +22,7 @@ class Raw extends AbsHelper
     public function get_html()
     {  
         //Agrega a inner_html los valores obtenidos con get_html
-        $arHtml = array();
+        $arHtml = [];
         $this->load_inner_objects();
         $arHtml[] = $this->_inner_html;
         return implode("",$arHtml);

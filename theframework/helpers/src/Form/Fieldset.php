@@ -14,7 +14,7 @@ use TheFramework\Helpers\AbsHelper;
 class Fieldset extends AbsHelper
 {
     
-    public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=array())
+    public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=[])
     {
         $this->_type = "fieldset";
         $this->_idprefix = "";
@@ -29,7 +29,7 @@ class Fieldset extends AbsHelper
     //Fieldset
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag(); 
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto

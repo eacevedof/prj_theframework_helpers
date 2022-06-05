@@ -23,7 +23,7 @@ class Table extends AbsHelper
     protected $iNumCols = 0;
     
     public function __construct
-    ($arMxTrs=array(), $id="", $class="", $style="", $arExtras=array())
+    ($arMxTrs=[], $id="", $class="", $style="", $arExtras=[])
     {
         //clientbrowser,isMobileDevice,consolecalled,permalink
         parent::__construct();
@@ -62,7 +62,7 @@ class Table extends AbsHelper
     //table
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag(); 
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arInnerObjects
@@ -139,7 +139,7 @@ class Table extends AbsHelper
         return $sTr;
     }//get_mxtr_as_string
     
-    protected function build_thead($arPosHead=array())
+    protected function build_thead($arPosHead=[])
     {
         $sTr = "";
         foreach($arPosHead as $iPos)
@@ -153,7 +153,7 @@ class Table extends AbsHelper
         return $sThead;
     }//build_thead
     
-    protected function build_tbody($arPosBody=array())
+    protected function build_tbody($arPosBody=[])
     {
         $sTr = "";
         foreach($arPosBody as $iPos)
@@ -167,7 +167,7 @@ class Table extends AbsHelper
         return $sTbody;
     }//build_tbody
 
-    protected function build_tfoot($arPosFoot=array())
+    protected function build_tfoot($arPosFoot=[])
     {
         $sTr = "";
         foreach($arPosFoot as $iPos)
@@ -183,7 +183,7 @@ class Table extends AbsHelper
 
     protected function get_positions_head()
     {
-        $arReturn = array();
+        $arReturn = [];
         if($this->useThead)
             foreach($this->arObjTrs as $i=>$mxRow)
             {   
@@ -214,9 +214,9 @@ class Table extends AbsHelper
         return $arReturn;
     }
     
-    protected function get_positions_body($arPosHead=array(), $arPosFoot=array())
+    protected function get_positions_body($arPosHead=[], $arPosFoot=[])
     {
-        $arReturn = array();
+        $arReturn = [];
         //TODO solo usar indices
         //foreach($this->arObjTrs as $i=>$oTr)
         $iRows = count($this->arObjTrs);
@@ -229,7 +229,7 @@ class Table extends AbsHelper
     
     protected function get_positions_foot()
     {
-        $arReturn = array();
+        $arReturn = [];
         if($this->useTfoot)
             foreach($this->arObjTrs as $i=>$oRow)
                 //la unica forma de saber si es pie es que sea un objeto sino no
@@ -243,7 +243,7 @@ class Table extends AbsHelper
     //**********************************
     public function use_header($isOn=true){$this->useThead=$isOn;}
     public function use_footer($isOn=true){$this->useTfoot=$isOn;}
-    public function set_objrows($objArray=array())
+    public function set_objrows($objArray=[])
     {
         $this->arObjTrs = $objArray;
         $this->iNumRows = count($this->arObjTrs);

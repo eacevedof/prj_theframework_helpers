@@ -21,8 +21,8 @@ class Tr extends AbsHelper
     protected $sAttrRownumber;
     
     public function __construct
-    ($arInnerObjectss=array(), $id="", $class="", $style="", $colspan=""
-            , $rowpan="", $arExtras=array())
+    ($arInnerObjectss=[], $id="", $class="", $style="", $colspan=""
+            , $rowpan="", $arExtras=[])
     {
         $this->_type = "tr";
         $this->_inner_html = "";
@@ -84,7 +84,7 @@ class Tr extends AbsHelper
     //             SETS
     //==================================
     public function set_colspan($value){$this->iColSpan = $value;}
-    public function set_objtds($arInnerObjects=array()){$this->arInnerObjects = $arInnerObjects;$this->iNumCols = count($this->arInnerObjects);}
+    public function set_objtds($arInnerObjects=[]){$this->arInnerObjects = $arInnerObjects;$this->iNumCols = count($this->arInnerObjects);}
     public function set_as_rowhead($isOn=TRUE){$this->isRowHead = $isOn;}
     public function set_as_rowfoot($isOn=TRUE){$this->isRowFoot = $isOn;}
     public function set_attr_rownumber($value){$this->sAttrRownumber = $value;}

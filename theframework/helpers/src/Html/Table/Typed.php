@@ -25,7 +25,7 @@ class Typed extends HelperTableBasic
     protected $isColumnButtonUpdate;
     protected $isColumnButtonInsert;
     
-    public function __construct($arRows=array(),$arColumns=array(),$sFormId="frmList",$sModule="")
+    public function __construct($arRows=[],$arColumns=[],$sFormId="frmList",$sModule="")
     {
         //1:table,innert,classes,extra,style
         //2:arDataRows,arColumns,sFormId,_idprefix,_id,sModule,sUrlDel,sUrlUp
@@ -41,11 +41,11 @@ class Typed extends HelperTableBasic
         $this->_id = $sModule;
         $this->sMergeGlue = ",";
         
-        $this->arColumnsAnchor = array();
-        $this->arColumnsInputText = array();
-        $this->arColumnsRadio = array();
-        $this->arColumnsSelect = array();
-        $this->arColumnsCheckbox = array();
+        $this->arColumnsAnchor = [];
+        $this->arColumnsInputText = [];
+        $this->arColumnsRadio = [];
+        $this->arColumnsSelect = [];
+        $this->arColumnsCheckbox = [];
     }
 
     public function get_html()
@@ -53,7 +53,7 @@ class Typed extends HelperTableBasic
         $this->useThead = true;
         $this->useTfoot =true;
         
-        $arHtml = array();
+        $arHtml = [];
         $oFieldset = new HelperFieldset();
         $oForm = new HelperForm($this->sFormId);
         //@TODOTEMPLATE
@@ -332,7 +332,7 @@ class Typed extends HelperTableBasic
     
     protected function replace_tagnames(&$sValue,$arRow)
     {
-        $arTagNames = array();
+        $arTagNames = [];
         //busca todas las coincidencias %value%
         preg_match_all("/%[a-z,A-Z,\_]+%/",$sValue,$arTagNames);
         $arTagNames = $arTagNames[0];

@@ -19,7 +19,7 @@ class Td extends AbsHelper
     private $_attr_colnumber;
     private $_attr_position;
     
-    public function __construct($innerhtml="", $id="", $class="", $style="", $colspan="", $arExtras=array())
+    public function __construct($innerhtml="", $id="", $class="", $style="", $colspan="", $arExtras=[])
     {
         $this->_type = "td";
         $this->_idprefix = "td";
@@ -34,7 +34,7 @@ class Td extends AbsHelper
 
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         $arHtml[] = $this->get_opentag();
         //TODO puede que haya conflictos entre el add_inner_object y set_innerobject
         //Hacer pruebas

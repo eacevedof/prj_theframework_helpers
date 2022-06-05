@@ -16,7 +16,7 @@ class Raw extends AbsHelper
     protected $arLabels;
     protected $arRows;
 
-    public function __construct($arRows,$arLabels=array()) 
+    public function __construct($arRows,$arLabels=[]) 
     {
         $this->_idprefix = "";
         $this->_type = "table";

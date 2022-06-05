@@ -14,7 +14,7 @@ use TheFramework\Helpers\AbsHelper;
 class Legend extends AbsHelper
 {
 
-    public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=array())
+    public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=[])
     {
         $this->_type = "legend";
         $this->_idprefix = "";
@@ -30,7 +30,7 @@ class Legend extends AbsHelper
     //legend
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag(); 
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arInnerObjects
@@ -43,7 +43,7 @@ class Legend extends AbsHelper
     public function get_opentag()
     {
         //Ejem: <fieldset> <legend>Personalia:</legend> Name: <input type="text" size="30"><br>
-        $arOpenTag = array();
+        $arOpenTag = [];
         $arOpenTag[] = "<$this->_type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
         //eventos

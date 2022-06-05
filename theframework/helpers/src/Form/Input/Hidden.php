@@ -14,7 +14,7 @@ class Hidden extends AbsHelper
 {
     //private $_name = "hid_name";
 
-    public function __construct($id="",$name="",$value="",$arExtras=array())
+    public function __construct($id="",$name="",$value="",$arExtras=[])
     {
         $this->_type = "hidden";
         $this->_idprefix = "";
@@ -26,7 +26,7 @@ class Hidden extends AbsHelper
 
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = "<input";
         if($this->_type) $arHtml[] = " type=\"$this->_type\"";

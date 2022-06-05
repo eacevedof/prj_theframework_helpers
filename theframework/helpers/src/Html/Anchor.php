@@ -18,7 +18,7 @@ class Anchor extends AbsHelper
     private $_target;
     
     public function __construct($innerhtml="", $id="", $href="", $target="", 
-            $class="", $style="", $arExtras=array())
+            $class="", $style="", $arExtras=[])
     {
         $this->_type = "a";
         $this->_idprefix = "";
@@ -36,7 +36,7 @@ class Anchor extends AbsHelper
 
     public function get_html()
     {  
-        $arHtml = array();
+        $arHtml = [];
         if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 

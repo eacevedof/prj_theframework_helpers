@@ -102,7 +102,7 @@ class Basic extends HelperTable
         $this->useThead = true;
         $this->useTfoot =true;
         
-        $arHtml = array();
+        $arHtml = [];
         $oFieldset = new HelperFieldset();
         $oForm = new HelperForm($this->sIdForm);
         $oForm->add_class("form-horizontal");
