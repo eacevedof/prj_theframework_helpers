@@ -97,7 +97,7 @@ class ComponentDbSqlite
         return $isAffected;
     }//execute
     
-    private function get_rowcol($arResult,$iCol=NULL,$iRow=NULL)
+    private function get_rowcol($arResult,$iCol=null,$iRow=null)
     {
         if(is_int($iCol) || is_int($iRow))
         {
@@ -114,7 +114,7 @@ class ComponentDbSqlite
         return $arResult;
     }
     
-    public function query($sSQL,$iCol=NULL,$iRow=NULL)
+    public function query($sSQL,$iCol=null,$iRow=null)
     {
         try
         {
@@ -152,7 +152,7 @@ class ComponentDbSqlite
         return [];
     }//query
     
-    public function conn_close(){if(!$this->isPersistent)self::$oPDO = NULL;}
+    public function conn_close(){if(!$this->isPersistent)self::$oPDO = null;}
     
     private function add_message($sMessage,$sType="error")
     {

@@ -132,7 +132,7 @@ La clave de LIKP es VBELN, que corresponde al número de entrega. (sigue sin fun
             $arOns[] = "$sTableAux.$sPk = $sTableFull.$sPk";
         $sSQL .= implode("\nAND ",$arOns);
 
-        $sSQL .= "\nWHERE 1=1 \nAND $sTableFull.$sPk IS NULL";
+        $sSQL .= "\nWHERE 1=1 \nAND $sTableFull.$sPk IS null";
         
         return $sSQL;
     }
@@ -178,14 +178,14 @@ SELECT  ERP_T001_AUX.Status, ERP_T001_AUX.BUKRS, ERP_T001_AUX.BUTXT, ERP_T001_AU
 FROM  ERP_T001_AUX 
 LEFT OUTER JOIN ERP_T001 AS ERP_T001_1 
 ON ERP_T001_AUX.BUKRS = ERP_T001_1.BUKRS
-WHERE (ERP_T001_1.BUKRS IS NULL)    
+WHERE (ERP_T001_1.BUKRS IS null)    
      * 
 INSERT INTO ERP_T001 
 SELECT  ERP_T001_AUX.*
 FROM  ERP_T001_AUX 
 LEFT OUTER JOIN ERP_T001 AS ERP_T001_1 
 ON ERP_T001_AUX.BUKRS = ERP_T001_1.BUKRS
-WHERE (ERP_T001_1.BUKRS IS NULL)
+WHERE (ERP_T001_1.BUKRS IS null)
      *  */
     
     

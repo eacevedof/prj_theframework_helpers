@@ -39,25 +39,25 @@ abstract class AbsHelper implements IHelper
     protected $_isEnterUpdate = false;//aplica action=update
     protected $_isEnterSubmit = false;//no aplica nada
     
-    protected $_js_onclick = NULL;
-    protected $_js_onchange = NULL;
-    protected $_js_onkeypress = NULL;
-    protected $_js_onkeydown = NULL;
-    protected $_js_onkeyup = NULL;
+    protected $_js_onclick = null;
+    protected $_js_onchange = null;
+    protected $_js_onkeypress = null;
+    protected $_js_onkeydown = null;
+    protected $_js_onkeyup = null;
     
-    protected $_js_onblur = NULL;
-    protected $_js_onfocus = NULL;
-    protected $_js_onmouseover = NULL;
-    protected $_js_onmouseout = NULL;    
+    protected $_js_onblur = null;
+    protected $_js_onfocus = null;
+    protected $_js_onmouseover = null;
+    protected $_js_onmouseout = null;    
     
-    protected $_attr_dbtype = NULL;
-    protected $_attr_dbfield = NULL;
+    protected $_attr_dbtype = null;
+    protected $_attr_dbfield = null;
     
-    protected $oBD = NULL;
+    protected $oBD = null;
     //Label
-    protected $oLabel = NULL;
+    protected $oLabel = null;
     //HelperStyle
-    protected $oStyle = NULL;
+    protected $oStyle = null;
     
     public function __construct(){}
     
@@ -167,7 +167,7 @@ abstract class AbsHelper implements IHelper
     public function add_inner_object($mxValue){if($mxValue) $this->arInnerObjects[] = $mxValue;}
     
     public function set_extras(array $value){$this->arExtras = []; if($value) $this->arExtras = $value;}
-    public function add_extras($sKey,$sValue=NULL)
+    public function add_extras($sKey,$sValue=null)
     {
         if($sKey)
             $this->arExtras[$sKey] = $sValue;
@@ -222,7 +222,7 @@ abstract class AbsHelper implements IHelper
                 {
                     if(strstr($sValue,"="))
                         $arExtras[] = $sValue;
-                    elseif($sValue!==NULL)
+                    elseif($sValue!==null)
                         $arExtras[] = "$sKey=\"$sValue\"";
                     else 
                         $arExtras[] = $sKey;

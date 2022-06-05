@@ -21,7 +21,7 @@ class Textarea extends AbsHelper
     
     public function __construct
     ($id="",$name="",$innerhtml="",$arExtras=[],$maxlength=-1
-    ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=NULL)
+    ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=null)
     {
         $this->type = "textarea";
 

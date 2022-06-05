@@ -178,12 +178,12 @@ class ComponentDebug
         {
             //bug($_SESSION["componentdebug"]);
             $arArray = array_merge($_SESSION["componentdebug"],$arArray);
-            $_SESSION["componentdebug"] = NULL;
+            $_SESSION["componentdebug"] = null;
         }
         if(isset($_POST["componentdebug"]) && is_array($_POST["componentdebug"]))
         {
             $arArray = array_merge($_POST["componentdebug"],$arArray);
-            $_POST["componentdebug"] = NULL;
+            $_POST["componentdebug"] = null;
         }        
         
         $sHtmlTable = "";
@@ -219,7 +219,7 @@ class ComponentDebug
                     $sFieldValue = str_replace(" OR ","<br/><b> OR </b>",$sFieldValue);
                     $sFieldValue = str_replace(" IN ","<b> IN </b>",$sFieldValue);
                     $sFieldValue = str_replace(" ON ","<b> ON </b>",$sFieldValue);
-                    $sFieldValue = str_replace(" NULL","<b> NULL</b>",$sFieldValue);
+                    $sFieldValue = str_replace(" null","<b> null</b>",$sFieldValue);
                     $sFieldValue = str_replace("ORDER BY ","<br/><b>ORDER BY </b>",$sFieldValue);
                     $sFieldValue = str_replace("GROUP BY ","<br/><b>GROUP BY </b>",$sFieldValue);
                     $sFieldValue = str_replace("INSERT INTO ","<b>INSERT INTO </b>",$sFieldValue);
@@ -257,12 +257,12 @@ class ComponentDebug
         {
             //bug($_SESSION["componentdebug"]);
             $arArray = array_merge($_SESSION["componentdebug"],$arArray);
-            $_SESSION["componentdebug"] = NULL;
+            $_SESSION["componentdebug"] = null;
         }
         if(isset($_POST["componentdebug"]) && is_array($_POST["componentdebug"]))
         {
             $arArray = array_merge($_POST["componentdebug"],$arArray);
-            $_POST["componentdebug"] = NULL;
+            $_POST["componentdebug"] = null;
         }        
         
         $sLog = "";

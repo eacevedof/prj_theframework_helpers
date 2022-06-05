@@ -89,8 +89,8 @@ class ComponentGd2
      */
     public function resize($arTo)
     {
-        $iW = isset($arTo["w"])?$arTo["w"]:NULL;
-        $iH = isset($arTo["h"])?$arTo["h"]:NULL;
+        $iW = isset($arTo["w"])?$arTo["w"]:null;
+        $iH = isset($arTo["h"])?$arTo["h"]:null;
         $this->arFrom["pathfile"] = $this->arFrom["pathfolder"].DS.$this->arFrom["filename"];
         $this->arTo["pathfile"] = $this->arFrom["pathfolder"].DS.$this->arFrom["filename"];
         

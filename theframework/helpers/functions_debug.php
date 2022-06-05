@@ -59,7 +59,7 @@ if(!function_exists("errorson"))
 
 if(!function_exists("pr"))
 {
-    function pr($var="",$sTitle=NULL)
+    function pr($var="",$sTitle=null)
     {
         if($sTitle)
             $sTitle=" $sTitle: ";
@@ -75,7 +75,7 @@ if(!function_exists("pr"))
 
 if(!function_exists("lg"))
 {
-    function lg($var="",$sTitle=NULL)
+    function lg($var="",$sTitle=null)
     {
         $sNow = date("Y-m-d_H:i:s");
         if($sTitle) $sTitle = "<<  $sTitle >>";
@@ -269,7 +269,7 @@ function bugcond($var,$isCheckCondition)
         pr("isCheckCondition = false");
 }
 
-function bugraw($var,$sVarName=NULL)
+function bugraw($var,$sVarName=null)
 {
     $sReturn = "\n";
     if($sVarName)

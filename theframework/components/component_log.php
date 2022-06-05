@@ -43,7 +43,7 @@ class ComponentLog
         return $sReturn;
     }
     
-    public function save($mxVar,$sTitle=NULL)
+    public function save($mxVar,$sTitle=null)
     {
         if(!is_string($mxVar)) 
             $mxVar = var_export($mxVar,1);

@@ -21,7 +21,7 @@ class Date extends AbsHelper
     private $cSeparator;
 
     public function __construct
-    ($id="", $name="", $value="", $arExtras=[], $maxlength="", $class="", Label $oLabel=NULL)
+    ($id="", $name="", $value="", $arExtras=[], $maxlength="", $class="", Label $oLabel=null)
     {
         $this->_idprefix = "";//dtb
         $this->cSeparator = "/";

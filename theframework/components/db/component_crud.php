@@ -37,7 +37,7 @@ class ComponentCrud
      * 
      * @param TheFramework\Components\Db\ComponentMysql $oDB
      */
-    public function __construct($oDB=NULL)
+    public function __construct($oDB=null)
     { 
         $this->arEnd = array();
         $this->arResult = array();
@@ -79,7 +79,7 @@ class ComponentCrud
     
     private function is_numeric($sFieldName){return in_array($sFieldName,$this->arNumeric);}
         
-    public function autoinsert($sTable=NULL,$arFieldVal=array())
+    public function autoinsert($sTable=null,$arFieldVal=array())
     {
         //Limpio la consulta 
         $this->sSQL = "-- autoinsert";
@@ -108,8 +108,8 @@ class ComponentCrud
                 //los paso a entrecomillado
                 foreach ($arValues as $i=>$sValue)
                 {
-                    if($sValue===NULL)
-                        $arAux[] = "NULL";
+                    if($sValue===null)
+                        $arAux[] = "null";
                     else
                         $arAux[] = "'$sValue'";
                 }
@@ -125,7 +125,7 @@ class ComponentCrud
         }//se ha proporcionado una tabla
     }//autoinsert
     
-    public function autoupdate($sTable=NULL,$arFieldVal=array(),$arPksFV=array())
+    public function autoupdate($sTable=null,$arFieldVal=array(),$arPksFV=array())
     {
         //Limpio la consulta 
         $this->sSQL = "-- autoupdate";
@@ -152,8 +152,8 @@ class ComponentCrud
                 $arAux = array();
                 foreach($arFieldVal as $sField=>$sValue)
                 {    
-                    if($sValue===NULL)
-                        $arAux[] = "$sField=NULL";
+                    if($sValue===null)
+                        $arAux[] = "$sField=null";
                     elseif($this->is_numeric($sField))
                         $arAux[] = "$sField=$sValue";
                     else    
@@ -166,8 +166,8 @@ class ComponentCrud
                 $arAux = array();
                 foreach($arPksFV as $sField=>$sValue)
                 {    
-                    if($sValue===NULL)
-                        $arAux[] = "$sField IS NULL";
+                    if($sValue===null)
+                        $arAux[] = "$sField IS null";
                     elseif($this->is_numeric($sField))
                         $arAux[] = "$sField=$sValue";
                     else    
@@ -184,7 +184,7 @@ class ComponentCrud
         }//se ha proporcionado una tabla
     }//autoupdate
     
-    public function autodelete($sTable=NULL,$arPksFV=array())
+    public function autodelete($sTable=null,$arPksFV=array())
     {
         //Limpio la consulta 
         $this->sSQL = "-- autodelete";
@@ -208,8 +208,8 @@ class ComponentCrud
                 
                 foreach($arPksFV as $sField=>$sValue)
                 {    
-                    if($sValue===NULL)
-                        $arAnd[] = "$sField IS NULL";
+                    if($sValue===null)
+                        $arAnd[] = "$sField IS null";
                     elseif($this->is_numeric($sField))
                         $arAux[] = "$sField=$sValue";
                     else    
@@ -226,7 +226,7 @@ class ComponentCrud
         }//se ha proporcionado una tabla
     }//autodelete     
     
-    public function autodelete_logic($sTable=NULL,$arPksFV=array())
+    public function autodelete_logic($sTable=null,$arPksFV=array())
     {
         //Limpio la consulta 
         $this->sSQL = "-- autodelete_logic";
@@ -252,8 +252,8 @@ class ComponentCrud
                 $arAnd = array();
                 foreach($arPksFV as $sField=>$sValue)
                 {    
-                    if($sValue===NULL)
-                        $arAnd[] = "$sField IS NULL";
+                    if($sValue===null)
+                        $arAnd[] = "$sField IS null";
                     elseif($this->is_numeric($sField))
                         $arAux[] = "$sField=$sValue";
                     else    
@@ -269,7 +269,7 @@ class ComponentCrud
         }//se ha proporcionado una tabla
     }//autodelete_logic    
     
-    public function autoundelete_logic($sTable=NULL,$arPksFV=array())
+    public function autoundelete_logic($sTable=null,$arPksFV=array())
     {
         //Limpio la consulta 
         $this->sSQL = "-- autoundelete_logic";
@@ -290,8 +290,8 @@ class ComponentCrud
                 $codUserSession = getPostParam("userId");
                 $sNow = date("Ymdhis");
                 $sSQL = "$sSQLComment UPDATE $sTable 
-                        SET Delete_Date=NULL
-                        ,Delete_User=NULL
+                        SET Delete_Date=null
+                        ,Delete_User=null
                         ,Modify_Date='$sNow'
                         ,Modify_User='$codUserSession'
                         ";
@@ -300,8 +300,8 @@ class ComponentCrud
                 $arAnd = array();
                 foreach($arPksFV as $sField=>$sValue)
                 {    
-                    if($sValue===NULL)
-                        $arAnd[] = "$sField IS NULL";
+                    if($sValue===null)
+                        $arAnd[] = "$sField IS null";
                     elseif($this->is_numeric($sField))
                         $arAux[] = "$sField=$sValue";
                     else    
@@ -317,7 +317,7 @@ class ComponentCrud
         }//se ha proporcionado una tabla
     }//autoundelete_logic  
     
-    public function get_selectfrom($sTable=NULL,$arFields=array(),$arPksFV=array())
+    public function get_selectfrom($sTable=null,$arFields=array(),$arPksFV=array())
     {
         //Limpio la consulta 
         $this->sSQL = "-- get_selectfrom";
@@ -348,8 +348,8 @@ class ComponentCrud
                 $arAux = array();
                 foreach($arPksFV as $sField=>$sValue)
                 {    
-                    if($sValue===NULL)
-                        $arAux[] = "$sField IS NULL";
+                    if($sValue===null)
+                        $arAux[] = "$sField IS null";
                     elseif($this->is_numeric($sField))
                         $arAux[] = "$sField=$sValue";
                     else    
@@ -367,13 +367,13 @@ class ComponentCrud
                 $this->query();
                 return $this->arResult;
             }//si se han proporcionado correctamente los datos campo=>valor y las claves
-            return NULL;
+            return null;
         }//se ha proporcionado una tabla
     }//get_selectfrom
     
     private function extract_top_sql($sSQL)
     {
-        $sTop = NULL;
+        $sTop = null;
         $sSQL = strtolower($sSQL);
         //puede ser select top x select distinct top 
         $sTopPatern = "/select[\s]+top[\s]+[\d]+[\s]/";
@@ -404,10 +404,10 @@ class ComponentCrud
         $sOrderBy = strstr($sSQL,"order by ");
 
         if($sDistinct) $sDistinct = "distinct";
-        else $sDistinct = NULL;
+        else $sDistinct = null;
 
         if($sTop) $sTop = $this->extract_top_sql($sSQL);
-        else $sTop = NULL;
+        else $sTop = null;
 
         //SELECT y FROM siempre existen en una sentencia SQL
         $sFields = explode("from ",$sSQL);
@@ -502,7 +502,7 @@ class ComponentCrud
         return $sFields;
     }
         
-    public function set_table($sTable=NULL){$this->sTable=$sTable;}
+    public function set_table($sTable=null){$this->sTable=$sTable;}
     public function setcomment($sComment){$this->sSQLComment = $sComment;}
     
     public function set_insert_fv($arFieldVal=array()){$this->arInsertFV = array(); if(is_array($arFieldVal)) $this->arInsertFV=$arFieldVal;}
@@ -525,13 +525,13 @@ class ComponentCrud
     
     /**
      * @param string $sTable Tabla sobre la que se va a comprobar. Por defecto this.sTable
-     * 1: Delete_Date IS NOT NULL (con borrado logico)<br/>
-     * 0: Delete_Date IS NULL (sin borrado logico)<br/>
-     * NULL: No aplica filtro por fecha solo claves<br/>
+     * 1: Delete_Date IS NOT null (con borrado logico)<br/>
+     * 0: Delete_Date IS null (sin borrado logico)<br/>
+     * null: No aplica filtro por fecha solo claves<br/>
      * @param int $isDeleted
      * @return boolean
      */
-    public function is_intable($sTable=NULL,$isDeleted=1)
+    public function is_intable($sTable=null,$isDeleted=1)
     {
         if(!$sTable) $sTable = $this->sTable;
         
@@ -543,9 +543,9 @@ class ComponentCrud
             $arAnd[] = "$this->sTable.$sFieldName='$sFieldValue'";
 
         if($isDeleted===1)
-            $arAnd[] = "$this->sTable.Delete_Date IS NOT NULL";
+            $arAnd[] = "$this->sTable.Delete_Date IS NOT null";
         elseif($isDeleted===0)
-            $arAnd[] = "$this->sTable.Delete_Date IS NULL";
+            $arAnd[] = "$this->sTable.Delete_Date IS null";
         
         $sSQL .= implode(" AND ",$arAnd);
         $this->sSQL = $sSQL;
@@ -575,8 +575,8 @@ class ComponentCrud
             $arAux = array();
             foreach($this->arPksFV as $sField=>$sValue)
             {    
-                if($sValue===NULL)
-                    $arAux[] = "$sField IS NULL";
+                if($sValue===null)
+                    $arAux[] = "$sField IS null";
                 elseif($this->is_numeric($sField))
                     $arAux[] = "$sField=$sValue";
                 else    
@@ -586,7 +586,7 @@ class ComponentCrud
             if($arAux)
                 $sSQL .= " AND ".implode(" AND ",$arAux);
             
-            $iMax = NULL;
+            $iMax = null;
             $this->sSQL = $sSQL;
             if(is_object($this->oDB))
                 $iMax = $this->oDB->query($this->sSQL);            
@@ -594,7 +594,7 @@ class ComponentCrud
             $iMax++;
             return $iMax;
         }
-        return NULL;
+        return null;
     }//get_nextcode()
     
     public function get_sanitized($sValue)
@@ -635,14 +635,14 @@ class ComponentCrud
     public function add_numeric($sFieldName){$this->arNumeric[]=$sFieldName;}
     public function add_and($sAnd){$this->arAnds[]=$sAnd;}
     public function add_and1($sFieldName,$sValue,$sOper="="){$this->arAnds[]="$sFieldName $sOper $sValue";}
-    public function add_join($sJoin,$sKey=NULL){if($sKey)$this->arJoins[$sKey]=$sJoin;else$this->arJoins[]=$sJoin;}
-    public function add_end($sEnd,$sKey=NULL){if($sKey)$this->arEnd[$sKey]=$sEnd;else$this->arEnd[]=$sEnd;}
+    public function add_join($sJoin,$sKey=null){if($sKey)$this->arJoins[$sKey]=$sJoin;else$this->arJoins[]=$sJoin;}
+    public function add_end($sEnd,$sKey=null){if($sKey)$this->arEnd[$sKey]=$sEnd;else$this->arEnd[]=$sEnd;}
     
     protected function add_error($sMessage){$this->isError = TRUE;$this->arErrors[]=$sMessage;}
     public function is_error(){return $this->isError;}
     public function get_errors($inJson=0){if($inJson) return json_encode($this->arErrors); return $this->arErrors;}
-    public function get_error($i=0){isset($this->arErrors[$i])?$this->arErrors[$i]:NULL;}
+    public function get_error($i=0){isset($this->arErrors[$i])?$this->arErrors[$i]:null;}
     public function show_errors(){echo "<pre>".var_export($this->arErrors,1);}
-    public function set_dbobj($oDb=NULL){$this->oDB=$oDb;}
+    public function set_dbobj($oDb=null){$this->oDB=$oDb;}
     
 }//Crud 2.4.0

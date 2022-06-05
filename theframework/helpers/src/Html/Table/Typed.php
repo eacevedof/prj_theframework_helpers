@@ -343,7 +343,7 @@ class Typed extends HelperTableBasic
         {
             $sTmpFind = "%$sFieldName%";
             $sFieldValue = $this->get_fieldvalue_by_name($arRow,$sFieldName);
-            if($sFieldName!==NULL)
+            if($sFieldName!==null)
                 $sValue = str_replace($sTmpFind,$sFieldValue,$sValue);
         }
     }

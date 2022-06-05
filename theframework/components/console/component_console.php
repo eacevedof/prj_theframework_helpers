@@ -134,7 +134,7 @@ class ComponentConsole
         return $sReturn;
     }
     
-    private function save($sContent,$sTitle=NULL)
+    private function save($sContent,$sTitle=null)
     {
         $sToday = date("Ymd");
         $sPathFile = $this->sPathLogs."/console_$sToday.log";

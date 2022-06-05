@@ -289,7 +289,7 @@ class ComponentMssqlExport
                 ELSE
                     CONVERT(VARCHAR,mxlen)
             END AS field_length
-            ,REPLACE(REPLACE(ISNULL(defvalue,'NULL'),'(',''),')','') defvalue
+            ,REPLACE(REPLACE(ISNULL(defvalue,'null'),'(',''),')','') defvalue
             ,CONVERT(VARCHAR(30),is_nullable) is_nullable
             ,CONVERT(VARCHAR(30),ispk) ispk
             ,column_id
@@ -337,7 +337,7 @@ class ComponentMssqlExport
         return $arFields;          
     }//get_fields_info    
     
-    public function get_insert_bulk($sTableName=NULL,$isDelete=1)
+    public function get_insert_bulk($sTableName=null,$isDelete=1)
     {
         switch($this->sMotorTo) 
         {
@@ -353,7 +353,7 @@ class ComponentMssqlExport
         }
     }//get_insert_bulk
     
-    private function get_insert_bulk_self($sTableName=NULL,$isDelete=1)
+    private function get_insert_bulk_self($sTableName=null,$isDelete=1)
     {
         $sNow = date("Ymd-His");
         $arTables = $this->get_tables();
@@ -410,7 +410,7 @@ class ComponentMssqlExport
                             if($this->is_nullable($sFieldName,$arFields)
                                || in_array($sFieldType,$this->arNumeric)
                                || in_array($sFieldType,$this->arDate))
-                                $sValue = "NULL";
+                                $sValue = "null";
                         }
                         $arIns[] = $sValue;
                     }
@@ -432,7 +432,7 @@ class ComponentMssqlExport
         return $sInsert;         
     }//get_insert_bulk_self    
        
-    private function get_insert_bulk_mysql($sTableName=NULL,$isDelete=1)
+    private function get_insert_bulk_mysql($sTableName=null,$isDelete=1)
     {
         $sNow = date("Ymd-His");
         $arTables = $this->get_tables();
@@ -493,12 +493,12 @@ class ComponentMssqlExport
                         $sFieldType = $this->get_fieldtype($sFieldName,$arFields);
                         $sValue = $arRow[$sFieldName];
                         
-                        if(in_array($sValue,["",NULL]))
+                        if(in_array($sValue,["",null]))
                         {
                             if($this->is_nullable($sFieldName,$arFields)
                                || in_array($sFieldType,$this->arNumeric)
                                || in_array($sFieldType,$this->arDate))
-                                $sValue = "NULL";
+                                $sValue = "null";
                             else 
                             {
                                 $sValue="''";
@@ -552,7 +552,7 @@ class ComponentMssqlExport
         {
             $arSQL = [];
             if($isDrop)
-                $arSQL[] = "IF (OBJECT_ID('$sTableName', 'U') IS NOT NULL) DROP TABLE dbo.$sTableName ";
+                $arSQL[] = "IF (OBJECT_ID('$sTableName', 'U') IS NOT null) DROP TABLE dbo.$sTableName ";
             
             $arSQL[] = "CREATE TABLE [$sTableName] (";
             
@@ -562,7 +562,7 @@ class ComponentMssqlExport
             foreach($arFields as $arFld)
             {
                 $sDefault = "";
-                $sPk = "NULL";
+                $sPk = "null";
 
                 $sFieldDef = $arFld["defvalue"];
                 $sFieldName = $arFld["field_name"];
@@ -572,7 +572,7 @@ class ComponentMssqlExport
 
                 //trato el default
                 $sDefKey = strtolower($sTableName)."_".strtolower($sFieldName);
-                if($sFieldDef!=="NULL" && strlen($sFieldDef)<20)
+                if($sFieldDef!=="null" && strlen($sFieldDef)<20)
                     $sDefault = "CONSTRAINT [DF_$sDefKey] DEFAULT ($sFieldDef)";
 
                 if($arFld["ispk"]) $sPk = "";
@@ -622,7 +622,7 @@ class ComponentMssqlExport
             foreach($arFields as $i=>$arFld)
             {
                 $sDefault = "";
-                $sPk = "NULL";
+                $sPk = "null";
 
                 $sFieldDef = $arFld["defvalue"];
                 $sFieldName = $arFld["field_name"];
@@ -633,12 +633,12 @@ class ComponentMssqlExport
                 $sFieldLen = "($sFieldLen)";
                 if(in_array($sFieldType,$this->arNoLen)) $sFieldLen = "";
 
-                if($sFieldDef!=="NULL" && strlen($sFieldDef)<20)
+                if($sFieldDef!=="null" && strlen($sFieldDef)<20)
                     $sDefault = "DEFAULT $sFieldDef";
                 
                 if($arFld["ispk"]) 
                 {
-                    $sPk = "NOT NULL";
+                    $sPk = "NOT null";
                     $sDefault = "";
                 }
                 
@@ -797,7 +797,7 @@ class ComponentMssqlExport
                         //pr($arDist);die;
                         $sK = array_keys($arDist);
                         $sK = $sK[0];
-                        if(in_array($arDist[$sK],["",NULL,"0",0]))
+                        if(in_array($arDist[$sK],["",null,"0",0]))
                             continue;
                         else
                             $arNotNull[$sTableName][] = ["field"=>$sFieldName,"distinct"=>$iDist];

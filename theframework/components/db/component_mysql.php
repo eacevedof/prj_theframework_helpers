@@ -36,7 +36,7 @@ class ComponentMysql
         return $sString;
     }//get_conn_string
 
-    private function get_rowcol($arResult,$iCol=NULL,$iRow=NULL)
+    private function get_rowcol($arResult,$iCol=null,$iRow=null)
     {
         if(is_int($iCol) || is_int($iRow))
         {
@@ -53,7 +53,7 @@ class ComponentMysql
         return $arResult;
     }
     
-    public function query($sSQL,$iCol=NULL,$iRow=NULL)
+    public function query($sSQL,$iCol=null,$iRow=null)
     {
         try 
         {
@@ -115,7 +115,7 @@ class ComponentMysql
     private function add_error($sMessage){$this->isError = TRUE;$this->iAffected=-1; $this->arErrors[]=$sMessage;}    
     public function is_error(){return $this->isError;}
     public function get_errors(){return $this->arErrors;}
-    public function get_error($i=0){return isset($this->arErrors[$i])?$this->arErrors[$i]:NULL;}
+    public function get_error($i=0){return isset($this->arErrors[$i])?$this->arErrors[$i]:null;}
     public function show_errors(){echo "<pre>".var_export($this->arErrors,1);}
     
     public function add_conn($k,$v){$this->arConn[$k]=$v;}

@@ -643,7 +643,7 @@ class Basic extends HelperTable
         $sHtmlHidden .= $oHidden->get_html(); 
         
         //URLS: Solo para js
-        $oHidden->set_name(NULL);
+        $oHidden->set_name(null);
         $oHidden->set_id("hidUrlNoview");
         $oHidden->set_value($this->sUrlNoview);
         $sHtmlHidden .= $oHidden->get_html(); 
@@ -1010,7 +1010,7 @@ class Basic extends HelperTable
         return $sTdInner;
     }
 
-    protected function build_url_button($sUrlMethod,$arRow,$sExclude=NULL)
+    protected function build_url_button($sUrlMethod,$arRow,$sExclude=null)
     {
         $sReturnUrl = $sUrlMethod;
         $sKeys = $this->get_keys_as_url($arRow,$sExclude);
@@ -1080,7 +1080,7 @@ class Basic extends HelperTable
                 $arValues[] = $sFldKeyName."=".$this->get_fieldvalue_by_name($arRow,$sFldKeyName);
             
             $sMerged = implode($this->sMergeGlue,$arValues);
-            $oChekbox->set_options(array($sMerged=>NULL));
+            $oChekbox->set_options(array($sMerged=>null));
             $oChekbox->set_id("pkeys_$iNumRow");
             $oChekbox->set_name("pkeys");
             $oChekbox->set_attr_dbfield("pkeys");
@@ -1159,7 +1159,7 @@ class Basic extends HelperTable
         if($this->doMergePkeys)
         {
             $sFldKeyNames = implode($this->sMergeGlue,array_values($this->arKeyFields));
-            $oChekbox->set_options(array($sFldKeyNames=>NULL));
+            $oChekbox->set_options(array($sFldKeyNames=>null));
             $oChekbox->set_id("pkeys_all");
             $oChekbox->set_name("pkeys_all");
             $oChekbox->set_js_onclick("check_all();");
@@ -1168,7 +1168,7 @@ class Basic extends HelperTable
         else//No es un keymerge entonces se crea una caja por key
             foreach($this->arKeyFields as $sFldKeyName)
             {
-                $oChekbox->set_options(array($sFldKeyName=>NULL));
+                $oChekbox->set_options(array($sFldKeyName=>null));
                 $oChekbox->set_id($sFldKeyName."_all");
                 $oChekbox->set_name($sFldKeyName."_all");
                 $oChekbox->set_js_onclick("check_all('$sFldKeyName"."_all','$sFldKeyName"."[]');");
@@ -1177,7 +1177,7 @@ class Basic extends HelperTable
             return $sHtmlCheck;
     }
     
-    protected function get_keys_as_url($arRow,$mxExclude=NULL)
+    protected function get_keys_as_url($arRow,$mxExclude=null)
     {
         //Necesario para poder excluir parámetros que no se usan con .htcacces en los links
         //y que dificultan el enrutamiento ej. module=xxx&page=3&update=65.  "page" sobra
@@ -1211,7 +1211,7 @@ class Basic extends HelperTable
         return $sUrl;
     }
     
-    protected function get_keys_as_string($arRow,$mxExclude=NULL,$isWithName=0)
+    protected function get_keys_as_string($arRow,$mxExclude=null,$isWithName=0)
     {
         $arRowKeys = [];
         $cGlue = ",";
@@ -1239,7 +1239,7 @@ class Basic extends HelperTable
                 return $sFieldValue;
             }
         }
-        return NULL;
+        return null;
     }    
     
     protected function get_colformat($sFieldName)
@@ -1247,7 +1247,7 @@ class Basic extends HelperTable
         foreach($this->arConfigColTypes as $sField=>$sFormat)
             if($sFieldName==$sField)
                 return $sFormat;
-        return NULL;
+        return null;
     }
     
     /**
@@ -1523,7 +1523,7 @@ class Basic extends HelperTable
     //**********************************
     //             SETS
     //**********************************
-    protected function set_tmpjs($mxValues=NULL)
+    protected function set_tmpjs($mxValues=null)
     {
         $this->arTmpJs=[];
         if(is_array($mxValues))
@@ -1534,7 +1534,7 @@ class Basic extends HelperTable
     
     protected function add_tmpjs($sJsString)
     {
-        if($sJsString!==NULL)
+        if($sJsString!==null)
             $this->arTmpJs[] = $sJsString;
     }
     
