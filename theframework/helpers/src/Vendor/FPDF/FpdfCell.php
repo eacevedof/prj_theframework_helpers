@@ -53,7 +53,7 @@ class FpdfCell
         $this->iNumNL = 0;
         $this->isFill = FALSE;
         $this->sUrlPageLink = "";
-        //$this->isTextUTF = TRUE;
+        //$this->isTextUTF = true;
         //MultiCell($w, $h, $txt, $border=0, $align='J', $fill=false)
     }
     

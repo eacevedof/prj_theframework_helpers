@@ -24,7 +24,7 @@ abstract class AbsHelper
     protected $arExtras;
     protected $_placeholder;
     
-    protected $_display = TRUE;
+    protected $_display = true;
     protected $_class = "";
     protected $_style = "";
     protected $arClasses = array();

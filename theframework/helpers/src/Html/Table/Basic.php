@@ -79,7 +79,7 @@ class Basic extends HelperTable
         //Mientras que helper table trabaja con $arObjTr Basic Lo hace solo con array de datos
         //con estos array de datos posteriormente reutiliza arobjtr
         parent::__construct();
-        $this->isPaginateBar = TRUE;
+        $this->isPaginateBar = true;
         $this->lower_fieldnames($arRows);
         $this->arDataRows = $arRows;
         $this->iNumRows = count($arRows);
