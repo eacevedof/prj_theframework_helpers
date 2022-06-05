@@ -92,55 +92,12 @@ abstract class AbsHelper implements IHelper
     {
         $value = urlencode($value);
         return "$param=$value";
-    }  
-    
-    protected function build_uri_params_with_keys($arKeysAndValues=[])
-    {
-        $arDestinyKeys = [];
-        $sDestinyKeys = "";
-        foreach($arKeysAndValues as $sFieldName=>$value)
-            $arDestinyKeys[]=$this->_concat_param_value($sFieldName, $value);
-
-        if(!empty($arDestinyKeys))
-            $sDestinyKeys = implode("&",$arDestinyKeys);
-        return $sDestinyKeys;
     }
     
-    protected function extract_fields_and_values($arFields, $arFieldNames)
+    public function show(): void
     {
-        $arExtracted = [];
-        foreach($arFields as $sFieldName=>$value)
-            if(in_array($sFieldName, $arFieldNames))
-                $arExtracted[$sFieldName] = $value;
-        return $arExtracted;
+        if($this->display) echo $this->get_html();
     }
-       
-    /**
-     * De un array tipo ("fieldname"=>"value") recupera solo los "value" de los "fieldname"
-     * indicados en $arFieldNames
-     * @param array $arFields
-     * @param array $arFieldNames
-     * @param boolean $asArray
-     * @param string $sSeparator
-     * @return mixed Array or String depende de $asArray
-     */
-    protected function extract_values($arFields, $arFieldNames, $asArray=false, $sSeparator="-")
-    {
-        $arExtracted = []; $sExtracted="";
-        foreach($arFields as $sFieldName=>$value)
-            if(in_array($sFieldName, $arFieldNames)) 
-                $arExtracted[] = $value;
-
-        if(!empty($arExtracted) && !$asArray)
-            $sExtracted = implode($sSeparator,$arExtracted);
-        elseif(empty($arExtracted) && !$asArray)
-            $sExtracted = "";
-        else
-            $sExtracted = $arExtracted;
-        return $sExtracted;
-    }  
-    
-    public function show(){if($this->display) echo $this->get_html();}
     
     //**********************************
     //             SETS
@@ -165,11 +122,13 @@ abstract class AbsHelper implements IHelper
     public function add_class($class){if($class) $this->arclasses[] = $class;}
 
     public function add_style($style){if($style) $this->arStyles[] = $style;}
-    /**
-     * 
-     * @param mixed $mxValue helper object or string
-     */
-    public function add_inner_object($mxValue){if($mxValue) $this->arinnerhelpers[] = $mxValue;}
+
+    public function add_inner_object(IHelper|string $mxValue): self
+    {
+        if($mxValue)
+            $this->arinnerhelpers[] = $mxValue;
+        return $this;
+    }
     
     public function set_extras(array $value){$this->extras = []; if($value) $this->extras = $value;}
     public function add_extras($sKey,$value=null)
