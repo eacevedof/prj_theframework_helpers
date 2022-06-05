@@ -43,7 +43,7 @@ class Select extends AbsHelper
     {  
         $arHtml = [];
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag(); 
         //INICIO OPTIONS
         if(!is_array($this->mxValuesToSelect)) 

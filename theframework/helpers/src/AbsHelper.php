@@ -1,19 +1,14 @@
 <?php
 /**
  * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @version 1.2.2
+ * @link eduardoaf.com
  * @name TheFramework\Helpers\AbsHelper
- * @file AbsHelper.php
- * @date 30-07-2016 16:12 (SPAIN)
- *  load:22
- * @observations:
  */
 namespace TheFramework\Helpers;
 
 abstract class AbsHelper
 {
-    protected $_comments = "";
+    protected string $comment = "";
     protected $_type = "";
     protected $_id = "";
     protected $_name = "";
@@ -145,7 +140,7 @@ abstract class AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_comments($value){$this->_comments = $value;}
+    public function setcomment($value){$this->comment = $value;}
     public function set_idprefix($value){$this->_idprefix=$value;}
     public function set_id($value){$this->_id=$value;}
     public function set_js_onclick($value){$this->_js_onclick = $value;}

@@ -28,7 +28,7 @@ class Span extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag(); 
         $this->load_inner_objects();
         $arHtml[] = $this->_inner_html;

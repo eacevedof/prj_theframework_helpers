@@ -235,7 +235,7 @@ foreach($arLabel as $sLabel)
 {
     $oTh = new Td();
     $oTh->set_type("th");
-    $oTh->set_comments(" this is a comment before Th");
+    $oTh->setcomment(" this is a comment before Th");
     $oTh->set_js_onclick("alert('clicked on {$sLabel}')");
     $oTh->set_innerhtml($sLabel);
     $oTr->add_td($oTh);

@@ -63,7 +63,7 @@ class Table extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag(); 
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arInnerObjects
         //No usa inner objects porque lo unico q se puede añadir a un elemento <table> como innerhtml son trs

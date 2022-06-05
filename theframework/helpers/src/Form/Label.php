@@ -33,7 +33,7 @@ class Label extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";        
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";        
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         $this->load_inner_objects();

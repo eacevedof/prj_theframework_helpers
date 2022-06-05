@@ -85,7 +85,7 @@ class Textarea extends AbsHelper
     {  
         $arHtml = [];
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
         if($this->_maxlength>-1 && $this->isCounterJs && $this->isCounterSpan) 
             $this->_js_onkeyup .= " return fn_txamaxlength(this,event);";              

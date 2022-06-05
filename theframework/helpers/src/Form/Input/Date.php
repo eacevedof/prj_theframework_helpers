@@ -92,7 +92,7 @@ class Date extends AbsHelper
     {  
         $arHtml = [];               
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
         $arHtml[] = " type=\"date\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";

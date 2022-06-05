@@ -44,7 +44,7 @@ class Form extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";       
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";       
         $arHtml[] = $this->get_opentag();
         if($this->oFieldset) $arHtml[] = $this->oFieldset->get_opentag();
         if($this->oLegend) $arHtml[] = $this->oLegend->get_opentag();

@@ -30,7 +30,7 @@ class Fieldset extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag(); 
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto
         $this->load_inner_objects();

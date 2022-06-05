@@ -27,7 +27,7 @@ class Hidden extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
         if($this->_type) $arHtml[] = " type=\"$this->_type\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";

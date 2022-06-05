@@ -66,7 +66,7 @@ class Checkbox extends AbsHelper
     public function get_html()
     {  
         $sHtmlToReturn ="";
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
 
         if($this->oFieldset) $arHtml[] = $this->oFieldset->get_opentag();
         if($this->oLegend) $arHtml[] = $this->oLegend->get_html();

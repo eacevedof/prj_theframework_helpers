@@ -21,7 +21,7 @@ class Generic extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
         if($this->_value || $this->_value=="0") 
             $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";

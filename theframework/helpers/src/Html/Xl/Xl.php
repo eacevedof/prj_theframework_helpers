@@ -28,7 +28,7 @@ class Xl extends AbsHelper
     {  
         $arHtml = [];
         if(!$this->_inner_html) $this->_inner_html = $this->get_array_li_as_string();
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag();
         $arHtml[] = $this->_inner_html;
         $arHtml[] = $this->get_closetag();

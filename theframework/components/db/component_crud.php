@@ -503,7 +503,7 @@ class ComponentCrud
     }
         
     public function set_table($sTable=NULL){$this->sTable=$sTable;}
-    public function set_comment($sComment){$this->sSQLComment = $sComment;}
+    public function setcomment($sComment){$this->sSQLComment = $sComment;}
     
     public function set_insert_fv($arFieldVal=array()){$this->arInsertFV = array(); if(is_array($arFieldVal)) $this->arInsertFV=$arFieldVal;}
     public function add_insert_fv($sFieldName,$sValue,$isSanit=1){$this->arInsertFV[$sFieldName]=($isSanit)?$this->get_sanitized($sValue):$sValue;}

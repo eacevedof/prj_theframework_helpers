@@ -35,7 +35,7 @@ class Radio extends AbsHelper
     public function get_html()
     {  
         $arHtml = [];
-        if($this->_comments) $arHtml[] = "<!-- $this->_comments -->\n";
+        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         if($this->_legendtext) $arHtml[] = "<legend>$this->_legendtext</legend>\n";
 
         $i=0;
