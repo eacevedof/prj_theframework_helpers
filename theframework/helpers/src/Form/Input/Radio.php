@@ -8,10 +8,10 @@
  * @file Radio.php
  */
 namespace TheFramework\Helpers\Form\Input;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Radio extends TheFrameworkHelper
+class Radio extends AbsHelper
 {
     private $_arOptions;
     private $_value_to_check;

@@ -8,9 +8,9 @@
  * @file Generic.php
  */
 namespace TheFramework\Helpers\Form\Input;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Generic extends TheFrameworkHelper
+class Generic extends AbsHelper
 {
     public function __construct($value,$arExtras=array())
     {

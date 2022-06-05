@@ -9,8 +9,8 @@
  * @requires
  */
 namespace TheFramework\Helpers\Html\Table;
-use TheFramework\Helpers\TheFrameworkHelper;
-class Tr extends TheFrameworkHelper
+use TheFramework\Helpers\AbsHelper;
+class Tr extends AbsHelper
 {
     protected $isRowHead = false;
     protected $isRowFoot = false;

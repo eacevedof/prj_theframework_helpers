@@ -8,9 +8,9 @@
  * @file Li.php
  */
 namespace TheFramework\Helpers\Html\Xl;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Li extends TheFrameworkHelper
+class Li extends AbsHelper
 {  
     public function __construct($innerhtml="",$id="")
     {

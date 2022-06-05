@@ -9,9 +9,9 @@
  * @observations: 
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Link extends TheFrameworkHelper
+class Link extends AbsHelper
 {
     private $sType;//media_type	Specifies the media type of the linked document
     private $sRel;//alternate,author,dns-prefetch,help,icon,license,next,pingback

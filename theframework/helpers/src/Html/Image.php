@@ -10,9 +10,9 @@
  * @requires: 
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Image extends TheFrameworkHelper
+class Image extends AbsHelper
 {
     protected $_src;
     protected $_alt;

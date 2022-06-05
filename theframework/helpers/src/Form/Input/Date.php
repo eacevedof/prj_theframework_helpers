@@ -10,10 +10,10 @@
  * @requires:
  */
 namespace TheFramework\Helpers\Form\Input;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Date extends TheFrameworkHelper
+class Date extends AbsHelper
 {
     private $_useClearButton = true;
     private $_convert_date_before_show = true;

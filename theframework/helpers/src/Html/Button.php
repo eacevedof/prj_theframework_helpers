@@ -10,9 +10,9 @@
  * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Button extends TheFrameworkHelper
+class Button extends AbsHelper
 {
     protected $sIcon;
     

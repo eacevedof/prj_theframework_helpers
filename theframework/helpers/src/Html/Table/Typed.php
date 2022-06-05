@@ -9,7 +9,7 @@
  * @requires:
  */
 namespace TheFramework\Helpers\Html\Table;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 //import_helper("table_basic,anchor,input_text,checkbox");
 
 class Typed extends HelperTableBasic

@@ -9,9 +9,9 @@
  * @requires
  */
 namespace TheFramework\Helpers\Html\Table;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Td extends TheFrameworkHelper
+class Td extends AbsHelper
 {
     private $_colspan = null;
     private $_isHeader = false;

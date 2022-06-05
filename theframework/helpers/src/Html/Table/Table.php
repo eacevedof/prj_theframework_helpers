@@ -11,10 +11,10 @@
  *  ,Table_tr.php
  */
 namespace TheFramework\Helpers\Html\Table;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Html\Table\Tr;
 
-class Table extends TheFrameworkHelper
+class Table extends AbsHelper
 {
     protected $arObjTrs = null;
     protected $useThead = false;

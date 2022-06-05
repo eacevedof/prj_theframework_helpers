@@ -10,10 +10,10 @@
  * @requires:
  */
 namespace TheFramework\Helpers\Form\Input;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class File extends TheFrameworkHelper
+class File extends AbsHelper
 {
     protected $_maxsize;
     protected $_accept;

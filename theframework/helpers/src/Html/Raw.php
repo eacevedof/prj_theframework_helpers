@@ -9,8 +9,8 @@
  * @requires
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
-class Raw extends TheFrameworkHelper
+use TheFramework\Helpers\AbsHelper;
+class Raw extends AbsHelper
 {
     
     public function __construct($sRawHtml="")

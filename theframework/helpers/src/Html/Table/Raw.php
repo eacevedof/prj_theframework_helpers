@@ -9,9 +9,9 @@
  * @requires 
  */
 namespace TheFramework\Helpers\Html\Table;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Raw extends TheFrameworkHelper
+class Raw extends AbsHelper
 {
     protected $arLabels;
     protected $arRows;

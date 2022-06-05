@@ -8,9 +8,9 @@
  * @file Hidden.php
  */
 namespace TheFramework\Helpers\Form\Input;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Hidden extends TheFrameworkHelper
+class Hidden extends AbsHelper
 {
     //private $_name = "hid_name";
 

@@ -8,9 +8,9 @@
  * @file Xl.php
  */
 namespace TheFramework\Helpers\Html\Xl;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Xl extends TheFrameworkHelper
+class Xl extends AbsHelper
 {
     protected $arObjLi;
   

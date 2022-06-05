@@ -9,9 +9,9 @@
  * @observations core library
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Script extends TheFrameworkHelper
+class Script extends AbsHelper
 { 
     private $_tag;
     protected $arSrc = [];

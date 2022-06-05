@@ -8,8 +8,8 @@
  * @file Span.php
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
-class Span extends TheFrameworkHelper
+use TheFramework\Helpers\AbsHelper;
+class Span extends AbsHelper
 {    
     public function __construct($innerhtml="", $id="", 
             $class="", $style="", $arExtras=array())

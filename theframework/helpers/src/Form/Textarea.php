@@ -9,10 +9,10 @@
  * @observations
  */
 namespace TheFramework\Helpers\Form;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Textarea extends TheFrameworkHelper
+class Textarea extends AbsHelper
 { 
     private $_cols;
     private $_rows;

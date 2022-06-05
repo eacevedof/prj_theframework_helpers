@@ -10,9 +10,9 @@
  */
 namespace TheFramework\Helpers\Form;
 
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Form extends TheFrameworkHelper
+class Form extends AbsHelper
 {
     private $_method;
     private $_enctype;

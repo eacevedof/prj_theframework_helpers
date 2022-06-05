@@ -8,10 +8,10 @@
  * @file Select.php
  */
 namespace TheFramework\Helpers\Form;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Select extends TheFrameworkHelper
+class Select extends AbsHelper
 {
     private $arOptions;
     private $mxValuesToSelect=null;

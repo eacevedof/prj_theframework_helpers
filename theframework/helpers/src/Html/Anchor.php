@@ -10,9 +10,9 @@
  */
 namespace TheFramework\Helpers\Html;
 
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Anchor extends TheFrameworkHelper
+class Anchor extends AbsHelper
 {
     private $_href;
     private $_target;

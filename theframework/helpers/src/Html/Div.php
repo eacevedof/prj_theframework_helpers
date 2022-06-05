@@ -8,9 +8,9 @@
  * @file Div.php
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Div extends TheFrameworkHelper
+class Div extends AbsHelper
 {
    
     public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=array())

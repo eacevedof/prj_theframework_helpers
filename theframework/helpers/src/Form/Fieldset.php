@@ -9,9 +9,9 @@
  * @observations: 
  */
 namespace TheFramework\Helpers\Form;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Fieldset extends TheFrameworkHelper
+class Fieldset extends AbsHelper
 {
     
     public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=array())

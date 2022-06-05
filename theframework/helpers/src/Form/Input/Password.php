@@ -8,10 +8,10 @@
  * @file Password.php
  */
 namespace TheFramework\Helpers\Form\Input;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Password extends TheFrameworkHelper
+class Password extends AbsHelper
 {
  
     public function __construct

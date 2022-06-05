@@ -8,8 +8,8 @@
  * @file Style.php
  */
 namespace TheFramework\Helpers\Html;
-use TheFramework\Helpers\TheFrameworkHelper;
-class Style extends TheFrameworkHelper
+use TheFramework\Helpers\AbsHelper;
+class Style extends AbsHelper
 {
     private $_class_warning = ""; //yellow
     private $_class_error = ""; //red

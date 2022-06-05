@@ -10,12 +10,12 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 use TheFramework\Helpers\Form\Legend;
 use TheFramework\Helpers\Form\Fieldset;
 
-class Checkbox extends TheFrameworkHelper
+class Checkbox extends AbsHelper
 {
     private $arOptions;
     private $arValuesToCheck;

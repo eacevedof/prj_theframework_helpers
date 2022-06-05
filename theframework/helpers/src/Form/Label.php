@@ -8,9 +8,9 @@
  * @file Label.php
  */
 namespace TheFramework\Helpers\Form;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 
-class Label extends TheFrameworkHelper
+class Label extends AbsHelper
 {
     private $_for = "";
     

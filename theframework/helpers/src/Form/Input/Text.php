@@ -8,10 +8,10 @@
  * @file Text.php
  */
 namespace TheFramework\Helpers\Form\Input;
-use TheFramework\Helpers\TheFrameworkHelper;
+use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Text extends TheFrameworkHelper
+class Text extends AbsHelper
 { 
     public function __construct
     ($id="", $name="", $value="", $length=50, $class="", Label $oLabel=null)
