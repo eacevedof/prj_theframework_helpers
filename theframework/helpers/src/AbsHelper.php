@@ -88,10 +88,10 @@ abstract class AbsHelper implements IHelper
         return $this;
     }
     
-    protected function concat_param_value($sParamName,$sValue)
+    private function _concat_param_value(string $param, string $value): string
     {
-        $sValue = urlencode($sValue);
-        return "$sParamName=$sValue";
+        $value = urlencode($value);
+        return "$param=$value";
     }  
     
     protected function build_uri_params_with_keys($arKeysAndValues=[])
@@ -99,7 +99,7 @@ abstract class AbsHelper implements IHelper
         $arDestinyKeys = [];
         $sDestinyKeys = "";
         foreach($arKeysAndValues as $sFieldName=>$value)
-            $arDestinyKeys[]=$this->concat_param_value($sFieldName, $value);
+            $arDestinyKeys[]=$this->_concat_param_value($sFieldName, $value);
 
         if(!empty($arDestinyKeys))
             $sDestinyKeys = implode("&",$arDestinyKeys);
@@ -172,12 +172,12 @@ abstract class AbsHelper implements IHelper
     public function add_inner_object($mxValue){if($mxValue) $this->arinnerhelpers[] = $mxValue;}
     
     public function set_extras(array $value){$this->extras = []; if($value) $this->extras = $value;}
-    public function add_extras($sKey,$sValue=null)
+    public function add_extras($sKey,$value=null)
     {
         if($sKey)
-            $this->extras[$sKey] = $sValue;
+            $this->extras[$sKey] = $value;
         else
-            $this->extras[] = $sValue;
+            $this->extras[] = $value;
     }
     
     protected function setplaceholder($value){$this->placeholder = htmlentities($value);}
@@ -220,21 +220,21 @@ abstract class AbsHelper implements IHelper
         $extras = [];
         if($asString)
         {
-            foreach($this->extras as $sKey=>$sValue)
+            foreach($this->extras as $sKey=>$value)
             {
                 //Esto no funcionaría si aplicase valores para mostrar un atributo 0="nuevo"
                 if(is_integer($sKey))
                 {
-                    if(strstr($sValue,"="))
-                        $extras[] = $sValue;
-                    elseif($sValue!==null)
-                        $extras[] = "$sKey=\"$sValue\"";
+                    if(strstr($value,"="))
+                        $extras[] = $value;
+                    elseif($value!==null)
+                        $extras[] = "$sKey=\"$value\"";
                     else 
                         $extras[] = $sKey;
                 }
                 else 
                 {
-                    $extras[] = "$sKey=\"$sValue\"";
+                    $extras[] = "$sKey=\"$value\"";
                 }
             }
             return implode(" ",$extras);
