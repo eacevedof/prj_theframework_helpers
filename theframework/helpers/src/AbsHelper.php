@@ -177,9 +177,9 @@ abstract class AbsHelper implements IHelper
     //**********************************
     //             GETS
     //**********************************
-    public function get_id(){return $this->id;}
-    public function gettype(){return $this->type;}
-    public function get_class(){return $this->class;}
+    public function get_id():string {return $this->id;}
+    public function get_type():string {return $this->type;}
+    public function get_class():string {return $this->class;}
     public function get_extras(bool $asstring=true): array|string
     {
         if(!$asstring) return $this->extras;
@@ -203,16 +203,7 @@ abstract class AbsHelper implements IHelper
     protected function is_disabled():bool {return $this->disabled;}
 
     protected function getname(){return $this->name;}
-    
-    protected function get_icon_path($isIcon,$sIconFile)
-    {
-        $sIconPath = "images/";
-        $sIconPath .= $sIconFile;
-        if($isIcon && is_file($sIconPath))
-            return $sIconPath;
-        return "";    
-    }
-    
+
     //**********************************
     // OVERRIDE TO PUBLIC IF NECESSARY
     //**********************************
@@ -227,9 +218,6 @@ abstract class AbsHelper implements IHelper
     protected function get_label(){return $this->oHlpLabel;}
     protected function get_style(){return $this->oHlpStyle;}
     protected function getplaceholder(){return $this->placeholder;}
-
-    protected function is_enterinsert(){return $this->_isEnterInsert;}
-    protected function is_enterupdate(){return $this->_isEnterUpdate;}
-    protected function is_entersubmit(){return $this->_isEnterSubmit;}
+    
     protected function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}    
 }

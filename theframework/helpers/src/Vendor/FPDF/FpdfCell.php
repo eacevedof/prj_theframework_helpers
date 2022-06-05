@@ -103,7 +103,7 @@ class FpdfCell
     
     public function get_border(){return $this->iBorder;}
     public function get_numline_unit(){return $this->iNumNL;}
-    public function gettype_align(){return $this->cAlign;}
+    public function get_type(_align(){return $this->cAlign;}
     public function get_usefill(){return $this->isFill;}
     public function get_pagelink(){return $this->sUrlPageLink;}
     
