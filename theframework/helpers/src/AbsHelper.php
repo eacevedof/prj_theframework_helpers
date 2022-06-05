@@ -142,8 +142,8 @@ abstract class AbsHelper implements IHelper
     public function set_attr_dbtype($value){$this->_attr_dbtype=$value;}
     public function set_attr_dbfield($value){$this->_attr_dbfield=$value;}
     public function set_as_primarykey($isPk=true){$this->_is_primarykey = $isPk;}
-    public function innerhtml($sInnerHtml,$asEntity=0)
-    {if($asEntity)$this->innerhtml = htmlentities($sInnerHtml);else $this->innerhtml=$sInnerHtml;}
+    public function innerhtml($sInnerHtml,$rawmode=true)
+    {if($rawmode)$this->innerhtml = htmlentities($sInnerHtml);else $this->innerhtml=$sInnerHtml;}
     public function settype($value){$this->type = $value;}
     public function set_postback($isOn=true){$this->_isPostback=$isOn;}
     public function on_enterinsert($isOn=true){$this->_isEnterInsert=$isOn;}
@@ -160,7 +160,7 @@ abstract class AbsHelper implements IHelper
     public function reset_style(){$this->arStyles=[];$this->style="";}
     public function reset_inner_object(){$this->arinnerhelpers=[];}
     public function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
-    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function set_value($value,$rawmode=true){($rawmode)?$this->_value = htmlentities($value):$this->_value=$value;}
     protected function get_cleaned($sString)
     {
         $sString = str_replace("\"","&quot;",$sString);
