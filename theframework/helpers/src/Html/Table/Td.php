@@ -38,7 +38,7 @@ class Td extends AbsHelper
         $arHtml[] = $this->get_opentag();
         //TODO puede que haya conflictos entre el add_inner_object y set_innerobject
         //Hacer pruebas
-        $this->load_inner_objects();
+        $this->_load_inner_objects();
         //Tengo que poner "" porque si el valor es mostrar un 0 o un espacio no lo mostraría
         if($this->innerhtml!=="") $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();

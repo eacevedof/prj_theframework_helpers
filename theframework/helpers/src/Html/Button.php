@@ -36,7 +36,7 @@ class Button extends AbsHelper
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
-        //$this->load_inner_objects(); A un boton no se le puede pasar objetos embebidos
+        //$this->_load_inner_objects(); A un boton no se le puede pasar objetos embebidos
         if($this->sIcon) $arHtml[] = "<span class=\"$this->sIcon\"> </span> ";
         $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();

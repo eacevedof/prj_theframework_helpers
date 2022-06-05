@@ -31,7 +31,7 @@ class Div extends AbsHelper
     {  
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
-        $this->load_inner_objects();
+        $this->_load_inner_objects();
         $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);

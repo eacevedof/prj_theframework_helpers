@@ -65,9 +65,9 @@ class Table extends AbsHelper
         $arHtml = [];
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag(); 
-        //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arInnerObjects
+        //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arinnerhelpers
         //No usa inner objects porque lo unico q se puede añadir a un elemento <table> como innerhtml son trs
-        //$this->load_inner_objects();
+        //$this->_load_inner_objects();
         //$this->get_html_rows(): No es un simple bucle que recorre todos los objetos filas.
         //este metodo recupera las filas th, tfoot y tr y guarda en cada caso los indices correspondientes
         //para que despues se pinten de cabecera a pie. Esto da la versatilidad de añadir tr en cualquier puno del array

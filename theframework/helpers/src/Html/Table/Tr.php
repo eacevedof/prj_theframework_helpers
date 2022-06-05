@@ -21,7 +21,7 @@ class Tr extends AbsHelper
     protected $sAttrRownumber;
     
     public function __construct
-    ($arInnerObjectss=[], $id="", $class="", $style="", $colspan=""
+    ($arinnerhelperss=[], $id="", $class="", $style="", $colspan=""
             , $rowpan="", $extras=[])
     {
         $this->type = "tr";
@@ -30,8 +30,8 @@ class Tr extends AbsHelper
         $this->id = $id;
         
         //$this->innerhtml = $innertext;
-        $this->arInnerObjects = $arInnerObjectss;
-        $this->iNumCols = count($this->arInnerObjects);
+        $this->arinnerhelpers = $arinnerhelperss;
+        $this->iNumCols = count($this->arinnerhelpers);
         $this->iColSpan = $colspan;
         $this->iRowSpan = $rowpan;
         if($class) $this->arclasses[] = $class;
@@ -43,7 +43,7 @@ class Tr extends AbsHelper
     {
         $arHtml[] = $this->get_opentag();
         //$this->innerhtml .= $this->get_tds_as_string();
-        $this->load_inner_objects();
+        $this->_load_inner_objects();
         if($this->innerhtml) $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
@@ -84,18 +84,18 @@ class Tr extends AbsHelper
     //             SETS
     //==================================
     public function set_colspan($value){$this->iColSpan = $value;}
-    public function set_objtds($arInnerObjects=[]){$this->arInnerObjects = $arInnerObjects;$this->iNumCols = count($this->arInnerObjects);}
+    public function set_objtds($arinnerhelpers=[]){$this->arinnerhelpers = $arinnerhelpers;$this->iNumCols = count($this->arinnerhelpers);}
     public function set_as_rowhead($isOn=TRUE){$this->isRowHead = $isOn;}
     public function set_as_rowfoot($isOn=TRUE){$this->isRowFoot = $isOn;}
     public function set_attr_rownumber($value){$this->sAttrRownumber = $value;}
-    public function add_inner_object($mxValue){$this->arInnerObjects[] = $mxValue; $this->iNumCols = count($this->arInnerObjects);}
-    public function add_td(Td $oTd){$this->arInnerObjects[] = $oTd; $this->iNumCols = count($this->arInnerObjects);}
+    public function add_inner_object($mxValue){$this->arinnerhelpers[] = $mxValue; $this->iNumCols = count($this->arinnerhelpers);}
+    public function add_td(Td $oTd){$this->arinnerhelpers[] = $oTd; $this->iNumCols = count($this->arinnerhelpers);}
 
     //==================================
     //             GETS
     //==================================
     public function get_colspan(){return $this->iColSpan;}
-    public function get_objtds(){return $this->arInnerObjects;}
+    public function get_objtds(){return $this->arinnerhelpers;}
     public function is_rowhead(){return $this->isRowHead;}
     public function is_rowfoot(){return $this->isRowFoot;}
     public function get_num_columns(){return $this->iNumCols;}

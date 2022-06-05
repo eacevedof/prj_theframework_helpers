@@ -33,8 +33,8 @@ class Legend extends AbsHelper
         $arHtml = [];
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag(); 
-        //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arInnerObjects
-        $this->load_inner_objects();
+        //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arinnerhelpers
+        $this->_load_inner_objects();
         $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);

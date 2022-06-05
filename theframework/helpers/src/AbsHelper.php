@@ -27,7 +27,7 @@ abstract class AbsHelper implements IHelper
 
     protected array $arclasses = [];
     protected $arStyles = [];
-    protected $arInnerObjects = [];
+    protected $arinnerhelpers = [];
     protected $_value;
 
     //Esto emula el atributo bloqueado. Si esta a TRUE crea el control autoseleccionado con un
@@ -77,16 +77,14 @@ abstract class AbsHelper implements IHelper
     /**
      * Agrega al atributo innerhtml el string obtenido con el metodo get_html()
      */
-    protected function load_inner_objects()
+    protected function _load_inner_objects()
     {
-        foreach($this->arInnerObjects as $mxValue)
+        foreach($this->arinnerhelpers as $mxValue)
             if(is_object($mxValue) && method_exists($mxValue,"get_html"))
                 $this->innerhtml .= $mxValue->get_html();
             elseif(is_string($mxValue))
                 $this->innerhtml .= $mxValue;
-//            elseif(is_array($mxValue))
-//                die;
-    }//load_inner_objects
+    }
     
     protected function concat_param_value($sParamName,$sValue)
     {
@@ -169,7 +167,7 @@ abstract class AbsHelper implements IHelper
      * 
      * @param mixed $mxValue helper object or string
      */
-    public function add_inner_object($mxValue){if($mxValue) $this->arInnerObjects[] = $mxValue;}
+    public function add_inner_object($mxValue){if($mxValue) $this->arinnerhelpers[] = $mxValue;}
     
     public function set_extras(array $value){$this->extras = []; if($value) $this->extras = $value;}
     public function add_extras($sKey,$sValue=null)
@@ -200,8 +198,8 @@ abstract class AbsHelper implements IHelper
     protected function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
     protected function reset_class(){$this->arclasses=[];$this->class="";}
     protected function reset_style(){$this->arStyles=[];$this->style="";}
-    protected function reset_inner_object(){$this->arInnerObjects=[];}
-    protected function set_inner_objects($arObjHelpers){$this->arInnerObjects=$arObjHelpers;}
+    protected function reset_inner_object(){$this->arinnerhelpers=[];}
+    protected function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
     protected function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     protected function get_cleaned($sString)
     {

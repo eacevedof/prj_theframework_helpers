@@ -30,7 +30,7 @@ class Span extends AbsHelper
         $arHtml = [];
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag(); 
-        $this->load_inner_objects();
+        $this->_load_inner_objects();
         $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);

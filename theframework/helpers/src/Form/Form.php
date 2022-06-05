@@ -49,7 +49,7 @@ class Form extends AbsHelper
         if($this->oFieldset) $arHtml[] = $this->oFieldset->get_opentag();
         if($this->oLegend) $arHtml[] = $this->oLegend->get_opentag();
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto
-        $this->load_inner_objects();
+        $this->_load_inner_objects();
         if($this->innerhtml)$arHtml[] = "$this->innerhtml\n";
         if($this->oLegend) $arHtml[] = $this->oLegend->get_closetag();
         if($this->oFieldset) $arHtml[] = $this->oFieldset->get_closetag();
@@ -58,9 +58,9 @@ class Form extends AbsHelper
         return implode("",$arHtml);
     }//get_html
     
-    protected function load_inner_objects()
+    protected function _load_inner_objects()
     {
-        foreach($this->arInnerObjects as $oObject)
+        foreach($this->arinnerhelpers as $oObject)
             //este objeto suele ser el wrapper
             if(method_exists($oObject,"get_html"))
             {
@@ -123,9 +123,9 @@ class Form extends AbsHelper
     public function set_action($value){$this->_action = $value;}
     public function set_enctype($value){$this->_enctype = $value;}
     public function set_js_onsubmit($value){$this->_js_onsubmit=$value;}
-    public function add_controltop($oHelper){if($oHelper) array_unshift($this->arInnerObjects,$oHelper);}
-    public function add_control($oHelper){$this->arInnerObjects[]=$oHelper;}
-    public function add_controls($arObjControls){$this->arInnerObjects=$arObjControls;}
+    public function add_controltop($oHelper){if($oHelper) array_unshift($this->arinnerhelpers,$oHelper);}
+    public function add_control($oHelper){$this->arinnerhelpers[]=$oHelper;}
+    public function add_controls($arObjControls){$this->arinnerhelpers=$arObjControls;}
     public function readonly($isReadOnly = true){$this->_isReadOnly = $isReadOnly;}
     //**********************************
     //             GETS
