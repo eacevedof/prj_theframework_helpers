@@ -119,9 +119,9 @@ class Checkbox extends AbsHelper
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
+        if($this->class) $arHtml[] = " class=\"$this->class\"";
         $this->load_style();
-        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
+        if($this->style) $arHtml[] = " style=\"$this->style\"";
         
         //atributos extras
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";

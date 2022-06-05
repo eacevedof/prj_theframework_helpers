@@ -6,6 +6,9 @@
  */
 namespace TheFramework\Helpers;
 
+use TheFramework\Helpers\Form\Label;
+use TheFramework\Helpers\Html\Style;
+
 abstract class AbsHelper implements IHelper
 {
     protected string $comment = "";
@@ -15,13 +18,13 @@ abstract class AbsHelper implements IHelper
     protected string $idprefix = "";
     protected string $maxlength = "";
     protected string $placeholder = "";
+    protected string $class = "";
+    protected string $style = "";
 
     protected string $innerhtml = "";
     protected array $extras = [];
-    
-    protected $_display = true;
-    protected $_class = "";
-    protected $_style = "";
+    protected bool $display = true;
+
     protected array $arclasses = [];
     protected $arStyles = [];
     protected $arInnerObjects = [];
@@ -39,33 +42,32 @@ abstract class AbsHelper implements IHelper
     protected $_isEnterUpdate = false;//aplica action=update
     protected $_isEnterSubmit = false;//no aplica nada
     
-    protected $_js_onclick = null;
-    protected $_js_onchange = null;
-    protected $_js_onkeypress = null;
-    protected $_js_onkeydown = null;
-    protected $_js_onkeyup = null;
+    protected ?string $_js_onclick = null;
+    protected ?string $_js_onchange = null;
+    protected ?string $_js_onkeypress = null;
+    protected ?string $_js_onkeydown = null;
+    protected ?string $_js_onkeyup = null;
     
-    protected $_js_onblur = null;
-    protected $_js_onfocus = null;
-    protected $_js_onmouseover = null;
-    protected $_js_onmouseout = null;    
-    
-    protected $_attr_dbtype = null;
-    protected $_attr_dbfield = null;
-    
+    protected ?string $_js_onblur = null;
+    protected ?string $_js_onfocus = null;
+    protected ?string $_js_onmouseover = null;
+    protected ?string $_js_onmouseout = null;
+
+    protected ?string $_attr_dbtype = null;
+    protected ?string $_attr_dbfield = null;
+
     //Label
-    protected $oLabel = null;
-    //HelperStyle
-    protected $oStyle = null;
+    protected ?Label $oLabel = null;
+    protected ?Style $oStyle = null;
     
     /**
      * Remplaza el atributo _class con las clases añadidas a arclasses
      */
-    protected function load_cssclass(){if($this->arclasses)$this->_class = trim(implode(" ",$this->arclasses));}
+    protected function load_cssclass(){if($this->arclasses)$this->class = trim(implode(" ",$this->arclasses));}
     /**
      * Remplaza el atributo _style con los estilos en arStyles
     */
-    protected function load_style(){if($this->arStyles)$this->_style = trim(implode(";",$this->arStyles));}
+    protected function load_style(){if($this->arStyles)$this->style = trim(implode(";",$this->arStyles));}
     /**
      * Agrega al atributo innerhtml el string obtenido con el metodo get_html()
      */
@@ -132,7 +134,7 @@ abstract class AbsHelper implements IHelper
         return $sExtracted;
     }  
     
-    public function show(){if($this->_display) echo $this->get_html();}
+    public function show(){if($this->display) echo $this->get_html();}
     
     //**********************************
     //             SETS
@@ -150,7 +152,7 @@ abstract class AbsHelper implements IHelper
     public function set_js_onmouseover($value){$this->_js_onmouseover = $value;}
     public function set_js_onmouseout($value){$this->_js_onmouseout = $value;}
     
-    public function display($showIt=TRUE){$this->_display = $showIt;}        
+    public function display($showIt=TRUE){$this->display = $showIt;}        
     protected function required($isRequired=TRUE){$this->_isRequired = $isRequired;}
     protected function readonly($isReadOnly=TRUE){$this->_isReadOnly = $isReadOnly;}
     protected function disabled($isDisabled=TRUE){$this->_isDisabled = $isDisabled;}
@@ -190,8 +192,8 @@ abstract class AbsHelper implements IHelper
     public function set_class($class){$this->arclasses=[];if($class)$this->arclasses[] = $class;}    
     public function set_style($value){$this->arStyles=[];if($value) $this->arStyles[] = $value;}
     protected function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
-    protected function reset_class(){$this->arclasses=[];$this->_class="";}
-    protected function reset_style(){$this->arStyles=[];$this->_style="";}
+    protected function reset_class(){$this->arclasses=[];$this->class="";}
+    protected function reset_style(){$this->arStyles=[];$this->style="";}
     protected function reset_inner_object(){$this->arInnerObjects=[];}
     protected function set_inner_objects($arObjHelpers){$this->arInnerObjects=$arObjHelpers;}
     protected function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
@@ -206,7 +208,7 @@ abstract class AbsHelper implements IHelper
     //**********************************
     public function getid(){return $this->id;}
     public function gettype(){return $this->type;}
-    public function get_class(){return $this->_class;}
+    public function get_class(){return $this->class;}
     public function get_extras($asString=TRUE)
     {
         $extras = [];

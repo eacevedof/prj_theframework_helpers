@@ -66,9 +66,9 @@ class Tr extends AbsHelper
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
+        if($this->class) $arHtml[] = " class=\"$this->class\"";
         $this->load_style();
-        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
+        if($this->style) $arHtml[] = " style=\"$this->style\"";
         //atributos extras
         if($this->extras) $arHtml[] = " ".$this->get_extras();
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";

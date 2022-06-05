@@ -50,9 +50,9 @@ class P extends AbsHelper
         if($this->_js_onmouseout) $arOpenTag[] = " onmouseout=\"$this->_js_onmouseout\"";        
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $arOpenTag[] = " class=\"$this->_class\"";
+        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
         $this->load_style();
-        if($this->_style) $arOpenTag[] = " style=\"$this->_style\"";
+        if($this->style) $arOpenTag[] = " style=\"$this->style\"";
         //atributos extra
         if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";              

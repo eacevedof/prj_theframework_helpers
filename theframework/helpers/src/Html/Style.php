@@ -24,20 +24,20 @@ class Style extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_class_warning($value){$this->_class_warning=$value;}
-    public function set_class_error($value){$this->_class_error=$value;}
-    public function set_class_success($value){$this->_class_success=$value;}
-    public function set_class_tips($value){$this->_class_tips=$value;}
-    public function set_class_default($value){$this->_class_default=$value;}
-    public function set_class_inverse($value){$this->_class_inverse=$value;}
+    public function set_class_warning($value){$this->class_warning=$value;}
+    public function set_class_error($value){$this->class_error=$value;}
+    public function set_class_success($value){$this->class_success=$value;}
+    public function set_class_tips($value){$this->class_tips=$value;}
+    public function set_class_default($value){$this->class_default=$value;}
+    public function set_class_inverse($value){$this->class_inverse=$value;}
     
     //**********************************
     //             GETS
     //**********************************
-    public function get_class_warning(){return $this->_class_warning;}
-    public function get_class_error(){return $this->_class_error;}
-    public function get_class_success(){return $this->_class_success;}
-    public function get_class_tips(){return $this->_class_tips;}
-    public function get_class_default(){return $this->_class_default;}
-    public function get_class_inverse(){return $this->_class_inverse;}
+    public function get_class_warning(){return $this->class_warning;}
+    public function get_class_error(){return $this->class_error;}
+    public function get_class_success(){return $this->class_success;}
+    public function get_class_tips(){return $this->class_tips;}
+    public function get_class_default(){return $this->class_default;}
+    public function get_class_inverse(){return $this->class_inverse;}
 }

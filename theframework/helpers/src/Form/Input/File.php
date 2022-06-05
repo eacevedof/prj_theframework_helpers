@@ -61,9 +61,9 @@ class File extends AbsHelper
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";        
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
+        if($this->class) $arHtml[] = " class=\"$this->class\"";
         $this->load_style();
-        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
+        if($this->style) $arHtml[] = " style=\"$this->style\"";
         //atributos extras pe. para usar el quryselector
         if($this->placeholder) $arHtml[] = " placeholder=\"$this->placeholder\"";
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";

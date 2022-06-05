@@ -115,9 +115,9 @@ class Date extends AbsHelper
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $arHtml[] = " class=\"$this->_class\"";
+        if($this->class) $arHtml[] = " class=\"$this->class\"";
         $this->load_style();
-        if($this->_style) $arHtml[] = " style=\"$this->_style\"";
+        if($this->style) $arHtml[] = " style=\"$this->style\"";
             
         if($this->placeholder) $arHtml[] = " placeholder=\"$this->placeholder\"";
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";

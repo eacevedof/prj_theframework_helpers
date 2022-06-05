@@ -41,9 +41,9 @@ class Raw extends AbsHelper
         
         //aspecto
         $this->load_cssclass();
-        if($this->_class) $arOpenTag[] = " class=\"$this->_class\"";
+        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
         $this->load_style();
-        if($this->_style) $arOpenTag[] = " style=\"$this->_style\"";            
+        if($this->style) $arOpenTag[] = " style=\"$this->style\"";            
         if($this->extras) $arOpenTag[] = " ".$this->get_extras();
 
         $arOpenTag[] =">\n";
