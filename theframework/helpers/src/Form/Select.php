@@ -21,7 +21,7 @@ class Select extends AbsHelper
     
     public function __construct
     ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
-     ,$isMultiple=false, $extras=[], $class="", $isReadOnly=false)
+     ,$isMultiple=false, $extras=[], $class="", $readonly=false)
     {
         $this->type = "select";
         $this->mxValuesToSelect = $mxValueToSelect;
@@ -36,7 +36,7 @@ class Select extends AbsHelper
         $this->oLabel = $oLabel;
         $this->extras = $extras;
         if($class) $this->arclasses[] = $class;
-        $this->_isReadOnly = $isReadOnly;
+        $this->readonly = $readonly;
     }
 
     public function get_html()
@@ -52,7 +52,7 @@ class Select extends AbsHelper
             $mxValueToSelect = $this->mxValuesToSelect;
         
         //No es readonly
-        if(!$this->_isReadOnly)        
+        if(!$this->readonly)        
         {
             if(!$this->_isMultiple)
             {    
@@ -123,15 +123,15 @@ class Select extends AbsHelper
         
         if($this->_size) $arHtml[] = " size=\"$this->_size\"";
         if($this->_isMultiple) $arHtml[] = " multiple";
-        if($this->_isDisabled) $arHtml[] = " disabled";
-        //if($this->_isReadOnly) $arHtml[] = " readonly"; //no existe esta propiedad para select
+        if($this->disabled) $arHtml[] = " disabled";
+        //if($this->readonly) $arHtml[] = " readonly"; //no existe esta propiedad para select
         if($this->_isRequired) $arHtml[] = " required"; 
         
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange)$arHtml[] = " onchange=\"$this->_js_onchange\"";
+        if($this->jsonchange)$arHtml[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onon_keypress) $arHtml[] = " onon_keypress=\"$this->_js_onon_keypress\"";
+        if($this->jsonkeypress) $arHtml[] = " onon_keypress=\"$this->jsonkeypress\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
@@ -204,7 +204,7 @@ class Select extends AbsHelper
     //**********************************
     //protected function set_value(){;}
     
-    public function readonly($isReadOnly=true){$this->_isReadOnly = $isReadOnly;}
+    public function readonly($readonly=true){$this->readonly = $readonly;}
     public function setname($value){$this->name = $value;}
     public function set_value_to_select($mxValues){$this->mxValuesToSelect = $mxValues;}
     public function set_null_option_text($value){$this->_null_option = $value;}

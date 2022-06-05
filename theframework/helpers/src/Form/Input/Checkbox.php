@@ -77,13 +77,13 @@ class Checkbox extends AbsHelper
         {
             $sCheckId = "";
             $isChecked = in_array($sValue,$this->arValuesToCheck);
-            $isReadOnly = in_array($sValue,$this->arValuesDisabled);
+            $readonly = in_array($sValue,$this->arValuesDisabled);
             if($this->id) $sCheckId = "$this->idprefix$this->id";
             if($iNumOptions>1) $sCheckId.="_$iOption";
             //bug($sCheckId);
             //calculo de checkboxes por linea. Si cumple se hace un salto
             if(($iOption%($this->iChecksPerLine))==0 && $iOption>0) $arHtml[] = "<br/>";
-            $arHtml[] = $this->build_check($sCheckId,$sValue,$sOutText,$isChecked,$isReadOnly);
+            $arHtml[] = $this->build_check($sCheckId,$sValue,$sOutText,$isChecked,$readonly);
             //bug($sHtmlToReturn); die;
             $iOption++;            
         }//foreach($this->arOptions)
@@ -93,7 +93,7 @@ class Checkbox extends AbsHelper
         return implode("",$arHtml);
     }//get_html
 
-    private function build_check($id, $sValue, $sOutText, $isChecked=false, $isReadOnly=false)
+    private function build_check($id, $sValue, $sOutText, $isChecked=false, $readonly=false)
     {
         $arHtml = [];
         $sName = $this->name;
@@ -110,9 +110,9 @@ class Checkbox extends AbsHelper
         
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange;\"";
+        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange;\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onon_keypress) $arHtml[] = " onon_keypress=\"$this->_js_onon_keypress;\"";
+        if($this->jsonkeypress) $arHtml[] = " onon_keypress=\"$this->jsonkeypress;\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";
@@ -129,7 +129,7 @@ class Checkbox extends AbsHelper
         if($this->extras) $arHtml[] = " ".$this->get_extras();
         
         if($isChecked) $arHtml[] = " checked";
-        if($isReadOnly) $arHtml[] = " disabled";
+        if($readonly) $arHtml[] = " disabled";
         $arHtml[] = ">";
         
         //out text

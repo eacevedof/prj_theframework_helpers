@@ -28,7 +28,7 @@ use TheFramework\Helpers\Form\Input\File;
 
 $oL = new TheFramework\Helpers\Form\Label;
 $oL->set_for("someId");
-$oL->set_innerhtml("This is an Input File:");
+$oL->innerhtml("This is an Input File:");
 $o = new File("someId","someName",null,$oL);
 $o->set_accept("image/png, image/jpeg");
 $o->add_extras("multiple","multiple");
@@ -40,7 +40,7 @@ use TheFramework\Helpers\Form\Input\Hidden;
 
 $oL = new TheFramework\Helpers\Form\Label;
 $oL->set_for("someId");
-$oL->set_innerhtml("Field hidden is here:");
+$oL->innerhtml("Field hidden is here:");
 $oL->show();
 $o = new Hidden("someId","someName","her-comes-a-token-to-be-hidden-afdoopjy8679834ñoñ$$34878=?dsjk");
 $o->show();
@@ -56,7 +56,7 @@ use TheFramework\Helpers\Form\Input\Password;
 
 $oL = new TheFramework\Helpers\Form\Label;
 $oL->set_for("someId");
-$oL->set_innerhtml("Type your password her:");
+$oL->innerhtml("Type your password her:");
 $oL->show();
 
 $o = new Password("someId","someName","mySecretKey",20);
@@ -70,7 +70,7 @@ use TheFramework\Helpers\Form\Input\Radio;
 
 $oL = new TheFramework\Helpers\Form\Label;
 $oL->set_for("someRadio");
-$oL->set_innerhtml("Choose one value: ");
+$oL->innerhtml("Choose one value: ");
 $oL->show();
 
 $o = new Radio(["key-1"=>"val-1","key-2"=>"val-2","key-3"=>"val-3"],"myRadioGroup");
@@ -82,7 +82,7 @@ use TheFramework\Helpers\Form\Input\Text;
 
 $oL = new TheFramework\Helpers\Form\Label;
 $oL->set_for("someTextId");
-$oL->set_innerhtml("Set a value:");
+$oL->innerhtml("Set a value:");
 
 $o = new Text("someTextId","someName");
 $o->set_label($oL);
@@ -103,13 +103,13 @@ $oFs = new Fieldset();
 $oLeg = new Legend("Información Personal");
 
 $oLbl1 = new Label();
-$oLbl1->set_innerhtml("Nombre:");
+$oLbl1->innerhtml("Nombre:");
 $oTxt1 = new Text("nombre","nombre");
 $oTxt1->add_extras("tabindex","1");
 $oTxt1->set_label($oLbl1);
 
 $oLbl2 = new Label();
-$oLbl2->set_innerhtml("Apellidos:");
+$oLbl2->innerhtml("Apellidos:");
 $oTxt2 = new Text("nombre","nombre");
 $oTxt2->add_extras("tabindex","2");
 $oTxt2->set_label($oLbl2);
@@ -178,7 +178,7 @@ $oForm = new Form("SomeFormId");
 $oForm->set_method("post");
 $oLabel = new Label("idTextarea","Type your article:");
 $oTextarea = new Textarea("idTextarea","nameTextarea");
-$oTextarea->set_innerhtml("this is an example text");
+$oTextarea->innerhtml("this is an example text");
 $oTextarea->add_extras("autofocus");
 $oTextarea->set_label($oLabel);
 $oTextarea->setmaxlength(25);
@@ -237,7 +237,7 @@ foreach($arLabel as $sLabel)
     $oTh->settype("th");
     $oTh->setcomment(" this is a comment before Th");
     $oTh->set_js_onclick("alert('clicked on {$sLabel}')");
-    $oTh->set_innerhtml($sLabel);
+    $oTh->innerhtml($sLabel);
     $oTr->add_td($oTh);
 }
 $arTrs[] = $oTr;
@@ -258,7 +258,7 @@ foreach($arData as $iRow=>$arRow)
 
         $oTd->set_attr_rownumber($iRow);
         $oTd->set_attr_colnumber($sFieldName);
-        $oTd->set_innerhtml($sFieldValue);
+        $oTd->innerhtml($sFieldValue);
         $oTr->add_td($oTd);
     }
     $arTrs[] = $oTr;
@@ -345,7 +345,7 @@ foreach($arButtons as $sType=>$sInnerHtml)
     $oButton = new Button();
     $oButton->settype($sType);
 
-    $oButton->set_innerhtml($sInnerHtml);
+    $oButton->innerhtml($sInnerHtml);
     if($sType=="submit")
     {
         $oButton->set_style("background:red;color:white");

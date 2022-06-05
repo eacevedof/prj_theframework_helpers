@@ -38,14 +38,14 @@ class Li extends AbsHelper
         $arOpenTag[] = "<$this->type";
         if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
         //propiedades html5
-        if($this->_isDisabled) $arOpenTag[] = " disabled";
-        if($this->_isReadOnly) $arOpenTag[] = " readonly"; 
+        if($this->disabled) $arOpenTag[] = " disabled";
+        if($this->readonly) $arOpenTag[] = " readonly"; 
         if($this->_isRequired) $arOpenTag[] = " required"; 
         //eventos
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange) $arOpenTag[] = " onchange=\"$this->_js_onchange\"";
+        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onon_keypress) $arOpenTag[] = " onon_keypress=\"$this->_js_onon_keypress\"";
+        if($this->jsonkeypress) $arOpenTag[] = " onon_keypress=\"$this->jsonkeypress\"";
         if($this->_js_onfocus) $arOpenTag[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arOpenTag[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arOpenTag[] = " onmouseout=\"$this->_js_onmouseout\""; 

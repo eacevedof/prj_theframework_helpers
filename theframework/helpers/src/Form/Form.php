@@ -64,7 +64,7 @@ class Form extends AbsHelper
             //este objeto suele ser el wrapper
             if(method_exists($oObject,"get_html"))
             {
-                if($this->_isReadOnly)
+                if($this->readonly)
                 {
                     if(method_exists($oObject,"readonly"))
                     {   
@@ -86,9 +86,9 @@ class Form extends AbsHelper
 
         //eventos
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange) $arOpenTag[] = " onchange=\"$this->_js_onchange\"";
+        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onon_keypress)$arOpenTag[] = " onon_keypress=\"$this->_js_onon_keypress\"";
+        if($this->jsonkeypress)$arOpenTag[] = " onon_keypress=\"$this->jsonkeypress\"";
         if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
         if($this->_js_onfocus) $arOpenTag[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onsubmit) $arOpenTag[] = " onsubmit=\"$this->_js_onsubmit\"";
@@ -126,7 +126,7 @@ class Form extends AbsHelper
     public function add_controltop($oHelper){if($oHelper) array_unshift($this->arinnerhelpers,$oHelper);}
     public function add_control($oHelper){$this->arinnerhelpers[]=$oHelper;}
     public function add_controls($arObjControls){$this->arinnerhelpers=$arObjControls;}
-    public function readonly($isReadOnly = true){$this->_isReadOnly = $isReadOnly;}
+    public function readonly($readonly = true){$this->readonly = $readonly;}
     //**********************************
     //             GETS
     //**********************************

@@ -29,7 +29,7 @@ class Raw extends AbsHelper
     }
     
     //Escondo este metodo
-    public function set_rawhtml($sRawHtml,$asEntity=0){parent::set_innerhtml($sRawHtml,$asEntity);}
+    public function set_rawhtml($sRawHtml,$asEntity=0){parent::innerhtml($sRawHtml,$asEntity);}
     
     //**********************************
     //             SETS

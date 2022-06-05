@@ -88,7 +88,7 @@ class Textarea extends AbsHelper
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
         if($this->maxlength>-1 && $this->isCounterJs && $this->isCounterSpan) 
-            $this->_js_onkeyup .= " return fn_txamaxlength(this,event);";              
+            $this->_jsonkeyup .= " return fn_txamaxlength(this,event);";              
         $arHtml[] = $this->get_opentag();
         $arHtml[] = htmlentities($this->innerhtml);
         $arHtml[] = $this->get_closetag();
@@ -116,17 +116,17 @@ class Textarea extends AbsHelper
         if($this->_rows) $arOpenTag[] = "rows=\"$this->_rows\" ";
         if($this->_cols) $arOpenTag[] = "cols=\"$this->_cols\" ";
         //propiedades html5
-        if($this->_isDisabled) $arOpenTag[] = "disabled ";
-        if($this->_isReadOnly) $arOpenTag[] = "readonly "; 
+        if($this->disabled) $arOpenTag[] = "disabled ";
+        if($this->readonly) $arOpenTag[] = "readonly "; 
         if($this->_isRequired) $arOpenTag[] = "required "; 
         //eventos
         if($this->_js_onfocus) $arOpenTag[] = "onfocus=\"$this->_js_onfocus\" ";
         if($this->_js_onblur) $arOpenTag[] = "onblur=\"$this->_js_onblur\" ";
-        if($this->_js_onchange) $arOpenTag[] = "onchange=\"$this->_js_onchange\" ";
+        if($this->jsonchange) $arOpenTag[] = "onchange=\"$this->jsonchange\" ";
         if($this->_js_onclick) $arOpenTag[] = "onclick=\"$this->_js_onclick\" ";
-        if($this->_js_onon_keypress) $arOpenTag[] = "onon_keypress=\"$this->_js_onon_keypress\" ";        
-        if($this->_js_onkeydown) $arOpenTag[] = "onkeydown=\"$this->_js_onkeydown\" ";
-        if($this->_js_onkeyup) $arOpenTag[] = "onkeyup=\"$this->_js_onkeyup\" ";
+        if($this->jsonkeypress) $arOpenTag[] = "onon_keypress=\"$this->jsonkeypress\" ";        
+        if($this->jsonkeydown) $arOpenTag[] = "onkeydown=\"$this->jsonkeydown\" ";
+        if($this->_jsonkeyup) $arOpenTag[] = "onkeyup=\"$this->_jsonkeyup\" ";
         if($this->_js_onmouseover) $arOpenTag[] = "onmouseover=\"$this->_js_onmouseover\" ";
         if($this->_js_onmouseout) $arOpenTag[] = "onmouseout=\"$this->_js_onmouseout\" ";
 
@@ -158,6 +158,6 @@ class Textarea extends AbsHelper
     //             GETS
     //**********************************
     public function getmaxlength(){return $this->maxlength;}
-    public function readonly($isReadOnly=true){$this->_isReadOnly = $isReadOnly;}
+    public function readonly($readonly=true){$this->readonly = $readonly;}
 
 }//Textarea

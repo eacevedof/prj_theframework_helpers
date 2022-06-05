@@ -45,16 +45,16 @@ class File extends AbsHelper
         //propiedades html5
         if($this->_accept) $arHtml[] = " accept=\"$this->_accept\"";
         if($this->_maxsize) $arHtml[] = " maxsize=\"$this->_maxsize\"";
-        if($this->_isDisabled) $arHtml[] = " disabled";
-        if($this->_isReadOnly) $arHtml[] = " readonly"; 
+        if($this->disabled) $arHtml[] = " disabled";
+        if($this->readonly) $arHtml[] = " readonly"; 
         if($this->_isRequired) $arHtml[] = " required"; 
         //bug($this->_isRequired,  $this->id);
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
+        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
         
-        if($this->_js_onon_keypress) $arHtml[] = " onon_keypress=\"$this->_js_onon_keypress\"";
+        if($this->jsonkeypress) $arHtml[] = " onon_keypress=\"$this->jsonkeypress\"";
 
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
@@ -81,8 +81,8 @@ class File extends AbsHelper
     public function setname($value){$this->name = $value;}
     public function set_value($value,$sVoid=null){$this->_value = $value;}
     public function set_maxsize($iNumBytes){$this->_maxsize = $iNumBytes;}
-    public function readonly($isReadOnly=true){$this->_isReadOnly=$isReadOnly;}
-    public function disabled($isDisabled=true){$this->_isDisabled=$isDisabled;}
+    public function readonly($readonly=true){$this->readonly=$readonly;}
+    public function disabled($disabled=true){$this->disabled=$disabled;}
     public function required($isRequired = true){$this->_isRequired=$isRequired;}
     public function set_accept($sAccept){$this->_accept=$sAccept;}
     //**********************************
@@ -90,6 +90,6 @@ class File extends AbsHelper
     //**********************************
     public function getname(){return $this->name;}
     public function get_maxsize(){return $this->_maxsize;}
-    public function is_readonly(){return $this->_isReadOnly;}
+    public function is_readonly(){return $this->readonly;}
     public function get_accept(){return $this->_accept;}
 }//File

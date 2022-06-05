@@ -876,11 +876,11 @@ class Basic extends HelperTable
             {
                 case "multipick":
                     //Al ser multipick es una columna checkbox sin label
-                    $oTh->set_innerhtml($this->build_multiple_button_head());
+                    $oTh->innerhtml($this->build_multiple_button_head());
                 break;
                 default:
                     $sColLabel = $this->build_column_label($sFieldName,$sLabel);
-                    $oTh->set_innerhtml($sColLabel);
+                    $oTh->innerhtml($sColLabel);
                     //bug($oTh,$sFieldName);
                     //si la tabla permite ordenar se aplica la func js para ejecutar el submit
                     $arNoOrder=array("delete","detail","singlepick","quarantine");
@@ -949,7 +949,7 @@ class Basic extends HelperTable
                 $oTd->set_attr_position($iNumRow,$iNumColumn);
                 //CONTENIDO DE CELDA
                 $sTdInner = $this->build_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn);
-                $oTd->set_innerhtml($sTdInner);
+                $oTd->innerhtml($sTdInner);
                 $arObjTds[] = $oTd;
             }//fin for arColumns
             $oTr->set_objtds($arObjTds);
@@ -1035,7 +1035,7 @@ class Basic extends HelperTable
         $oAnchor = new HelperAnchor();
         $oAnchor->add_class("btn btn-danger");
         //icon-remove-sign
-        $oAnchor->set_innerhtml("\n<span class=\"awe-remove-sign\"></span> ".tr_main_list_delete);
+        $oAnchor->innerhtml("\n<span class=\"awe-remove-sign\"></span> ".tr_main_list_delete);
         $oAnchor->set_target("self");
         $sUrlButton = $this->build_url_button($this->sUrlDelete,$arRow);
         $oAnchor->set_href("javascript:hrefgo('$sUrlButton','".tr_main_confirm_before_delete."');");
@@ -1048,7 +1048,7 @@ class Basic extends HelperTable
         $oAnchor = new HelperAnchor();
         $oAnchor->add_class("btn btn-danger");
         //icon-remove-sign
-        $oAnchor->set_innerhtml("\n<span class=\"awe-remove-sign\"></span> ".tr_main_list_quarantine);
+        $oAnchor->innerhtml("\n<span class=\"awe-remove-sign\"></span> ".tr_main_list_quarantine);
         $oAnchor->set_target("self");
         $sUrlButton = $this->build_url_button($this->sUrlQuarantine,$arRow);
         $oAnchor->set_href("javascript:hrefgo('$sUrlButton','".tr_main_confirm_before_quarantine."');");
@@ -1060,7 +1060,7 @@ class Basic extends HelperTable
     {
         $oAnchor = new HelperAnchor();
         $oAnchor->add_class("btn btn-info");
-        $oAnchor->set_innerhtml("\n<span class=\"awe-info-sign\"></span> info");
+        $oAnchor->innerhtml("\n<span class=\"awe-info-sign\"></span> info");
         $oAnchor->set_target("self");
         $sUrlButton = $this->build_url_button($this->sUrlUpdate,$arRow,"page");
         $oAnchor->set_href($sUrlButton);
@@ -1119,7 +1119,7 @@ class Basic extends HelperTable
         
         $oButton = new HelperButtonBasic();
         $oButton->add_class("btn btn-success");
-        $oButton->set_innerhtml("Pick");
+        $oButton->innerhtml("Pick");
         $oHidKey = new HelperInputHidden("hidKeySingle_$iNumRow");        
         $oHidDesc = new HelperInputHidden("hidDescSingle_$iNumRow");
 

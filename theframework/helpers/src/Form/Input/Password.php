@@ -42,14 +42,14 @@ class Password extends AbsHelper
             $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
         //propiedades html5
         if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
-        if($this->_isDisabled) $arHtml[] = " disabled";
-        if($this->_isReadOnly) $arHtml[] = " readonly"; 
+        if($this->disabled) $arHtml[] = " disabled";
+        if($this->readonly) $arHtml[] = " readonly"; 
         if($this->_isRequired) $arHtml[] = " required"; 
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
-        if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
+        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onon_keypress) $arHtml[] = " onon_keypress=\"$this->_js_onon_keypress\"";
+        if($this->jsonkeypress) $arHtml[] = " onon_keypress=\"$this->jsonkeypress\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";        
@@ -76,8 +76,8 @@ class Password extends AbsHelper
     public function setname($value){$this->name = $value;}
     public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     public function setmaxlength($iNumChars){$this->maxlength = $iNumChars;}
-    public function readonly($isReadOnly=true){parent::readonly($isReadOnly);}
-    public function disabled($isDisabled=true){parent::disabled($isDisabled);}
+    public function readonly($readonly=true){parent::readonly($readonly);}
+    public function disabled($disabled=true){parent::disabled($disabled);}
     public function required($isRequired = true){$this->_isRequired=$isRequired;}
     
     //**********************************
@@ -86,6 +86,6 @@ class Password extends AbsHelper
     public function getname(){return $this->name;}
     public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
     public function getmaxlength(){return $this->maxlength;}
-    public function is_readonly(){return $this->_isReadOnly;}
+    public function is_readonly(){return $this->readonly;}
     
 }//Password

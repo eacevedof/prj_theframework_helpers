@@ -188,7 +188,7 @@ class Typed extends HelperTableBasic
             $sClassIcon = $arAnchorData["icon"];
             //@TODOTEMPLATE
             if($sClassIcon) $sInnerHtml = "<span class=\"$sClassIcon\"></span> $sInnerHtml";
-            $oAnchor->set_innerhtml($sInnerHtml);
+            $oAnchor->innerhtml($sInnerHtml);
             return $oAnchor->get_html();
         }
         return "-";
@@ -282,7 +282,7 @@ class Typed extends HelperTableBasic
         //$oInputText->add_style("margin:0");
         $sCellPos = "$iNumRow"."_$iNumColumn";
         $oButton->setid("butInsert$sCellPos");
-        $oButton->set_innerhtml("Save");
+        $oButton->innerhtml("Save");
         $oButton->set_js_onclick("alert('new');");
         //@TODOTEMPLATE
         $oButton->add_class("btn btn-alt btn-success");
@@ -296,7 +296,7 @@ class Typed extends HelperTableBasic
         //$oInputText->add_style("margin:0");
         $sCellPos = "$iNumRow"."_$iNumColumn";
         $oButton->setid("butUpdate$sCellPos");
-        $oButton->set_innerhtml("Save");
+        $oButton->innerhtml("Save");
         //@TODOTEMPLATE
         $oButton->add_class("btn btn-alt btn-success");
         $oButton->set_js_onclick("alert('TODO: Hi! I gonna save you');");        
