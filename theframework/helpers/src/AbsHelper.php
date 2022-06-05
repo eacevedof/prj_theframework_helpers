@@ -87,13 +87,7 @@ abstract class AbsHelper implements IHelper
             $this->innerhtml .= implode("",$tmp);
         return $this;
     }
-    
-    private function _concat_param_value(string $param, string $value): string
-    {
-        $value = urlencode($value);
-        return "$param=$value";
-    }
-    
+
     public function show(): void
     {
         if($this->display) echo $this->get_html();
@@ -159,7 +153,7 @@ abstract class AbsHelper implements IHelper
     
     protected function name($value){$this->name = $value;}
 
-    public function set_label(\TheFramework\Helpers\Form\Label $oLabel){$this->oLabel = $oLabel;}
+    public function set_label(Label $oLabel){$this->oLabel = $oLabel;}
     public function set_class($class){$this->arclasses=[];if($class)$this->arclasses[] = $class;}    
     public function set_style($value){$this->arStyles=[];if($value) $this->arStyles[] = $value;}
     public function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
