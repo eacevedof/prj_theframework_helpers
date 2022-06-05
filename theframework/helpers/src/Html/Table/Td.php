@@ -21,7 +21,7 @@ class Td extends AbsHelper
     
     public function __construct($innerhtml="", $id="", $class="", $style="", $colspan="", $arExtras=[])
     {
-        $this->_type = "td";
+        $this->type = "td";
         $this->_idprefix = "td";
         $this->_id = $id;
         
@@ -52,7 +52,7 @@ class Td extends AbsHelper
     public function set_attr_colnumber($value){$this->_attr_colnumber = $value;}
     public function set_colspan($value){$this->_colspan = $value;}
     public function set_as_header($isOn=true){$this->_isHeader=$isOn;
-    if($this->_isHeader)$this->_type="th"; else $this->_type="td";}
+    if($this->_isHeader)$this->type="th"; else $this->type="td";}
 
     public function set_innerobject($mxHtmlObject)
     {
@@ -76,7 +76,7 @@ class Td extends AbsHelper
     //**********************************
     public function get_opentag() 
     {
-        $arHtml[] = "<$this->_type";
+        $arHtml[] = "<$this->type";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_colspan) $arHtml[] = " colspan=\"$this->_colspan\"";
         //eventos

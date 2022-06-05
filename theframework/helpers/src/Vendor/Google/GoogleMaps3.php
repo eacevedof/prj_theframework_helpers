@@ -150,7 +150,7 @@ class GoogleMaps3
     gmaps3.config.iWidth = <?php $this->get_width(); ?>;
     gmaps3.config.sUnitWH = <?php $this->get_size_unit(); ?>;
     //Rutas
-    gmaps3.config.sRouteMode = <?php $this->get_route_type(); ?>;
+    gmaps3.config.sRouteMode = <?php $this->get_routetype(); ?>;
     gmaps3.config.drawRoutes = <?php $this->do_draw_routes(); ?>;
     gmaps3.config.sRouteColor = <?php $this->get_route_color(); ?>;
     gmaps3.config.iRouteWidth = <?php $this->get_route_width(); ?>;
@@ -712,7 +712,7 @@ class GoogleMaps3
     private function get_height(){echo $this->_iHeight;}
     private function get_width(){echo $this->_iWidth;}
     private function get_size_unit(){echo "'$this->_sUnitWH'";}
-    private function get_route_type(){echo "'$this->_sRouteMode'";}
+    private function get_routetype(){echo "'$this->_sRouteMode'";}
     private function get_route_color(){echo "'$this->_sRouteColor'";}
     private function get_route_width(){echo $this->_iRouteWidth;}
     private function get_route_alpha(){echo $this->_fRouteAlpha;}
@@ -751,7 +751,7 @@ class GoogleMaps3
     /**
      * @param string $sType driving, walking, bicycling
      */
-    public function set_route_type($sType="driving"){$this->_sRouteMode = $sType;}
+    public function set_routetype($sType="driving"){$this->_sRouteMode = $sType;}
     
     public function set_route_width($iWidth=3){$this->_iRouteWidth = $iWidth;}
     public function set_route_alpha($fAlpha=0.5){$this->_fRouteAlpha = $fAlpha;}

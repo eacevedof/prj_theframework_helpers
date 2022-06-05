@@ -24,7 +24,7 @@ class Tr extends AbsHelper
     ($arInnerObjectss=[], $id="", $class="", $style="", $colspan=""
             , $rowpan="", $arExtras=[])
     {
-        $this->_type = "tr";
+        $this->type = "tr";
         $this->_inner_html = "";
         $this->_idprefix = "tr";
         $this->_id = $id;
@@ -52,7 +52,7 @@ class Tr extends AbsHelper
     public function get_opentag() 
     {
          //tr
-        $arHtml[] = "<$this->_type";
+        $arHtml[] = "<$this->type";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->iRowSpan) $arHtml[] = " rowspan=\"$this->iRowSpan\"";
         //eventos

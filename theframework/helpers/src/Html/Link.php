@@ -13,7 +13,7 @@ use TheFramework\Helpers\AbsHelper;
 
 class Link extends AbsHelper
 {
-    private $sType;//media_type	Specifies the media type of the linked document
+    private $sType;//mediatype	Specifies the media type of the linked document
     private $sRel;//alternate,author,dns-prefetch,help,icon,license,next,pingback
                   //,preconnect,prefetch,preload,prerender,prev,search,stylesheet
     private $arHrefs;

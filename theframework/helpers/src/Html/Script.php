@@ -23,7 +23,7 @@ class Script extends AbsHelper
     {
         $this->_idprefix = "";
         $this->_tag = "script";
-        $this->_type = $sType;
+        $this->type = $sType;
     }
  
     public function get_opentag() 
@@ -53,8 +53,8 @@ class Script extends AbsHelper
         foreach($this->arSrc as $mxSrc)
         {
             $arTmp = [];       
-            if($this->_type) 
-                $arTmp[] = "type=\"{$this->_type}\"";
+            if($this->type) 
+                $arTmp[] = "type=\"{$this->type}\"";
                 
             if(is_string($mxSrc))
             {

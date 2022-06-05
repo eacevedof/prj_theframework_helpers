@@ -19,7 +19,7 @@ class Style extends AbsHelper
     private $_class_default = "";
     private $_class_inverse = "";
     
-    public function __construct(){$this->_type = "style"; }
+    public function __construct(){$this->type = "style"; }
     
     //**********************************
     //             SETS

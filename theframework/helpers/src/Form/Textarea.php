@@ -23,7 +23,7 @@ class Textarea extends AbsHelper
     ($id="",$name="",$innerhtml="",$arExtras=[],$maxlength=-1
     ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=NULL)
     {
-        $this->_type = "textarea";
+        $this->type = "textarea";
 
         $this->_idprefix = "";
         $this->_id = $id;
@@ -110,7 +110,7 @@ class Textarea extends AbsHelper
     
     public function get_opentag()
     {
-        $arOpenTag[] = "<$this->_type ";
+        $arOpenTag[] = "<$this->type ";
         if($this->_id) $arOpenTag[] = "id=\"$this->_idprefix$this->_id\" ";
         if($this->_name) $arOpenTag[] = "name=\"$this->_idprefix$this->_name\" ";
         if($this->_rows) $arOpenTag[] = "rows=\"$this->_rows\" ";

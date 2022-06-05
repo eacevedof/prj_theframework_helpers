@@ -20,7 +20,7 @@ class Image extends AbsHelper
 
     public function __construct($src="", $id="", $class="", $style="", $arExtras=[])
     {
-        $this->_type = "img";
+        $this->type = "img";
         $this->_idprefix = "";
         $this->_id = $id;
         
@@ -32,7 +32,7 @@ class Image extends AbsHelper
     
     public function get_html()
     {  
-        $arHtml[] = "<$this->_type";
+        $arHtml[] = "<$this->type";
         if($this->_src) $arHtml[] = " src=\"$this->_src\"";
         if($this->_alt) $arHtml[] = " alt=\"{$this->get_cleaned($this->_alt)}\"";
         if($this->_title) $arHtml[] = " title=\"{$this->get_cleaned($this->_title)}\"";

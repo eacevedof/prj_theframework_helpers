@@ -48,7 +48,7 @@ class Checkbox extends AbsHelper
         $this->conv_string_to_array($mxValuesToCheck);
         $this->conv_string_to_array($mxValuesDisabled);
         
-        $this->_type = "checkbox";
+        $this->type = "checkbox";
         $this->_idprefix = "";
         $this->_name = $name;
         $this->_id = $name;
@@ -100,7 +100,7 @@ class Checkbox extends AbsHelper
         if(!$sName) $sName = "noname";
 
         $arHtml[] = "<input";
-        $arHtml[] = " type=\"$this->_type\" ";
+        $arHtml[] = " type=\"$this->type\" ";
 
         if($id) $arHtml[] = " id=\"$id\"";
         $arHtml[] = " name=\"$this->_idprefix$sName";

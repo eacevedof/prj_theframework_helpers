@@ -15,7 +15,7 @@ class Li extends AbsHelper
     public function __construct($innerhtml="",$id="")
     {
         $this->_idprefix = "li";
-        $this->_type = "li";
+        $this->type = "li";
         $this->_id = $id;
         $this->_inner_html = $innerhtml;
     }
@@ -35,7 +35,7 @@ class Li extends AbsHelper
 
     public function get_opentag()
     {
-        $arOpenTag[] = "<$this->_type";
+        $arOpenTag[] = "<$this->type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
         //propiedades html5
         if($this->_isDisabled) $arOpenTag[] = " disabled";

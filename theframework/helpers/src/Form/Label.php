@@ -17,7 +17,7 @@ class Label extends AbsHelper
     public function __construct($for="", $innerhtml="", $id="", 
             $class="", $style="", $arExtras=[])
     {
-        $this->_type = "label";
+        $this->type = "label";
         $this->_idprefix = "";
         $this->_id = $id;
         
@@ -44,7 +44,7 @@ class Label extends AbsHelper
     
     public function get_opentag()
     {
-        $arOpenTag[] = "<$this->_type";
+        $arOpenTag[] = "<$this->type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_for) $arOpenTag[] = " for=\"$this->_for\"";
         //eventos

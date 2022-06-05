@@ -27,7 +27,7 @@ class Table extends AbsHelper
     {
         //clientbrowser,isMobileDevice,consolecalled,permalink
         parent::__construct();
-        $this->_type = "table";
+        $this->type = "table";
         $this->_idprefix = "tbl";
         $this->_id = $id;
         $this->_inner_html = "";
@@ -80,7 +80,7 @@ class Table extends AbsHelper
         
     public function get_opentag()
     {
-        $arHtml[] = "<$this->_type";
+        $arHtml[] = "<$this->type";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";

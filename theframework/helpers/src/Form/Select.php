@@ -23,7 +23,7 @@ class Select extends AbsHelper
     ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
      ,$isMultiple=FALSE, $arExtras=[], $class="", $isReadOnly=FALSE)
     {
-        $this->_type = "select";
+        $this->type = "select";
         $this->mxValuesToSelect = $mxValueToSelect;
         
         $this->arOptions = $arOptions;
@@ -115,7 +115,7 @@ class Select extends AbsHelper
         
     public function get_opentag()
     {
-        $arHtml[] = "<$this->_type";
+        $arHtml[] = "<$this->type";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         //Nombre dependiendo si es multiple o no
         if($this->_isMultiple) $arHtml[] = " name=\"$this->_idprefix$this->_name[]\"";

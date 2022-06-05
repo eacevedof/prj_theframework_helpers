@@ -35,7 +35,7 @@ class ComponentGd2
             define("PATH_RESDIR",realpath($GLOBALS["config_app_dir"].$GLOBALS["config_web_folder"].DS.$GLOBALS["config_res_dir"]));        
     }
     
-    private function get_type($sFilename){return end(explode(".",trim($sFilename)));}
+    private function gettype($sFilename){return end(explode(".",trim($sFilename)));}
     
     private function get_image_obj($sExtension,$sPathFile)
     {
@@ -101,7 +101,7 @@ class ComponentGd2
         
         if(($iW || $iH) && !$this->isError)
         {
-            $sExt = $this->get_type($this->arFrom["filename"]);
+            $sExt = $this->gettype($this->arFrom["filename"]);
             $oImgFrom = $this->get_image_obj($sExt,$sPathFileFrom);
             $arSize = $this->get_size($sPathFileFrom);
 

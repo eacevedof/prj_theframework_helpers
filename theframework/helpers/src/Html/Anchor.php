@@ -20,7 +20,7 @@ class Anchor extends AbsHelper
     public function __construct($innerhtml="", $id="", $href="", $target="", 
             $class="", $style="", $arExtras=[])
     {
-        $this->_type = "a";
+        $this->type = "a";
         $this->_idprefix = "";
         $this->_id = $id;
     
@@ -48,7 +48,7 @@ class Anchor extends AbsHelper
         
     public function get_opentag()
     {
-        $arOpenTag[] = "<$this->_type";
+        $arOpenTag[] = "<$this->type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_href) $arOpenTag[] = " href=\"$this->_href\"";
         if($this->_target) $arOpenTag[] = " target=\"$this->_target\"";

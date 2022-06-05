@@ -19,14 +19,14 @@ class Raw extends AbsHelper
     public function __construct($arRows,$arLabels=[]) 
     {
         $this->_idprefix = "";
-        $this->_type = "table";
+        $this->type = "table";
         $this->arRows = $arRows;
         $this->arLabels = $arLabels;
     }
     
     public function get_opentag()
     {
-        $arOpenTag[] = "<$this->_type";
+        $arOpenTag[] = "<$this->type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
 
         //eventos

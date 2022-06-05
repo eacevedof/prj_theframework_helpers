@@ -26,7 +26,7 @@ class Form extends AbsHelper
             , $action="", $class="", $style="", $arExtras=[], $enctype="", $onsubmit="")
     {
         //enctype="multipart/form-data"
-        $this->_type = "form";
+        $this->type = "form";
         $this->_idprefix = "";
         $this->_id = $id;
         $this->_name = $name;
@@ -81,7 +81,7 @@ class Form extends AbsHelper
     public function get_opentag()
     {
         $arOpenTag = [];
-        $arOpenTag[] = "<$this->_type";
+        $arOpenTag[] = "<$this->type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
 
         //eventos

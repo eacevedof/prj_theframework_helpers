@@ -264,7 +264,7 @@ class ComponentMssqlExport
     {
         $sSQL = "/*ComponentMssqlExport.get_fields_info*/
         SELECT field_name
-        ,MAX(field_type) AS field_type
+        ,MAX(fieldtype) AS fieldtype
         ,MAX(field_length) AS field_length
         ,MAX(defvalue) AS defvalue
         ,MAX(is_nullable) AS is_nullable
@@ -273,8 +273,8 @@ class ComponentMssqlExport
         FROM
         (
             SELECT DISTINCT field_name
-            ,field_type
-            ,CASE field_type
+            ,fieldtype
+            ,CASE fieldtype
                 WHEN 'varchar' THEN CONVERT(VARCHAR,mxlen)
                 WHEN 'int' THEN '11'
                 WHEN 'float' THEN '-'
@@ -296,7 +296,7 @@ class ComponentMssqlExport
             FROM
             (
                 SELECT DISTINCT syscols.name AS field_name
-                ,systypes.name AS field_type 
+                ,systypes.name AS fieldtype 
                 ,syscols.max_length AS mxlen
                 ,syscols.precision AS intpos
                 ,syscols.scale AS floatpos
@@ -318,7 +318,7 @@ class ComponentMssqlExport
                 ON syscols.object_id = OBJECT_ID(extra.table_name)
                 AND syscols.name = extra.field_name
                 INNER JOIN sys.types AS systypes 
-                ON syscols.user_type_id = systypes.user_type_id
+                ON syscols.usertype_id = systypes.usertype_id
                 LEFT OUTER JOIN sys.index_columns AS colsidx 
                 ON colsidx.object_id = syscols.object_id 
                 AND colsidx.column_id = syscols.column_id
@@ -460,7 +460,7 @@ class ComponentMssqlExport
             $arSelect = [];
             foreach($arFields as $arField)
             {
-                $sFieldType = $arField["field_type"];
+                $sFieldType = $arField["fieldtype"];
                 if(in_array($sFieldType,$this->arBinary))
                     continue;
                 $arSelect[] = $arField["field_name"];
@@ -566,7 +566,7 @@ class ComponentMssqlExport
 
                 $sFieldDef = $arFld["defvalue"];
                 $sFieldName = $arFld["field_name"];
-                $sFieldType = $arFld["field_type"];
+                $sFieldType = $arFld["fieldtype"];
                 $sFieldLen = "({$arFld["field_length"]})";
                 if(in_array($sFieldType,$this->arNoLen)) $sFieldLen = "";
 
@@ -626,7 +626,7 @@ class ComponentMssqlExport
 
                 $sFieldDef = $arFld["defvalue"];
                 $sFieldName = $arFld["field_name"];
-                $sFieldType = $arFld["field_type"];
+                $sFieldType = $arFld["fieldtype"];
                 $sFieldLen = $arFld["field_length"];
                 $sFieldTypeTo = $this->get_fieldtype_map($sFieldType,"mssql","mysql");
                 if(is_array($sFieldTypeTo)){pr("Error traduccion campo: table:$sTableName,name:$sFieldName,type:$sFieldType,order:$i");die;}
@@ -720,7 +720,7 @@ class ComponentMssqlExport
         foreach($arFields as $arField)
         {
             if($arField["field_name"]==$sFieldName)
-                return $arField["field_type"];
+                return $arField["fieldtype"];
         }
         return "";        
     }//get_fieldtype

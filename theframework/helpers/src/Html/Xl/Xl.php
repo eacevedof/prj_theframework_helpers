@@ -18,7 +18,7 @@ class Xl extends AbsHelper
     ($innerhtml="",$id="",$arObjLi=[])
     {
         $this->_idprefix = "";
-        $this->_type = "ul";
+        $this->type = "ul";
         $this->_id = $id;
         $this->_inner_html = $innerhtml;
         $this->arObjLi = $arObjLi;
@@ -49,7 +49,7 @@ class Xl extends AbsHelper
         
     public function get_opentag()
     {
-        $arOpenTag[] = "<$this->_type";
+        $arOpenTag[] = "<$this->type";
         if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
         //propiedades html5
         if($this->_isDisabled) $arOpenTag[] = " disabled";

@@ -72,7 +72,7 @@ class FpdfCell
      * Right, Center, Left, J??
      * @param char $cAlign R|C|J
      */
-    public function set_type_align($cAlign){$this->cAlign = $cAlign;}
+    public function settype_align($cAlign){$this->cAlign = $cAlign;}
     public function set_usefill($isOn=TRUE){$this->isFill = $isOn;}
     public function set_pagelink($sValue){$this->sUrlPageLink = $sValue;}
     
@@ -103,7 +103,7 @@ class FpdfCell
     
     public function get_border(){return $this->iBorder;}
     public function get_numline_unit(){return $this->iNumNL;}
-    public function get_type_align(){return $this->cAlign;}
+    public function gettype_align(){return $this->cAlign;}
     public function get_usefill(){return $this->isFill;}
     public function get_pagelink(){return $this->sUrlPageLink;}
     

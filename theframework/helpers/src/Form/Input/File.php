@@ -17,13 +17,13 @@ class File extends AbsHelper
 {
     protected $_maxsize;
     protected $_accept;
-  //<input accept="audio/*|video/*|image/*|MIME_type"> 
+  //<input accept="audio/*|video/*|image/*|MIMEtype"> 
     public function __construct
     ($id="", $name="", $class="", Label $oLabel=null)
     {
         $this->oLabel = $oLabel;
         $this->_idprefix = "";
-        $this->_type = "file";
+        $this->type = "file";
         $this->_id = $id;
         $this->_name = $name;
         if($class) $this->arClasses[] = $class;
@@ -37,7 +37,7 @@ class File extends AbsHelper
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
-        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->type) $arHtml[] = " type=\"$this->type\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         if($this->_value || $this->_value=="0") $arHtml[] = " value=\"$this->_value\"";

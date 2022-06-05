@@ -19,7 +19,7 @@ class Password extends AbsHelper
     {
         $this->oLabel = $oLabel;
         $this->_idprefix = "";
-        $this->_type = "password";
+        $this->type = "password";
         $this->_id = $id;
         $this->_name = $name;
         $this->_value = $value;
@@ -35,7 +35,7 @@ class Password extends AbsHelper
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
-        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->type) $arHtml[] = " type=\"$this->type\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         if($this->_value || $this->_value=="0") 

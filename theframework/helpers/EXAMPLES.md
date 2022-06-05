@@ -234,7 +234,7 @@ $oTr = new Tr();
 foreach($arLabel as $sLabel)
 {
     $oTh = new Td();
-    $oTh->set_type("th");
+    $oTh->settype("th");
     $oTh->setcomment(" this is a comment before Th");
     $oTh->set_js_onclick("alert('clicked on {$sLabel}')");
     $oTh->set_innerhtml($sLabel);
@@ -286,7 +286,7 @@ $oUl->add_style("background:grey");
 $oUl->add_style("width:100px");
 
 $oOl = new Xl();
-$oOl->set_type("ol");
+$oOl->settype("ol");
 $oOl->add_style("background:yellow;width:200px;");
 
 foreach($arItems as $i=>$sText)
@@ -343,7 +343,7 @@ echo "<br/><br/>";
 foreach($arButtons as $sType=>$sInnerHtml)
 {
     $oButton = new Button();
-    $oButton->set_type($sType);
+    $oButton->settype($sType);
 
     $oButton->set_innerhtml($sInnerHtml);
     if($sType=="submit")

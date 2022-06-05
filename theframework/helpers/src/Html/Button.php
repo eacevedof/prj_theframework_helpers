@@ -24,7 +24,7 @@ class Button extends AbsHelper
     public function __construct($innerhtml="",$type="button",$id="")
     {
         //tiene que ser button sino hay tipo ejecuta un submit
-        $this->_type = $type;
+        $this->type = $type;
         $this->_idprefix="";
         $this->_id = $id;
         $this->_inner_html = $innerhtml;
@@ -46,7 +46,7 @@ class Button extends AbsHelper
     public function get_opentag()
     {    
         $arHtml[] = "<button";
-        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->type) $arHtml[] = " type=\"$this->type\"";
         if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
         if($this->_isDisabled) $arHtml[] = " disabled"; 
          

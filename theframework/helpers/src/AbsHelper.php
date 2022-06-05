@@ -6,10 +6,10 @@
  */
 namespace TheFramework\Helpers;
 
-abstract class AbsHelper
+abstract class AbsHelper implements IHelper
 {
     protected string $comment = "";
-    protected $_type = "";
+    protected string $type = "";
     protected $_id = "";
     protected $_name = "";
     protected $_idprefix = "";
@@ -181,7 +181,7 @@ abstract class AbsHelper
     public function set_as_primarykey($isPk=TRUE){$this->_is_primarykey = $isPk;}
     public function set_innerhtml($sInnerHtml,$asEntity=0)
     {if($asEntity)$this->_inner_html = htmlentities($sInnerHtml);else $this->_inner_html=$sInnerHtml;}
-    public function set_type($value){$this->_type = $value;}
+    public function settype($value){$this->type = $value;}
     public function set_postback($isOn=TRUE){$this->_isPostback=$isOn;}
     public function on_enterinsert($isOn=TRUE){$this->_isEnterInsert=$isOn;}
     public function on_enterupdate($isOn=TRUE){$this->_isEnterUpdate=$isOn;}
@@ -208,7 +208,7 @@ abstract class AbsHelper
     //             GETS
     //**********************************
     public function get_id(){return $this->_id;}
-    public function get_type(){return $this->_type;}
+    public function gettype(){return $this->type;}
     public function get_class(){return $this->_class;}
     public function get_extras($asString=TRUE)
     {
@@ -260,7 +260,7 @@ abstract class AbsHelper
     //to override
     protected function get_opentag(){}
     //to override
-    protected function get_closetag(){return "</$this->_type>\n";}
+    protected function get_closetag(){return "</$this->type>\n";}
     //to override
     protected function show_opentag(){echo $this->get_opentag();}
     //to override

@@ -21,7 +21,7 @@ class Radio extends AbsHelper
             , $valuetocheck="", $class="", $arExtras=[])
     {
         //$this->_id = ""; el id se aplica por check no por legend
-        $this->_type = "radio";
+        $this->type = "radio";
         $this->_idprefix="";
         $this->_arOptions = $arOptions;
         $this->_value_to_check = $valuetocheck;
@@ -57,7 +57,7 @@ class Radio extends AbsHelper
         $this->_id = $id;
         $arHtml = [];
         $arHtml[] = "<input";
-        if($this->_type) $arHtml[] = " type=\"$this->_type\"";
+        if($this->type) $arHtml[] = " type=\"$this->type\"";
         if($this->_id) $arHtml[] = " id=\"$id\"";
         if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
         if($value) $arHtml[] = " value=\"$value\"";

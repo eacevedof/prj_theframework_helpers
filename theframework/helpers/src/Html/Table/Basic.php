@@ -1546,7 +1546,7 @@ class Basic extends HelperTable
     public function set_column_picksingle($isOn=true){$this->isPickSingle=$isOn;}    
     public function set_keyfields($arKeyFields){$this->arKeyFields=$arKeyFields;}
     public function set_orderby($arFieldNames){$this->arOrderBy=$arFieldNames;}
-    public function set_orderby_type($arOrderWay){$this->arOrderWay=$arOrderWay;}
+    public function set_orderbytype($arOrderWay){$this->arOrderWay=$arOrderWay;}
     public function set_url_delete($sUrl){$this->sUrlDelete=$sUrl;}
     public function set_url_quarantine($sUrl){$this->sUrlQuarantine=$sUrl;}
     public function set_url_update($sUrl){$this->sUrlUpdate=$sUrl;}
