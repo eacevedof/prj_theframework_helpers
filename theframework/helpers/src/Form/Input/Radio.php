@@ -20,15 +20,15 @@ class Radio extends AbsHelper
     public function __construct($arOptions, $grpname, $legendtext=""
             , $valuetocheck="", $class="", $arExtras=[])
     {
-        //$this->_id = ""; el id se aplica por check no por legend
+        //$this->id = ""; el id se aplica por check no por legend
         $this->type = "radio";
-        $this->_idprefix="";
+        $this->idprefix="";
         $this->_arOptions = $arOptions;
         $this->_value_to_check = $valuetocheck;
        
-        $this->_name = $grpname;
+        $this->name = $grpname;
         $this->_legendtext = $legendtext;
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         $this->arExtras = $arExtras;
     }
 
@@ -42,7 +42,7 @@ class Radio extends AbsHelper
         foreach($this->_arOptions as $sValue => $sLabel)
         {
             $isChecked = ($this->_value_to_check == $sValue);
-            $id = $this->_idprefix.$this->_name."_".$i;
+            $id = $this->idprefix.$this->name."_".$i;
             $id = str_replace("[]","",$id);
             $oLabel = new Label($id, $sLabel, "lbl$id");
             $arHtml[] = $this->build_input_radio($id, $sValue, $oLabel, $isChecked);
@@ -54,16 +54,16 @@ class Radio extends AbsHelper
 
     private function build_input_radio($id, $value, Label $oLabel=null, $isChecked=false)
     {
-        $this->_id = $id;
+        $this->id = $id;
         $arHtml = [];
         $arHtml[] = "<input";
         if($this->type) $arHtml[] = " type=\"$this->type\"";
-        if($this->_id) $arHtml[] = " id=\"$id\"";
-        if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
+        if($this->id) $arHtml[] = " id=\"$id\"";
+        if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
         if($value) $arHtml[] = " value=\"$value\"";
         if($isChecked) $arHtml[] = " checked" ;
         //propiedades html5
-        //if($this->_maxlength)$arHtml[] = " maxlength=\"$this->_maxlength\"";
+        //if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
         if($this->_isDisabled) $arHtml[] = " disabled";
         if($this->_isReadOnly) $arHtml[] = " readonly"; 
         //if($this->_isRequired) $arHtml[] = " required"; 
@@ -95,14 +95,14 @@ class Radio extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_name($value){$this->_name = $value;}
+    public function setname($value){$this->name = $value;}
     public function set_value_to_check($value){$this->_value_to_check = $value;}
     public function set_legendtext($value){$this->_legendtext = $value;}
     
     //**********************************
     //             GETS
     //**********************************
-    public function get_name(){return $this->_name;}
+    public function getname(){return $this->name;}
     public function get_value_checked(){return $this->_value_to_check;}
     public function get_legendtext(){return $this->_legendtext;}
 }

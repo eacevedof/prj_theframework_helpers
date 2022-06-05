@@ -21,7 +21,7 @@ class Script extends AbsHelper
 
     public function __construct($sType="")
     {
-        $this->_idprefix = "";
+        $this->idprefix = "";
         $this->_tag = "script";
         $this->type = $sType;
     }
@@ -29,7 +29,7 @@ class Script extends AbsHelper
     public function get_opentag() 
     {
         $arOpenTag[] = "<$this->_tag";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
         if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
         $arOpenTag[] = ">\n";
         return implode("",$arOpenTag);
@@ -41,7 +41,7 @@ class Script extends AbsHelper
     {  
         $arHtml[] = $this->get_opentag();
         $this->load_inner_objects("\n");
-        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }//get_html

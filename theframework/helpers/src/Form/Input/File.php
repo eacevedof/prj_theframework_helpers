@@ -22,11 +22,11 @@ class File extends AbsHelper
     ($id="", $name="", $class="", Label $oLabel=null)
     {
         $this->oLabel = $oLabel;
-        $this->_idprefix = "";
+        $this->idprefix = "";
         $this->type = "file";
-        $this->_id = $id;
-        $this->_name = $name;
-        if($class) $this->arClasses[] = $class;
+        $this->id = $id;
+        $this->name = $name;
+        if($class) $this->arclasses[] = $class;
         $this->oLabel = $oLabel;
     }
     
@@ -38,17 +38,17 @@ class File extends AbsHelper
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
         if($this->type) $arHtml[] = " type=\"$this->type\"";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
-        if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
+        if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
         if($this->_value || $this->_value=="0") $arHtml[] = " value=\"$this->_value\"";
-        //bug($this->_value,"input_file $this->_id");
+        //bug($this->_value,"input_file $this->id");
         //propiedades html5
         if($this->_accept) $arHtml[] = " accept=\"$this->_accept\"";
         if($this->_maxsize) $arHtml[] = " maxsize=\"$this->_maxsize\"";
         if($this->_isDisabled) $arHtml[] = " disabled";
         if($this->_isReadOnly) $arHtml[] = " readonly"; 
         if($this->_isRequired) $arHtml[] = " required"; 
-        //bug($this->_isRequired,  $this->_id);
+        //bug($this->_isRequired,  $this->id);
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
@@ -78,7 +78,7 @@ class File extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_name($value){$this->_name = $value;}
+    public function setname($value){$this->name = $value;}
     public function set_value($value,$sVoid=null){$this->_value = $value;}
     public function set_maxsize($iNumBytes){$this->_maxsize = $iNumBytes;}
     public function readonly($isReadOnly=true){$this->_isReadOnly=$isReadOnly;}
@@ -88,7 +88,7 @@ class File extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function get_name(){return $this->_name;}
+    public function getname(){return $this->name;}
     public function get_maxsize(){return $this->_maxsize;}
     public function is_readonly(){return $this->_isReadOnly;}
     public function get_accept(){return $this->_accept;}

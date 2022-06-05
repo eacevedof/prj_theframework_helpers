@@ -60,12 +60,12 @@ include_once("<anyfolder-you-create>/autoload.php");//downloaded from https://gi
 
 use TheFramework\Helpers\HelperInputText;
 $oInput = new HelperInputText();
-$oInput->set_name("txtMiFirstInput");
+$oInput->setname("txtMiFirstInput");
 $oInput->set_value("Hello World");
 $oInput->add_class("form-control");
 $oInput->is_readonly();
 $oInput->required();
-$oInput->set_maxlength(35);
+$oInput->setmaxlength(35);
 $oInput->show();
 
 ```

@@ -17,20 +17,20 @@ class Xl extends AbsHelper
     public function __construct
     ($innerhtml="",$id="",$arObjLi=[])
     {
-        $this->_idprefix = "";
+        $this->idprefix = "";
         $this->type = "ul";
-        $this->_id = $id;
-        $this->_inner_html = $innerhtml;
+        $this->id = $id;
+        $this->innerhtml = $innerhtml;
         $this->arObjLi = $arObjLi;
     }
     
     public function get_html()
     {  
         $arHtml = [];
-        if(!$this->_inner_html) $this->_inner_html = $this->get_array_li_as_string();
+        if(!$this->innerhtml) $this->innerhtml = $this->get_array_li_as_string();
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = $this->get_opentag();
-        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }//get_html
@@ -50,7 +50,7 @@ class Xl extends AbsHelper
     public function get_opentag()
     {
         $arOpenTag[] = "<$this->type";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
         //propiedades html5
         if($this->_isDisabled) $arOpenTag[] = " disabled";
         if($this->_isReadOnly) $arOpenTag[] = " readonly"; 

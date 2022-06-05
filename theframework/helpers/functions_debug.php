@@ -101,7 +101,7 @@ if(!function_exists("lg"))
 function bug($var, $sVarName="var", $isDie=false)
 {
     if(IS_DEBUG_ALLOWED || 
-       (isset($_SESSION["tfw_user_identificator"]) && ($_SESSION["tfw_user_identificator"]==-10 || $_SESSION["tfw_user_identificator"]==1)))
+       (isset($_SESSION["tfw_useridentificator"]) && ($_SESSION["tfw_useridentificator"]==-10 || $_SESSION["tfw_useridentificator"]==1)))
     {    
         if(is_string($var))
         {
@@ -225,7 +225,7 @@ function bugss($sKey="")
     if($sKey=="")
     {
         $arPG = [];
-        $arPG["session_id()"] = session_id();
+        $arPG["sessionid()"] = sessionid();
         $arPG["SESSION"] = $_SESSION;
         bug($arPG,"SESSION");    
     }

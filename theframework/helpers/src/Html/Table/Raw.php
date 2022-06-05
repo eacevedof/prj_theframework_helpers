@@ -18,7 +18,7 @@ class Raw extends AbsHelper
 
     public function __construct($arRows,$arLabels=[]) 
     {
-        $this->_idprefix = "";
+        $this->idprefix = "";
         $this->type = "table";
         $this->arRows = $arRows;
         $this->arLabels = $arLabels;
@@ -27,7 +27,7 @@ class Raw extends AbsHelper
     public function get_opentag()
     {
         $arOpenTag[] = "<$this->type";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
 
         //eventos
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";

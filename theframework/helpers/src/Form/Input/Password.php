@@ -18,13 +18,13 @@ class Password extends AbsHelper
     ($id="",$name="",$value="",$length=50,$class="",Label $oLabel=null)
     {
         $this->oLabel = $oLabel;
-        $this->_idprefix = "";
+        $this->idprefix = "";
         $this->type = "password";
-        $this->_id = $id;
-        $this->_name = $name;
+        $this->id = $id;
+        $this->name = $name;
         $this->_value = $value;
-        $this->_maxlength = $length;
-        if($class) $this->arClasses[] = $class;
+        $this->maxlength = $length;
+        if($class) $this->arclasses[] = $class;
         $this->oLabel = $oLabel;
     }
     
@@ -36,12 +36,12 @@ class Password extends AbsHelper
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
         if($this->type) $arHtml[] = " type=\"$this->type\"";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
-        if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
+        if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
         if($this->_value || $this->_value=="0") 
             $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
         //propiedades html5
-        if($this->_maxlength)$arHtml[] = " maxlength=\"$this->_maxlength\"";
+        if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
         if($this->_isDisabled) $arHtml[] = " disabled";
         if($this->_isReadOnly) $arHtml[] = " readonly"; 
         if($this->_isRequired) $arHtml[] = " required"; 
@@ -73,9 +73,9 @@ class Password extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_name($value){$this->_name = $value;}
+    public function setname($value){$this->name = $value;}
     public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
-    public function set_maxlength($iNumChars){$this->_maxlength = $iNumChars;}
+    public function setmaxlength($iNumChars){$this->maxlength = $iNumChars;}
     public function readonly($isReadOnly=true){parent::readonly($isReadOnly);}
     public function disabled($isDisabled=true){parent::disabled($isDisabled);}
     public function required($isRequired = true){$this->_isRequired=$isRequired;}
@@ -83,9 +83,9 @@ class Password extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function get_name(){return $this->_name;}
+    public function getname(){return $this->name;}
     public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
-    public function get_maxlength(){return $this->_maxlength;}
+    public function getmaxlength(){return $this->maxlength;}
     public function is_readonly(){return $this->_isReadOnly;}
     
 }//Password

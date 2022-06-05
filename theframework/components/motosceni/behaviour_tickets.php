@@ -24,7 +24,7 @@ class BehaviourTickets
         $this->arErrors = [];
         $arParams = include($_SERVER["DOCUMENT_ROOT"]."/app/config/parameters.php");
         $arParams = $arParams["parameters"];
-        $this->arConn = ["server"=>$arParams["database_host"],"database"=>$arParams["database_name"]
+        $this->arConn = ["server"=>$arParams["database_host"],"database"=>$arParams["databasename"]
                 ,"user"=>$arParams["database_user"],"password"=>$arParams["database_password"]];
     }
     
@@ -47,7 +47,7 @@ class BehaviourTickets
     public function get_order_detail($idOrder)
     {
         $sSQL= " -- BehaviourTickets.get_order_detail
-        SELECT od.id_order_detail,od.id_order,od.product_name,od.product_quantity,od.total_price_tax_incl
+        SELECT od.id_order_detail,od.id_order,od.productname,od.product_quantity,od.total_price_tax_incl
         FROM cni_order_detail od
         WHERE 1=1
         AND id_order = $idOrder

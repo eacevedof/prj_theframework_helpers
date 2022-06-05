@@ -776,6 +776,6 @@ class GoogleMaps3
     public function use_signature($isOn=true){$this->_useSignature = $isOn;}
     public function set_cryptokey($sValue){$this->_sCriptokey=$sValue;}
     public function use_cryptokey($isOn=true){$this->_useCriptoKey = $isOn;}    
-    public function set_client_id($sId){$this->_sClientId=$sId;}
+    public function set_clientid($sId){$this->_sClientId=$sId;}
     public function set_channel($sChannelJs){$this->_sChannel=$sChannelJs;}
 }

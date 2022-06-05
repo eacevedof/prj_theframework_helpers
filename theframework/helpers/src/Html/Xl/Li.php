@@ -14,10 +14,10 @@ class Li extends AbsHelper
 {  
     public function __construct($innerhtml="",$id="")
     {
-        $this->_idprefix = "li";
+        $this->idprefix = "li";
         $this->type = "li";
-        $this->_id = $id;
-        $this->_inner_html = $innerhtml;
+        $this->id = $id;
+        $this->innerhtml = $innerhtml;
     }
     
     //li
@@ -28,7 +28,7 @@ class Li extends AbsHelper
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         $this->load_inner_objects();
-        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }//get_html
@@ -36,7 +36,7 @@ class Li extends AbsHelper
     public function get_opentag()
     {
         $arOpenTag[] = "<$this->type";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
         //propiedades html5
         if($this->_isDisabled) $arOpenTag[] = " disabled";
         if($this->_isReadOnly) $arOpenTag[] = " readonly"; 

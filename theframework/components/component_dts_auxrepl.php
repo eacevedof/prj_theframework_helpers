@@ -118,7 +118,7 @@ class ComponentDtsAuxrepl
         }
     }//replace
     
-    public function get_name_iniif($sLine)
+    public function getname_iniif($sLine)
     {
         //$string = "IIF(ISNULL(ERP_TSPA.STATUS,'')='',0,9) AS Transfer_Status";
         //preg_match("/IIF\(ISNULL\((.*?).STATUS/",$string,$m );
@@ -150,7 +150,7 @@ class ComponentDtsAuxrepl
                 {
                     $isFound = 1;
                     echo "$i => ";
-                    $arName = $this->get_name_iniif($sLine);
+                    $arName = $this->getname_iniif($sLine);
                     $sTable = $arName[1];
                     
                     $sNew = "0,IIF($sTable.STATUS='T',0,9)) AS Transfer_Status";

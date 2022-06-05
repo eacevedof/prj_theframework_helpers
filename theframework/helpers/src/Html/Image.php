@@ -21,11 +21,11 @@ class Image extends AbsHelper
     public function __construct($src="", $id="", $class="", $style="", $arExtras=[])
     {
         $this->type = "img";
-        $this->_idprefix = "";
-        $this->_id = $id;
+        $this->idprefix = "";
+        $this->id = $id;
         
         $this->_src = $src;
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         $this->arExtras = $arExtras;
     }
@@ -36,7 +36,7 @@ class Image extends AbsHelper
         if($this->_src) $arHtml[] = " src=\"$this->_src\"";
         if($this->_alt) $arHtml[] = " alt=\"{$this->get_cleaned($this->_alt)}\"";
         if($this->_title) $arHtml[] = " title=\"{$this->get_cleaned($this->_title)}\"";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";

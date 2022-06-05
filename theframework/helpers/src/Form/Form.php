@@ -27,11 +27,11 @@ class Form extends AbsHelper
     {
         //enctype="multipart/form-data"
         $this->type = "form";
-        $this->_idprefix = "";
-        $this->_id = $id;
-        $this->_name = $name;
-        $this->_inner_html = $innerhtml;
-        if($class) $this->arClasses[] = $class;
+        $this->idprefix = "";
+        $this->id = $id;
+        $this->name = $name;
+        $this->innerhtml = $innerhtml;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         
         $this->arExtras = $arExtras;
@@ -50,7 +50,7 @@ class Form extends AbsHelper
         if($this->oLegend) $arHtml[] = $this->oLegend->get_opentag();
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto
         $this->load_inner_objects();
-        if($this->_inner_html)$arHtml[] = "$this->_inner_html\n";
+        if($this->innerhtml)$arHtml[] = "$this->innerhtml\n";
         if($this->oLegend) $arHtml[] = $this->oLegend->get_closetag();
         if($this->oFieldset) $arHtml[] = $this->oFieldset->get_closetag();
         $arHtml[] = $this->get_closetag();
@@ -72,17 +72,17 @@ class Form extends AbsHelper
                         $oObject->add_class("readonly");
                     }
                 }
-                $this->_inner_html .= $oObject->get_html();
+                $this->innerhtml .= $oObject->get_html();
             }
             elseif(is_string($mxValue))
-                $this->_inner_html .= $mxValue;
+                $this->innerhtml .= $mxValue;
     }//load_inner_objects
     
     public function get_opentag()
     {
         $arOpenTag = [];
         $arOpenTag[] = "<$this->type";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
 
         //eventos
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";

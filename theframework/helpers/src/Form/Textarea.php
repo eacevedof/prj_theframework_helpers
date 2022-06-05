@@ -25,17 +25,17 @@ class Textarea extends AbsHelper
     {
         $this->type = "textarea";
 
-        $this->_idprefix = "";
-        $this->_id = $id;
-        $this->_inner_html = $innerhtml;
-        $this->_name = $name;
+        $this->idprefix = "";
+        $this->id = $id;
+        $this->innerhtml = $innerhtml;
+        $this->name = $name;
         $this->_cols = $cols;
         $this->_rows = $rows;
 
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
        
-        $this->_maxlength = $maxlength;
+        $this->maxlength = $maxlength;
         $this->arExtras = $arExtras;
         $this->oLabel = $oLabel;
         
@@ -87,16 +87,16 @@ class Textarea extends AbsHelper
         if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
-        if($this->_maxlength>-1 && $this->isCounterJs && $this->isCounterSpan) 
+        if($this->maxlength>-1 && $this->isCounterJs && $this->isCounterSpan) 
             $this->_js_onkeyup .= " return fn_txamaxlength(this,event);";              
         $arHtml[] = $this->get_opentag();
-        $arHtml[] = htmlentities($this->_inner_html);
+        $arHtml[] = htmlentities($this->innerhtml);
         $arHtml[] = $this->get_closetag();
 
         //addon contador
         if($this->isCounterSpan)
         {
-            $arHtml[] = "\n<span id=\"sp$this->_idprefix$this->_id\"></span>"; 
+            $arHtml[] = "\n<span id=\"sp$this->idprefix$this->id\"></span>"; 
             //se imprime el js que gestiona el contador (si se desea)
             if($this->isCounterJs) 
             {              
@@ -111,8 +111,8 @@ class Textarea extends AbsHelper
     public function get_opentag()
     {
         $arOpenTag[] = "<$this->type ";
-        if($this->_id) $arOpenTag[] = "id=\"$this->_idprefix$this->_id\" ";
-        if($this->_name) $arOpenTag[] = "name=\"$this->_idprefix$this->_name\" ";
+        if($this->id) $arOpenTag[] = "id=\"$this->idprefix$this->id\" ";
+        if($this->name) $arOpenTag[] = "name=\"$this->idprefix$this->name\" ";
         if($this->_rows) $arOpenTag[] = "rows=\"$this->_rows\" ";
         if($this->_cols) $arOpenTag[] = "cols=\"$this->_cols\" ";
         //propiedades html5
@@ -136,7 +136,7 @@ class Textarea extends AbsHelper
         $this->load_style();
         if($this->_style) $arOpenTag[] = "style=\"$this->_style\" ";
         //atributos extras
-        if($this->_maxlength) $arOpenTag[] = "maxlength=\"$this->_maxlength\" ";
+        if($this->maxlength) $arOpenTag[] = "maxlength=\"$this->maxlength\" ";
         if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
         if($this->_isPrimaryKey) $arOpenTag[] = "pk=\"pk\" ";
         if($this->_attr_dbtype) $arOpenTag[] = "dbtype=\"$this->_attr_dbtype\" ";
@@ -148,7 +148,7 @@ class Textarea extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_maxlength($value){$this->_maxlength = $value;}
+    public function setmaxlength($value){$this->maxlength = $value;}
     public function set_rows($iValue){$this->_rows=$iValue;}
     public function set_cols($iValue){$this->_cols=$iValue;}
     public function set_counterspan($isOn=TRUE){$this->isCounterSpan = $isOn;}
@@ -157,7 +157,7 @@ class Textarea extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function get_maxlength(){return $this->_maxlength;}
+    public function getmaxlength(){return $this->maxlength;}
     public function readonly($isReadOnly=TRUE){$this->_isReadOnly = $isReadOnly;}
 
 }//Textarea

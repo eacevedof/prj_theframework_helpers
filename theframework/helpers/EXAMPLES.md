@@ -5,7 +5,7 @@ use TheFramework\Helpers\Form\Input\Checkbox;
 
 //https://www.w3schools.com/tags/att_input_checked.asp
 $o = new Checkbox();
-$o->set_name("chkSome");
+$o->setname("chkSome");
 $o->set_unlabeled(0); //incluye el texto visible dentro de una etiqueta
 $o->set_options(["valbike"=>"Bike","valcar"=>"Car"]);
 $o->show();
@@ -45,8 +45,8 @@ $oL->show();
 $o = new Hidden("someId","someName","her-comes-a-token-to-be-hidden-afdoopjy8679834ñoñ$$34878=?dsjk");
 $o->show();
 $o = new Hidden();
-$o->set_id("someId2");
-$o->set_name("someName2");
+$o->setid("someId2");
+$o->setname("someName2");
 $o->set_value("this-is-a-date: 2018-12-08 09:02:00");
 $o->show();
 ```
@@ -181,7 +181,7 @@ $oTextarea = new Textarea("idTextarea","nameTextarea");
 $oTextarea->set_innerhtml("this is an example text");
 $oTextarea->add_extras("autofocus");
 $oTextarea->set_label($oLabel);
-$oTextarea->set_maxlength(25);
+$oTextarea->setmaxlength(25);
 //$oTextarea->set_counterspan(); //activa render de <span> contador </span>
 //renderiza js que gestiona maxlength y actualiza span contador, tiene que estar activado counterspan
 //$oTextarea->set_counterjs();
@@ -380,7 +380,7 @@ $oUl->add_li((new Li("Item Two")));
 $oUl->add_li((new Li("Item Three")));
 
 $oDiv1 = new Div();
-$oDiv1->set_id("divOne");
+$oDiv1->setid("divOne");
 $oDiv1->add_style("background:#ccc");
 $oDiv1->add_inner_object($oUl);
 
@@ -428,10 +428,10 @@ $oScript->show();//<script>{inner_objects}</script>
 use TheFramework\Helpers\Html\Span;
 
 $oSpan = new Span();
-$oSpan->set_id("idSpan1");
+$oSpan->setid("idSpan1");
 $oSpan->add_extras("title","Some title for span one");
 $oSpan->add_style("border:1px solid green");
-if($oSpan->get_id()=="idSpan1")
+if($oSpan->getid()=="idSpan1")
     $oSpan->add_style("background:yellow");
 $oSpan->add_inner_object("What is Lorem Ipsum?");
 $oSpan->show();

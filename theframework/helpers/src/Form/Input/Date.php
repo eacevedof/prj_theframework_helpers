@@ -23,13 +23,13 @@ class Date extends AbsHelper
     public function __construct
     ($id="", $name="", $value="", $arExtras=[], $maxlength="", $class="", Label $oLabel=null)
     {
-        $this->_idprefix = "";//dtb
+        $this->idprefix = "";//dtb
         $this->cSeparator = "/";
-        $this->_id = $id;
+        $this->id = $id;
         $this->_value = $value;
-        $this->_maxlength  = $maxlength;
-        $this->_name = $name;
-        if($class) $this->arClasses[] = $class;        
+        $this->maxlength  = $maxlength;
+        $this->name = $name;
+        if($class) $this->arclasses[] = $class;        
         $this->arExtras = $arExtras;
         $this->oLabel = $oLabel;        
     }
@@ -95,12 +95,12 @@ class Date extends AbsHelper
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
         $arHtml[] = " type=\"date\"";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
-        if($this->_name) $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
+        if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
         if($this->_value) $arHtml[] = " value=\"".$this->get_converted($this->_value)."\"";
 
         //propiedades html5
-        if($this->_maxlength)$arHtml[] = " maxlength=\"$this->_maxlength\"";
+        if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
         if($this->_isDisabled) $arHtml[] = " disabled";
         if($this->_isReadOnly) $arHtml[] = " readonly"; 
         if($this->_isRequired) $arHtml[] = " required"; 
@@ -132,7 +132,7 @@ class Date extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_name($value){$this->_name = $value;}
+    public function setname($value){$this->name = $value;}
     public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     public function set_today(){$this->_convert_date_before_show = false;$this->_value = date("d/m/Y");}
     public function in_fieldsetdiv($isOn=true){$this->_inFieldsetDiv = $isOn;}
@@ -145,7 +145,7 @@ class Date extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function get_name(){return $this->_name;}
+    public function getname(){return $this->name;}
     public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
     
 }//Date

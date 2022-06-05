@@ -2,7 +2,7 @@
 
 ```
 php run.php $argv[1]                $argv[2]                    $argv[3]    $argv[4..n]
-php run.php <path_file_to_include>  <class_name_case_sensitive> <method>    <rest-of-arguments>
+php run.php <path_file_to_include>  <classname_case_sensitive> <method>    <rest-of-arguments>
 ```
 
 ## Example

@@ -17,11 +17,11 @@ class Legend extends AbsHelper
     public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=[])
     {
         $this->type = "legend";
-        $this->_idprefix = "";
-        $this->_id = $id;
+        $this->idprefix = "";
+        $this->id = $id;
         
-        $this->_inner_html = $innerhtml;
-        if($class) $this->arClasses[] = $class;
+        $this->innerhtml = $innerhtml;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         $this->arExtras = $arExtras;
         $this->_style = $style;
@@ -35,7 +35,7 @@ class Legend extends AbsHelper
         $arHtml[] = $this->get_opentag(); 
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arInnerObjects
         $this->load_inner_objects();
-        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }//get_html
@@ -45,7 +45,7 @@ class Legend extends AbsHelper
         //Ejem: <fieldset> <legend>Personalia:</legend> Name: <input type="text" size="30"><br>
         $arOpenTag = [];
         $arOpenTag[] = "<$this->type";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
         //eventos
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arOpenTag[] = " onchange=\"$this->_js_onchange\"";

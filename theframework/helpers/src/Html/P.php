@@ -15,11 +15,11 @@ class P extends AbsHelper
     public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=[])
     {
         $this->type = "p";
-        $this->_idprefix = "";
-        $this->_id = $id;
+        $this->idprefix = "";
+        $this->id = $id;
         
-        $this->_inner_html = $innerhtml;
-        if($class) $this->arClasses[] = $class;
+        $this->innerhtml = $innerhtml;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         
         $this->arExtras = $arExtras;
@@ -31,7 +31,7 @@ class P extends AbsHelper
         $sHtmlToReturn = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         $this->load_inner_objects();
-        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }
@@ -39,7 +39,7 @@ class P extends AbsHelper
     public function get_opentag() 
     {
         $arOpenTag[] = "<$this->type";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
         //eventos
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arOpenTag[] = " onchange=\"$this->_js_onchange\"";

@@ -10,19 +10,19 @@ abstract class AbsHelper implements IHelper
 {
     protected string $comment = "";
     protected string $type = "";
-    protected $_id = "";
-    protected $_name = "";
-    protected $_idprefix = "";
-    protected $_maxlength = "";
+    protected string $id = "";
+    protected string $name = "";
+    protected string $idprefix = "";
+    protected string $maxlength = "";
     
-    protected $_inner_html = ""; 
+    protected string $innerhtml = "";
     protected $arExtras;
     protected $_placeholder;
     
     protected $_display = true;
     protected $_class = "";
     protected $_style = "";
-    protected $arClasses = [];
+    protected array $arclasses = [];
     protected $arStyles = [];
     protected $arInnerObjects = [];
     protected $_value;
@@ -53,32 +53,29 @@ abstract class AbsHelper implements IHelper
     protected $_attr_dbtype = null;
     protected $_attr_dbfield = null;
     
-    protected $oBD = null;
     //Label
     protected $oLabel = null;
     //HelperStyle
     protected $oStyle = null;
     
-    public function __construct(){}
-    
     /**
-     * Remplaza el atributo _class con las clases añadidas a arClasses
+     * Remplaza el atributo _class con las clases añadidas a arclasses
      */
-    protected function load_cssclass(){if($this->arClasses)$this->_class = trim(implode(" ",$this->arClasses));}
+    protected function load_cssclass(){if($this->arclasses)$this->_class = trim(implode(" ",$this->arclasses));}
     /**
      * Remplaza el atributo _style con los estilos en arStyles
     */
     protected function load_style(){if($this->arStyles)$this->_style = trim(implode(";",$this->arStyles));}
     /**
-     * Agrega al atributo _inner_html el string obtenido con el metodo get_html()
+     * Agrega al atributo innerhtml el string obtenido con el metodo get_html()
      */
     protected function load_inner_objects()
     {
         foreach($this->arInnerObjects as $mxValue)
             if(is_object($mxValue) && method_exists($mxValue,"get_html"))
-                $this->_inner_html .= $mxValue->get_html();
+                $this->innerhtml .= $mxValue->get_html();
             elseif(is_string($mxValue))
-                $this->_inner_html .= $mxValue;
+                $this->innerhtml .= $mxValue;
 //            elseif(is_array($mxValue))
 //                die;
     }//load_inner_objects
@@ -141,8 +138,8 @@ abstract class AbsHelper implements IHelper
     //             SETS
     //**********************************
     public function setcomment($value){$this->comment = $value;}
-    public function set_idprefix($value){$this->_idprefix=$value;}
-    public function set_id($value){$this->_id=$value;}
+    public function setidprefix($value){$this->idprefix=$value;}
+    public function setid($value){$this->id=$value;}
     public function set_js_onclick($value){$this->_js_onclick = $value;}
     public function set_js_onchange($value){$this->_js_onchange = $value;}
     public function set_js_keypress($value){$this->_js_onkeypress = $value;}
@@ -157,7 +154,7 @@ abstract class AbsHelper implements IHelper
     protected function required($isRequired=TRUE){$this->_isRequired = $isRequired;}
     protected function readonly($isReadOnly=TRUE){$this->_isReadOnly = $isReadOnly;}
     protected function disabled($isDisabled=TRUE){$this->_isDisabled = $isDisabled;}
-    public function add_class($class){if($class) $this->arClasses[] = $class;}
+    public function add_class($class){if($class) $this->arclasses[] = $class;}
 
     public function add_style($style){if($style) $this->arStyles[] = $style;}
     /**
@@ -180,20 +177,20 @@ abstract class AbsHelper implements IHelper
     public function set_attr_dbfield($value){$this->_attr_dbfield=$value;}
     public function set_as_primarykey($isPk=TRUE){$this->_is_primarykey = $isPk;}
     public function set_innerhtml($sInnerHtml,$asEntity=0)
-    {if($asEntity)$this->_inner_html = htmlentities($sInnerHtml);else $this->_inner_html=$sInnerHtml;}
+    {if($asEntity)$this->innerhtml = htmlentities($sInnerHtml);else $this->innerhtml=$sInnerHtml;}
     public function settype($value){$this->type = $value;}
     public function set_postback($isOn=TRUE){$this->_isPostback=$isOn;}
     public function on_enterinsert($isOn=TRUE){$this->_isEnterInsert=$isOn;}
     public function on_enterupdate($isOn=TRUE){$this->_isEnterUpdate=$isOn;}
     public function on_entersubmit($isOn=TRUE){$this->_isEnterSubmit=$isOn;}
     
-    protected function set_name($value){$this->_name = $value;}
+    protected function setname($value){$this->name = $value;}
 
     public function set_label(\TheFramework\Helpers\Form\Label $oLabel){$this->oLabel = $oLabel;}
-    public function set_class($class){$this->arClasses=[];if($class)$this->arClasses[] = $class;}    
+    public function set_class($class){$this->arclasses=[];if($class)$this->arclasses[] = $class;}    
     public function set_style($value){$this->arStyles=[];if($value) $this->arStyles[] = $value;}
     protected function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
-    protected function reset_class(){$this->arClasses=[];$this->_class="";}
+    protected function reset_class(){$this->arclasses=[];$this->_class="";}
     protected function reset_style(){$this->arStyles=[];$this->_style="";}
     protected function reset_inner_object(){$this->arInnerObjects=[];}
     protected function set_inner_objects($arObjHelpers){$this->arInnerObjects=$arObjHelpers;}
@@ -207,7 +204,7 @@ abstract class AbsHelper implements IHelper
     //**********************************
     //             GETS
     //**********************************
-    public function get_id(){return $this->_id;}
+    public function getid(){return $this->id;}
     public function gettype(){return $this->type;}
     public function get_class(){return $this->_class;}
     public function get_extras($asString=TRUE)
@@ -238,12 +235,12 @@ abstract class AbsHelper implements IHelper
             return $this->arExtras;
     }//get_extras
     
-    public function get_innerhtml(){return $this->_inner_html;}
+    public function get_innerhtml(){return $this->innerhtml;}
     protected function is_disabled(){return $this->_isDisabled;}
 
     public function get_dbtype(){return $this->_attr_dbtype;}
     public function is_primarykey(){return $this->_is_primarykey;}
-    protected function get_name(){return $this->_name;}
+    protected function getname(){return $this->name;}
     
     protected function get_icon_path($isIcon,$sIconFile)
     {

@@ -7,7 +7,7 @@ function run_m($sText){echo $sText."\n";}
 run_m("running run.php 2.0.0");
 /*
 php run.php $argv[1]                $argv[2]                    $argv[3]    $argv[4..n]
-php run.php <path_file_to_include>  <class_name_case_sensitive> <method>    <rest-of-arguments>
+php run.php <path_file_to_include>  <classname_case_sensitive> <method>    <rest-of-arguments>
 */
 if(defined("STDIN"))
 {

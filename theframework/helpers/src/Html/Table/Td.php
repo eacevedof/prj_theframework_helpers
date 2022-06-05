@@ -22,12 +22,12 @@ class Td extends AbsHelper
     public function __construct($innerhtml="", $id="", $class="", $style="", $colspan="", $arExtras=[])
     {
         $this->type = "td";
-        $this->_idprefix = "td";
-        $this->_id = $id;
+        $this->idprefix = "td";
+        $this->id = $id;
         
-        $this->_inner_html = $innerhtml;
+        $this->innerhtml = $innerhtml;
         $this->_colspan = $colspan;
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         $this->arExtras = $arExtras;
     }
@@ -40,7 +40,7 @@ class Td extends AbsHelper
         //Hacer pruebas
         $this->load_inner_objects();
         //Tengo que poner "" porque si el valor es mostrar un 0 o un espacio no lo mostraría
-        if($this->_inner_html!=="") $arHtml[] = $this->_inner_html;
+        if($this->innerhtml!=="") $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }
@@ -61,13 +61,13 @@ class Td extends AbsHelper
             foreach($mxHtmlObject as $oHtml)
             {
                 if(method_exists($oHtml,"get_html"))
-                    $this->_inner_html .= $oHtml->get_html();
+                    $this->innerhtml .= $oHtml->get_html();
             }
         //si es un objeto
         elseif(method_exists($mxHtmlObject,"get_html")) 
-            $this->_inner_html .= $mxHtmlObject->get_html();
+            $this->innerhtml .= $mxHtmlObject->get_html();
         else
-            $this->_inner_html .= $mxHtmlObject;
+            $this->innerhtml .= $mxHtmlObject;
     }
     
     public function set_attr_position($iNumRow,$iNumColumn){$this->_attr_position=$iNumRow."_".$iNumColumn;}
@@ -77,7 +77,7 @@ class Td extends AbsHelper
     public function get_opentag() 
     {
         $arHtml[] = "<$this->type";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->_colspan) $arHtml[] = " colspan=\"$this->_colspan\"";
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";

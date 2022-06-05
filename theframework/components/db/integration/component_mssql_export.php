@@ -222,8 +222,8 @@ class ComponentMssqlExport
         $sSQL = "/*ComponentMssqlExport.get_tables*/
         -- a esta consulta no le hace falta la base de datos. Se ajusta solo a las tablas del 
         -- esquema en el que se esta
-        SELECT DISTINCT LOWER(sqltable.name) AS table_id
-        ,sqltable.name AS table_name
+        SELECT DISTINCT LOWER(sqltable.name) AS tableid
+        ,sqltable.name AS tablename
         ,LTRIM(RTRIM(LOWER(sqltable.xtype))) AS otype
         FROM sysobjects sqltable
         WHERE 1=1
@@ -263,16 +263,16 @@ class ComponentMssqlExport
     public function get_fields_info($sTableName)
     {
         $sSQL = "/*ComponentMssqlExport.get_fields_info*/
-        SELECT field_name
+        SELECT fieldname
         ,MAX(fieldtype) AS fieldtype
         ,MAX(field_length) AS field_length
         ,MAX(defvalue) AS defvalue
         ,MAX(is_nullable) AS is_nullable
         ,MAX(ispk) AS ispk
-        ,MAX(column_id) AS column_id
+        ,MAX(columnid) AS columnid
         FROM
         (
-            SELECT DISTINCT field_name
+            SELECT DISTINCT fieldname
             ,fieldtype
             ,CASE fieldtype
                 WHEN 'varchar' THEN CONVERT(VARCHAR,mxlen)
@@ -292,10 +292,10 @@ class ComponentMssqlExport
             ,REPLACE(REPLACE(ISNULL(defvalue,'null'),'(',''),')','') defvalue
             ,CONVERT(VARCHAR(30),is_nullable) is_nullable
             ,CONVERT(VARCHAR(30),ispk) ispk
-            ,column_id
+            ,columnid
             FROM
             (
-                SELECT DISTINCT syscols.name AS field_name
+                SELECT DISTINCT syscols.name AS fieldname
                 ,systypes.name AS fieldtype 
                 ,syscols.max_length AS mxlen
                 ,syscols.precision AS intpos
@@ -303,34 +303,34 @@ class ComponentMssqlExport
                 ,syscols.is_nullable AS 'is_nullable'
                 ,extra.defvalue
                 ,ISNULL(sysindexes.is_primary_key,0) AS ispk
-                ,syscols.column_id
+                ,syscols.columnid
                 FROM sys.columns AS syscols
                 INNER JOIN 
                 (
-                    SELECT TABLE_NAME AS table_name
-                    ,COLUMN_NAME AS field_name
+                    SELECT TABLE_NAME AS tablename
+                    ,COLUMN_NAME AS fieldname
                     ,COLUMN_DEFAULT AS defvalue
                     FROM INFORMATION_SCHEMA.COLUMNS
                     WHERE 1=1
                     AND TABLE_NAME='$sTableName'
                     AND TABLE_CATALOG='{$this->arConn["database"]}'
                 ) AS extra
-                ON syscols.object_id = OBJECT_ID(extra.table_name)
-                AND syscols.name = extra.field_name
+                ON syscols.objectid = OBJECT_ID(extra.tablename)
+                AND syscols.name = extra.fieldname
                 INNER JOIN sys.types AS systypes 
-                ON syscols.usertype_id = systypes.usertype_id
+                ON syscols.usertypeid = systypes.usertypeid
                 LEFT OUTER JOIN sys.index_columns AS colsidx 
-                ON colsidx.object_id = syscols.object_id 
-                AND colsidx.column_id = syscols.column_id
+                ON colsidx.objectid = syscols.objectid 
+                AND colsidx.columnid = syscols.columnid
                 LEFT OUTER JOIN sys.indexes AS sysindexes
-                ON colsidx.object_id = sysindexes.object_id 
-                AND colsidx.index_id = sysindexes.index_id
+                ON colsidx.objectid = sysindexes.objectid 
+                AND colsidx.indexid = sysindexes.indexid
                 WHERE 1=1
-                AND syscols.object_id = OBJECT_ID('$sTableName')
+                AND syscols.objectid = OBJECT_ID('$sTableName')
             ) AS tabledef
         ) AS a
-        GROUP BY field_name
-        ORDER BY column_id
+        GROUP BY fieldname
+        ORDER BY columnid
         ";
         $this->log($sSQL,"get_fields_info");
         $arFields = $this->oDb->query($sSQL);
@@ -360,7 +360,7 @@ class ComponentMssqlExport
         if($sTableName)
             $arTables = array_filter($arTables,function($arItem) use($sTableName) {
                 //print_r($arItem);
-                return $arItem["table_name"] === $sTableName;
+                return $arItem["tablename"] === $sTableName;
             });
         //die;
         //echo "<pre>"; print_r($arTables);die;
@@ -371,7 +371,7 @@ class ComponentMssqlExport
         {
             //vistas
             if($arTable["otype"]=="v") continue;
-            $sTableName = $arTable["table_name"];
+            $sTableName = $arTable["tablename"];
             
             if($isDelete)
                 $arLines[] = "-- DELETE FROM $sTableName;";
@@ -380,7 +380,7 @@ class ComponentMssqlExport
             //print_r($arFields);die;
             $arSelect = [];
             foreach($arFields as $arField)
-                $arSelect[] = $arField["field_name"];
+                $arSelect[] = $arField["fieldname"];
 
             $sOrderBy = "1";
             if(in_array("id",$arSelect)) $sOrderBy = "id";
@@ -439,7 +439,7 @@ class ComponentMssqlExport
         if($sTableName)
             $arTables = array_filter($arTables,function($arItem) use($sTableName) {
                 //print_r($arItem);
-                return $arItem["table_name"] === $sTableName;
+                return $arItem["tablename"] === $sTableName;
             });
         //die;
         //echo "<pre>"; print_r($arTables);die;
@@ -450,7 +450,7 @@ class ComponentMssqlExport
         {
             //vistas
             if($arTable["otype"]=="v") continue;
-            $sTableName = $arTable["table_name"];
+            $sTableName = $arTable["tablename"];
             
             if($isDelete)
                 $arLines[] = " DELETE FROM `$sTableName`;";
@@ -463,7 +463,7 @@ class ComponentMssqlExport
                 $sFieldType = $arField["fieldtype"];
                 if(in_array($sFieldType,$this->arBinary))
                     continue;
-                $arSelect[] = $arField["field_name"];
+                $arSelect[] = $arField["fieldname"];
             }
 
             $sOrderBy = "1";
@@ -565,7 +565,7 @@ class ComponentMssqlExport
                 $sPk = "null";
 
                 $sFieldDef = $arFld["defvalue"];
-                $sFieldName = $arFld["field_name"];
+                $sFieldName = $arFld["fieldname"];
                 $sFieldType = $arFld["fieldtype"];
                 $sFieldLen = "({$arFld["field_length"]})";
                 if(in_array($sFieldType,$this->arNoLen)) $sFieldLen = "";
@@ -625,7 +625,7 @@ class ComponentMssqlExport
                 $sPk = "null";
 
                 $sFieldDef = $arFld["defvalue"];
-                $sFieldName = $arFld["field_name"];
+                $sFieldName = $arFld["fieldname"];
                 $sFieldType = $arFld["fieldtype"];
                 $sFieldLen = $arFld["field_length"];
                 $sFieldTypeTo = $this->get_fieldtype_map($sFieldType,"mssql","mysql");
@@ -684,7 +684,7 @@ class ComponentMssqlExport
         $arLines = ["/*database $sNow*/\n USE {$this->arConn["database"]}-x"];
         foreach($arTables as $arTable)
             if($arTable["otype"]=="u")
-                $arLines[] = $this->get_create_table($arTable["table_name"]);
+                $arLines[] = $this->get_create_table($arTable["tablename"]);
         
         if($asString) return implode("\n/* -- end table -- */\n",$arLines);
         return $arLines;
@@ -698,7 +698,7 @@ class ComponentMssqlExport
         $arLines = ["/*database $sNow*/\n USE {$this->arConn["database"]}-x;"];
         foreach($arTables as $arTable)
             if($arTable["otype"]=="u")
-                $arLines[] = $this->get_create_table($arTable["table_name"]);
+                $arLines[] = $this->get_create_table($arTable["tablename"]);
         
         if($asString) return implode("\n/* -- end table -- */\n",$arLines);
         return $arLines;
@@ -710,7 +710,7 @@ class ComponentMssqlExport
         foreach($arFields as $arField)
         {
             if($arField["ispk"])
-                $arReturn[] = $arField["field_name"];
+                $arReturn[] = $arField["fieldname"];
         }
         return $arReturn;
     }//get_pks
@@ -719,7 +719,7 @@ class ComponentMssqlExport
     {
         foreach($arFields as $arField)
         {
-            if($arField["field_name"]==$sFieldName)
+            if($arField["fieldname"]==$sFieldName)
                 return $arField["fieldtype"];
         }
         return "";        
@@ -729,7 +729,7 @@ class ComponentMssqlExport
     {
         foreach($arFields as $arField)
         {
-            if($arField["field_name"]==$sFieldName)
+            if($arField["fieldname"]==$sFieldName)
                 return $arField["is_nullable"];
         }
         return 0;        
@@ -747,8 +747,8 @@ class ComponentMssqlExport
             ,OBJECT_NAME(OBJECT_ID) AS tablename
             ,SUM(row_count) AS irows
             FROM sys.dm_db_partition_stats
-            WHERE index_id = 0/*heap*/ 
-            OR index_id = 1/*clustered index*/
+            WHERE indexid = 0/*heap*/ 
+            OR indexid = 1/*clustered index*/
             GROUP BY OBJECT_ID
         ) AS r
         INNER JOIN

@@ -28,7 +28,7 @@ class Typed extends HelperTableBasic
     public function __construct($arRows=[],$arColumns=[],$sFormId="frmList",$sModule="")
     {
         //1:table,innert,classes,extra,style
-        //2:arDataRows,arColumns,sFormId,_idprefix,_id,sModule,sUrlDel,sUrlUp
+        //2:arDataRows,arColumns,sFormId,idprefix,id,sModule,sUrlDel,sUrlUp
         parent::__construct();
         $this->lower_fieldnames($arRows);
         $this->arDataRows = $arRows;
@@ -37,8 +37,8 @@ class Typed extends HelperTableBasic
         $this->arColumns = $arColumns;
         $this->iNumCols = count($arColumns);
         $this->sFormId = $sFormId;
-        $this->_idprefix = "tbl";
-        $this->_id = $sModule;
+        $this->idprefix = "tbl";
+        $this->id = $sModule;
         $this->sMergeGlue = ",";
         
         $this->arColumnsAnchor = [];
@@ -143,7 +143,7 @@ class Typed extends HelperTableBasic
                 elseif(in_array($sFieldName,array_keys($this->arColumnsRaw)))
                     $sTdInner .= $this->build_raw_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn);                
                 else
-                    $sTdInner .= $this->get_fieldvalue_by_name($arRow,$sFieldName);
+                    $sTdInner .= $this->get_fieldvalue_byname($arRow,$sFieldName);
             break;
         }//fin switch fieldname
         return $sTdInner;
@@ -200,8 +200,8 @@ class Typed extends HelperTableBasic
         $sCellPos = $iNumRow."_$iNumColumn";
         $oInputText->add_extras("cellpos",$sCellPos);
         $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
-        $oInputText->set_id("txt$sCellPos");
-        $oInputText->set_name("txt$sCellPos");
+        $oInputText->setid("txt$sCellPos");
+        $oInputText->setname("txt$sCellPos");
         
         //PROPERTIES
         $arProperties = $this->arColumnsInputText[$sFieldName];
@@ -212,7 +212,7 @@ class Typed extends HelperTableBasic
         if($arProperties["onclick"]) $oInputText->set_js_onclick($arProperties["onclick"]);
         if($arProperties["onfocus"]) $oInputText->set_js_onfocus($arProperties["onfocus"]);
         if($arProperties["readonly"]) $oInputText->readonly();
-        $oInputText->set_value($this->get_fieldvalue_by_name($arRow,$sFieldName));
+        $oInputText->set_value($this->get_fieldvalue_byname($arRow,$sFieldName));
         return $oInputText->get_html();
     }
     
@@ -223,10 +223,10 @@ class Typed extends HelperTableBasic
         $sCellPos = $iNumRow."_$iNumColumn";
         $oSelect->add_extras("cellpos",$sCellPos);
         $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
-        $oSelect->set_id("sel$sCellPos");
-        $oSelect->set_name("sel$sCellPos");
+        $oSelect->setid("sel$sCellPos");
+        $oSelect->setname("sel$sCellPos");
         $oSelect->set_options($this->get_select_options($sFieldName));
-        $oSelect->set_value_to_select($this->get_fieldvalue_by_name($arRow,$sFieldName));
+        $oSelect->set_value_to_select($this->get_fieldvalue_byname($arRow,$sFieldName));
         return $oSelect->get_html();
     } 
     
@@ -236,11 +236,11 @@ class Typed extends HelperTableBasic
         $sCellPos = $iNumRow."_$iNumColumn";
         $oCheckbox->add_extras("cellpos",$sCellPos);
         $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
-        $oCheckbox->set_id("chk$sCellPos");
-        $oCheckbox->set_name("chk$sFieldName");
+        $oCheckbox->setid("chk$sCellPos");
+        $oCheckbox->setname("chk$sFieldName");
         $oCheckbox->set_options($this->get_keys_as_string($arRow));
         
-        $sFieldValue = $this->get_fieldvalue_by_name($arRow,$sFieldName);
+        $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFieldName);
         //bug($sFieldValue,"$sFieldName");
         $arProperties = $this->arColumnsCheckbox[$sFieldName];
         if(is_array($arProperties) && in_array("forchecked",array_keys($arProperties)))
@@ -281,7 +281,7 @@ class Typed extends HelperTableBasic
         $oButton = new HelperButtonBasic();
         //$oInputText->add_style("margin:0");
         $sCellPos = "$iNumRow"."_$iNumColumn";
-        $oButton->set_id("butInsert$sCellPos");
+        $oButton->setid("butInsert$sCellPos");
         $oButton->set_innerhtml("Save");
         $oButton->set_js_onclick("alert('new');");
         //@TODOTEMPLATE
@@ -295,7 +295,7 @@ class Typed extends HelperTableBasic
         $oButton = new HelperButtonBasic();
         //$oInputText->add_style("margin:0");
         $sCellPos = "$iNumRow"."_$iNumColumn";
-        $oButton->set_id("butUpdate$sCellPos");
+        $oButton->setid("butUpdate$sCellPos");
         $oButton->set_innerhtml("Save");
         //@TODOTEMPLATE
         $oButton->add_class("btn btn-alt btn-success");
@@ -310,7 +310,7 @@ class Typed extends HelperTableBasic
         $arConfigData = $this->arColumnsAnchor[$sFieldName];
         //bug($arConfigData,"arConfigData");
         //Pruebo extraer un valor de la columna guardada en href
-        $arAnchorData["href"] = $this->get_fieldvalue_by_name($arRow,$arConfigData["href"]);
+        $arAnchorData["href"] = $this->get_fieldvalue_byname($arRow,$arConfigData["href"]);
         if(!$arAnchorData["href"]) $arAnchorData["href"]=$arConfigData["href"];
         
         //bug($arAnchorData["href"],"get_anchor_data(),href");
@@ -318,7 +318,7 @@ class Typed extends HelperTableBasic
             $arAnchorData["href"] = "{$_GET["tfw_iso_language"]}/{$arAnchorData["href"]}";
         //bug($arAnchorData["href"],"get_anchor_data(),href 2");    
         //Pruebo extraer un valor de la columna guardada en href
-        $arAnchorData["innerhtml"] = $this->get_fieldvalue_by_name($arRow,$arConfigData["innerhtml"]);
+        $arAnchorData["innerhtml"] = $this->get_fieldvalue_byname($arRow,$arConfigData["innerhtml"]);
         if(!$arAnchorData["innerhtml"]) $arAnchorData["innerhtml"]=$arConfigData["innerhtml"];
         
         if($arConfigData["external"]) $arAnchorData["external"] = $arConfigData["external"];
@@ -342,7 +342,7 @@ class Typed extends HelperTableBasic
         foreach($arTagNames as $sFieldName)
         {
             $sTmpFind = "%$sFieldName%";
-            $sFieldValue = $this->get_fieldvalue_by_name($arRow,$sFieldName);
+            $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFieldName);
             if($sFieldName!==null)
                 $sValue = str_replace($sTmpFind,$sFieldValue,$sValue);
         }

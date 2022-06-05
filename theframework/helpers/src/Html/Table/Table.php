@@ -28,15 +28,15 @@ class Table extends AbsHelper
         //clientbrowser,isMobileDevice,consolecalled,permalink
         parent::__construct();
         $this->type = "table";
-        $this->_idprefix = "tbl";
-        $this->_id = $id;
-        $this->_inner_html = "";
+        $this->idprefix = "tbl";
+        $this->id = $id;
+        $this->innerhtml = "";
         
         $this->arObjTrs = $arMxTrs;
         $this->iNumRows = count($this->arObjTrs);
         $this->load_numcols();
         
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         $this->arExtras = $arExtras;
     }
@@ -72,8 +72,8 @@ class Table extends AbsHelper
         //este metodo recupera las filas th, tfoot y tr y guarda en cada caso los indices correspondientes
         //para que despues se pinten de cabecera a pie. Esto da la versatilidad de añadir tr en cualquier puno del array
         //con su tipo y el metodo se encargará de ordenarlo
-        if(!$this->_inner_html) $this->_inner_html = $this->get_html_rows();
-        $arHtml[] = $this->_inner_html;
+        if(!$this->innerhtml) $this->innerhtml = $this->get_html_rows();
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }//get_html
@@ -81,7 +81,7 @@ class Table extends AbsHelper
     public function get_opentag()
     {
         $arHtml[] = "<$this->type";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
@@ -162,7 +162,7 @@ class Table extends AbsHelper
             $sTr .= $this->get_mxtr_as_string($mxTr);
         }
         $sTbody = "";
-        if($sTr!="") $sTbody = "<tbody id=\"{$this->_id}_tbody\">\n$sTr</tbody>\n";
+        if($sTr!="") $sTbody = "<tbody id=\"{$this->id}_tbody\">\n$sTr</tbody>\n";
         
         return $sTbody;
     }//build_tbody
@@ -176,7 +176,7 @@ class Table extends AbsHelper
             $sTr .= $this->get_mxtr_as_string($mxTr);
         }
         $sTfoot = "";
-        if($sTr!="") $sTfoot = "<tfoot id=\"{$this->_id}_tfoot\">\n$sTr</tfoot>\n";
+        if($sTr!="") $sTfoot = "<tfoot id=\"{$this->id}_tfoot\">\n$sTr</tfoot>\n";
         
         return $sTfoot;
     }

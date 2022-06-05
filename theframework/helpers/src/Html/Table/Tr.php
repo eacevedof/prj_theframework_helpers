@@ -25,16 +25,16 @@ class Tr extends AbsHelper
             , $rowpan="", $arExtras=[])
     {
         $this->type = "tr";
-        $this->_inner_html = "";
-        $this->_idprefix = "tr";
-        $this->_id = $id;
+        $this->innerhtml = "";
+        $this->idprefix = "tr";
+        $this->id = $id;
         
-        //$this->_inner_html = $innertext;
+        //$this->innerhtml = $innertext;
         $this->arInnerObjects = $arInnerObjectss;
         $this->iNumCols = count($this->arInnerObjects);
         $this->iColSpan = $colspan;
         $this->iRowSpan = $rowpan;
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         $this->arExtras = $arExtras;
     }
@@ -42,9 +42,9 @@ class Tr extends AbsHelper
     public function get_html()
     {
         $arHtml[] = $this->get_opentag();
-        //$this->_inner_html .= $this->get_tds_as_string();
+        //$this->innerhtml .= $this->get_tds_as_string();
         $this->load_inner_objects();
-        if($this->_inner_html) $arHtml[] = $this->_inner_html;
+        if($this->innerhtml) $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }
@@ -53,7 +53,7 @@ class Tr extends AbsHelper
     {
          //tr
         $arHtml[] = "<$this->type";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->iRowSpan) $arHtml[] = " rowspan=\"$this->iRowSpan\"";
         //eventos
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";

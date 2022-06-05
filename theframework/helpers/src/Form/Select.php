@@ -27,15 +27,15 @@ class Select extends AbsHelper
         $this->mxValuesToSelect = $mxValueToSelect;
         
         $this->arOptions = $arOptions;
-        $this->_idprefix = "";
-        $this->_id = $id;
-        $this->_name = $name;
+        $this->idprefix = "";
+        $this->id = $id;
+        $this->name = $name;
         $this->_isMultiple = $isMultiple;
         if($this->_size>1) $this->_isMultiple = true;
         $this->_size = $size;
         $this->oLabel = $oLabel;
         $this->arExtras = $arExtras;
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         $this->_isReadOnly = $isReadOnly;
     }
 
@@ -56,7 +56,7 @@ class Select extends AbsHelper
         {
             if(!$this->_isMultiple)
             {    
-                //bug($mxValueToSelect,"to sel of $this->_id");
+                //bug($mxValueToSelect,"to sel of $this->id");
                 foreach($this->arOptions as $sValue=>$sInnerText)
                 {
                     $sOptionValue = (string)$sValue;
@@ -116,10 +116,10 @@ class Select extends AbsHelper
     public function get_opentag()
     {
         $arHtml[] = "<$this->type";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         //Nombre dependiendo si es multiple o no
-        if($this->_isMultiple) $arHtml[] = " name=\"$this->_idprefix$this->_name[]\"";
-        else $arHtml[] = " name=\"$this->_idprefix$this->_name\"";
+        if($this->_isMultiple) $arHtml[] = " name=\"$this->idprefix$this->name[]\"";
+        else $arHtml[] = " name=\"$this->idprefix$this->name\"";
         
         if($this->_size) $arHtml[] = " size=\"$this->_size\"";
         if($this->_isMultiple) $arHtml[] = " multiple";
@@ -205,7 +205,7 @@ class Select extends AbsHelper
     //protected function set_value(){;}
     
     public function readonly($isReadOnly=true){$this->_isReadOnly = $isReadOnly;}
-    public function set_name($value){$this->_name = $value;}
+    public function setname($value){$this->name = $value;}
     public function set_value_to_select($mxValues){$this->mxValuesToSelect = $mxValues;}
     public function set_null_option_text($value){$this->_null_option = $value;}
     public function set_multiple_size($value)
@@ -220,7 +220,7 @@ class Select extends AbsHelper
     public function set_selected_value_as_hidden_on()
     {
         $this->_selected_as_hidden = "
-        <input type=\"hidden\" name=\"$this->_name\" id=\"$this->_id\" value=\"$this->mxValuesToSelect\"/>\n";
+        <input type=\"hidden\" name=\"$this->name\" id=\"$this->id\" value=\"$this->mxValuesToSelect\"/>\n";
     }
     
     public function set_options($arOptions){$this->arOptions=$arOptions;}    
@@ -228,7 +228,7 @@ class Select extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function get_name(){return $this->_name;}
+    public function getname(){return $this->name;}
     //public function get_value(){return $this->_value;}
     public function get_selected_value(){return $this->mxValuesToSelect;}
     public function get_closetag(){return parent::get_closetag();}

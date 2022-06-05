@@ -49,15 +49,15 @@ class Checkbox extends AbsHelper
         $this->conv_string_to_array($mxValuesDisabled);
         
         $this->type = "checkbox";
-        $this->_idprefix = "";
-        $this->_name = $name;
-        $this->_id = $name;
+        $this->idprefix = "";
+        $this->name = $name;
+        $this->id = $name;
         $this->isLabeled = false;//permite customizar por defecto la etiqueta
         $this->arOptions = $mxOptions;
         $this->arValuesToCheck = $mxValuesToCheck;
         $this->arValuesDisabled = $mxValuesDisabled;
         $this->isGrouped = $isGrouped;
-        if($class) $this->arClasses[] = $class;
+        if($class) $this->arclasses[] = $class;
         $this->arExtras = $arExtras;
         $this->oLegend = $oLegend;
         $this->oFieldset = $oFieldset;
@@ -78,7 +78,7 @@ class Checkbox extends AbsHelper
             $sCheckId = "";
             $isChecked = in_array($sValue,$this->arValuesToCheck);
             $isReadOnly = in_array($sValue,$this->arValuesDisabled);
-            if($this->_id) $sCheckId = "$this->_idprefix$this->_id";
+            if($this->id) $sCheckId = "$this->idprefix$this->id";
             if($iNumOptions>1) $sCheckId.="_$iOption";
             //bug($sCheckId);
             //calculo de checkboxes por linea. Si cumple se hace un salto
@@ -96,14 +96,14 @@ class Checkbox extends AbsHelper
     private function build_check($id, $sValue, $sOutText, $isChecked=false, $isReadOnly=false)
     {
         $arHtml = [];
-        $sName = $this->_name;
+        $sName = $this->name;
         if(!$sName) $sName = "noname";
 
         $arHtml[] = "<input";
         $arHtml[] = " type=\"$this->type\" ";
 
         if($id) $arHtml[] = " id=\"$id\"";
-        $arHtml[] = " name=\"$this->_idprefix$sName";
+        $arHtml[] = " name=\"$this->idprefix$sName";
         if($this->isGrouped) $arHtml[] = "[]";
         $arHtml[] = "\"";
         $arHtml[] = " value=\"$sValue\"";
@@ -171,11 +171,11 @@ class Checkbox extends AbsHelper
     public function set_legend(Legend $oLegend){$this->oLegend = $oLegend;}
     //public function set_value($value){$this->conv_string_to_array($value);$this->arValuesToCheck = $value;}
     public function set_values_to_check($mxValues){$this->conv_string_to_array($mxValues);$this->arValuesToCheck = $mxValues;}
-    public function not_grouped_name($isOn=false){$this->isGrouped = $isOn;}
+    public function not_groupedname($isOn=false){$this->isGrouped = $isOn;}
     public function set_checks_per_line($iNumChecks){$this->iChecksPerLine = $iNumChecks;}
     public function set_options($mxOptions){$this->conv_string_to_array($mxOptions,1);$this->arOptions=$mxOptions;}
     public function set_unlabeled($isOn=TRUE){$this->isLabeled=!$isOn;}
-    public function set_name($value){$this->_name=$value;}
+    public function setname($value){$this->name=$value;}
     
     //**********************************
     //             GETS

@@ -28,7 +28,7 @@ class ComponentConsole
         //$this->debug($argv);die;
     }
     
-    private function get_namespace($sPathClass)
+    private function getnamespace($sPathClass)
     {
         $sContent = file_get_contents($sPathClass);
         $arLines = explode("\n",$sContent);
@@ -56,7 +56,7 @@ class ComponentConsole
 
                 if(in_array($this->sPathClass,$arIncFiles))
                 {
-                    $sNameSpace = $this->get_namespace($this->sPathClass);
+                    $sNameSpace = $this->getnamespace($this->sPathClass);
                     $sFullClass = "\\$this->sClassName";
                     if($sNameSpace)
                         $sFullClass = "\\$sNameSpace\\$this->sClassName";

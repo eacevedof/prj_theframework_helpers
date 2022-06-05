@@ -18,13 +18,13 @@ class Label extends AbsHelper
             $class="", $style="", $arExtras=[])
     {
         $this->type = "label";
-        $this->_idprefix = "";
-        $this->_id = $id;
+        $this->idprefix = "";
+        $this->id = $id;
         
-        $this->_inner_html = $innerhtml;
+        $this->innerhtml = $innerhtml;
         $this->_for = $for;
-        //$this->arClasses[] = "control-label";
-        if($class) $this->arClasses[] = $class;
+        //$this->arclasses[] = "control-label";
+        if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         $this->arExtras = $arExtras;
     }
@@ -37,7 +37,7 @@ class Label extends AbsHelper
         $arHtml[] = $this->get_opentag();
         //Agrega a inner_html los valores obtenidos con 
         $this->load_inner_objects();
-        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }//get_html
@@ -45,7 +45,7 @@ class Label extends AbsHelper
     public function get_opentag()
     {
         $arOpenTag[] = "<$this->type";
-        if($this->_id) $arOpenTag[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
         if($this->_for) $arOpenTag[] = " for=\"$this->_for\"";
         //eventos
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";

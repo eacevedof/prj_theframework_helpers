@@ -25,9 +25,9 @@ class Button extends AbsHelper
     {
         //tiene que ser button sino hay tipo ejecuta un submit
         $this->type = $type;
-        $this->_idprefix="";
-        $this->_id = $id;
-        $this->_inner_html = $innerhtml;
+        $this->idprefix="";
+        $this->id = $id;
+        $this->innerhtml = $innerhtml;
     }
     
     public function get_html()
@@ -38,7 +38,7 @@ class Button extends AbsHelper
         //Agrega a inner_html los valores obtenidos con 
         //$this->load_inner_objects(); A un boton no se le puede pasar objetos embebidos
         if($this->sIcon) $arHtml[] = "<span class=\"$this->sIcon\"> </span> ";
-        $arHtml[] = $this->_inner_html;
+        $arHtml[] = $this->innerhtml;
         $arHtml[] = $this->get_closetag();
         return implode("",$arHtml);
     }
@@ -47,7 +47,7 @@ class Button extends AbsHelper
     {    
         $arHtml[] = "<button";
         if($this->type) $arHtml[] = " type=\"$this->type\"";
-        if($this->_id) $arHtml[] = " id=\"$this->_idprefix$this->_id\"";
+        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->_isDisabled) $arHtml[] = " disabled"; 
          
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";

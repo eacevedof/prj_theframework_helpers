@@ -86,8 +86,8 @@ class Basic extends HelperTable
         $this->arColumns = $arColumns;
         $this->iNumCols = count($arColumns);
         $this->sIdForm = $sIdForm;
-        $this->_idprefix = "tbl";
-        $this->_id = $sModule;
+        $this->idprefix = "tbl";
+        $this->id = $sModule;
         $this->sModule = $sModule;
         //crea las urls que se guardaran en campos hidden para quarantine, delete, update
         $this->load_get_urls();
@@ -152,7 +152,7 @@ class Basic extends HelperTable
         $oSelPages->set_value_to_select($this->iInfoCurrentPage);
         //$oSelPages->add_class("span2");
         $oSelPages->add_style("margin:0;padding:0;width:85px;");
-        $oSelPages->set_name("selPage");
+        $oSelPages->setname("selPage");
         $oSelPages->set_js_onchange("table_frmsubmit();");
         
         $sHtmlSelect = $oSelPages->get_html();
@@ -314,7 +314,7 @@ class Basic extends HelperTable
         if($this->isPermaLink)
         {
             $this->set_tmpjs();
-            $this->add_tmpjs("var iPage = TfwControl.get_value_by_id(\"selPage\");");
+            $this->add_tmpjs("var iPage = TfwControl.get_value_byid(\"selPage\");");
             $this->add_tmpjs("iPage = iPage || 1;");
             $this->add_tmpjs("sUrlAction += iPage + \"/\";");
             $sTmpJs = $this->get_tmpjs();
@@ -373,9 +373,9 @@ class Basic extends HelperTable
             var eCheckBox = document.getElementById(id);
             //alert(eCheckBox);
             if(TfwControl.is_checkbox_checked(eCheckBox))
-                TfwControl.set_checked_by_name(name,true);
+                TfwControl.set_checked_byname(name,true);
             else
-                TfwControl.set_checked_by_name(name,false);
+                TfwControl.set_checked_byname(name,false);
         }
         ";
         return $sJs;        
@@ -400,9 +400,9 @@ class Basic extends HelperTable
         function nav_click(iPage)
         {
             var iPage = iPage || 1;
-            var sUrlAction = TfwControl.get_value_by_id(\"hidUrlPaginate\");
+            var sUrlAction = TfwControl.get_value_byid(\"hidUrlPaginate\");
             $sTmpJs
-            TfwControl.sel_option_by_id(\"selPage\",iPage);
+            TfwControl.sel_option_byid(\"selPage\",iPage);
             TfwControl.form_submit(\"$this->sIdForm\",sUrlAction);
         }
         ";
@@ -587,7 +587,7 @@ class Basic extends HelperTable
 //        //Campos filtros
 //        if($this->arObjFields)
 //        {
-//            $sFieldIds = $this->build_js_field_ids();
+//            $sFieldIds = $this->build_js_fieldids();
 //            $sHtmlJs .="
 //         function reset_filters()
 //         {
@@ -606,7 +606,7 @@ class Basic extends HelperTable
         return $sHtmlJs;
     }
     
-    protected function build_js_field_ids()
+    protected function build_js_fieldids()
     {
         $arIds = array_keys($this->arColumns);
         $sFieldIds = implode("\",\"",$arIds);
@@ -619,74 +619,74 @@ class Basic extends HelperTable
         $sHtmlHidden = "";
         $oHidden = new HelperInputHidden();
         
-        $oHidden->set_id("hidOrderBy");
-        $oHidden->set_name("hidOrderBy");
+        $oHidden->setid("hidOrderBy");
+        $oHidden->setname("hidOrderBy");
         if($this->arOrderBy)
             $oHidden->set_value(implode(",",$this->arOrderBy));
         $sHtmlHidden .= $oHidden->get_html();
         
-        $oHidden->set_id("hidOrderType");
-        $oHidden->set_name("hidOrderType");
+        $oHidden->setid("hidOrderType");
+        $oHidden->setname("hidOrderType");
         if($this->arOrderWay)
             $oHidden->set_value(implode(",",$this->arOrderWay));
         $sHtmlHidden .= $oHidden->get_html();
         
-        $oHidden->set_id("hidKeyFields");
-        $oHidden->set_name("hidKeyFields");
+        $oHidden->setid("hidKeyFields");
+        $oHidden->setname("hidKeyFields");
         if($this->arKeyFields)
             $oHidden->set_value(implode(",",$this->arKeyFields));
         $sHtmlHidden .= $oHidden->get_html();
         
-        $oHidden->set_name("hidUrlCurrent");
-        $oHidden->set_id("hidUrlCurrent");
+        $oHidden->setname("hidUrlCurrent");
+        $oHidden->setid("hidUrlCurrent");
         $oHidden->set_value($this->get_request_uri());
         $sHtmlHidden .= $oHidden->get_html(); 
         
         //URLS: Solo para js
-        $oHidden->set_name(null);
-        $oHidden->set_id("hidUrlNoview");
+        $oHidden->setname(null);
+        $oHidden->setid("hidUrlNoview");
         $oHidden->set_value($this->sUrlNoview);
         $sHtmlHidden .= $oHidden->get_html(); 
         
         //bug($this->sUrlPaginate);
-        $oHidden->set_id("hidUrlPaginate");
+        $oHidden->setid("hidUrlPaginate");
         $oHidden->set_value($this->sUrlPaginate);
         $sHtmlHidden .= $oHidden->get_html();
         
         //creado como caja auxiliar para cualquier logica extra que se haga en la vista
-        $oHidden->set_id("hidAuxiliar");
-        $oHidden->set_name("hidAuxiliar");
+        $oHidden->setid("hidAuxiliar");
+        $oHidden->setname("hidAuxiliar");
         $oHidden->set_value("");
         $sHtmlHidden .= $oHidden->get_html();
         
         //Necesario para saber si solo se está refrescando, filtrando o eliminando
-        $oHidden->set_id("hidAction");
-        $oHidden->set_name("hidAction");
+        $oHidden->setid("hidAction");
+        $oHidden->setname("hidAction");
         $oHidden->set_value("");
         $sHtmlHidden .= $oHidden->get_html();
         
-        $oHidden->set_id("hidPostback");
-        $oHidden->set_name("hidPostback");
+        $oHidden->setid("hidPostback");
+        $oHidden->setname("hidPostback");
         $oHidden->set_value("");
         $sHtmlHidden .= $oHidden->get_html();
         
-        $oHidden->set_id("selItemsPerPage");
-        $oHidden->set_name("selItemsPerPage");
+        $oHidden->setid("selItemsPerPage");
+        $oHidden->setname("selItemsPerPage");
         $oHidden->set_value($this->iItemsPerPage);
         $sHtmlHidden .= $oHidden->get_html();        
         //Si se ha indicado que la tabla es de asignacion
         //se guarda los datos actuales de la url
         if($this->arAssignSingle)
         {
-            $oHidden->set_id("hidAssignSingle");
-            $oHidden->set_name("hidAssignSingle");
+            $oHidden->setid("hidAssignSingle");
+            $oHidden->setname("hidAssignSingle");
             $oHidden->set_value();
             $sHtmlHidden .= $oHidden->get_html();
         }           
         if($this->arAssignMulti)
         {
-            $oHidden->set_id("hidAssignMulti");
-            $oHidden->set_name("hidAssignMulti");
+            $oHidden->setid("hidAssignMulti");
+            $oHidden->setname("hidAssignMulti");
             $oHidden->set_value();
             $sHtmlHidden .= $oHidden->get_html();
         }     
@@ -697,8 +697,8 @@ class Basic extends HelperTable
     {
         $oHidden = new HelperInputHidden();
         $sIdName = "hidRow_$iNumRow"."_0";
-        $oHidden->set_id($sIdName);
-        $oHidden->set_name($sIdName);
+        $oHidden->setid($sIdName);
+        $oHidden->setname($sIdName);
         $oHidden->set_value($iNumRow);
         return $oHidden->get_html();
     }
@@ -707,8 +707,8 @@ class Basic extends HelperTable
     {
         $oHidden = new HelperInputHidden();
         $sIdName = "hidRowChanged_$iNumRow"."_0";
-        $oHidden->set_id($sIdName);
-        $oHidden->set_name($sIdName);
+        $oHidden->setid($sIdName);
+        $oHidden->setname($sIdName);
         $oHidden->set_value("0");
         return $oHidden->get_html();
     }
@@ -720,9 +720,9 @@ class Basic extends HelperTable
         foreach($this->arKeyFields as $sFieldName)
         {
             $sIdName = "hid$sFieldName"."_$iNumRow";
-            $oHidden->set_id($sIdName);
-            $oHidden->set_name($sIdName);
-            $oHidden->set_value($this->get_fieldvalue_by_name($arRow,$sFieldName));
+            $oHidden->setid($sIdName);
+            $oHidden->setname($sIdName);
+            $oHidden->set_value($this->get_fieldvalue_byname($arRow,$sFieldName));
             $sHtmlHidden .= $oHidden->get_html();            
         }
         return $sHtmlHidden;
@@ -736,11 +736,11 @@ class Basic extends HelperTable
             foreach($this->arHiddenColumns as $sFieldName)
             {
                 $sIdName = "hid$sFieldName"."_$iNumRow"."_0";
-                $oHidden->set_id($sIdName);
-                $oHidden->set_name($sIdName);
+                $oHidden->setid($sIdName);
+                $oHidden->setname($sIdName);
                 $oHidden->add_extras("cellpos",$iNumRow."_0");
                 //bug($sFieldName);
-                $oHidden->set_value($this->get_fieldvalue_by_name($arRow,$sFieldName));
+                $oHidden->set_value($this->get_fieldvalue_byname($arRow,$sFieldName));
                 $sHtmlHidden .= $oHidden->get_html();            
             }
         return $sHtmlHidden;
@@ -753,8 +753,8 @@ class Basic extends HelperTable
         foreach($this->arExtraHidden as $sFieldName=>$mxValue)
         {
             $sIdName = "hid$sFieldName"."_$iNumRow"."_0";
-            $oHidden->set_id($sIdName);
-            $oHidden->set_name($sIdName);
+            $oHidden->setid($sIdName);
+            $oHidden->setname($sIdName);
             $oHidden->add_extras("cellpos",$iNumRow."_0");
             
             if(is_array($mxValue)) $mxValue = implode(",",$mxValue);
@@ -1004,7 +1004,7 @@ class Basic extends HelperTable
                 //bug($sTdInner,"tdinner");
             break;         
             default:
-                $sTdInner .= $this->get_fieldvalue_by_name($arRow,$sFieldName);
+                $sTdInner .= $this->get_fieldvalue_byname($arRow,$sFieldName);
             break;
         }//fin switch fieldname
         return $sTdInner;
@@ -1077,12 +1077,12 @@ class Basic extends HelperTable
         if($this->doMergePkeys)
         {
             foreach($this->arKeyFields as $sFldKeyName)
-                $arValues[] = $sFldKeyName."=".$this->get_fieldvalue_by_name($arRow,$sFldKeyName);
+                $arValues[] = $sFldKeyName."=".$this->get_fieldvalue_byname($arRow,$sFldKeyName);
             
             $sMerged = implode($this->sMergeGlue,$arValues);
             $oChekbox->set_options(array($sMerged=>null));
-            $oChekbox->set_id("pkeys_$iNumRow");
-            $oChekbox->set_name("pkeys");
+            $oChekbox->setid("pkeys_$iNumRow");
+            $oChekbox->setname("pkeys");
             $oChekbox->set_attr_dbfield("pkeys");
             //$oChekbox->set_js_onchange("alert('hola')");
             $sHtmlCheck .= $oChekbox->get_html();            
@@ -1094,13 +1094,13 @@ class Basic extends HelperTable
         //llegaran por post solo los hidden con nombre
         foreach($this->arKeyFields as $sFldKeyName)
         {
-            $sFieldValue = $this->get_fieldvalue_by_name($arRow,$sFldKeyName);
+            $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFldKeyName);
             $oChekbox->set_options(array($sFieldValue=>""));
             $id = $sFldKeyName;
             if($iNumRow!=="") $id .= "_$iNumRow";
-            $oChekbox->set_id($id);
+            $oChekbox->setid($id);
             //Cambio en el helper Checkbox. No hace falta [] ya que se activa o desactiva según la variable isGrouped. Por defecto true
-            $oChekbox->set_name($sFldKeyName);
+            $oChekbox->setname($sFldKeyName);
             $oChekbox->set_attr_dbfield($sFldKeyName);
             //$oChekbox->set_js_onchange("alert('hola')");
             $sHtmlCheck .= $oChekbox->get_html();
@@ -1130,9 +1130,9 @@ class Basic extends HelperTable
         $iNumFields = count($arColumnsKeys);
         foreach($arColumnsKeys as $sFieldName)
             if($iNumFields>1)
-                $arValues[] = $sFieldName."=".$this->get_fieldvalue_by_name($arRow,$sFieldName);
+                $arValues[] = $sFieldName."=".$this->get_fieldvalue_byname($arRow,$sFieldName);
             else
-                $arValues[] = $this->get_fieldvalue_by_name($arRow,$sFieldName);
+                $arValues[] = $this->get_fieldvalue_byname($arRow,$sFieldName);
 
         $sMerged = implode($this->sMergeGlue,$arValues);
         $oHidKey->set_value($sMerged);
@@ -1140,7 +1140,7 @@ class Basic extends HelperTable
         $arValues = [];
         //$iNumFields = count($arColumnsDesc);
         foreach($arColumnsDesc as $sFieldName)
-            $arValues[] = $this->get_fieldvalue_by_name($arRow,$sFieldName);
+            $arValues[] = $this->get_fieldvalue_byname($arRow,$sFieldName);
         
         $sMerged = implode($this->sMergeGlue,$arValues);
         $oHidDesc->set_value($sMerged);
@@ -1160,8 +1160,8 @@ class Basic extends HelperTable
         {
             $sFldKeyNames = implode($this->sMergeGlue,array_values($this->arKeyFields));
             $oChekbox->set_options(array($sFldKeyNames=>null));
-            $oChekbox->set_id("pkeys_all");
-            $oChekbox->set_name("pkeys_all");
+            $oChekbox->setid("pkeys_all");
+            $oChekbox->setname("pkeys_all");
             $oChekbox->set_js_onclick("check_all();");
             $sHtmlCheck .= $oChekbox->get_html();
         }    
@@ -1169,8 +1169,8 @@ class Basic extends HelperTable
             foreach($this->arKeyFields as $sFldKeyName)
             {
                 $oChekbox->set_options(array($sFldKeyName=>null));
-                $oChekbox->set_id($sFldKeyName."_all");
-                $oChekbox->set_name($sFldKeyName."_all");
+                $oChekbox->setid($sFldKeyName."_all");
+                $oChekbox->setname($sFldKeyName."_all");
                 $oChekbox->set_js_onclick("check_all('$sFldKeyName"."_all','$sFldKeyName"."[]');");
                 $sHtmlCheck .= $oChekbox->get_html();
             }
@@ -1191,7 +1191,7 @@ class Basic extends HelperTable
             {
                 if(in_array($sFldKeyName,$arExclude))
                     continue;
-                $sFieldValue = $this->get_fieldvalue_by_name($arRow,$sFldKeyName);
+                $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFldKeyName);
                 if($sFieldValue) 
                     $arRowKeys[] = $sFieldValue;
             }            
@@ -1202,7 +1202,7 @@ class Basic extends HelperTable
             {
                 if(in_array($sFldKeyName,$arExclude))
                     continue;                
-                $sFieldValue = $this->get_fieldvalue_by_name($arRow,$sFldKeyName);
+                $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFldKeyName);
                 if($sFieldValue) 
                     $arRowKeys[] = "$sFldKeyName=$sFieldValue";
             }
@@ -1219,7 +1219,7 @@ class Basic extends HelperTable
         foreach($this->arKeyFields as $sFldKeyName)
         {
             if(in_array($sFldKeyName,$arExclude)) continue;   
-            $sFieldValue = $this->get_fieldvalue_by_name($arRow,$sFldKeyName);
+            $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFldKeyName);
             if($isWithName)
                 $arRowKeys[] = "$sFldKeyName:$sFieldValue";
             else
@@ -1229,7 +1229,7 @@ class Basic extends HelperTable
         return $sKeys;
     }
     
-    protected function get_fieldvalue_by_name($arRow,$sName)
+    protected function get_fieldvalue_byname($arRow,$sName)
     {
         foreach($arRow as $sFieldName=>$sFieldValue)
         {    
