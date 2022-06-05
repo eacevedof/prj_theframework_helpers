@@ -220,5 +220,8 @@ abstract class AbsHelper implements IHelper
     protected function get_style(): ?Style {return $this->oHlpStyle;}
     protected function get_placeholder(): string {return $this->placeholder;}
     
-    protected function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}    
+    protected function get_value(bool $rawmode=true): string
+    {
+        return $rawmode ? htmlentities($this->_value) : $this->_value;
+    }
 }
