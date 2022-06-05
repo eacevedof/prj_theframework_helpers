@@ -74,13 +74,18 @@ abstract class AbsHelper implements IHelper
         return $this;
     }
 
-    protected function _load_inner_objects()
+    protected function _load_inner_objects(): self
     {
-        foreach($this->arinnerhelpers as $mxValue)
-            if(is_object($mxValue) && method_exists($mxValue,"get_html"))
-                $this->innerhtml .= $mxValue->get_html();
-            elseif(is_string($mxValue))
-                $this->innerhtml .= $mxValue;
+        $tmp = [];
+        foreach($this->arinnerhelpers as $mxValue) {
+            if (is_object($mxValue) && method_exists($mxValue, "get_html"))
+                $tmp[] = $mxValue->get_html();
+            elseif (is_string($mxValue))
+                $tmp[] = $mxValue;
+        }
+        if($tmp)
+            $this->innerhtml .= implode("",$tmp);
+        return $this;
     }
     
     protected function concat_param_value($sParamName,$sValue)
