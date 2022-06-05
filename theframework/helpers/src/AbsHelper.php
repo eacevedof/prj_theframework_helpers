@@ -99,9 +99,9 @@ abstract class AbsHelper implements IHelper
         if($this->display) echo $this->get_html();
     }
 
-    public function comment(string $value):self {$this->comment = $value; return $this;}
-    public function idprefix(string $value):self {$this->idprefix=$value; return $this;}
-    public function id(string $value){$this->id=$value;}
+    public function comment(string $value): self {$this->comment = $value; return $this;}
+    public function idprefix(string $value): self {$this->idprefix=$value; return $this;}
+    public function id(string $value): self {$this->id=$value; return $this;}
     
     public function display($showIt=true){$this->display = $showIt;}        
     protected function required($isRequired=true){$this->_isRequired = $isRequired;}
