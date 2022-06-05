@@ -21,7 +21,7 @@ class Select extends AbsHelper
     
     public function __construct
     ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
-     ,$isMultiple=false, $arExtras=[], $class="", $isReadOnly=false)
+     ,$isMultiple=false, $extras=[], $class="", $isReadOnly=false)
     {
         $this->type = "select";
         $this->mxValuesToSelect = $mxValueToSelect;
@@ -34,7 +34,7 @@ class Select extends AbsHelper
         if($this->_size>1) $this->_isMultiple = true;
         $this->_size = $size;
         $this->oLabel = $oLabel;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
         if($class) $this->arclasses[] = $class;
         $this->_isReadOnly = $isReadOnly;
     }
@@ -145,7 +145,7 @@ class Select extends AbsHelper
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         $arHtml[] = ">\n";
         return implode("",$arHtml);        
     }//get_opentag

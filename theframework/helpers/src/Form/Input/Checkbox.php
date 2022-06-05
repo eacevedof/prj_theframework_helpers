@@ -35,13 +35,13 @@ class Checkbox extends AbsHelper
      * @param mixed $mxValuesToCheck array|string
      * @param mixed $mxValuesDisabled  array|string
      * @param string $class
-     * @param array $arExtras
+     * @param array $extras
      * @param type $isGrouped
      * @param Legend $oLegend
      * @param Fieldset $oFieldset
      */
     public function __construct($mxOptions=[], $name="", 
-            $mxValuesToCheck=[], $mxValuesDisabled=[], $class="", $arExtras="",$isGrouped=true,
+            $mxValuesToCheck=[], $mxValuesDisabled=[], $class="", $extras="",$isGrouped=true,
             Legend $oLegend=null, Fieldset $oFieldset=null )
     {
         $this->conv_string_to_array($mxOptions,1);
@@ -58,7 +58,7 @@ class Checkbox extends AbsHelper
         $this->arValuesDisabled = $mxValuesDisabled;
         $this->isGrouped = $isGrouped;
         if($class) $this->arclasses[] = $class;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
         $this->oLegend = $oLegend;
         $this->oFieldset = $oFieldset;
     }//__construct
@@ -126,7 +126,7 @@ class Checkbox extends AbsHelper
         //atributos extras
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         
         if($isChecked) $arHtml[] = " checked";
         if($isReadOnly) $arHtml[] = " disabled";

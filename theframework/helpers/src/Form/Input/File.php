@@ -65,11 +65,11 @@ class File extends AbsHelper
         $this->load_style();
         if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         //atributos extras pe. para usar el quryselector
-        if($this->_placeholder) $arHtml[] = " placeholder=\"$this->_placeholder\"";
+        if($this->placeholder) $arHtml[] = " placeholder=\"$this->placeholder\"";
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         
         $arHtml[] = ">\n";
         return implode("",$arHtml);

@@ -14,14 +14,14 @@ class Hidden extends AbsHelper
 {
     //private $name = "hidname";
 
-    public function __construct($id="",$name="",$value="",$arExtras=[])
+    public function __construct($id="",$name="",$value="",$extras=[])
     {
         $this->type = "hidden";
         $this->idprefix = "";
         $this->id = $id;
         $this->_value = $value;
         $this->name = $name;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
 
     public function get_html()
@@ -40,7 +40,7 @@ class Hidden extends AbsHelper
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         
         $arHtml[] = ">\n";
         return implode("",$arHtml);

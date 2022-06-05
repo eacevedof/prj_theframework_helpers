@@ -23,7 +23,7 @@ class Form extends AbsHelper
     private $oLegend;
 
     public function __construct($id="", $name="", $method="post", $innerhtml=""
-            , $action="", $class="", $style="", $arExtras=[], $enctype="", $onsubmit="")
+            , $action="", $class="", $style="", $extras=[], $enctype="", $onsubmit="")
     {
         //enctype="multipart/form-data"
         $this->type = "form";
@@ -34,7 +34,7 @@ class Form extends AbsHelper
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
         $this->_method = $method;
         $this->_action = $action;
         $this->_enctype = $enctype;
@@ -108,7 +108,7 @@ class Form extends AbsHelper
         //atributos extra
         if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
 
         $arOpenTag[] =">\n";
         return implode("",$arOpenTag);

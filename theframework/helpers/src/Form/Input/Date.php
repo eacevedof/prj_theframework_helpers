@@ -21,7 +21,7 @@ class Date extends AbsHelper
     private $cSeparator;
 
     public function __construct
-    ($id="", $name="", $value="", $arExtras=[], $maxlength="", $class="", Label $oLabel=null)
+    ($id="", $name="", $value="", $extras=[], $maxlength="", $class="", Label $oLabel=null)
     {
         $this->idprefix = "";//dtb
         $this->cSeparator = "/";
@@ -30,7 +30,7 @@ class Date extends AbsHelper
         $this->maxlength  = $maxlength;
         $this->name = $name;
         if($class) $this->arclasses[] = $class;        
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
         $this->oLabel = $oLabel;        
     }
 
@@ -119,11 +119,11 @@ class Date extends AbsHelper
         $this->load_style();
         if($this->_style) $arHtml[] = " style=\"$this->_style\"";
             
-        if($this->_placeholder) $arHtml[] = " placeholder=\"$this->_placeholder\"";
+        if($this->placeholder) $arHtml[] = " placeholder=\"$this->placeholder\"";
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         $arHtml[] = ">";
         
         return implode("",$arHtml);

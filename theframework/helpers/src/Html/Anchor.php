@@ -18,7 +18,7 @@ class Anchor extends AbsHelper
     private $_target;
     
     public function __construct($innerhtml="", $id="", $href="", $target="", 
-            $class="", $style="", $arExtras=[])
+            $class="", $style="", $extras=[])
     {
         $this->type = "a";
         $this->idprefix = "";
@@ -31,7 +31,7 @@ class Anchor extends AbsHelper
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
         
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
 
     public function get_html()
@@ -69,7 +69,7 @@ class Anchor extends AbsHelper
         //atributos extras
         if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
         $arOpenTag[] =">";        
         return implode("",$arOpenTag);
     }

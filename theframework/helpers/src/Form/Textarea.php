@@ -20,7 +20,7 @@ class Textarea extends AbsHelper
     private $isCounterJs;
     
     public function __construct
-    ($id="",$name="",$innerhtml="",$arExtras=[],$maxlength=-1
+    ($id="",$name="",$innerhtml="",$extras=[],$maxlength=-1
     ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=null)
     {
         $this->type = "textarea";
@@ -36,7 +36,7 @@ class Textarea extends AbsHelper
         if($style) $this->arStyles[] = $style;
        
         $this->maxlength = $maxlength;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
         $this->oLabel = $oLabel;
         
         $this->isCounterSpan = false;
@@ -137,7 +137,7 @@ class Textarea extends AbsHelper
         if($this->_style) $arOpenTag[] = "style=\"$this->_style\" ";
         //atributos extras
         if($this->maxlength) $arOpenTag[] = "maxlength=\"$this->maxlength\" ";
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
         if($this->_isPrimaryKey) $arOpenTag[] = "pk=\"pk\" ";
         if($this->_attr_dbtype) $arOpenTag[] = "dbtype=\"$this->_attr_dbtype\" ";
         

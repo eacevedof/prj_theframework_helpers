@@ -12,10 +12,10 @@ use TheFramework\Helpers\AbsHelper;
 
 class Generic extends AbsHelper
 {
-    public function __construct($value,$arExtras=[])
+    public function __construct($value,$extras=[])
     {
         $this->_value = $value;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
 
     public function get_html()
@@ -25,7 +25,7 @@ class Generic extends AbsHelper
         $arHtml[] = "<input";
         if($this->_value || $this->_value=="0") 
             $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
 
         $arHtml[] = ">\n";
         return implode("",$arHtml);

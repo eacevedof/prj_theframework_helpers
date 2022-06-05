@@ -65,7 +65,7 @@ class Button extends AbsHelper
         //atributos extra
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
  
         $arHtml[] = ">\n";
         return implode("",$arHtml);

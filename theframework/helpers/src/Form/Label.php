@@ -15,7 +15,7 @@ class Label extends AbsHelper
     private $_for = "";
     
     public function __construct($for="", $innerhtml="", $id="", 
-            $class="", $style="", $arExtras=[])
+            $class="", $style="", $extras=[])
     {
         $this->type = "label";
         $this->idprefix = "";
@@ -26,7 +26,7 @@ class Label extends AbsHelper
         //$this->arclasses[] = "control-label";
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
     
     //label
@@ -65,7 +65,7 @@ class Label extends AbsHelper
         if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";        
         if($this->_isPrimaryKey) $arOpenTag[] = " pk=\"pk\"";
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
 
         $arOpenTag[] =">";        
         return implode("",$arOpenTag);        

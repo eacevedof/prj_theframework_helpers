@@ -14,10 +14,10 @@ abstract class AbsHelper implements IHelper
     protected string $name = "";
     protected string $idprefix = "";
     protected string $maxlength = "";
-    
+    protected string $placeholder = "";
+
     protected string $innerhtml = "";
-    protected $arExtras;
-    protected $_placeholder;
+    protected array $extras = [];
     
     protected $_display = true;
     protected $_class = "";
@@ -163,16 +163,16 @@ abstract class AbsHelper implements IHelper
      */
     public function add_inner_object($mxValue){if($mxValue) $this->arInnerObjects[] = $mxValue;}
     
-    public function set_extras(array $value){$this->arExtras = []; if($value) $this->arExtras = $value;}
+    public function set_extras(array $value){$this->extras = []; if($value) $this->extras = $value;}
     public function add_extras($sKey,$sValue=null)
     {
         if($sKey)
-            $this->arExtras[$sKey] = $sValue;
+            $this->extras[$sKey] = $sValue;
         else
-            $this->arExtras[] = $sValue;
+            $this->extras[] = $sValue;
     }
     
-    protected function set_placeholder($value){$this->_placeholder = htmlentities($value);}
+    protected function setplaceholder($value){$this->placeholder = htmlentities($value);}
     public function set_attr_dbtype($value){$this->_attr_dbtype=$value;}
     public function set_attr_dbfield($value){$this->_attr_dbfield=$value;}
     public function set_as_primarykey($isPk=TRUE){$this->_is_primarykey = $isPk;}
@@ -209,30 +209,30 @@ abstract class AbsHelper implements IHelper
     public function get_class(){return $this->_class;}
     public function get_extras($asString=TRUE)
     {
-        $arExtras = [];
+        $extras = [];
         if($asString)
         {
-            foreach($this->arExtras as $sKey=>$sValue)
+            foreach($this->extras as $sKey=>$sValue)
             {
                 //Esto no funcionaría si aplicase valores para mostrar un atributo 0="nuevo"
                 if(is_integer($sKey))
                 {
                     if(strstr($sValue,"="))
-                        $arExtras[] = $sValue;
+                        $extras[] = $sValue;
                     elseif($sValue!==null)
-                        $arExtras[] = "$sKey=\"$sValue\"";
+                        $extras[] = "$sKey=\"$sValue\"";
                     else 
-                        $arExtras[] = $sKey;
+                        $extras[] = $sKey;
                 }
                 else 
                 {
-                    $arExtras[] = "$sKey=\"$sValue\"";
+                    $extras[] = "$sKey=\"$sValue\"";
                 }
             }
-            return implode(" ",$arExtras);
+            return implode(" ",$extras);
         }
         else
-            return $this->arExtras;
+            return $this->extras;
     }//get_extras
     
     public function get_innerhtml(){return $this->innerhtml;}
@@ -264,7 +264,7 @@ abstract class AbsHelper implements IHelper
     protected function show_closetag(){echo $this->get_closetag();}
     protected function get_label(){return $this->oHlpLabel;}
     protected function get_style(){return $this->oHlpStyle;}
-    protected function get_placeholder(){return $this->_placeholder;}
+    protected function getplaceholder(){return $this->placeholder;}
 
     protected function is_enterinsert(){return $this->_isEnterInsert;}
     protected function is_enterupdate(){return $this->_isEnterUpdate;}

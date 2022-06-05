@@ -18,7 +18,7 @@ class Image extends AbsHelper
     protected $_alt;
     protected $_title;
 
-    public function __construct($src="", $id="", $class="", $style="", $arExtras=[])
+    public function __construct($src="", $id="", $class="", $style="", $extras=[])
     {
         $this->type = "img";
         $this->idprefix = "";
@@ -27,7 +27,7 @@ class Image extends AbsHelper
         $this->_src = $src;
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
     
     public function get_html()
@@ -53,7 +53,7 @@ class Image extends AbsHelper
         //atributos extra
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         //if($this->_isPrimaryKey) $arOpenTag[] = " pk=\"pk\"";
         //if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";  
         $arHtml[] = ">";

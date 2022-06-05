@@ -30,7 +30,7 @@ class Script extends AbsHelper
     {
         $arOpenTag[] = "<$this->_tag";
         if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
         $arOpenTag[] = ">\n";
         return implode("",$arOpenTag);
     }//get_opentag

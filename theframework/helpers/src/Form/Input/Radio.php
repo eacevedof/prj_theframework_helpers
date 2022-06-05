@@ -18,7 +18,7 @@ class Radio extends AbsHelper
     private $_legendtext;
     
     public function __construct($arOptions, $grpname, $legendtext=""
-            , $valuetocheck="", $class="", $arExtras=[])
+            , $valuetocheck="", $class="", $extras=[])
     {
         //$this->id = ""; el id se aplica por check no por legend
         $this->type = "radio";
@@ -29,7 +29,7 @@ class Radio extends AbsHelper
         $this->name = $grpname;
         $this->_legendtext = $legendtext;
         if($class) $this->arclasses[] = $class;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
 
     public function get_html()
@@ -85,7 +85,7 @@ class Radio extends AbsHelper
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         $arHtml[] = " />\n";
         if($oLabel) $arHtml[] = $oLabel->get_html();
 

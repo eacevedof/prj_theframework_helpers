@@ -56,7 +56,7 @@ class Li extends AbsHelper
         $this->load_style();
         if($this->_style) $arOpenTag[] = " style=\"$this->_style\"";
         //atributos extras
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
         $arOpenTag[] =">\n";
         return implode("",$arOpenTag);
 

@@ -130,7 +130,7 @@ use TheFramework\Helpers\Form\Label;
 
 /*
 ($id="", $name="", $method="post", $innerhtml=""
-,$action="", $class="", $style="", $arExtras=[], $enctype="", $onsubmit="")
+,$action="", $class="", $style="", $extras=[], $enctype="", $onsubmit="")
 */
 $oForm = new Form("SomeFormId");
 $oForm->set_method("post");
@@ -152,7 +152,7 @@ use TheFramework\Helpers\Form\Label;
 
 /*
 ($id="", $name="", $method="post", $innerhtml=""
-,$action="", $class="", $style="", $arExtras=[], $enctype="", $onsubmit="")
+,$action="", $class="", $style="", $extras=[], $enctype="", $onsubmit="")
 */
 $oForm = new Form("SomeFormId");
 $oForm->set_method("post");

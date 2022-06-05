@@ -14,7 +14,7 @@ use TheFramework\Helpers\AbsHelper;
 class Legend extends AbsHelper
 {
 
-    public function __construct($innerhtml="", $id="", $class="", $style="", $arExtras=[])
+    public function __construct($innerhtml="", $id="", $class="", $style="", $extras=[])
     {
         $this->type = "legend";
         $this->idprefix = "";
@@ -23,7 +23,7 @@ class Legend extends AbsHelper
         $this->innerhtml = $innerhtml;
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
         $this->_style = $style;
     }//__construct
     
@@ -62,7 +62,7 @@ class Legend extends AbsHelper
         //atributos extra
         if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
         if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
         //if($this->_isPrimaryKey) $arOpenTag[] = " pk=\"pk\"";
         //if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";  
         $arOpenTag[] =">";        

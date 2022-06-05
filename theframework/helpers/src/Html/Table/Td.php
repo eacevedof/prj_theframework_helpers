@@ -19,7 +19,7 @@ class Td extends AbsHelper
     private $_attr_colnumber;
     private $_attr_position;
     
-    public function __construct($innerhtml="", $id="", $class="", $style="", $colspan="", $arExtras=[])
+    public function __construct($innerhtml="", $id="", $class="", $style="", $colspan="", $extras=[])
     {
         $this->type = "td";
         $this->idprefix = "td";
@@ -29,7 +29,7 @@ class Td extends AbsHelper
         $this->_colspan = $colspan;
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
 
     public function get_html()
@@ -100,7 +100,7 @@ class Td extends AbsHelper
         if($this->_attr_rownumber!=="") $arHtml[] = " rownumber=\"$this->_attr_rownumber\"";        
         if($this->_attr_colnumber!=="") $arHtml[] = " colnumber=\"$this->_attr_colnumber\"";
         if($this->_attr_position) $arHtml[] = " cellpos=\"$this->_attr_position\"";        
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
 
         $arHtml[] = ">";
         return implode("",$arHtml);

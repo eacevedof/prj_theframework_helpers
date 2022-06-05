@@ -22,7 +22,7 @@ class Tr extends AbsHelper
     
     public function __construct
     ($arInnerObjectss=[], $id="", $class="", $style="", $colspan=""
-            , $rowpan="", $arExtras=[])
+            , $rowpan="", $extras=[])
     {
         $this->type = "tr";
         $this->innerhtml = "";
@@ -36,7 +36,7 @@ class Tr extends AbsHelper
         $this->iRowSpan = $rowpan;
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
 
     public function get_html()
@@ -70,7 +70,7 @@ class Tr extends AbsHelper
         $this->load_style();
         if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         //atributos extras
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
         if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";  
         if($this->sAttrRownumber!=="") $arHtml[] = " rownumber=\"$this->sAttrRownumber\"";  

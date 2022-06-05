@@ -44,7 +44,7 @@ class Raw extends AbsHelper
         if($this->_class) $arOpenTag[] = " class=\"$this->_class\"";
         $this->load_style();
         if($this->_style) $arOpenTag[] = " style=\"$this->_style\"";            
-        if($this->arExtras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
 
         $arOpenTag[] =">\n";
         return implode("",$arOpenTag);

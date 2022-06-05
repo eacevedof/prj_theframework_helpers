@@ -23,7 +23,7 @@ class Table extends AbsHelper
     protected $iNumCols = 0;
     
     public function __construct
-    ($arMxTrs=[], $id="", $class="", $style="", $arExtras=[])
+    ($arMxTrs=[], $id="", $class="", $style="", $extras=[])
     {
         //clientbrowser,isMobileDevice,consolecalled,permalink
         parent::__construct();
@@ -38,7 +38,7 @@ class Table extends AbsHelper
         
         if($class) $this->arclasses[] = $class;
         if($style) $this->arStyles[] = $style;
-        $this->arExtras = $arExtras;
+        $this->extras = $extras;
     }
 
     protected function load_numcols()
@@ -97,7 +97,7 @@ class Table extends AbsHelper
         $this->load_style();
         if($this->_style) $arHtml[] = " style=\"$this->_style\"";
         //atributos extras
-        if($this->arExtras) $arHtml[] = " ".$this->get_extras();
+        if($this->extras) $arHtml[] = " ".$this->get_extras();
         //if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
         //if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";  
         $arHtml[] = ">\n";
