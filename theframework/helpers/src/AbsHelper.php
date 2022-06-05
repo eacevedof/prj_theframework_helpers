@@ -56,11 +56,10 @@ abstract class AbsHelper implements IHelper
     protected ?string $_attr_dbtype = null;
     protected ?string $_attr_dbfield = null;
 
-    //Label
+    //helpers
     protected ?Label $oLabel = null;
     protected ?Style $oStyle = null;
 
-    
     protected function _load_cssclass(): self
     {
         if($this->arclasses)
