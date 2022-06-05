@@ -73,9 +73,7 @@ abstract class AbsHelper implements IHelper
             $this->style = trim(implode(";",$this->arStyles));
         return $this;
     }
-    /**
-     * Agrega al atributo innerhtml el string obtenido con el metodo get_html()
-     */
+
     protected function _load_inner_objects()
     {
         foreach($this->arinnerhelpers as $mxValue)
