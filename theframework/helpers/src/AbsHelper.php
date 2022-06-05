@@ -208,16 +208,17 @@ abstract class AbsHelper implements IHelper
     // OVERRIDE TO PUBLIC IF NECESSARY
     //**********************************
     //to override
-    protected function get_opentag(){}
+    public abstract function get_opentag(): string;
     //to override
     protected function get_closetag(){return "</$this->type>\n";}
     //to override
     protected function show_opentag(){echo $this->get_opentag();}
     //to override
     protected function show_closetag(){echo $this->get_closetag();}
-    protected function get_label(){return $this->oHlpLabel;}
-    protected function get_style(){return $this->oHlpStyle;}
-    protected function getplaceholder(){return $this->placeholder;}
+
+    protected function get_label(): ?Label {return $this->oHlpLabel;}
+    protected function get_style(): ?Style {return $this->oHlpStyle;}
+    protected function get_placeholder(): string {return $this->placeholder;}
     
     protected function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}    
 }
