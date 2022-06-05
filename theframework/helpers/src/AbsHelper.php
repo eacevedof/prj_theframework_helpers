@@ -130,13 +130,20 @@ abstract class AbsHelper implements IHelper
         return $this;
     }
     
-    public function set_extras(array $value){$this->extras = []; if($value) $this->extras = $value;}
-    public function add_extras($sKey,$value=null)
+    public function set_extras(array $extras): self
     {
-        if($sKey)
-            $this->extras[$sKey] = $value;
+        $this->extras = $extras;
+        return $this;
+    }
+
+    public function add_extras(string $attr, ?string $value=null): self
+    {
+        if($attr)
+            $this->extras[$attr] = $value;
         else
             $this->extras[] = $value;
+
+        return $this;
     }
     
     protected function setplaceholder($value){$this->placeholder = htmlentities($value);}
