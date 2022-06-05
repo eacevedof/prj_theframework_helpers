@@ -20,7 +20,7 @@ class BehaviourTickets
     
     public function __construct() 
     {
-        $this->isError = FALSE;
+        $this->isError = false;
         $this->arErrors = [];
         $arParams = include($_SERVER["DOCUMENT_ROOT"]."/app/config/parameters.php");
         $arParams = $arParams["parameters"];

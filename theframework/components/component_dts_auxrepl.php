@@ -79,7 +79,7 @@ class ComponentDtsAuxrepl
         else
             $oCursor = fopen($sPathFile,"x");
 
-        if($oCursor !== FALSE)
+        if($oCursor !== false)
         {
             fwrite($oCursor,""); //Grabo el caracter vacio
             if(!empty($sContent)) fwrite($oCursor,$sContent);
@@ -87,7 +87,7 @@ class ComponentDtsAuxrepl
         }
         else
         {
-            return FALSE;
+            return false;
         }
         return TRUE;        
     }      

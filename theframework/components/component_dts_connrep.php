@@ -31,7 +31,7 @@ class ComponentDtsConnrep
         foreach($arChars as $c)
             if(strstr($sString,$c))
                 return TRUE;
-        return FALSE;
+        return false;
     }
     
     private function clean($arSubstrings=[],&$sString)

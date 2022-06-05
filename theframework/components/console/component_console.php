@@ -143,7 +143,7 @@ class ComponentConsole
         else
             $oCursor = fopen($sPathFile,"x");
 
-        if($oCursor !== FALSE)
+        if($oCursor !== false)
         {
             $sToSave = $this->merge($sContent,$sTitle);
             fwrite($oCursor,""); //Grabo el caracter vacio
@@ -152,7 +152,7 @@ class ComponentConsole
         }
         else
         {
-            return FALSE;
+            return false;
         }
         return TRUE;        
     }  

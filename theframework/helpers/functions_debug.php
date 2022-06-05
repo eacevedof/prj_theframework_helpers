@@ -173,7 +173,7 @@ function bugfileipath($sFilePath,$isDie=false)
             return;
         }
     }
-    bug(FALSE,$sFilePath,$isDie);
+    bug(false,$sFilePath,$isDie);
 }//bugfileipath
 
 function bugfile($sFilePath,$sVarName="", $isDie=false)
@@ -266,7 +266,7 @@ function bugcond($var,$isCheckCondition)
     if($isCheckCondition)
         bug($var);
     else 
-        pr("isCheckCondition = FALSE");
+        pr("isCheckCondition = false");
 }
 
 function bugraw($var,$sVarName=NULL)

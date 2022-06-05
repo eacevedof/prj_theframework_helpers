@@ -22,7 +22,7 @@ class ComponentTickets
     
     public function __construct($sToken="") 
     {
-        $this->isError = FALSE;
+        $this->isError = false;
         $this->arErrors = [];
         $this->arKeyval = [];
         $this->sToken = $sToken;

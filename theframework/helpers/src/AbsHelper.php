@@ -29,15 +29,15 @@ abstract class AbsHelper implements IHelper
 
     //Esto emula el atributo bloqueado. Si esta a TRUE crea el control autoseleccionado con un
     //único valor en los objetos tipo select
-    protected $_is_primarykey = FALSE;
-    protected $_isReadOnly = FALSE;
-    protected $_isRequired = FALSE;
-    protected $_isDisabled = FALSE;
-    protected $_isPrimaryKey = FALSE;
-    protected $_isPostback = FALSE;
-    protected $_isEnterInsert = FALSE;//aplica action=insert
-    protected $_isEnterUpdate = FALSE;//aplica action=update
-    protected $_isEnterSubmit = FALSE;//no aplica nada
+    protected $_is_primarykey = false;
+    protected $_isReadOnly = false;
+    protected $_isRequired = false;
+    protected $_isDisabled = false;
+    protected $_isPrimaryKey = false;
+    protected $_isPostback = false;
+    protected $_isEnterInsert = false;//aplica action=insert
+    protected $_isEnterUpdate = false;//aplica action=update
+    protected $_isEnterSubmit = false;//no aplica nada
     
     protected $_js_onclick = NULL;
     protected $_js_onchange = NULL;
@@ -119,7 +119,7 @@ abstract class AbsHelper implements IHelper
      * @param string $sSeparator
      * @return mixed Array or String depende de $asArray
      */
-    protected function extract_values($arFields, $arFieldNames, $asArray=FALSE, $sSeparator="-")
+    protected function extract_values($arFields, $arFieldNames, $asArray=false, $sSeparator="-")
     {
         $arExtracted = []; $sExtracted="";
         foreach($arFields as $sFieldName=>$value)

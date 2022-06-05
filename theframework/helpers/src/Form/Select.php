@@ -21,7 +21,7 @@ class Select extends AbsHelper
     
     public function __construct
     ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
-     ,$isMultiple=FALSE, $arExtras=[], $class="", $isReadOnly=FALSE)
+     ,$isMultiple=false, $arExtras=[], $class="", $isReadOnly=false)
     {
         $this->type = "select";
         $this->mxValuesToSelect = $mxValueToSelect;
@@ -186,7 +186,7 @@ class Select extends AbsHelper
         return $arItemReadOnly;
     }
     
-    private function build_htmloption($value,$innertext,$isSelected=FALSE)
+    private function build_htmloption($value,$innertext,$isSelected=false)
     {
         $sOption = "";
         $sOption .= "\t<option";

@@ -22,7 +22,7 @@ class ComponentGd2
     {
         if(!defined("DS"))define("DS",defined("config_bar")?config_bar:DIRECTORY_SEPARATOR);  
         $this->define_resdir();
-        $this->isError = FALSE;
+        $this->isError = false;
         $this->arErrors = array();
         $this->arFrom = array("pathfolder"=>PATH_RESDIR.DS."products_picture".DS,"filename"=>"");
         $this->arTmp = array();

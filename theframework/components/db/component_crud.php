@@ -31,7 +31,7 @@ class ComponentCrud
     private $oDB;
     
     protected $arErrors = [];
-    protected $isError = FALSE;
+    protected $isError = false;
     
     /**
      * 

@@ -18,7 +18,7 @@ class ComponentMysql
     
     public function __construct($arConn=[]) 
     {
-        $this->isError = FALSE;
+        $this->isError = false;
         $this->arErrors = [];
         $this->arConn = $arConn;
     }
@@ -63,7 +63,7 @@ class ComponentMysql
                     ,[\PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
             $oPdo->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION );  
             $oCursor = $oPdo->query($sSQL);
-            if($oCursor===FALSE)
+            if($oCursor===false)
             {
                 $this->add_error("exec-error: $sSQL");
             }
@@ -99,7 +99,7 @@ class ComponentMysql
             $oPdo->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION );  
             $mxR = $oPdo->exec($sSQL);
             $this->iAffected = $mxR;
-            if($mxR===FALSE)
+            if($mxR===false)
             {
                 $this->add_error("exec-error: $sSQL");
             }

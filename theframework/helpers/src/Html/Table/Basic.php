@@ -1621,7 +1621,7 @@ class Basic extends HelperTable
      * Disable pagination controls
      * @param type $isOn
      */
-    public function set_no_paginatebar($isOn=FALSE){$this->isPaginateBar=$isOn;}
+    public function set_no_paginatebar($isOn=false){$this->isPaginateBar=$isOn;}
     
     public function set_column_length($arColumnLength){$this->arColumnLength=[];if($arColumnLength)$this->arColumnLength=$arColumnLength;}
     public function add_column_length($sFieldName,$iLength){$this->arColumnLength[$sFieldName]=$iLength;}    

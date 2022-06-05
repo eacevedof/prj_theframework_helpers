@@ -39,8 +39,8 @@ class Textarea extends AbsHelper
         $this->arExtras = $arExtras;
         $this->oLabel = $oLabel;
         
-        $this->isCounterSpan = FALSE;
-        $this->isCounterJs = FALSE;        
+        $this->isCounterSpan = false;
+        $this->isCounterJs = false;        
     }//__construct
     
     private function js_counter()

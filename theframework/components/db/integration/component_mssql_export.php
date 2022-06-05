@@ -32,7 +32,7 @@ class ComponentMssqlExport
     
     public function __construct($arConn=["server"=>"","database"=>"","user"=>"","password"=>""]) 
     {
-        $this->isError = FALSE;
+        $this->isError = false;
         $this->arErrors = [];
         $this->arConn = $arConn;
         $this->oDb = new ComponentMssql($this->arConn);

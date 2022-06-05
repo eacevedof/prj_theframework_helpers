@@ -52,7 +52,7 @@ class Checkbox extends AbsHelper
         $this->_idprefix = "";
         $this->_name = $name;
         $this->_id = $name;
-        $this->isLabeled = FALSE;//permite customizar por defecto la etiqueta
+        $this->isLabeled = false;//permite customizar por defecto la etiqueta
         $this->arOptions = $mxOptions;
         $this->arValuesToCheck = $mxValuesToCheck;
         $this->arValuesDisabled = $mxValuesDisabled;

@@ -13,7 +13,7 @@ namespace TheFramework\Helpers\Vendor;
 
 class FpdfCell 
 {
-    protected $isSingle;//=FALSE;//single,multi
+    protected $isSingle;//=false;//single,multi
     
     //cell params
     protected $iWidth;
@@ -41,9 +41,9 @@ class FpdfCell
      * Por defecto crea tipo multiline
      * @param boolean $isSingle
      */
-    public function __construct($isSingle=FALSE)
+    public function __construct($isSingle=false)
     {
-        //$this->Cell($iAncho,$iAltura,$sTitulo,$iAnchoBorde,$iSaltosLinea,$cAlineacion,fondo?TRUE|FALSE,??);
+        //$this->Cell($iAncho,$iAltura,$sTitulo,$iAnchoBorde,$iSaltosLinea,$cAlineacion,fondo?TRUE|false,??);
         //$w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link=''
         $this->isSingle = $isSingle;
         $this->iWidth = 1;
@@ -51,7 +51,7 @@ class FpdfCell
         $this->sText = "";
         $this->iBorder = 0;
         $this->iNumNL = 0;
-        $this->isFill = FALSE;
+        $this->isFill = false;
         $this->sUrlPageLink = "";
         //$this->isTextUTF = true;
         //MultiCell($w, $h, $txt, $border=0, $align='J', $fill=false)

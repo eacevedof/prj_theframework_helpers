@@ -70,7 +70,7 @@ class ComponentDbSqlite
     
     public function execute($sSQL)
     {
-        $isAffected = FALSE;
+        $isAffected = false;
         
         if(trim($sSQL))
         {
@@ -80,7 +80,7 @@ class ComponentDbSqlite
                 if($this->is_noterror())
                 {
                     $this->iAffectedRows = self::$oPDO->exec($sSQL);
-                    if($this->iAffectedRows===FALSE)
+                    if($this->iAffectedRows===false)
                     {
                         $this->add_message("ERROR: PDO->exec(SQL)");
                         $this->add_message($sSQL);
@@ -174,6 +174,6 @@ class ComponentDbSqlite
     public function is_error(){return $this->isError;}
     public function get_debug(){return isset($this->arMessages["debug"])?$this->arMessages["debug"]:[];}
     public function get_affected_rows(){return $this->iAffectedRows;}
-    public function reset_errors(){$this->arMessages["error"]=[];$this->isError = FALSE;}
+    public function reset_errors(){$this->arMessages["error"]=[];$this->isError = false;}
     
 }//ComponentDbSqlite

@@ -18,7 +18,7 @@ class ComponentMssql
     
     public function __construct($arConn=[]) 
     {
-        $this->isError = FALSE;
+        $this->isError = false;
         $this->arErrors = [];
         $this->arConn = $arConn;
     }
@@ -47,7 +47,7 @@ class ComponentMssql
             $oPdo->setAttribute(\PDO::SQLSRV_ATTR_ENCODING,\PDO::SQLSRV_ENCODING_UTF8);
             //$oPdo->setAttribute(\PDO::SQLSRV_ATTR_ENCODING, \PDO::SQLSRV_ENCODING_SYSTEM);
             $oCursor = $oPdo->query($sSQL);
-            if($oCursor===FALSE)
+            if($oCursor===false)
             {
                 $this->add_error("exec-error: $sSQL");
             }
@@ -78,7 +78,7 @@ class ComponentMssql
             $oPdo->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION );  
             $mxR = $oPdo->exec($sSQL);
             $this->iAffected = $mxR;
-            if($mxR===FALSE)
+            if($mxR===false)
             {
                 $this->add_error("exec-error: $sSQL");
             }
