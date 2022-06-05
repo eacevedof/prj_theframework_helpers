@@ -32,15 +32,15 @@ abstract class AbsHelper implements IHelper
 
     //Esto emula el atributo bloqueado. Si esta a TRUE crea el control autoseleccionado con un
     //único valor en los objetos tipo select
-    protected $_is_primarykey = false;
-    protected $_isReadOnly = false;
-    protected $_isRequired = false;
-    protected $_isDisabled = false;
-    protected $_isPrimaryKey = false;
-    protected $_isPostback = false;
-    protected $_isEnterInsert = false;//aplica action=insert
-    protected $_isEnterUpdate = false;//aplica action=update
-    protected $_isEnterSubmit = false;//no aplica nada
+    protected bool $_is_primarykey = false;
+    protected bool $_isReadOnly = false;
+    protected bool $_isRequired = false;
+    protected bool $_isDisabled = false;
+    protected bool $_isPrimaryKey = false;
+    protected bool $_isPostback = false;
+    protected bool $_isEnterInsert = false;//aplica action=insert
+    protected bool $_isEnterUpdate = false;//aplica action=update
+    protected bool $_isEnterSubmit = false;//no aplica nada
     
     protected ?string $_js_onclick = null;
     protected ?string $_js_onchange = null;
