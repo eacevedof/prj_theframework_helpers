@@ -152,7 +152,7 @@ class Basic extends HelperTable
         $oSelPages->set_value_to_select($this->iInfoCurrentPage);
         //$oSelPages->add_class("span2");
         $oSelPages->add_style("margin:0;padding:0;width:85px;");
-        $oSelPages->setname("selPage");
+        $oSelPages->name("selPage");
         $oSelPages->on_change("table_frmsubmit();");
         
         $sHtmlSelect = $oSelPages->get_html();
@@ -620,30 +620,30 @@ class Basic extends HelperTable
         $oHidden = new HelperInputHidden();
         
         $oHidden->setid("hidOrderBy");
-        $oHidden->setname("hidOrderBy");
+        $oHidden->name("hidOrderBy");
         if($this->arOrderBy)
             $oHidden->set_value(implode(",",$this->arOrderBy));
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("hidOrderType");
-        $oHidden->setname("hidOrderType");
+        $oHidden->name("hidOrderType");
         if($this->arOrderWay)
             $oHidden->set_value(implode(",",$this->arOrderWay));
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("hidKeyFields");
-        $oHidden->setname("hidKeyFields");
+        $oHidden->name("hidKeyFields");
         if($this->arKeyFields)
             $oHidden->set_value(implode(",",$this->arKeyFields));
         $sHtmlHidden .= $oHidden->get_html();
         
-        $oHidden->setname("hidUrlCurrent");
+        $oHidden->name("hidUrlCurrent");
         $oHidden->setid("hidUrlCurrent");
         $oHidden->set_value($this->get_request_uri());
         $sHtmlHidden .= $oHidden->get_html(); 
         
         //URLS: Solo para js
-        $oHidden->setname(null);
+        $oHidden->name(null);
         $oHidden->setid("hidUrlNoview");
         $oHidden->set_value($this->sUrlNoview);
         $sHtmlHidden .= $oHidden->get_html(); 
@@ -655,23 +655,23 @@ class Basic extends HelperTable
         
         //creado como caja auxiliar para cualquier logica extra que se haga en la vista
         $oHidden->setid("hidAuxiliar");
-        $oHidden->setname("hidAuxiliar");
+        $oHidden->name("hidAuxiliar");
         $oHidden->set_value("");
         $sHtmlHidden .= $oHidden->get_html();
         
         //Necesario para saber si solo se está refrescando, filtrando o eliminando
         $oHidden->setid("hidAction");
-        $oHidden->setname("hidAction");
+        $oHidden->name("hidAction");
         $oHidden->set_value("");
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("hidPostback");
-        $oHidden->setname("hidPostback");
+        $oHidden->name("hidPostback");
         $oHidden->set_value("");
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("selItemsPerPage");
-        $oHidden->setname("selItemsPerPage");
+        $oHidden->name("selItemsPerPage");
         $oHidden->set_value($this->iItemsPerPage);
         $sHtmlHidden .= $oHidden->get_html();        
         //Si se ha indicado que la tabla es de asignacion
@@ -679,14 +679,14 @@ class Basic extends HelperTable
         if($this->arAssignSingle)
         {
             $oHidden->setid("hidAssignSingle");
-            $oHidden->setname("hidAssignSingle");
+            $oHidden->name("hidAssignSingle");
             $oHidden->set_value();
             $sHtmlHidden .= $oHidden->get_html();
         }           
         if($this->arAssignMulti)
         {
             $oHidden->setid("hidAssignMulti");
-            $oHidden->setname("hidAssignMulti");
+            $oHidden->name("hidAssignMulti");
             $oHidden->set_value();
             $sHtmlHidden .= $oHidden->get_html();
         }     
@@ -698,7 +698,7 @@ class Basic extends HelperTable
         $oHidden = new HelperInputHidden();
         $sIdName = "hidRow_$iNumRow"."_0";
         $oHidden->setid($sIdName);
-        $oHidden->setname($sIdName);
+        $oHidden->name($sIdName);
         $oHidden->set_value($iNumRow);
         return $oHidden->get_html();
     }
@@ -708,7 +708,7 @@ class Basic extends HelperTable
         $oHidden = new HelperInputHidden();
         $sIdName = "hidRowChanged_$iNumRow"."_0";
         $oHidden->setid($sIdName);
-        $oHidden->setname($sIdName);
+        $oHidden->name($sIdName);
         $oHidden->set_value("0");
         return $oHidden->get_html();
     }
@@ -721,7 +721,7 @@ class Basic extends HelperTable
         {
             $sIdName = "hid$sFieldName"."_$iNumRow";
             $oHidden->setid($sIdName);
-            $oHidden->setname($sIdName);
+            $oHidden->name($sIdName);
             $oHidden->set_value($this->get_fieldvalue_byname($arRow,$sFieldName));
             $sHtmlHidden .= $oHidden->get_html();            
         }
@@ -737,7 +737,7 @@ class Basic extends HelperTable
             {
                 $sIdName = "hid$sFieldName"."_$iNumRow"."_0";
                 $oHidden->setid($sIdName);
-                $oHidden->setname($sIdName);
+                $oHidden->name($sIdName);
                 $oHidden->add_extras("cellpos",$iNumRow."_0");
                 //bug($sFieldName);
                 $oHidden->set_value($this->get_fieldvalue_byname($arRow,$sFieldName));
@@ -754,7 +754,7 @@ class Basic extends HelperTable
         {
             $sIdName = "hid$sFieldName"."_$iNumRow"."_0";
             $oHidden->setid($sIdName);
-            $oHidden->setname($sIdName);
+            $oHidden->name($sIdName);
             $oHidden->add_extras("cellpos",$iNumRow."_0");
             
             if(is_array($mxValue)) $mxValue = implode(",",$mxValue);
@@ -1082,7 +1082,7 @@ class Basic extends HelperTable
             $sMerged = implode($this->sMergeGlue,$arValues);
             $oChekbox->set_options(array($sMerged=>null));
             $oChekbox->setid("pkeys_$iNumRow");
-            $oChekbox->setname("pkeys");
+            $oChekbox->name("pkeys");
             $oChekbox->set_attr_dbfield("pkeys");
             //$oChekbox->on_change("alert('hola')");
             $sHtmlCheck .= $oChekbox->get_html();            
@@ -1100,7 +1100,7 @@ class Basic extends HelperTable
             if($iNumRow!=="") $id .= "_$iNumRow";
             $oChekbox->setid($id);
             //Cambio en el helper Checkbox. No hace falta [] ya que se activa o desactiva según la variable isGrouped. Por defecto true
-            $oChekbox->setname($sFldKeyName);
+            $oChekbox->name($sFldKeyName);
             $oChekbox->set_attr_dbfield($sFldKeyName);
             //$oChekbox->on_change("alert('hola')");
             $sHtmlCheck .= $oChekbox->get_html();
@@ -1161,7 +1161,7 @@ class Basic extends HelperTable
             $sFldKeyNames = implode($this->sMergeGlue,array_values($this->arKeyFields));
             $oChekbox->set_options(array($sFldKeyNames=>null));
             $oChekbox->setid("pkeys_all");
-            $oChekbox->setname("pkeys_all");
+            $oChekbox->name("pkeys_all");
             $oChekbox->set_js_onclick("check_all();");
             $sHtmlCheck .= $oChekbox->get_html();
         }    
@@ -1170,7 +1170,7 @@ class Basic extends HelperTable
             {
                 $oChekbox->set_options(array($sFldKeyName=>null));
                 $oChekbox->setid($sFldKeyName."_all");
-                $oChekbox->setname($sFldKeyName."_all");
+                $oChekbox->name($sFldKeyName."_all");
                 $oChekbox->set_js_onclick("check_all('$sFldKeyName"."_all','$sFldKeyName"."[]');");
                 $sHtmlCheck .= $oChekbox->get_html();
             }

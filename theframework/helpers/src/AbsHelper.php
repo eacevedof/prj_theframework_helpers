@@ -157,17 +157,17 @@ abstract class AbsHelper implements IHelper
     public function on_enterupdate($isOn=true){$this->_isEnterUpdate=$isOn;}
     public function on_entersubmit($isOn=true){$this->_isEnterSubmit=$isOn;}
     
-    protected function setname($value){$this->name = $value;}
+    protected function name($value){$this->name = $value;}
 
     public function set_label(\TheFramework\Helpers\Form\Label $oLabel){$this->oLabel = $oLabel;}
     public function set_class($class){$this->arclasses=[];if($class)$this->arclasses[] = $class;}    
     public function set_style($value){$this->arStyles=[];if($value) $this->arStyles[] = $value;}
-    protected function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
-    protected function reset_class(){$this->arclasses=[];$this->class="";}
-    protected function reset_style(){$this->arStyles=[];$this->style="";}
-    protected function reset_inner_object(){$this->arinnerhelpers=[];}
-    protected function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
-    protected function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
+    public function reset_class(){$this->arclasses=[];$this->class="";}
+    public function reset_style(){$this->arStyles=[];$this->style="";}
+    public function reset_inner_object(){$this->arinnerhelpers=[];}
+    public function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
+    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     protected function get_cleaned($sString)
     {
         $sString = str_replace("\"","&quot;",$sString);
@@ -180,33 +180,24 @@ abstract class AbsHelper implements IHelper
     public function get_id(){return $this->id;}
     public function gettype(){return $this->type;}
     public function get_class(){return $this->class;}
-    public function get_extras($asString=true)
+    public function get_extras(bool $asstring=true): array|string
     {
+        if(!$asstring) return $this->extras;
         $extras = [];
-        if($asString)
-        {
-            foreach($this->extras as $sKey=>$value)
-            {
-                //Esto no funcionaría si aplicase valores para mostrar un atributo 0="nuevo"
-                if(is_integer($sKey))
-                {
-                    if(strstr($value,"="))
-                        $extras[] = $value;
-                    elseif($value!==null)
-                        $extras[] = "$sKey=\"$value\"";
-                    else 
-                        $extras[] = $sKey;
-                }
-                else 
-                {
-                    $extras[] = "$sKey=\"$value\"";
-                }
+        foreach($this->extras as $attr=>$value) {
+            if (!is_integer($attr)) ´{
+                $extras[] = "$attr=\"$value\"";
+                continue;
             }
-            return implode(" ",$extras);
+            if(strstr($value,"="))
+                $extras[] = $value;
+            elseif($value!==null)
+                $extras[] = "$attr=\"$value\"";
+            else
+                $extras[] = $attr;
         }
-        else
-            return $this->extras;
-    }//get_extras
+        return implode(" ",$extras);
+    }
     
     public function get_innerhtml(){return $this->innerhtml;}
     protected function isdisabled(){return $this->disabled;}

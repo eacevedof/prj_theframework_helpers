@@ -95,7 +95,7 @@ class Radio extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function setname($value){$this->name = $value;}
+    public function name($value){$this->name = $value;}
     public function set_value_to_check($value){$this->_value_to_check = $value;}
     public function set_legendtext($value){$this->_legendtext = $value;}
     

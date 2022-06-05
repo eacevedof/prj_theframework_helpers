@@ -205,7 +205,7 @@ class Select extends AbsHelper
     //protected function set_value(){;}
     
     public function readonly($readonly=true){$this->readonly = $readonly;}
-    public function setname($value){$this->name = $value;}
+    public function name($value){$this->name = $value;}
     public function set_value_to_select($mxValues){$this->mxValuesToSelect = $mxValues;}
     public function set_null_option_text($value){$this->_null_option = $value;}
     public function set_multiple_size($value)

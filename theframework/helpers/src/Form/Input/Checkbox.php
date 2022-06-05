@@ -175,7 +175,7 @@ class Checkbox extends AbsHelper
     public function set_checks_per_line($iNumChecks){$this->iChecksPerLine = $iNumChecks;}
     public function set_options($mxOptions){$this->conv_string_to_array($mxOptions,1);$this->arOptions=$mxOptions;}
     public function set_unlabeled($isOn=true){$this->isLabeled=!$isOn;}
-    public function setname($value){$this->name=$value;}
+    public function name($value){$this->name=$value;}
     
     //**********************************
     //             GETS

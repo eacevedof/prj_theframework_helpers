@@ -74,7 +74,7 @@ class Text extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function setname($value){$this->name = $value;}
+    public function name($value){$this->name = $value;}
     public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     public function setmaxlength($iNumChars){$this->maxlength = $iNumChars;}
     public function readonly($readonly=true){$this->readonly=$readonly;}

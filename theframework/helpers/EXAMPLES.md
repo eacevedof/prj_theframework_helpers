@@ -5,7 +5,7 @@ use TheFramework\Helpers\Form\Input\Checkbox;
 
 //https://www.w3schools.com/tags/att_input_checked.asp
 $o = new Checkbox();
-$o->setname("chkSome");
+$o->name("chkSome");
 $o->set_unlabeled(0); //incluye el texto visible dentro de una etiqueta
 $o->set_options(["valbike"=>"Bike","valcar"=>"Car"]);
 $o->show();
@@ -46,7 +46,7 @@ $o = new Hidden("someId","someName","her-comes-a-token-to-be-hidden-afdoopjy8679
 $o->show();
 $o = new Hidden();
 $o->setid("someId2");
-$o->setname("someName2");
+$o->name("someName2");
 $o->set_value("this-is-a-date: 2018-12-08 09:02:00");
 $o->show();
 ```

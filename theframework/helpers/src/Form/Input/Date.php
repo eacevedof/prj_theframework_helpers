@@ -132,7 +132,7 @@ class Date extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function setname($value){$this->name = $value;}
+    public function name($value){$this->name = $value;}
     public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
     public function set_today(){$this->_convert_date_before_show = false;$this->_value = date("d/m/Y");}
     public function in_fieldsetdiv($isOn=true){$this->_inFieldsetDiv = $isOn;}

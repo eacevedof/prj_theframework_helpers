@@ -201,7 +201,7 @@ class Typed extends HelperTableBasic
         $oInputText->add_extras("cellpos",$sCellPos);
         $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
         $oInputText->setid("txt$sCellPos");
-        $oInputText->setname("txt$sCellPos");
+        $oInputText->name("txt$sCellPos");
         
         //PROPERTIES
         $arProperties = $this->arColumnsInputText[$sFieldName];
@@ -224,7 +224,7 @@ class Typed extends HelperTableBasic
         $oSelect->add_extras("cellpos",$sCellPos);
         $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
         $oSelect->setid("sel$sCellPos");
-        $oSelect->setname("sel$sCellPos");
+        $oSelect->name("sel$sCellPos");
         $oSelect->set_options($this->get_select_options($sFieldName));
         $oSelect->set_value_to_select($this->get_fieldvalue_byname($arRow,$sFieldName));
         return $oSelect->get_html();
@@ -237,7 +237,7 @@ class Typed extends HelperTableBasic
         $oCheckbox->add_extras("cellpos",$sCellPos);
         $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
         $oCheckbox->setid("chk$sCellPos");
-        $oCheckbox->setname("chk$sFieldName");
+        $oCheckbox->name("chk$sFieldName");
         $oCheckbox->set_options($this->get_keys_as_string($arRow));
         
         $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFieldName);
