@@ -85,15 +85,15 @@ class Form extends AbsHelper
         if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
 
         //eventos
-        if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";
+        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
         if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
         if($this->jsonkeypress)$arOpenTag[] = " onon_keypress=\"$this->jsonkeypress\"";
         if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onfocus) $arOpenTag[] = " onfocus=\"$this->_js_onfocus\"";
+        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
         if($this->_js_onsubmit) $arOpenTag[] = " onsubmit=\"$this->_js_onsubmit\"";
-        if($this->_js_onmouseover) $arOpenTag[] = " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $arOpenTag[] = " onmouseout=\"$this->_js_onmouseout\"";
+        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
+        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\"";
         
         //propios del formulario
         if($this->_method) $arOpenTag[] = " method=\"$this->_method\"";

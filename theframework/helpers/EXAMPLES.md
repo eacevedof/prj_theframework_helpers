@@ -354,12 +354,12 @@ foreach($arButtons as $sType=>$sInnerHtml)
     elseif($sType=="reset")
     {
         $oButton->set_style("background:green;color:white");
-        $oButton->set_js_onmouseover("alert('reset.moseover')");
+        $oButton->setjsonmouseover("alert('reset.moseover')");
     }
     else 
     {
         $oButton->set_style("background:cyan");
-        $oButton->set_js_onmouseout("alert('reset.mouseout')");
+        $oButton->setjsonmouseout("alert('reset.mouseout')");
     }
 
     $oButton->show();    

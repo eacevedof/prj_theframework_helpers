@@ -887,8 +887,8 @@ class Basic extends HelperTable
                     if($this->isOrdenable && !(in_array($sFieldName,$arNoOrder) || strstr($sFieldName,"virtual_")))
                     {    
                         $oTh->set_js_onclick("order_by(this);");
-                        $oTh->set_js_onmouseover("on_thover(this,'#000','#B2B2B2');");
-                        $oTh->set_js_onmouseout("on_thout(this);");
+                        $oTh->setjsonmouseover("on_thover(this,'#000','#B2B2B2');");
+                        $oTh->setjsonmouseout("on_thout(this);");
                     }
                 break;
             }//fin switch fieldname

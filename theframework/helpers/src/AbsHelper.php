@@ -48,10 +48,10 @@ abstract class AbsHelper implements IHelper
     protected ?string $jsonkeydown = null;
     protected ?string $_jsonkeyup = null;
     
-    protected ?string $_js_onblur = null;
-    protected ?string $_js_onfocus = null;
-    protected ?string $_js_onmouseover = null;
-    protected ?string $_js_onmouseout = null;
+    protected ?string $jsonblur = null;
+    protected ?string $jsonfocus = null;
+    protected ?string $jsonmouseover = null;
+    protected ?string $jsonmouseout = null;
 
     protected ?string $_attr_dbtype = null;
     protected ?string $_attr_dbfield = null;
@@ -113,10 +113,10 @@ abstract class AbsHelper implements IHelper
     public function on_keypress(string $jscode): self {$this->jsonkeypress = $jscode; return $this;}
     public function on_keydown(string $jscode): self {$this->jsonkeydown = $jscode; return $this;}
     public function on_keyup(string $jscode): self {$this->_jsonkeyup = $jscode; return $this;}
-    public function on_blur(string $jscode): self {$this->_js_onblur = $jscode; return $this;}
-    public function on_focus(string $jscode): self {$this->_js_onfocus = $jscode; return $this;}
-    public function on_mouseover(string $jscode): self {$this->_js_onmouseover = $jscode; return $this;}
-    public function on_mouseout(string $jscode): self {$this->_js_onmouseout = $jscode; return $this;}
+    public function on_blur(string $jscode): self {$this->jsonblur = $jscode; return $this;}
+    public function on_focus(string $jscode): self {$this->jsonfocus = $jscode; return $this;}
+    public function on_mouseover(string $jscode): self {$this->jsonmouseover = $jscode; return $this;}
+    public function on_mouseout(string $jscode): self {$this->jsonmouseout = $jscode; return $this;}
     
     public function add_class($class){if($class) $this->arclasses[] = $class;}
 

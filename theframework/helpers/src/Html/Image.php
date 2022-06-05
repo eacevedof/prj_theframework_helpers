@@ -38,13 +38,13 @@ class Image extends AbsHelper
         if($this->_title) $arHtml[] = " title=\"{$this->get_cleaned($this->_title)}\"";
         if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         //eventos
-        if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
+        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
         if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
         if($this->jsonkeypress) $arHtml[] = " onon_keypress=\"$this->jsonkeypress\"";
-        if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";        
+        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
+        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
+        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\"";        
         //aspecto
         $this->_load_cssclass();
         if($this->class) $arHtml[] = " class=\"$this->class\"";

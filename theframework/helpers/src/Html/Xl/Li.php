@@ -42,13 +42,13 @@ class Li extends AbsHelper
         if($this->readonly) $arOpenTag[] = " readonly"; 
         if($this->_isRequired) $arOpenTag[] = " required"; 
         //eventos
-        if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";
+        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
         if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
         if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
         if($this->jsonkeypress) $arOpenTag[] = " onon_keypress=\"$this->jsonkeypress\"";
-        if($this->_js_onfocus) $arOpenTag[] = " onfocus=\"$this->_js_onfocus\"";
-        if($this->_js_onmouseover) $arOpenTag[] = " onmouseover=\"$this->_js_onmouseover\"";
-        if($this->_js_onmouseout) $arOpenTag[] = " onmouseout=\"$this->_js_onmouseout\""; 
+        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
+        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
+        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\""; 
         
         //aspecto
         $this->_load_cssclass();

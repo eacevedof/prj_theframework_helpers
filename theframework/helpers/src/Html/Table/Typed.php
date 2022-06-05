@@ -210,7 +210,7 @@ class Typed extends HelperTableBasic
         //@TODOTEMPLATE
         else $oInputText->add_class("input-small");
         if($arProperties["onclick"]) $oInputText->set_js_onclick($arProperties["onclick"]);
-        if($arProperties["onfocus"]) $oInputText->set_js_onfocus($arProperties["onfocus"]);
+        if($arProperties["onfocus"]) $oInputText->setjsonfocus($arProperties["onfocus"]);
         if($arProperties["readonly"]) $oInputText->readonly();
         $oInputText->set_value($this->get_fieldvalue_byname($arRow,$sFieldName));
         return $oInputText->get_html();
