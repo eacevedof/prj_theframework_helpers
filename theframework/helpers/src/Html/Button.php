@@ -60,7 +60,7 @@ class Button extends AbsHelper
         
         $this->_load_cssclass();
         if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->load_style();
+        $this->_load_style();
         if($this->style) $arHtml[] = " style=\"$this->style\"";
         //atributos extra
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";

@@ -68,7 +68,12 @@ abstract class AbsHelper implements IHelper
         return $this;
     }
 
-    protected function load_style(){if($this->arStyles)$this->style = trim(implode(";",$this->arStyles));}
+    protected function _load_style(): self
+    {
+        if($this->arStyles)
+            $this->style = trim(implode(";",$this->arStyles));
+        return $this;
+    }
     /**
      * Agrega al atributo innerhtml el string obtenido con el metodo get_html()
      */

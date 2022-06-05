@@ -51,7 +51,7 @@ class P extends AbsHelper
         //aspecto
         $this->_load_cssclass();
         if($this->class) $arOpenTag[] = " class=\"$this->class\"";
-        $this->load_style();
+        $this->_load_style();
         if($this->style) $arOpenTag[] = " style=\"$this->style\"";
         //atributos extra
         if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";

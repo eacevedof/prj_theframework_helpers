@@ -79,7 +79,7 @@ class Radio extends AbsHelper
         //aspecto
         $this->_load_cssclass();
         if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->load_style();
+        $this->_load_style();
         if($this->style) $arHtml[] = " style=\"$this->style\"";
         //atributos extras pe. para usar el quryselector
         if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
