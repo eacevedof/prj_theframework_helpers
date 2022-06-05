@@ -98,10 +98,7 @@ abstract class AbsHelper implements IHelper
     {
         if($this->display) echo $this->get_html();
     }
-    
-    //**********************************
-    //             SETS
-    //**********************************
+
     public function setcomment($value){$this->comment = $value;}
     public function setidprefix($value){$this->idprefix=$value;}
     public function setid($value){$this->id=$value;}
@@ -178,7 +175,7 @@ abstract class AbsHelper implements IHelper
     //**********************************
     //             GETS
     //**********************************
-    public function getid(){return $this->id;}
+    public function id(){return $this->id;}
     public function gettype(){return $this->type;}
     public function get_class(){return $this->class;}
     public function get_extras($asString=TRUE)

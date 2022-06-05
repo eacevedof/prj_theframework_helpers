@@ -431,7 +431,7 @@ $oSpan = new Span();
 $oSpan->setid("idSpan1");
 $oSpan->add_extras("title","Some title for span one");
 $oSpan->add_style("border:1px solid green");
-if($oSpan->getid()=="idSpan1")
+if($oSpan->id()=="idSpan1")
     $oSpan->add_style("background:yellow");
 $oSpan->add_inner_object("What is Lorem Ipsum?");
 $oSpan->show();
