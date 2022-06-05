@@ -185,7 +185,7 @@ abstract class AbsHelper implements IHelper
         if(!$asstring) return $this->extras;
         $extras = [];
         foreach($this->extras as $attr=>$value) {
-            if (!is_integer($attr)) ´{
+            if (!is_integer($attr)) {
                 $extras[] = "$attr=\"$value\"";
                 continue;
             }
@@ -199,11 +199,9 @@ abstract class AbsHelper implements IHelper
         return implode(" ",$extras);
     }
     
-    public function get_innerhtml(){return $this->innerhtml;}
-    protected function isdisabled(){return $this->disabled;}
+    public function get_innerhtml():string {return $this->innerhtml;}
+    protected function is_disabled():bool {return $this->disabled;}
 
-    public function get_dbtype(){return $this->_attr_dbtype;}
-    public function is_primarykey(){return $this->_is_primarykey;}
     protected function getname(){return $this->name;}
     
     protected function get_icon_path($isIcon,$sIconFile)
