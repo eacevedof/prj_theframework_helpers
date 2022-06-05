@@ -61,10 +61,13 @@ abstract class AbsHelper implements IHelper
     protected ?Style $oStyle = null;
 
     
-    protected function _load_cssclass(){if($this->arclasses)$this->class = trim(implode(" ",$this->arclasses));}
-    /**
-     * Remplaza el atributo _style con los estilos en arStyles
-    */
+    protected function _load_cssclass(): self
+    {
+        if($this->arclasses)
+            $this->class = trim(implode(" ",$this->arclasses));
+        return $this;
+    }
+
     protected function load_style(){if($this->arStyles)$this->style = trim(implode(";",$this->arStyles));}
     /**
      * Agrega al atributo innerhtml el string obtenido con el metodo get_html()
