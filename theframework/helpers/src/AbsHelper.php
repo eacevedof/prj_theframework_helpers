@@ -59,11 +59,9 @@ abstract class AbsHelper implements IHelper
     //Label
     protected ?Label $oLabel = null;
     protected ?Style $oStyle = null;
+
     
-    /**
-     * Remplaza el atributo _class con las clases añadidas a arclasses
-     */
-    protected function load_cssclass(){if($this->arclasses)$this->class = trim(implode(" ",$this->arclasses));}
+    protected function _load_cssclass(){if($this->arclasses)$this->class = trim(implode(" ",$this->arclasses));}
     /**
      * Remplaza el atributo _style con los estilos en arStyles
     */

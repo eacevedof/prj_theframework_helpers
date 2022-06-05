@@ -51,7 +51,7 @@ class Li extends AbsHelper
         if($this->_js_onmouseout) $arOpenTag[] = " onmouseout=\"$this->_js_onmouseout\""; 
         
         //aspecto
-        $this->load_cssclass();
+        $this->_load_cssclass();
         if($this->class) $arOpenTag[] = " class=\"$this->class\"";
         $this->load_style();
         if($this->style) $arOpenTag[] = " style=\"$this->style\"";

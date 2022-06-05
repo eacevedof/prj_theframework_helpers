@@ -101,7 +101,7 @@ class Form extends AbsHelper
         if($this->_enctype) $arOpenTag[] = " enctype=\"$this->_enctype\"";
         
         //aspecto
-        $this->load_cssclass();
+        $this->_load_cssclass();
         if($this->class) $arOpenTag[] = " class=\"$this->class\"";
         $this->load_style();
         if($this->style) $arOpenTag[] = " style=\"$this->style\"";

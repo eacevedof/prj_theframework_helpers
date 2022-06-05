@@ -92,7 +92,7 @@ class Table extends AbsHelper
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
         
         //aspecto
-        $this->load_cssclass();
+        $this->_load_cssclass();
         if($this->class) $arHtml[] = " class=\"$this->class\"";
         $this->load_style();
         if($this->style) $arHtml[] = " style=\"$this->style\"";
