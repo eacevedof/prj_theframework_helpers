@@ -222,6 +222,6 @@ abstract class AbsHelper implements IHelper
     
     protected function get_value(bool $rawmode=true): string
     {
-        return $rawmode ? htmlentities($this->_value) : $this->_value;
+        return $rawmode ? $this->_value : htmlentities($this->_value);
     }
 }
