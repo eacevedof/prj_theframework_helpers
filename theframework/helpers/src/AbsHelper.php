@@ -112,9 +112,8 @@ abstract class AbsHelper implements IHelper
     public function on_mouseover(string $jscode): self {$this->jsonmouseover = $jscode; return $this;}
     public function on_mouseout(string $jscode): self {$this->jsonmouseout = $jscode; return $this;}
     
-    public function add_class($class){if($class) $this->arclasses[] = $class;}
-
-    public function add_style($style){if($style) $this->arStyles[] = $style;}
+    public function add_class(string $class): self {if($class) $this->arclasses[] = $class; return $this;}
+    public function add_style(string $style): self {if($style) $this->arStyles[] = $style; return $this;}
 
     public function add_inner_object(IHelper|string $mxValue): self
     {
