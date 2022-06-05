@@ -112,7 +112,7 @@ class ComponentMysql
         }
     }//exec    
     
-    private function add_error($sMessage){$this->isError = TRUE;$this->iAffected=-1; $this->arErrors[]=$sMessage;}    
+    private function add_error($sMessage){$this->isError = true;$this->iAffected=-1; $this->arErrors[]=$sMessage;}    
     public function is_error(){return $this->isError;}
     public function get_errors(){return $this->arErrors;}
     public function get_error($i=0){return isset($this->arErrors[$i])?$this->arErrors[$i]:null;}

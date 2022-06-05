@@ -65,7 +65,7 @@ if(!function_exists("pr"))
             $sTitle=" $sTitle: ";
 
         if(!is_string($var))
-            $var = var_export($var,TRUE);
+            $var = var_export($var,true);
         #F1E087
         $sTagPre = "<pre function=\"pr\" style=\"border:1px solid black;background:yellow; padding:0px; color:black; font-size:12px;\">\n";
         $sTagFinPre = "</pre>\n";    
@@ -169,7 +169,7 @@ function bugfileipath($sFilePath,$isDie=false)
         //echo $sTmpPath."<br>";
         if(file_exists($sTmpPath))
         {    
-            bug(TRUE,$sTmpPath,$isDie);
+            bug(true,$sTmpPath,$isDie);
             return;
         }
     }

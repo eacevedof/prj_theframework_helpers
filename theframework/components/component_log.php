@@ -68,7 +68,7 @@ class ComponentLog
         {
             return false;
         }
-        return TRUE;        
+        return true;        
     }//save
 
     public function set_filename($sValue){$this->sFileName="$sValue.log";}

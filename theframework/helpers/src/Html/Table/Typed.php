@@ -359,8 +359,8 @@ class Typed extends HelperTableBasic
     public function set_column_text($arColumns){$this->arColumnsInputText = $arColumns;}
     public function set_column_select($arColumns){$this->arColumnsSelect = $arColumns;}
     public function set_column_checkbox($arColumns){$this->arColumnsCheckbox = $arColumns;}
-    public function set_insert_button($isOn=TRUE){$this->isColumnButtonInsert = $isOn;}
-    public function set_update_button($isOn=TRUE){$this->isColumnButtonUpdate = $isOn;}
+    public function set_insert_button($isOn=true){$this->isColumnButtonInsert = $isOn;}
+    public function set_update_button($isOn=true){$this->isColumnButtonUpdate = $isOn;}
     public function set_column_raw($arColumns){$this->arColumnsRaw = $arColumns;}
     //**********************************
     //             GETS

@@ -32,7 +32,7 @@ class ComponentDtsExtract
     {
         foreach($arChars as $c)
             if(strstr($sString,$c))
-                return TRUE;
+                return true;
         return false;
     }
     

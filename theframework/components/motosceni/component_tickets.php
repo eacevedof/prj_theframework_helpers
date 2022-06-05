@@ -94,7 +94,7 @@ class ComponentTickets
     public function add_keyval($sKey,$mxVal){$this->arKeyval[$sKey] = $mxVal;}
     public function set_action($value){$this->sAction=$value;}
 
-    private function add_error($sMessage){$this->isError = TRUE;$this->arErrors[]=$sMessage;}    
+    private function add_error($sMessage){$this->isError = true;$this->arErrors[]=$sMessage;}    
     public function is_error(){return $this->isError;}
     public function get_errors(){return $this->arErrors;}
     public function show_errors(){if($this->arErrors) echo "<pre>".var_export($this->arErrors,1);}

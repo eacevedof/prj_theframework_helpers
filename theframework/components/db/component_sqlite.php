@@ -32,12 +32,12 @@ class ComponentDbSqlite
         
         if(!$this->sPathFolder) $this->sPathFolder = TFW_PATH_APPLICATIONDS."appdb";
         if(!$this->sDbName) $this->sDbName = "app.sqlite3";
-        $this->isPersistent = TRUE;
+        $this->isPersistent = true;
     }
 
     private function is_configok()
     {
-        $isOk = TRUE;
+        $isOk = true;
         $isOk = ($isOk && $this->sDbName);
         $isOk = ($isOk && is_file($this->sPathFile));
         return $isOk;
@@ -157,7 +157,7 @@ class ComponentDbSqlite
     private function add_message($sMessage,$sType="error")
     {
         if($sType==="error")
-            $this->isError = TRUE;
+            $this->isError = true;
         $this->arMessages[$sType][] = $sMessage;
     }  
     
@@ -166,7 +166,7 @@ class ComponentDbSqlite
         $this->sPathFile = realpath($this->sPathFolder.self::DS.$this->sDbName);
     }
     
-    public function is_persistent($isOn=TRUE){$this->isPersistent=$isOn;}
+    public function is_persistent($isOn=true){$this->isPersistent=$isOn;}
     public function set_folder($sValue){$this->sPathFolder=$sValue;}
     public function set_dbname($sValue){$this->sDbName=$sValue;}
     public function get_errors(){return isset($this->arMessages["error"])?$this->arMessages["error"]:[];}     

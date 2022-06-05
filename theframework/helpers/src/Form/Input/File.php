@@ -54,7 +54,7 @@ class File extends AbsHelper
         if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
         
-        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
+        if($this->_js_onon_keypress) $arHtml[] = " onon_keypress=\"$this->_js_onon_keypress\"";
 
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";

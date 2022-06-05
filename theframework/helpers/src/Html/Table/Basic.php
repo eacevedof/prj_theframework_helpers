@@ -153,7 +153,7 @@ class Basic extends HelperTable
         //$oSelPages->add_class("span2");
         $oSelPages->add_style("margin:0;padding:0;width:85px;");
         $oSelPages->setname("selPage");
-        $oSelPages->set_js_onchange("table_frmsubmit();");
+        $oSelPages->on_change("table_frmsubmit();");
         
         $sHtmlSelect = $oSelPages->get_html();
         $sHtmlNavPages = 
@@ -934,7 +934,7 @@ class Basic extends HelperTable
             {    
                 $sPostKey = $this->build_postkey();
                 $oTr->set_js_onclick("rowcheck('$iNumRow','$sPostKey');");
-                //$oTr->set_js_onchange("alert('changed')");//no escucha este evento
+                //$oTr->on_change("alert('changed')");//no escucha este evento
             }
             
             $oTr->set_attr_rownumber($iNumRow);
@@ -1084,7 +1084,7 @@ class Basic extends HelperTable
             $oChekbox->setid("pkeys_$iNumRow");
             $oChekbox->setname("pkeys");
             $oChekbox->set_attr_dbfield("pkeys");
-            //$oChekbox->set_js_onchange("alert('hola')");
+            //$oChekbox->on_change("alert('hola')");
             $sHtmlCheck .= $oChekbox->get_html();            
         }    
         else
@@ -1102,7 +1102,7 @@ class Basic extends HelperTable
             //Cambio en el helper Checkbox. No hace falta [] ya que se activa o desactiva según la variable isGrouped. Por defecto true
             $oChekbox->setname($sFldKeyName);
             $oChekbox->set_attr_dbfield($sFldKeyName);
-            //$oChekbox->set_js_onchange("alert('hola')");
+            //$oChekbox->on_change("alert('hola')");
             $sHtmlCheck .= $oChekbox->get_html();
         }
         return $sHtmlCheck;

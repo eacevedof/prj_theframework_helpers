@@ -30,7 +30,7 @@ abstract class AbsHelper implements IHelper
     protected $arinnerhelpers = [];
     protected $_value;
 
-    //Esto emula el atributo bloqueado. Si esta a TRUE crea el control autoseleccionado con un
+    //Esto emula el atributo bloqueado. Si esta a true crea el control autoseleccionado con un
     //único valor en los objetos tipo select
     protected bool $_is_primarykey = false;
     protected bool $_isReadOnly = false;
@@ -42,9 +42,9 @@ abstract class AbsHelper implements IHelper
     protected bool $_isEnterUpdate = false;//aplica action=update
     protected bool $_isEnterSubmit = false;//no aplica nada
     
-    protected ?string $_js_onclick = null;
+    protected ?string $jsonclick = null;
     protected ?string $_js_onchange = null;
-    protected ?string $_js_onkeypress = null;
+    protected ?string $_js_onon_keypress = null;
     protected ?string $_js_onkeydown = null;
     protected ?string $_js_onkeyup = null;
     
@@ -101,21 +101,23 @@ abstract class AbsHelper implements IHelper
 
     public function comment(string $value):self {$this->comment = $value; return $this;}
     public function idprefix(string $value):self {$this->idprefix=$value; return $this;}
-    public function setid($value){$this->id=$value;}
-    public function set_js_onclick($value){$this->_js_onclick = $value;}
-    public function set_js_onchange($value){$this->_js_onchange = $value;}
-    public function set_js_keypress($value){$this->_js_onkeypress = $value;}
-    public function set_js_keydown($value){$this->_js_onkeydown = $value;}
-    public function set_js_keyup($value){$this->_js_onkeyup = $value;}
-    public function set_js_onblur($value){$this->_js_onblur = $value;}
-    public function set_js_onfocus($value){$this->_js_onfocus = $value;}
-    public function set_js_onmouseover($value){$this->_js_onmouseover = $value;}
-    public function set_js_onmouseout($value){$this->_js_onmouseout = $value;}
+    public function id(string $value){$this->id=$value;}
     
-    public function display($showIt=TRUE){$this->display = $showIt;}        
-    protected function required($isRequired=TRUE){$this->_isRequired = $isRequired;}
-    protected function readonly($isReadOnly=TRUE){$this->_isReadOnly = $isReadOnly;}
-    protected function disabled($isDisabled=TRUE){$this->_isDisabled = $isDisabled;}
+    public function display($showIt=true){$this->display = $showIt;}        
+    protected function required($isRequired=true){$this->_isRequired = $isRequired;}
+    protected function readonly($isReadOnly=true){$this->_isReadOnly = $isReadOnly;}
+    protected function disabled($isDisabled=true){$this->_isDisabled = $isDisabled;}
+    
+    public function on_click(string $jscode): self {$this->jsonclick = $jscode; return $this;}
+    public function on_change(string $jscode): self {$this->_js_onchange = $jscode; return $this;}
+    public function on_keypress(string $jscode): self {$this->_js_onon_keypress = $jscode; return $this;}
+    public function on_keydown(string $jscode): self {$this->_js_onkeydown = $jscode; return $this;}
+    public function on_keyup(string $jscode): self {$this->_js_onkeyup = $jscode; return $this;}
+    public function on_blur(string $jscode): self {$this->_js_onblur = $jscode; return $this;}
+    public function on_focus(string $jscode): self {$this->_js_onfocus = $jscode; return $this;}
+    public function on_mouseover(string $jscode): self {$this->_js_onmouseover = $jscode; return $this;}
+    public function on_mouseout(string $jscode): self {$this->_js_onmouseout = $jscode; return $this;}
+    
     public function add_class($class){if($class) $this->arclasses[] = $class;}
 
     public function add_style($style){if($style) $this->arStyles[] = $style;}
@@ -146,14 +148,14 @@ abstract class AbsHelper implements IHelper
     protected function setplaceholder($value){$this->placeholder = htmlentities($value);}
     public function set_attr_dbtype($value){$this->_attr_dbtype=$value;}
     public function set_attr_dbfield($value){$this->_attr_dbfield=$value;}
-    public function set_as_primarykey($isPk=TRUE){$this->_is_primarykey = $isPk;}
+    public function set_as_primarykey($isPk=true){$this->_is_primarykey = $isPk;}
     public function set_innerhtml($sInnerHtml,$asEntity=0)
     {if($asEntity)$this->innerhtml = htmlentities($sInnerHtml);else $this->innerhtml=$sInnerHtml;}
     public function settype($value){$this->type = $value;}
-    public function set_postback($isOn=TRUE){$this->_isPostback=$isOn;}
-    public function on_enterinsert($isOn=TRUE){$this->_isEnterInsert=$isOn;}
-    public function on_enterupdate($isOn=TRUE){$this->_isEnterUpdate=$isOn;}
-    public function on_entersubmit($isOn=TRUE){$this->_isEnterSubmit=$isOn;}
+    public function set_postback($isOn=true){$this->_isPostback=$isOn;}
+    public function on_enterinsert($isOn=true){$this->_isEnterInsert=$isOn;}
+    public function on_enterupdate($isOn=true){$this->_isEnterUpdate=$isOn;}
+    public function on_entersubmit($isOn=true){$this->_isEnterSubmit=$isOn;}
     
     protected function setname($value){$this->name = $value;}
 
@@ -178,7 +180,7 @@ abstract class AbsHelper implements IHelper
     public function get_id(){return $this->id;}
     public function gettype(){return $this->type;}
     public function get_class(){return $this->class;}
-    public function get_extras($asString=TRUE)
+    public function get_extras($asString=true)
     {
         $extras = [];
         if($asString)

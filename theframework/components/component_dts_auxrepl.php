@@ -89,7 +89,7 @@ class ComponentDtsAuxrepl
         {
             return false;
         }
-        return TRUE;        
+        return true;        
     }      
     
     public function replace()

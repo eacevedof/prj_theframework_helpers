@@ -43,7 +43,7 @@ class FpdfCell
      */
     public function __construct($isSingle=false)
     {
-        //$this->Cell($iAncho,$iAltura,$sTitulo,$iAnchoBorde,$iSaltosLinea,$cAlineacion,fondo?TRUE|false,??);
+        //$this->Cell($iAncho,$iAltura,$sTitulo,$iAnchoBorde,$iSaltosLinea,$cAlineacion,fondo?true|false,??);
         //$w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link=''
         $this->isSingle = $isSingle;
         $this->iWidth = 1;
@@ -62,7 +62,7 @@ class FpdfCell
     //==================================
     public function set_y_byheight(){}
 
-    public function set_single($isOn=TRUE){$this->isSingle = $isOn;}
+    public function set_single($isOn=true){$this->isSingle = $isOn;}
     public function set_width($iValue){$this->iWidth = $iValue;}
     public function set_height($iValue){$this->iHeigth = $iValue;}
     public function set_text($sValue){$this->sText = $sValue;}
@@ -73,7 +73,7 @@ class FpdfCell
      * @param char $cAlign R|C|J
      */
     public function settype_align($cAlign){$this->cAlign = $cAlign;}
-    public function set_usefill($isOn=TRUE){$this->isFill = $isOn;}
+    public function set_usefill($isOn=true){$this->isFill = $isOn;}
     public function set_pagelink($sValue){$this->sUrlPageLink = $sValue;}
     
     public function set_x($iX){$this->iX=$iX;}
@@ -87,8 +87,8 @@ class FpdfCell
     public function set_fontsize($iSize){$this->iFontSize=$iSize;}
     public function set_fontcolor($iValue){$this->iFontColor = $iValue;}
     public function set_backcolor($iValue){$this->iBackColor = $iValue;}
-    public function set_resetcolors($isOn=TRUE){$this->isResetColors = $isOn;}
-    //public function set_utf8($isOn=TRUE){$this->isTextUTF=$isOn;}
+    public function set_resetcolors($isOn=true){$this->isResetColors = $isOn;}
+    //public function set_utf8($isOn=true){$this->isTextUTF=$isOn;}
     
     //==================================
     //             GETS

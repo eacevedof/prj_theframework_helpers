@@ -31,7 +31,7 @@ class ComponentHydralogs
     {
         foreach($arChars as $c)
             if(strstr($sString,$c))
-                return TRUE;
+                return true;
         return false;
     }
     
@@ -144,7 +144,7 @@ class ComponentHydralogs
     }//run()
     
     public function debug($mxVar){echo "<pre>".var_export($mxVar,1);}    
-    private function add_error($sMessage){$this->isError = TRUE;$this->arErrors[]=$sMessage;}
+    private function add_error($sMessage){$this->isError = true;$this->arErrors[]=$sMessage;}
     
     public function set_path_file($value){$this->sPathLogs=$value;}
     public function set_regex($value){$this->sRegexp=$value;}

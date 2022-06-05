@@ -124,7 +124,7 @@ class Textarea extends AbsHelper
         if($this->_js_onblur) $arOpenTag[] = "onblur=\"$this->_js_onblur\" ";
         if($this->_js_onchange) $arOpenTag[] = "onchange=\"$this->_js_onchange\" ";
         if($this->_js_onclick) $arOpenTag[] = "onclick=\"$this->_js_onclick\" ";
-        if($this->_js_onkeypress) $arOpenTag[] = "onkeypress=\"$this->_js_onkeypress\" ";        
+        if($this->_js_onon_keypress) $arOpenTag[] = "onon_keypress=\"$this->_js_onon_keypress\" ";        
         if($this->_js_onkeydown) $arOpenTag[] = "onkeydown=\"$this->_js_onkeydown\" ";
         if($this->_js_onkeyup) $arOpenTag[] = "onkeyup=\"$this->_js_onkeyup\" ";
         if($this->_js_onmouseover) $arOpenTag[] = "onmouseover=\"$this->_js_onmouseover\" ";
@@ -151,13 +151,13 @@ class Textarea extends AbsHelper
     public function setmaxlength($value){$this->maxlength = $value;}
     public function set_rows($iValue){$this->_rows=$iValue;}
     public function set_cols($iValue){$this->_cols=$iValue;}
-    public function set_counterspan($isOn=TRUE){$this->isCounterSpan = $isOn;}
-    public function set_counterjs($isOn=TRUE){$this->isCounterJs = $isOn;}
+    public function set_counterspan($isOn=true){$this->isCounterSpan = $isOn;}
+    public function set_counterjs($isOn=true){$this->isCounterJs = $isOn;}
     
     //**********************************
     //             GETS
     //**********************************
     public function getmaxlength(){return $this->maxlength;}
-    public function readonly($isReadOnly=TRUE){$this->_isReadOnly = $isReadOnly;}
+    public function readonly($isReadOnly=true){$this->_isReadOnly = $isReadOnly;}
 
 }//Textarea

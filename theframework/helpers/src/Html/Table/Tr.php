@@ -59,7 +59,7 @@ class Tr extends AbsHelper
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress\"";
+        if($this->_js_onon_keypress) $arHtml[] = " onon_keypress=\"$this->_js_onon_keypress\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\""; 
@@ -85,8 +85,8 @@ class Tr extends AbsHelper
     //==================================
     public function set_colspan($value){$this->iColSpan = $value;}
     public function set_objtds($arinnerhelpers=[]){$this->arinnerhelpers = $arinnerhelpers;$this->iNumCols = count($this->arinnerhelpers);}
-    public function set_as_rowhead($isOn=TRUE){$this->isRowHead = $isOn;}
-    public function set_as_rowfoot($isOn=TRUE){$this->isRowFoot = $isOn;}
+    public function set_as_rowhead($isOn=true){$this->isRowHead = $isOn;}
+    public function set_as_rowfoot($isOn=true){$this->isRowFoot = $isOn;}
     public function set_attr_rownumber($value){$this->sAttrRownumber = $value;}
     public function add_inner_object($mxValue){$this->arinnerhelpers[] = $mxValue; $this->iNumCols = count($this->arinnerhelpers);}
     public function add_td(Td $oTd){$this->arinnerhelpers[] = $oTd; $this->iNumCols = count($this->arinnerhelpers);}

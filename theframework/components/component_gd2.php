@@ -137,7 +137,7 @@ class ComponentGd2
         
     }//resize
     
-    private function add_error($sMessage){$this->isError = TRUE;$this->arErrors[]=$sMessage;}
+    private function add_error($sMessage){$this->isError = true;$this->arErrors[]=$sMessage;}
     public function add_from($sKey,$sValue){$this->arFrom[$sKey] = $sValue;}
     public function add_to($sKey,$sValue){$this->arTo[$sKey] = $sValue;}
     public function is_error(){return $this->isError;}

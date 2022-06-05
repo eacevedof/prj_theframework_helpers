@@ -90,7 +90,7 @@ class ComponentMssql
         }
     }//exec    
     
-    private function add_error($sMessage){$this->isError = TRUE;$this->iAffected=-1; $this->arErrors[]=$sMessage;}    
+    private function add_error($sMessage){$this->isError = true;$this->iAffected=-1; $this->arErrors[]=$sMessage;}    
     public function is_error(){return $this->isError;}
     public function get_errors(){return $this->arErrors;}
     public function show_errors(){echo "<pre>".var_export($this->arErrors,1);}

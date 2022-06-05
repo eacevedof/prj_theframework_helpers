@@ -154,12 +154,12 @@ class ComponentConsole
         {
             return false;
         }
-        return TRUE;        
+        return true;        
     }  
     
     public function debug($mxVar){echo "<pre>".var_export($mxVar,1);}   
     
-    private function add_error($sMessage){$this->isError = TRUE;$this->arErrors[]=$sMessage;}
+    private function add_error($sMessage){$this->isError = true;$this->arErrors[]=$sMessage;}
     public function is_error(){return $this->isError;}
     public function get_errors(){return $this->arErrors;}
     public function show_errors(){echo "<pre>".var_export($this->arErrors,1);}

@@ -112,7 +112,7 @@ class Checkbox extends AbsHelper
         if($this->_js_onblur) $arHtml[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arHtml[] = " onchange=\"$this->_js_onchange;\"";
         if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onkeypress) $arHtml[] = " onkeypress=\"$this->_js_onkeypress;\"";
+        if($this->_js_onon_keypress) $arHtml[] = " onon_keypress=\"$this->_js_onon_keypress;\"";
         if($this->_js_onfocus) $arHtml[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arHtml[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arHtml[] = " onmouseout=\"$this->_js_onmouseout\"";
@@ -174,7 +174,7 @@ class Checkbox extends AbsHelper
     public function not_groupedname($isOn=false){$this->isGrouped = $isOn;}
     public function set_checks_per_line($iNumChecks){$this->iChecksPerLine = $iNumChecks;}
     public function set_options($mxOptions){$this->conv_string_to_array($mxOptions,1);$this->arOptions=$mxOptions;}
-    public function set_unlabeled($isOn=TRUE){$this->isLabeled=!$isOn;}
+    public function set_unlabeled($isOn=true){$this->isLabeled=!$isOn;}
     public function setname($value){$this->name=$value;}
     
     //**********************************

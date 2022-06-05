@@ -50,7 +50,7 @@ class Legend extends AbsHelper
         if($this->_js_onblur) $arOpenTag[] = " onblur=\"$this->_js_onblur\"";
         if($this->_js_onchange) $arOpenTag[] = " onchange=\"$this->_js_onchange\"";
         if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
-        if($this->_js_onkeypress) $arOpenTag[] = " onkeypress=\"$this->_js_onkeypress\"";
+        if($this->_js_onon_keypress) $arOpenTag[] = " onon_keypress=\"$this->_js_onon_keypress\"";
         if($this->_js_onfocus) $arOpenTag[] = " onfocus=\"$this->_js_onfocus\"";
         if($this->_js_onmouseover) $arOpenTag[] = " onmouseover=\"$this->_js_onmouseover\"";
         if($this->_js_onmouseout) $arOpenTag[] = " onmouseout=\"$this->_js_onmouseout\"";        

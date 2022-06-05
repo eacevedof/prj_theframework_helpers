@@ -630,7 +630,7 @@ class ComponentCrud
     }//query
     
     public function get_result(){$this->arResult;}
-    public function is_distinct($isOn=TRUE){$this->isDistinct=$isOn;}
+    public function is_distinct($isOn=true){$this->isDistinct=$isOn;}
     public function add_orderby($sFieldName,$sOrder="ASC"){$this->arOrderBy[$sFieldName]=$sOrder;}
     public function add_numeric($sFieldName){$this->arNumeric[]=$sFieldName;}
     public function add_and($sAnd){$this->arAnds[]=$sAnd;}
@@ -638,7 +638,7 @@ class ComponentCrud
     public function add_join($sJoin,$sKey=null){if($sKey)$this->arJoins[$sKey]=$sJoin;else$this->arJoins[]=$sJoin;}
     public function add_end($sEnd,$sKey=null){if($sKey)$this->arEnd[$sKey]=$sEnd;else$this->arEnd[]=$sEnd;}
     
-    protected function add_error($sMessage){$this->isError = TRUE;$this->arErrors[]=$sMessage;}
+    protected function add_error($sMessage){$this->isError = true;$this->arErrors[]=$sMessage;}
     public function is_error(){return $this->isError;}
     public function get_errors($inJson=0){if($inJson) return json_encode($this->arErrors); return $this->arErrors;}
     public function get_error($i=0){isset($this->arErrors[$i])?$this->arErrors[$i]:null;}
