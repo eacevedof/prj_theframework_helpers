@@ -25,8 +25,8 @@ final class Form extends AbsHelper
     private string $action = "";
     protected ?string $jsonsubmit = null;
     
-    private ?Fieldset $oFieldset = null;
-    private ?Legend $oLegend = null;
+    private ?Fieldset $fieldset = null;
+    private ?Legend $legend = null;
 
     public function __construct(
         string $id="", 
@@ -61,12 +61,12 @@ final class Form extends AbsHelper
         $arhtml = [];
         if($this->comment) $arhtml[] = "<!-- $this->comment -->\n";       
         $arhtml[] = $this->get_opentag();
-        if($this->oFieldset) $arhtml[] = $this->oFieldset->get_opentag();
+        if($this->fieldset) $arhtml[] = $this->fieldset->get_opentag();
         if($this->oLegend) $arhtml[] = $this->oLegend->get_opentag();
         $this->_load_inner_objects();
         if($this->innerhtml) $arhtml[] = "$this->innerhtml\n";
         if($this->oLegend) $arhtml[] = $this->oLegend->get_closetag();
-        if($this->oFieldset) $arhtml[] = $this->oFieldset->get_closetag();
+        if($this->fieldset) $arhtml[] = $this->fieldset->get_closetag();
         $arhtml[] = $this->get_closetag();
 
         return implode("",$arhtml);
@@ -107,8 +107,8 @@ final class Form extends AbsHelper
         return implode("",$opentag);
     }//get_opentag
 
-    public function legend(HelperLegend $oLegend): self {$this->oLegend = $oLegend; return $this;}
-    public function fieldset(HelperFieldset $oFieldset): self {$this->oFieldset = $oFieldset; return $this;}
+    public function legend(?HelperLegend $legend): self {$this->legend = $legend; return $this;}
+    public function fieldset(HelperFieldset $fieldset): self {$this->fieldset = $fieldset; return $this;}
     public function method(string $value): self {$this->method = $value; return $this;}
     public function action(string $value): self {$this->action = $value; return $this;}
     public function enctype(string $value): self {$this->enctype = $value; return $this;}
