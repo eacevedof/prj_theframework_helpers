@@ -11,6 +11,7 @@
 namespace TheFramework\Helpers\Form;
 
 use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\IHelper;
 
 final class Form extends AbsHelper
 {
@@ -36,7 +37,8 @@ final class Form extends AbsHelper
         $this
             ->id($id)
             ->name($name)
-            ->innerhtml()
+            ->innerhtml($innerhtml)
+
         ;
 
         $this->name = $name;
@@ -102,28 +104,15 @@ final class Form extends AbsHelper
         $arOpenTag[] =">\n";
         return implode("",$arOpenTag);
     }//get_opentag
-    
-    //**********************************
-    //             SETS
-    //**********************************
-    public function set_legend(HelperLegend $oLegend){$this->oLegend = $oLegend;}
-    public function set_fieldset(HelperFieldset $oFieldset){$this->oFieldset = $oFieldset;}
-    public function setmethod($value){$this->method = $value;}
-    public function setaction($value){$this->action = $value;}
-    public function setenctype($value){$this->enctype = $value;}
-    public function setjsonsubmit($value){$this->jsonsubmit=$value;}
-    public function add_controltop($oHelper){if($oHelper) array_unshift($this->arinnerhelpers,$oHelper);}
-    public function add_control($oHelper){$this->arinnerhelpers[]=$oHelper;}
-    public function add_controls($arObjControls){$this->arinnerhelpers=$arObjControls;}
-    public function readonly($readonly = true){$this->readonly = $readonly;}
-    //**********************************
-    //             GETS
-    //**********************************
 
-    
-    //**********************************
-    //           MAKE PUBLIC
-    //**********************************
+    public function legend(HelperLegend $oLegend): self {$this->oLegend = $oLegend;}
+    public function fieldset(HelperFieldset $oFieldset): self {$this->oFieldset = $oFieldset;}
+    public function method($value): self {$this->method = $value;}
+    public function action($value): self {$this->action = $value;}
+    public function enctype($value): self {$this->enctype = $value;}
+    public function on_submit($value): self {$this->jsonsubmit=$value;}
+    public function first_inner(IHelper $oHelper): self {array_unshift($this->arinnerhelpers,$oHelper); return $this;}
+
     public function show_opentag(){parent::show_opentag();}
     public function show_closetag(){parent::show_closetag();}
 
