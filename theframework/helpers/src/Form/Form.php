@@ -63,9 +63,8 @@ final class Form extends AbsHelper
         $arhtml[] = $this->get_opentag();
         if($this->oFieldset) $arhtml[] = $this->oFieldset->get_opentag();
         if($this->oLegend) $arhtml[] = $this->oLegend->get_opentag();
-        //Agrega a inner_html los valores obtenidos con get_html de cada objeto
         $this->_load_inner_objects();
-        if($this->innerhtml)$arhtml[] = "$this->innerhtml\n";
+        if($this->innerhtml) $arhtml[] = "$this->innerhtml\n";
         if($this->oLegend) $arhtml[] = $this->oLegend->get_closetag();
         if($this->oFieldset) $arhtml[] = $this->oFieldset->get_closetag();
         $arhtml[] = $this->get_closetag();
