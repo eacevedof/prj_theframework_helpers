@@ -92,7 +92,7 @@ class ComponentTickets
     }//debug
 
     public function add_keyval($sKey,$mxVal){$this->arKeyval[$sKey] = $mxVal;}
-    public function set_action($value){$this->sAction=$value;}
+    public function setaction($value){$this->sAction=$value;}
 
     private function add_error($sMessage){$this->isError = true;$this->arErrors[]=$sMessage;}    
     public function is_error(){return $this->isError;}

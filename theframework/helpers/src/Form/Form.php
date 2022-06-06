@@ -12,21 +12,26 @@ namespace TheFramework\Helpers\Form;
 
 use TheFramework\Helpers\AbsHelper;
 
-class Form extends AbsHelper
+final class Form extends AbsHelper
 {
-    private $_method;
-    private $_enctype;
-    private $_action;
-    private $_js_onsubmit;
+    private const TYPE = "form";
+    public const METHOD_POST = "post";
+    public const METHOD_GET = "get";
+    public const ENCTYPE_MULTIPART = "multipart/form-data";
     
-    private $oFieldset;
-    private $oLegend;
+    private string $method = "";
+    private string $enctype = "";
+    private string $action = "";
+    protected ?string $jsonsubmit = null;
+    
+    private ?Fieldset $oFieldset = null;
+    private ?Legend $oLegend = null;
 
     public function __construct($id="", $name="", $method="post", $innerhtml=""
             , $action="", $class="", $style="", $extras=[], $enctype="", $onsubmit="")
     {
         //enctype="multipart/form-data"
-        $this->type = "form";
+        $this->type = self::TYPE;
         $this->idprefix = "";
         $this->id = $id;
         $this->name = $name;
@@ -35,10 +40,10 @@ class Form extends AbsHelper
         if($style) $this->arStyles[] = $style;
         
         $this->extras = $extras;
-        $this->_method = $method;
-        $this->_action = $action;
-        $this->_enctype = $enctype;
-        $this->_js_onsubmit = $onsubmit;
+        $this->method = $method;
+        $this->action = $action;
+        $this->enctype = $enctype;
+        $this->jsonsubmit = $onsubmit;
     }
 
     public function get_html(): string
@@ -69,16 +74,15 @@ class Form extends AbsHelper
         if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
         if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
         if($this->jsonkeypress)$arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
         if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->_js_onsubmit) $arOpenTag[] = " onsubmit=\"$this->_js_onsubmit\"";
+        if($this->jsonsubmit) $arOpenTag[] = " onsubmit=\"$this->jsonsubmit\"";
         if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
         if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\"";
         
         //propios del formulario
-        if($this->_method) $arOpenTag[] = " method=\"$this->_method\"";
-        if($this->_action) $arOpenTag[] = " action=\"$this->_action\"";
-        if($this->_enctype) $arOpenTag[] = " enctype=\"$this->_enctype\"";
+        if($this->method) $arOpenTag[] = " method=\"$this->method\"";
+        if($this->action) $arOpenTag[] = " action=\"$this->action\"";
+        if($this->enctype) $arOpenTag[] = " enctype=\"$this->enctype\"";
         
         //aspecto
         $this->_load_cssclass();
@@ -99,10 +103,10 @@ class Form extends AbsHelper
     //**********************************
     public function set_legend(HelperLegend $oLegend){$this->oLegend = $oLegend;}
     public function set_fieldset(HelperFieldset $oFieldset){$this->oFieldset = $oFieldset;}
-    public function set_method($value){$this->_method = $value;}
-    public function set_action($value){$this->_action = $value;}
-    public function set_enctype($value){$this->_enctype = $value;}
-    public function set_js_onsubmit($value){$this->_js_onsubmit=$value;}
+    public function setmethod($value){$this->method = $value;}
+    public function setaction($value){$this->action = $value;}
+    public function setenctype($value){$this->enctype = $value;}
+    public function setjsonsubmit($value){$this->jsonsubmit=$value;}
     public function add_controltop($oHelper){if($oHelper) array_unshift($this->arinnerhelpers,$oHelper);}
     public function add_control($oHelper){$this->arinnerhelpers[]=$oHelper;}
     public function add_controls($arObjControls){$this->arinnerhelpers=$arObjControls;}
