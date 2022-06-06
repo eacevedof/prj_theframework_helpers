@@ -24,6 +24,7 @@ final class Fieldset extends AbsHelper
     ) {
         
         $this
+            ->type(self::TYPE)
             ->id($id)
             ->innerhtml($innerhtml)
             ->class($class)
