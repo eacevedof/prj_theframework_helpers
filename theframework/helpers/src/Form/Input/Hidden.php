@@ -33,7 +33,7 @@ class Hidden extends AbsHelper
         if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
         if($this->value || $this->value=="0") 
-            $arHtml[] = " value=\"{$this->get_cleaned($this->value)}\"";
+            $arHtml[] = " value=\"{$this->_get_escaped_quot($this->value)}\"";
         //propiedades html5
         if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
         //atributos extras pe. para usar el quryselector

@@ -146,10 +146,9 @@ abstract class AbsHelper implements IHelper
     public function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
     public function value($value, bool $rawmode=true): self
     {($rawmode)?$this->value = htmlentities($value):$this->value=$value; return $this;}
-    protected function get_cleaned($sString)
+    protected function _get_escaped_quot(string $value): string
     {
-        $sString = str_replace("\"","&quot;",$sString);
-        return $sString;
+        return str_replace("\"","&quot;",$value);
     }
     
     //**********************************

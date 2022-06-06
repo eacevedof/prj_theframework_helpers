@@ -34,8 +34,8 @@ class Image extends AbsHelper
     {  
         $arHtml[] = "<$this->type";
         if($this->_src) $arHtml[] = " src=\"$this->_src\"";
-        if($this->_alt) $arHtml[] = " alt=\"{$this->get_cleaned($this->_alt)}\"";
-        if($this->_title) $arHtml[] = " title=\"{$this->get_cleaned($this->_title)}\"";
+        if($this->_alt) $arHtml[] = " alt=\"{$this->_get_escaped_quot($this->_alt)}\"";
+        if($this->_title) $arHtml[] = " title=\"{$this->_get_escaped_quot($this->_title)}\"";
         if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         //eventos
         if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";

@@ -24,7 +24,7 @@ class Generic extends AbsHelper
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
         if($this->value || $this->value=="0") 
-            $arHtml[] = " value=\"{$this->get_cleaned($this->value)}\"";
+            $arHtml[] = " value=\"{$this->_get_escaped_quot($this->value)}\"";
         if($this->extras) $arHtml[] = " ".$this->get_extras();
 
         $arHtml[] = ">\n";

@@ -190,7 +190,7 @@ class Select extends AbsHelper
     {
         $sOption = "";
         $sOption .= "\t<option";
-        $value = $this->get_cleaned($value);
+        $value = $this->_get_escaped_quot($value);
         $sOption .= " value=\"$value\"";
         if($isSelected) $sOption .= " selected";
         $sOption .= ">";
