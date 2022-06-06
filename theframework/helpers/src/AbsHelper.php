@@ -138,13 +138,13 @@ abstract class AbsHelper implements IHelper
 
     public function label(Label $oLabel){$this->oLabel = $oLabel;}
     public function class(string $class): self {$this->arclasses=[];if($class)$this->arclasses[] = $class; return $this;}    
-    public function set_style($value){$this->arStyles=[];if($value) $this->arStyles[] = $value;}
+    public function style(string $value): self {$this->arStyles=[];if($value) $this->arStyles[] = $value;}
     public function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
     public function reset_class(){$this->arclasses=[];$this->class="";}
     public function reset_style(){$this->arStyles=[];$this->style="";}
     public function reset_inner_object(){$this->arinnerhelpers=[];}
     public function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
-    public function setvalue($value, bool $rawmode=true): self
+    public function value($value, bool $rawmode=true): self
     {($rawmode)?$this->value = htmlentities($value):$this->value=$value; return $this;}
     protected function get_cleaned($sString)
     {

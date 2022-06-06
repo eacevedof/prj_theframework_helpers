@@ -133,7 +133,7 @@ class Date extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function setvalue($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
+    public function value($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
     public function set_today(){$this->_convert_date_before_show = false;$this->value = date("d/m/Y");}
     public function in_fieldsetdiv($isOn=true){$this->_inFieldsetDiv = $isOn;}
     public function use_clearbutton($isOn=true){$this->_useClearButton = $isOn;}

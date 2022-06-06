@@ -15,11 +15,11 @@ $o->show();
 use TheFramework\Helpers\Form\Input\Date;
 
 $o = new Date("someId");
-$o->setvalue("06-12-2018");//ok
-$o->setvalue("2018-12-06");//ok
-$o->setvalue("20181206");//bad!
-$o->setvalue("06122018");//bad!
-$o->setvalue("06/12/2018");//ok
+$o->value("06-12-2018");//ok
+$o->value("2018-12-06");//ok
+$o->value("20181206");//bad!
+$o->value("06122018");//bad!
+$o->value("06/12/2018");//ok
 $o->show();
 ```
 
@@ -47,7 +47,7 @@ $o->show();
 $o = new Hidden();
 $o->setid("someId2");
 $o->name("someName2");
-$o->setvalue("this-is-a-date: 2018-12-08 09:02:00");
+$o->value("this-is-a-date: 2018-12-08 09:02:00");
 $o->show();
 ```
 
@@ -348,17 +348,17 @@ foreach($arButtons as $sType=>$sInnerHtml)
     $oButton->innerhtml($sInnerHtml);
     if($sType=="submit")
     {
-        $oButton->set_style("background:red;color:white");
+        $oButton->style("background:red;color:white");
         $oButton->set_js_onclick("alert('submit.clicked')");
     }
     elseif($sType=="reset")
     {
-        $oButton->set_style("background:green;color:white");
+        $oButton->style("background:green;color:white");
         $oButton->setjsonmouseover("alert('reset.moseover')");
     }
     else 
     {
-        $oButton->set_style("background:cyan");
+        $oButton->style("background:cyan");
         $oButton->setjsonmouseout("alert('reset.mouseout')");
     }
 

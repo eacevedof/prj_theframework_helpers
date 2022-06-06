@@ -169,7 +169,7 @@ class Checkbox extends AbsHelper
     //**********************************
     public function set_fieldset(Fieldset $oFieldset){$this->oFieldset = $oFieldset;}
     public function set_legend(Legend $oLegend){$this->oLegend = $oLegend;}
-    //public function setvalue($value){$this->conv_string_to_array($value);$this->arValuesToCheck = $value;}
+    //public function value($value){$this->conv_string_to_array($value);$this->arValuesToCheck = $value;}
     public function setvalues_to_check($mxValues){$this->conv_string_to_array($mxValues);$this->arValuesToCheck = $mxValues;}
     public function not_groupedname($isOn=false){$this->isGrouped = $isOn;}
     public function set_checks_per_line($iNumChecks){$this->iChecksPerLine = $iNumChecks;}

@@ -79,7 +79,7 @@ class File extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function setvalue($value,$sVoid=null){$this->value = $value;}
+    public function value($value,$sVoid=null){$this->value = $value;}
     public function set_maxsize($iNumBytes){$this->_maxsize = $iNumBytes;}
     public function readonly($readonly=true){$this->readonly=$readonly;}
     public function disabled($disabled=true){$this->disabled=$disabled;}

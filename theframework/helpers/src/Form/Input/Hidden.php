@@ -56,7 +56,7 @@ class Hidden extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function setvalue($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
+    public function value($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
     
     //**********************************
     //             GETS

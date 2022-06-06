@@ -622,57 +622,57 @@ class Basic extends HelperTable
         $oHidden->setid("hidOrderBy");
         $oHidden->name("hidOrderBy");
         if($this->arOrderBy)
-            $oHidden->setvalue(implode(",",$this->arOrderBy));
+            $oHidden->value(implode(",",$this->arOrderBy));
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("hidOrderType");
         $oHidden->name("hidOrderType");
         if($this->arOrderWay)
-            $oHidden->setvalue(implode(",",$this->arOrderWay));
+            $oHidden->value(implode(",",$this->arOrderWay));
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("hidKeyFields");
         $oHidden->name("hidKeyFields");
         if($this->arKeyFields)
-            $oHidden->setvalue(implode(",",$this->arKeyFields));
+            $oHidden->value(implode(",",$this->arKeyFields));
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->name("hidUrlCurrent");
         $oHidden->setid("hidUrlCurrent");
-        $oHidden->setvalue($this->get_request_uri());
+        $oHidden->value($this->get_request_uri());
         $sHtmlHidden .= $oHidden->get_html(); 
         
         //URLS: Solo para js
         $oHidden->name(null);
         $oHidden->setid("hidUrlNoview");
-        $oHidden->setvalue($this->sUrlNoview);
+        $oHidden->value($this->sUrlNoview);
         $sHtmlHidden .= $oHidden->get_html(); 
         
         //bug($this->sUrlPaginate);
         $oHidden->setid("hidUrlPaginate");
-        $oHidden->setvalue($this->sUrlPaginate);
+        $oHidden->value($this->sUrlPaginate);
         $sHtmlHidden .= $oHidden->get_html();
         
         //creado como caja auxiliar para cualquier logica extra que se haga en la vista
         $oHidden->setid("hidAuxiliar");
         $oHidden->name("hidAuxiliar");
-        $oHidden->setvalue("");
+        $oHidden->value("");
         $sHtmlHidden .= $oHidden->get_html();
         
         //Necesario para saber si solo se está refrescando, filtrando o eliminando
         $oHidden->setid("hidAction");
         $oHidden->name("hidAction");
-        $oHidden->setvalue("");
+        $oHidden->value("");
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("hidPostback");
         $oHidden->name("hidPostback");
-        $oHidden->setvalue("");
+        $oHidden->value("");
         $sHtmlHidden .= $oHidden->get_html();
         
         $oHidden->setid("selItemsPerPage");
         $oHidden->name("selItemsPerPage");
-        $oHidden->setvalue($this->iItemsPerPage);
+        $oHidden->value($this->iItemsPerPage);
         $sHtmlHidden .= $oHidden->get_html();        
         //Si se ha indicado que la tabla es de asignacion
         //se guarda los datos actuales de la url
@@ -680,14 +680,14 @@ class Basic extends HelperTable
         {
             $oHidden->setid("hidAssignSingle");
             $oHidden->name("hidAssignSingle");
-            $oHidden->setvalue();
+            $oHidden->value();
             $sHtmlHidden .= $oHidden->get_html();
         }           
         if($this->arAssignMulti)
         {
             $oHidden->setid("hidAssignMulti");
             $oHidden->name("hidAssignMulti");
-            $oHidden->setvalue();
+            $oHidden->value();
             $sHtmlHidden .= $oHidden->get_html();
         }     
         return $sHtmlHidden;
@@ -699,7 +699,7 @@ class Basic extends HelperTable
         $sIdName = "hidRow_$iNumRow"."_0";
         $oHidden->setid($sIdName);
         $oHidden->name($sIdName);
-        $oHidden->setvalue($iNumRow);
+        $oHidden->value($iNumRow);
         return $oHidden->get_html();
     }
     
@@ -709,7 +709,7 @@ class Basic extends HelperTable
         $sIdName = "hidRowChanged_$iNumRow"."_0";
         $oHidden->setid($sIdName);
         $oHidden->name($sIdName);
-        $oHidden->setvalue("0");
+        $oHidden->value("0");
         return $oHidden->get_html();
     }
     
@@ -722,7 +722,7 @@ class Basic extends HelperTable
             $sIdName = "hid$sFieldName"."_$iNumRow";
             $oHidden->setid($sIdName);
             $oHidden->name($sIdName);
-            $oHidden->setvalue($this->get_fieldvalue_byname($arRow,$sFieldName));
+            $oHidden->value($this->get_fieldvalue_byname($arRow,$sFieldName));
             $sHtmlHidden .= $oHidden->get_html();            
         }
         return $sHtmlHidden;
@@ -740,7 +740,7 @@ class Basic extends HelperTable
                 $oHidden->name($sIdName);
                 $oHidden->add_extras("cellpos",$iNumRow."_0");
                 //bug($sFieldName);
-                $oHidden->setvalue($this->get_fieldvalue_byname($arRow,$sFieldName));
+                $oHidden->value($this->get_fieldvalue_byname($arRow,$sFieldName));
                 $sHtmlHidden .= $oHidden->get_html();            
             }
         return $sHtmlHidden;
@@ -758,7 +758,7 @@ class Basic extends HelperTable
             $oHidden->add_extras("cellpos",$iNumRow."_0");
             
             if(is_array($mxValue)) $mxValue = implode(",",$mxValue);
-            $oHidden->setvalue($mxValue);
+            $oHidden->value($mxValue);
             $sHtmlHidden .= $oHidden->get_html();            
         }
         return $sHtmlHidden;
@@ -1135,7 +1135,7 @@ class Basic extends HelperTable
                 $arValues[] = $this->get_fieldvalue_byname($arRow,$sFieldName);
 
         $sMerged = implode($this->sMergeGlue,$arValues);
-        $oHidKey->setvalue($sMerged);
+        $oHidKey->value($sMerged);
 
         $arValues = [];
         //$iNumFields = count($arColumnsDesc);
@@ -1143,7 +1143,7 @@ class Basic extends HelperTable
             $arValues[] = $this->get_fieldvalue_byname($arRow,$sFieldName);
         
         $sMerged = implode($this->sMergeGlue,$arValues);
-        $oHidDesc->setvalue($sMerged);
+        $oHidDesc->value($sMerged);
 
         $sHtmlButton .= $oButton->get_html();
         $sHtmlButton .= $oHidKey->get_html();

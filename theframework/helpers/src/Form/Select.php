@@ -202,7 +202,7 @@ class Select extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    //protected function setvalue(){;}
+    //protected function value(){;}
     
     public function readonly($readonly=true){$this->readonly = $readonly;}
     public function name($value){$this->name = $value;}

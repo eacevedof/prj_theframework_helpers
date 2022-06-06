@@ -212,7 +212,7 @@ class Typed extends HelperTableBasic
         if($arProperties["onclick"]) $oInputText->set_js_onclick($arProperties["onclick"]);
         if($arProperties["onfocus"]) $oInputText->setjsonfocus($arProperties["onfocus"]);
         if($arProperties["readonly"]) $oInputText->readonly();
-        $oInputText->setvalue($this->get_fieldvalue_byname($arRow,$sFieldName));
+        $oInputText->value($this->get_fieldvalue_byname($arRow,$sFieldName));
         return $oInputText->get_html();
     }
     
