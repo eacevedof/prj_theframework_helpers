@@ -58,19 +58,19 @@ final class Form extends AbsHelper
 
     public function get_html(): string
     {  
-        $arHtml = [];
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";       
-        $arHtml[] = $this->get_opentag();
-        if($this->oFieldset) $arHtml[] = $this->oFieldset->get_opentag();
-        if($this->oLegend) $arHtml[] = $this->oLegend->get_opentag();
+        $arhtml = [];
+        if($this->comment) $arhtml[] = "<!-- $this->comment -->\n";       
+        $arhtml[] = $this->get_opentag();
+        if($this->oFieldset) $arhtml[] = $this->oFieldset->get_opentag();
+        if($this->oLegend) $arhtml[] = $this->oLegend->get_opentag();
         //Agrega a inner_html los valores obtenidos con get_html de cada objeto
         $this->_load_inner_objects();
-        if($this->innerhtml)$arHtml[] = "$this->innerhtml\n";
-        if($this->oLegend) $arHtml[] = $this->oLegend->get_closetag();
-        if($this->oFieldset) $arHtml[] = $this->oFieldset->get_closetag();
-        $arHtml[] = $this->get_closetag();
+        if($this->innerhtml)$arhtml[] = "$this->innerhtml\n";
+        if($this->oLegend) $arhtml[] = $this->oLegend->get_closetag();
+        if($this->oFieldset) $arhtml[] = $this->oFieldset->get_closetag();
+        $arhtml[] = $this->get_closetag();
 
-        return implode("",$arHtml);
+        return implode("",$arhtml);
     }
 
     public function get_opentag(): string
