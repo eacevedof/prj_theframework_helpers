@@ -33,7 +33,12 @@ final class Form extends AbsHelper
         //enctype="multipart/form-data"
         $this->type = self::TYPE;
         $this->idprefix = "";
-        $this->id = $id;
+        $this
+            ->id($id)
+            ->name($name)
+            ->innerhtml()
+        ;
+
         $this->name = $name;
         $this->innerhtml = $innerhtml;
         if($class) $this->arclasses[] = $class;

@@ -137,8 +137,8 @@ abstract class AbsHelper implements IHelper
     }
     
     public function placeholder(string $value): self {$this->placeholder = htmlentities($value); return $this;}
-    public function innerhtml($sInnerHtml,$rawmode=true): self
-    {$rawmode ? $this->innerhtml=$sInnerHtml : $this->innerhtml = htmlentities($sInnerHtml); return $this;}
+    public function innerhtml(string $innerhtml, $rawmode=true): self
+    {$rawmode ? $this->innerhtml=$innerhtml : $this->innerhtml = htmlentities($innerhtml); return $this;}
     public function type(string $value): self {$this->type = $value; return $this;}
     protected function name(string $value): self {$this->name = $value; return $this;}
 
