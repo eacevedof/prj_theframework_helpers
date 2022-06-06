@@ -45,5 +45,5 @@ class Generic extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function getvalue($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
+    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
 }//HelperGeneric

@@ -348,17 +348,17 @@ foreach($arButtons as $sType=>$sInnerHtml)
     $oButton->innerhtml($sInnerHtml);
     if($sType=="submit")
     {
-        $oButton->style("background:red;color:white");
+        $oButton->add_style("background:red;color:white");
         $oButton->set_js_onclick("alert('submit.clicked')");
     }
     elseif($sType=="reset")
     {
-        $oButton->style("background:green;color:white");
+        $oButton->add_style("background:green;color:white");
         $oButton->setjsonmouseover("alert('reset.moseover')");
     }
     else 
     {
-        $oButton->style("background:cyan");
+        $oButton->add_style("background:cyan");
         $oButton->setjsonmouseout("alert('reset.mouseout')");
     }
 

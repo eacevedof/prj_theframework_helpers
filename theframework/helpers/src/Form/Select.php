@@ -229,7 +229,7 @@ class Select extends AbsHelper
     //             GETS
     //**********************************
     public function get_name(){return $this->name;}
-    //public function getvalue(){return $this->value;}
+    //public function get_value(){return $this->value;}
     public function get_selectedvalue(){return $this->mxValuesToSelect;}
     public function get_closetag(){return parent::get_closetag();}
 }

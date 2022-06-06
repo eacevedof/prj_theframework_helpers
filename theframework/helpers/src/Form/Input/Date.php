@@ -146,7 +146,7 @@ class Date extends AbsHelper
     //             GETS
     //**********************************
     public function get_name(){return $this->name;}
-    public function getvalue($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
+    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
     
 }//Date
 

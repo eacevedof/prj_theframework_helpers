@@ -137,13 +137,11 @@ abstract class AbsHelper implements IHelper
     protected function name(string $value): self {$this->name = $value; return $this;}
 
     public function label(Label $oLabel){$this->oLabel = $oLabel;}
-    public function class(string $class): self {$this->arclasses=[];if($class)$this->arclasses[] = $class; return $this;}    
-    public function style(string $value): self {$this->arStyles=[];if($value) $this->arStyles[] = $value;}
-    public function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
+    public function class(string $class): self {$this->arclasses=[];if($class)$this->arclasses[] = $class; return $this;}
+    public function style(HelperStyle $oStyle): self {$this->oStyle = $oStyle; return $this;}
     public function reset_class(){$this->arclasses=[];$this->class="";}
     public function reset_style(){$this->arStyles=[];$this->style="";}
-    public function reset_inner_object(){$this->arinnerhelpers=[];}
-    public function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
+    public function reset_innerhelpers(): self {$this->arinnerhelpers=[]; return $this;}
     public function value($value, bool $rawmode=true): self
     {($rawmode)?$this->value = htmlentities($value):$this->value=$value; return $this;}
     protected function _get_escaped_quot(string $value): string
@@ -197,7 +195,7 @@ abstract class AbsHelper implements IHelper
     protected function get_style(): ?Style {return $this->oHlpStyle;}
     protected function get_placeholder(): string {return $this->placeholder;}
     
-    protected function getvalue(bool $rawmode=true): string
+    protected function get_value(bool $rawmode=true): string
     {
         return $rawmode ? $this->value : htmlentities($this->value);
     }
