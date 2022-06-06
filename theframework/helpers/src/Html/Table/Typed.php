@@ -59,7 +59,7 @@ class Typed extends HelperTableBasic
         //@TODOTEMPLATE
         $oForm->add_class("form-horizontal");
         //@TODOTEMPLATE
-        $oForm->add_style("margin:0;padding:0;border:0;");
+        $oForm->style("margin:0;padding:0;border:0;");
         
         $arHtml[] = $oForm->get_opentag();
         $arHtml[] = $oFieldset->get_opentag();
@@ -219,7 +219,7 @@ class Typed extends HelperTableBasic
     protected function build_select_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)
     {
         $oSelect = new HelperSelect();
-        //$oInputText->add_style("margin:0");
+        //$oInputText->style("margin:0");
         $sCellPos = $iNumRow."_$iNumColumn";
         $oSelect->add_extras("cellpos",$sCellPos);
         $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
@@ -279,7 +279,7 @@ class Typed extends HelperTableBasic
     protected function build_new_button($iNumRow,$iNumColumn)
     {
         $oButton = new HelperButtonBasic();
-        //$oInputText->add_style("margin:0");
+        //$oInputText->style("margin:0");
         $sCellPos = "$iNumRow"."_$iNumColumn";
         $oButton->setid("butInsert$sCellPos");
         $oButton->innerhtml("Save");
@@ -293,7 +293,7 @@ class Typed extends HelperTableBasic
     protected function build_edit_button($iNumRow,$iNumColumn)
     {
         $oButton = new HelperButtonBasic();
-        //$oInputText->add_style("margin:0");
+        //$oInputText->style("margin:0");
         $sCellPos = "$iNumRow"."_$iNumColumn";
         $oButton->setid("butUpdate$sCellPos");
         $oButton->innerhtml("Save");

@@ -28,23 +28,34 @@ final class Form extends AbsHelper
     private ?Fieldset $oFieldset = null;
     private ?Legend $oLegend = null;
 
-    public function __construct($id="", $name="", $method="post", $innerhtml=""
-            , $action="", $class="", $style="", $extras=[], $enctype="", $onsubmit="")
-    {
+    public function __construct(
+        string $id="", 
+        string $name="", 
+        string $method=self::METHOD_POST, 
+        string $innerhtml="", 
+        string $action="", 
+        string $class="", 
+        string $style="", 
+        array $extras=[], 
+        string $enctype="", 
+        string $onsubmit=""
+    ) {
         //enctype="multipart/form-data"
-        $this->type = self::TYPE;
-        $this->idprefix = "";
         $this
+            ->type(self::TYPE)
             ->id($id)
             ->name($name)
+            ->method($method)
             ->innerhtml($innerhtml)
-
+            ->action($action)
+            ->class($class)
+            ->style($style)
+            ->extras($extras)
+            ->enctype($enctype)
+            ->on_submit($onsubmit)
         ;
 
-        $this->name = $name;
-        $this->innerhtml = $innerhtml;
-        if($class) $this->arclasses[] = $class;
-        if($style) $this->arStyles[] = $style;
+
         
         $this->extras = $extras;
         $this->method = $method;
@@ -72,48 +83,44 @@ final class Form extends AbsHelper
 
     public function get_opentag(): string
     {
-        $arOpenTag = [];
-        $arOpenTag[] = "<$this->type";
-        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
+        $opentag = [];
+        $opentag[] = "<$this->type";
+        if($this->id) $opentag[] = " id=\"$this->idprefix$this->id\"";
 
         //eventos
-        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress)$arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonsubmit) $arOpenTag[] = " onsubmit=\"$this->jsonsubmit\"";
-        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\"";
+        if($this->jsonblur) $opentag[] = " onblur=\"$this->jsonblur\"";
+        if($this->jsonchange) $opentag[] = " onchange=\"$this->jsonchange\"";
+        if($this->jsonclick) $opentag[] = " onclick=\"$this->jsonclick\"";
+        if($this->jsonkeypress)$opentag[] = " onkeypress=\"$this->jsonkeypress\"";
+        if($this->jsonfocus) $opentag[] = " onfocus=\"$this->jsonfocus\"";
+        if($this->jsonsubmit) $opentag[] = " onsubmit=\"$this->jsonsubmit\"";
+        if($this->jsonmouseover) $opentag[] = " onmouseover=\"$this->jsonmouseover\"";
+        if($this->jsonmouseout) $opentag[] = " onmouseout=\"$this->jsonmouseout\"";
         
         //propios del formulario
-        if($this->method) $arOpenTag[] = " method=\"$this->method\"";
-        if($this->action) $arOpenTag[] = " action=\"$this->action\"";
-        if($this->enctype) $arOpenTag[] = " enctype=\"$this->enctype\"";
+        if($this->method) $opentag[] = " method=\"$this->method\"";
+        if($this->action) $opentag[] = " action=\"$this->action\"";
+        if($this->enctype) $opentag[] = " enctype=\"$this->enctype\"";
         
         //aspecto
         $this->_load_cssclass();
-        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
+        if($this->class) $opentag[] = " class=\"$this->class\"";
         $this->_load_style();
-        if($this->style) $arOpenTag[] = " style=\"$this->style\"";
+        if($this->style) $opentag[] = " style=\"$this->style\"";
         //atributos extra
-        if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";              
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
+        if($this->_attr_dbfield) $opentag[] = " dbfield=\"$this->_attr_dbfield\"";
+        if($this->_attr_dbtype) $opentag[] = " dbtype=\"$this->_attr_dbtype\"";              
+        if($this->extras) $opentag[] = " ".$this->get_extras();
 
-        $arOpenTag[] =">\n";
-        return implode("",$arOpenTag);
+        $opentag[] =">\n";
+        return implode("",$opentag);
     }//get_opentag
 
-    public function legend(HelperLegend $oLegend): self {$this->oLegend = $oLegend;}
-    public function fieldset(HelperFieldset $oFieldset): self {$this->oFieldset = $oFieldset;}
-    public function method($value): self {$this->method = $value;}
-    public function action($value): self {$this->action = $value;}
-    public function enctype($value): self {$this->enctype = $value;}
-    public function on_submit($value): self {$this->jsonsubmit=$value;}
+    public function legend(HelperLegend $oLegend): self {$this->oLegend = $oLegend; return $this;}
+    public function fieldset(HelperFieldset $oFieldset): self {$this->oFieldset = $oFieldset; return $this;}
+    public function method(string $value): self {$this->method = $value; return $this;}
+    public function action(string $value): self {$this->action = $value; return $this;}
+    public function enctype(string $value): self {$this->enctype = $value; return $this;}
+    public function on_submit(string $jscode): self {$this->jsonsubmit=$jscode; return $this;}
     public function first_inner(IHelper $oHelper): self {array_unshift($this->arinnerhelpers,$oHelper); return $this;}
-
-    public function show_opentag(){parent::show_opentag();}
-    public function show_closetag(){parent::show_closetag();}
-
-}//HelperForm
+}

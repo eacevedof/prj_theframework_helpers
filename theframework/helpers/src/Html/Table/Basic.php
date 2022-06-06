@@ -106,7 +106,7 @@ class Basic extends HelperTable
         $oFieldset = new HelperFieldset();
         $oForm = new HelperForm($this->sIdForm);
         $oForm->add_class("form-horizontal");
-        $oForm->add_style("margin:0;padding:0;border:0;");
+        $oForm->style("margin:0;padding:0;border:0;");
         
         $arHtml[] = $oForm->get_opentag();
         $arHtml[] = $oFieldset->get_opentag();
@@ -151,7 +151,7 @@ class Basic extends HelperTable
         $oSelPages = new HelperSelect($arPages,"selPage");
         $oSelPages->setvalue_to_select($this->iInfoCurrentPage);
         //$oSelPages->add_class("span2");
-        $oSelPages->add_style("margin:0;padding:0;width:85px;");
+        $oSelPages->style("margin:0;padding:0;width:85px;");
         $oSelPages->name("selPage");
         $oSelPages->on_change("table_frmsubmit();");
         

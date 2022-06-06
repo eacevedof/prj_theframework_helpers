@@ -26,7 +26,7 @@ abstract class AbsHelper implements IHelper
     protected bool $display = true;
 
     protected array $arclasses = [];
-    protected $arStyles = [];
+    protected $arstyles = [];
     protected $arinnerhelpers = [];
     protected $value;
 
@@ -61,8 +61,8 @@ abstract class AbsHelper implements IHelper
 
     protected function _load_style(): self
     {
-        if($this->arStyles)
-            $this->style = trim(implode(";",$this->arStyles));
+        if($this->arstyles)
+            $this->style = trim(implode(";",$this->arstyles));
         return $this;
     }
 
@@ -111,7 +111,7 @@ abstract class AbsHelper implements IHelper
     public function on_mouseout(string $jscode): self {$this->jsonmouseout = $jscode; return $this;}
     
     public function add_class(string $class): self {if($class) $this->arclasses[] = $class; return $this;}
-    public function add_style(string $style): self {if($style) $this->arStyles[] = $style; return $this;}
+    public function style(string $style): self {$this->arstyles = []; if($style) $this->arstyles[] = $style; return $this;}
 
     public function add_inner_object(IHelper|string $mxValue): self
     {
@@ -144,9 +144,9 @@ abstract class AbsHelper implements IHelper
 
     public function label(Label $oLabel){$this->oLabel = $oLabel;}
     public function class(string $class): self {$this->arclasses=[];if($class)$this->arclasses[] = $class; return $this;}
-    public function style(HelperStyle $oStyle): self {$this->oStyle = $oStyle; return $this;}
+    public function style_object(HelperStyle $oStyle): self {$this->oStyle = $oStyle; return $this;}
     public function reset_class(){$this->arclasses=[];$this->class="";}
-    public function reset_style(){$this->arStyles=[];$this->style="";}
+    public function reset_style(){$this->arstyles=[];$this->style="";}
     public function reset_innerhelpers(): self {$this->arinnerhelpers=[]; return $this;}
     public function value($value, bool $rawmode=true): self
     {($rawmode)?$this->value = htmlentities($value):$this->value=$value; return $this;}

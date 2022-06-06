@@ -60,8 +60,8 @@ $oL->innerhtml("Type your password her:");
 $oL->show();
 
 $o = new Password("someId","someName","mySecretKey",20);
-$o->add_style("border:1px solid rgb(255,0,0)");
-$o->add_style("color:blue");
+$o->style("border:1px solid rgb(255,0,0)");
+$o->style("color:blue");
 $o->show();
 ```
 
@@ -250,11 +250,11 @@ foreach($arData as $iRow=>$arRow)
     {
         $oTd = new Td();
         if($iRow==0)
-            $oTd->add_style("border:1px solid red");
+            $oTd->style("border:1px solid red");
         elseif($iRow==1)
-            $oTd->add_style("border:1px solid green");
+            $oTd->style("border:1px solid green");
         else
-            $oTd->add_style("border:1px solid blue");
+            $oTd->style("border:1px solid blue");
 
         $oTd->set_attr_rownumber($iRow);
         $oTd->set_attr_colnumber($sFieldName);
@@ -267,8 +267,8 @@ foreach($arData as $iRow=>$arRow)
 
 //$oHlpTable = new Raw($arData); //works fine
 $oHlpTable = new Table($arTrs,"someTblId");
-$oHlpTable->add_style("background:#cccccc");
-$oHlpTable->add_style("border:1px dashed #FF0000");
+$oHlpTable->style("background:#cccccc");
+$oHlpTable->style("border:1px dashed #FF0000");
 $oHlpTable->show();
 ```
 
@@ -282,17 +282,17 @@ $arItems = [
 ];
 
 $oUl = new Xl();
-$oUl->add_style("background:grey");
-$oUl->add_style("width:100px");
+$oUl->style("background:grey");
+$oUl->style("width:100px");
 
 $oOl = new Xl();
 $oOl->type("ol");
-$oOl->add_style("background:yellow;width:200px;");
+$oOl->style("background:yellow;width:200px;");
 
 foreach($arItems as $i=>$sText)
 {
     $oLi = new Li($sText);
-    $oLi->add_style("border:1px dashed green");
+    $oLi->style("border:1px dashed green");
     $oUl->add_li($oLi);
     $oOl->add_li($oLi);
 }//foreach
@@ -317,9 +317,9 @@ foreach($arLinks as $sTarget => $arLink)
     $sInnerHtml = $arLink["innerhtml"];
     $oAnchor = new Anchor($sInnerHtml);
     $oAnchor->set_href($sHref);
-    $oAnchor->add_style("background:yellow");
+    $oAnchor->style("background:yellow");
     if($sTarget=="blank")
-        $oAnchor->add_style("background:#99FF00");
+        $oAnchor->style("background:#99FF00");
     $oAnchor->set_target($sTarget);
     $oAnchor->show();
     echo "<br/>";
@@ -348,17 +348,17 @@ foreach($arButtons as $sType=>$sInnerHtml)
     $oButton->innerhtml($sInnerHtml);
     if($sType=="submit")
     {
-        $oButton->add_style("background:red;color:white");
+        $oButton->style("background:red;color:white");
         $oButton->setjsonclick("alert('submit.clicked')");
     }
     elseif($sType=="reset")
     {
-        $oButton->add_style("background:green;color:white");
+        $oButton->style("background:green;color:white");
         $oButton->setjsonmouseover("alert('reset.moseover')");
     }
     else 
     {
-        $oButton->add_style("background:cyan");
+        $oButton->style("background:cyan");
         $oButton->setjsonmouseout("alert('reset.mouseout')");
     }
 
@@ -372,7 +372,7 @@ use TheFramework\Helpers\Html\Xl\Xl;
 use TheFramework\Helpers\Html\Xl\Li;
 
 $oDivMain = new Div("","divMain");
-$oDivMain->add_style("border:1px dashed blue");
+$oDivMain->style("border:1px dashed blue");
 
 $oUl = new Xl();
 $oUl->add_li((new Li("Item One")));
@@ -381,11 +381,11 @@ $oUl->add_li((new Li("Item Three")));
 
 $oDiv1 = new Div();
 $oDiv1->setid("divOne");
-$oDiv1->add_style("background:#ccc");
+$oDiv1->style("background:#ccc");
 $oDiv1->add_inner_object($oUl);
 
 $oDiv2 = new Div("","divTwo");
-$oDiv2->add_style("border:1px solid magenta");
+$oDiv2->style("border:1px solid magenta");
 $oDiv2->add_inner_object("this is a simple text");
 
 $oDivMain->add_inner_object($oDiv1);
@@ -430,9 +430,9 @@ use TheFramework\Helpers\Html\Span;
 $oSpan = new Span();
 $oSpan->setid("idSpan1");
 $oSpan->add_extras("title","Some title for span one");
-$oSpan->add_style("border:1px solid green");
+$oSpan->style("border:1px solid green");
 if($oSpan->get_id()=="idSpan1")
-    $oSpan->add_style("background:yellow");
+    $oSpan->style("background:yellow");
 $oSpan->add_inner_object("What is Lorem Ipsum?");
 $oSpan->show();
 ```
