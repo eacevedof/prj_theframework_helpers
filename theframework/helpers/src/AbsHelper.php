@@ -131,13 +131,13 @@ abstract class AbsHelper implements IHelper
     }
     
     public function placeholder(string $value): self {$this->placeholder = htmlentities($value); return $this;}
-    public function innerhtml($sInnerHtml,$rawmode=true)
-    {if($rawmode)$this->innerhtml = htmlentities($sInnerHtml);else $this->innerhtml=$sInnerHtml;}
+    public function innerhtml($sInnerHtml,$rawmode=true): self
+    {$rawmode ? $this->innerhtml=$sInnerHtml : $this->innerhtml = htmlentities($sInnerHtml); return $this;}
     public function type(string $value): self {$this->type = $value; return $this;}
-    protected function name($value){$this->name = $value;}
+    protected function name(string $value): self {$this->name = $value; return $this;}
 
-    public function set_label(Label $oLabel){$this->oLabel = $oLabel;}
-    public function set_class($class){$this->arclasses=[];if($class)$this->arclasses[] = $class;}    
+    public function label(Label $oLabel){$this->oLabel = $oLabel;}
+    public function class(string $class): self {$this->arclasses=[];if($class)$this->arclasses[] = $class; return $this;}    
     public function set_style($value){$this->arStyles=[];if($value) $this->arStyles[] = $value;}
     public function set_style_object(HelperStyle $oStyle){$this->oStyle = $oStyle;}
     public function reset_class(){$this->arclasses=[];$this->class="";}

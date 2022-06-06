@@ -85,7 +85,7 @@ $oL->set_for("someTextId");
 $oL->innerhtml("Set a value:");
 
 $o = new Text("someTextId","someName");
-$o->set_label($oL);
+$o->label($oL);
 $o->add_extras("placeholder"," this is placeholder");
 $o->show();
 ```
@@ -106,13 +106,13 @@ $oLbl1 = new Label();
 $oLbl1->innerhtml("Nombre:");
 $oTxt1 = new Text("nombre","nombre");
 $oTxt1->add_extras("tabindex","1");
-$oTxt1->set_label($oLbl1);
+$oTxt1->label($oLbl1);
 
 $oLbl2 = new Label();
 $oLbl2->innerhtml("Apellidos:");
 $oTxt2 = new Text("nombre","nombre");
 $oTxt2->add_extras("tabindex","2");
-$oTxt2->set_label($oLbl2);
+$oTxt2->label($oLbl2);
 
 $oFs->add_inner_object($oLeg);
 $oFs->add_inner_object($oTxt1);
@@ -136,7 +136,7 @@ $oForm = new Form("SomeFormId");
 $oForm->set_method("post");
 $oLabel = new Label("POST-name","Nombre:");
 $oTxt = new Text("POST-name","name");
-$oTxt->set_label($oLabel);
+$oTxt->label($oLabel);
 $oButton = new Generic("Save");
 $oButton->add_extras("type","submit");
 $oForm->add_control($oTxt);
@@ -158,7 +158,7 @@ $oForm = new Form("SomeFormId");
 $oForm->set_method("post");
 $oLabel = new Label("POST-name","Select one:");
 $oSelect = new Select([""=>"...","key1"=>"Txt 1","key2"=>"Txt 2","key3"=>"Txt 3","key4"=>"Txt 4"]);
-$oSelect->set_label($oLabel);
+$oSelect->label($oLabel);
 //$oSelect->setvalue_to_select("key3"); autoselect by key
 //$oSelect->readonly(); //autoselect by key and removes other keys
 $oButton = new Generic("Save");
@@ -180,7 +180,7 @@ $oLabel = new Label("idTextarea","Type your article:");
 $oTextarea = new Textarea("idTextarea","nameTextarea");
 $oTextarea->innerhtml("this is an example text");
 $oTextarea->add_extras("autofocus");
-$oTextarea->set_label($oLabel);
+$oTextarea->label($oLabel);
 $oTextarea->setmaxlength(25);
 //$oTextarea->set_counterspan(); //activa render de <span> contador </span>
 //renderiza js que gestiona maxlength y actualiza span contador, tiene que estar activado counterspan
