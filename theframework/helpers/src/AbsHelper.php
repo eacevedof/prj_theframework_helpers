@@ -28,34 +28,26 @@ abstract class AbsHelper implements IHelper
     protected array $arclasses = [];
     protected $arStyles = [];
     protected $arinnerhelpers = [];
-    protected $_value;
+    protected $value;
 
     //Esto emula el atributo bloqueado. Si esta a true crea el control autoseleccionado con un
     //único valor en los objetos tipo select
-    protected bool $_is_primarykey = false;
-    protected bool $_readonly = false;
+
+    protected bool $readonly = false;
     protected bool $required = false;
     protected bool $disabled = false;
-    protected bool $_isPrimaryKey = false;
-    protected bool $_isPostback = false;
-    protected bool $_isEnterInsert = false;//aplica action=insert
-    protected bool $_isEnterUpdate = false;//aplica action=update
-    protected bool $_isEnterSubmit = false;//no aplica nada
     
     protected ?string $jsonclick = null;
     protected ?string $jsonchange = null;
     protected ?string $jsonkeypress = null;
     protected ?string $jsonkeydown = null;
-    protected ?string $_jsonkeyup = null;
+    protected ?string $jsonkeyup = null;
     
     protected ?string $jsonblur = null;
     protected ?string $jsonfocus = null;
     protected ?string $jsonmouseover = null;
     protected ?string $jsonmouseout = null;
-
-    protected ?string $_attr_dbtype = null;
-    protected ?string $_attr_dbfield = null;
-
+    
     //helpers
     protected ?Label $oLabel = null;
     protected ?Style $oStyle = null;
@@ -106,7 +98,7 @@ abstract class AbsHelper implements IHelper
     public function on_change(string $jscode): self {$this->jsonchange = $jscode; return $this;}
     public function on_keypress(string $jscode): self {$this->jsonkeypress = $jscode; return $this;}
     public function on_keydown(string $jscode): self {$this->jsonkeydown = $jscode; return $this;}
-    public function on_keyup(string $jscode): self {$this->_jsonkeyup = $jscode; return $this;}
+    public function on_keyup(string $jscode): self {$this->jsonkeyup = $jscode; return $this;}
     public function on_blur(string $jscode): self {$this->jsonblur = $jscode; return $this;}
     public function on_focus(string $jscode): self {$this->jsonfocus = $jscode; return $this;}
     public function on_mouseover(string $jscode): self {$this->jsonmouseover = $jscode; return $this;}
@@ -138,18 +130,10 @@ abstract class AbsHelper implements IHelper
         return $this;
     }
     
-    public function setplaceholder($value){$this->placeholder = htmlentities($value);}
-    public function set_attr_dbtype($value){$this->_attr_dbtype=$value;}
-    public function set_attr_dbfield($value){$this->_attr_dbfield=$value;}
-    public function set_as_primarykey($isPk=true){$this->_is_primarykey = $isPk;}
+    public function placeholder(string $value): self {$this->placeholder = htmlentities($value); return $this;}
     public function innerhtml($sInnerHtml,$rawmode=true)
     {if($rawmode)$this->innerhtml = htmlentities($sInnerHtml);else $this->innerhtml=$sInnerHtml;}
-    public function settype($value){$this->type = $value;}
-    public function set_postback($isOn=true){$this->_isPostback=$isOn;}
-    public function on_enterinsert($isOn=true){$this->_isEnterInsert=$isOn;}
-    public function on_enterupdate($isOn=true){$this->_isEnterUpdate=$isOn;}
-    public function on_entersubmit($isOn=true){$this->_isEnterSubmit=$isOn;}
-    
+    public function type(string $value): self {$this->type = $value; return $this;}
     protected function name($value){$this->name = $value;}
 
     public function set_label(Label $oLabel){$this->oLabel = $oLabel;}
@@ -160,7 +144,8 @@ abstract class AbsHelper implements IHelper
     public function reset_style(){$this->arStyles=[];$this->style="";}
     public function reset_inner_object(){$this->arinnerhelpers=[];}
     public function set_inner_objects($arObjHelpers){$this->arinnerhelpers=$arObjHelpers;}
-    public function set_value($value,$rawmode=true){($rawmode)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function setvalue($value, bool $rawmode=true): self
+    {($rawmode)?$this->value = htmlentities($value):$this->value=$value; return $this;}
     protected function get_cleaned($sString)
     {
         $sString = str_replace("\"","&quot;",$sString);
@@ -195,7 +180,7 @@ abstract class AbsHelper implements IHelper
     public function get_innerhtml():string {return $this->innerhtml;}
     protected function is_disabled():bool {return $this->disabled;}
 
-    protected function getname(){return $this->name;}
+    protected function get_name(){return $this->name;}
 
     //**********************************
     // OVERRIDE TO PUBLIC IF NECESSARY
@@ -213,8 +198,8 @@ abstract class AbsHelper implements IHelper
     protected function get_style(): ?Style {return $this->oHlpStyle;}
     protected function get_placeholder(): string {return $this->placeholder;}
     
-    protected function get_value(bool $rawmode=true): string
+    protected function getvalue(bool $rawmode=true): string
     {
-        return $rawmode ? $this->_value : htmlentities($this->_value);
+        return $rawmode ? $this->value : htmlentities($this->value);
     }
 }

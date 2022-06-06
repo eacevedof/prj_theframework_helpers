@@ -104,7 +104,7 @@ class ComponentCrud
                 $arFields = array_keys($arFieldVal);
                 $sSQL .= implode(",",$arFields);
 
-                $arValues = array_values($arFieldVal);
+                $arValues = arrayvalues($arFieldVal);
                 //los paso a entrecomillado
                 foreach ($arValues as $i=>$sValue)
                 {

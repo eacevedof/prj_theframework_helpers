@@ -14,7 +14,7 @@ class Generic extends AbsHelper
 {
     public function __construct($value,$extras=[])
     {
-        $this->_value = $value;
+        $this->value = $value;
         $this->extras = $extras;
     }
 
@@ -23,8 +23,8 @@ class Generic extends AbsHelper
         $arHtml = [];
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         $arHtml[] = "<input";
-        if($this->_value || $this->_value=="0") 
-            $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
+        if($this->value || $this->value=="0") 
+            $arHtml[] = " value=\"{$this->get_cleaned($this->value)}\"";
         if($this->extras) $arHtml[] = " ".$this->get_extras();
 
         $arHtml[] = ">\n";
@@ -40,10 +40,10 @@ class Generic extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function setvalue($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
     
     //**********************************
     //             GETS
     //**********************************
-    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
+    public function getvalue($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
 }//HelperGeneric

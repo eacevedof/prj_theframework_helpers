@@ -88,7 +88,7 @@ class Textarea extends AbsHelper
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
         //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
         if($this->maxlength>-1 && $this->isCounterJs && $this->isCounterSpan) 
-            $this->_jsonkeyup .= " return fn_txamaxlength(this,event);";              
+            $this->jsonkeyup .= " return fn_txamaxlength(this,event);";              
         $arHtml[] = $this->get_opentag();
         $arHtml[] = htmlentities($this->innerhtml);
         $arHtml[] = $this->get_closetag();
@@ -126,7 +126,7 @@ class Textarea extends AbsHelper
         if($this->_js_onclick) $arOpenTag[] = "onclick=\"$this->_js_onclick\" ";
         if($this->jsonkeypress) $arOpenTag[] = "onon_keypress=\"$this->jsonkeypress\" ";        
         if($this->jsonkeydown) $arOpenTag[] = "onkeydown=\"$this->jsonkeydown\" ";
-        if($this->_jsonkeyup) $arOpenTag[] = "onkeyup=\"$this->_jsonkeyup\" ";
+        if($this->jsonkeyup) $arOpenTag[] = "onkeyup=\"$this->jsonkeyup\" ";
         if($this->jsonmouseover) $arOpenTag[] = "onmouseover=\"$this->jsonmouseover\" ";
         if($this->jsonmouseout) $arOpenTag[] = "onmouseout=\"$this->jsonmouseout\" ";
 

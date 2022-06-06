@@ -61,7 +61,7 @@ include_once("<anyfolder-you-create>/autoload.php");//downloaded from https://gi
 use TheFramework\Helpers\HelperInputText;
 $oInput = new HelperInputText();
 $oInput->name("txtMiFirstInput");
-$oInput->set_value("Hello World");
+$oInput->setvalue("Hello World");
 $oInput->add_class("form-control");
 $oInput->is_readonly();
 $oInput->required();

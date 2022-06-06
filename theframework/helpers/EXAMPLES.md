@@ -15,11 +15,11 @@ $o->show();
 use TheFramework\Helpers\Form\Input\Date;
 
 $o = new Date("someId");
-$o->set_value("06-12-2018");//ok
-$o->set_value("2018-12-06");//ok
-$o->set_value("20181206");//bad!
-$o->set_value("06122018");//bad!
-$o->set_value("06/12/2018");//ok
+$o->setvalue("06-12-2018");//ok
+$o->setvalue("2018-12-06");//ok
+$o->setvalue("20181206");//bad!
+$o->setvalue("06122018");//bad!
+$o->setvalue("06/12/2018");//ok
 $o->show();
 ```
 
@@ -47,7 +47,7 @@ $o->show();
 $o = new Hidden();
 $o->setid("someId2");
 $o->name("someName2");
-$o->set_value("this-is-a-date: 2018-12-08 09:02:00");
+$o->setvalue("this-is-a-date: 2018-12-08 09:02:00");
 $o->show();
 ```
 
@@ -159,7 +159,7 @@ $oForm->set_method("post");
 $oLabel = new Label("POST-name","Select one:");
 $oSelect = new Select([""=>"...","key1"=>"Txt 1","key2"=>"Txt 2","key3"=>"Txt 3","key4"=>"Txt 4"]);
 $oSelect->set_label($oLabel);
-//$oSelect->set_value_to_select("key3"); autoselect by key
+//$oSelect->setvalue_to_select("key3"); autoselect by key
 //$oSelect->readonly(); //autoselect by key and removes other keys
 $oButton = new Generic("Save");
 $oButton->add_extras("type","submit");
@@ -234,7 +234,7 @@ $oTr = new Tr();
 foreach($arLabel as $sLabel)
 {
     $oTh = new Td();
-    $oTh->settype("th");
+    $oTh->type("th");
     $oTh->setcomment(" this is a comment before Th");
     $oTh->set_js_onclick("alert('clicked on {$sLabel}')");
     $oTh->innerhtml($sLabel);
@@ -286,7 +286,7 @@ $oUl->add_style("background:grey");
 $oUl->add_style("width:100px");
 
 $oOl = new Xl();
-$oOl->settype("ol");
+$oOl->type("ol");
 $oOl->add_style("background:yellow;width:200px;");
 
 foreach($arItems as $i=>$sText)
@@ -343,7 +343,7 @@ echo "<br/><br/>";
 foreach($arButtons as $sType=>$sInnerHtml)
 {
     $oButton = new Button();
-    $oButton->settype($sType);
+    $oButton->type($sType);
 
     $oButton->innerhtml($sInnerHtml);
     if($sType=="submit")

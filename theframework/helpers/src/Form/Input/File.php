@@ -40,8 +40,8 @@ class File extends AbsHelper
         if($this->type) $arHtml[] = " type=\"$this->type\"";
         if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        if($this->_value || $this->_value=="0") $arHtml[] = " value=\"$this->_value\"";
-        //bug($this->_value,"input_file $this->id");
+        if($this->value || $this->value=="0") $arHtml[] = " value=\"$this->value\"";
+        //bug($this->value,"input_file $this->id");
         //propiedades html5
         if($this->_accept) $arHtml[] = " accept=\"$this->_accept\"";
         if($this->_maxsize) $arHtml[] = " maxsize=\"$this->_maxsize\"";
@@ -79,7 +79,7 @@ class File extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function set_value($value,$sVoid=null){$this->_value = $value;}
+    public function setvalue($value,$sVoid=null){$this->value = $value;}
     public function set_maxsize($iNumBytes){$this->_maxsize = $iNumBytes;}
     public function readonly($readonly=true){$this->readonly=$readonly;}
     public function disabled($disabled=true){$this->disabled=$disabled;}
@@ -88,7 +88,7 @@ class File extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function getname(){return $this->name;}
+    public function get_name(){return $this->name;}
     public function get_maxsize(){return $this->_maxsize;}
     public function is_readonly(){return $this->readonly;}
     public function get_accept(){return $this->_accept;}

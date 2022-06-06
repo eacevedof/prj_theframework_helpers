@@ -26,7 +26,7 @@ class Date extends AbsHelper
         $this->idprefix = "";//dtb
         $this->cSeparator = "/";
         $this->id = $id;
-        $this->_value = $value;
+        $this->value = $value;
         $this->maxlength  = $maxlength;
         $this->name = $name;
         if($class) $this->arclasses[] = $class;        
@@ -97,7 +97,7 @@ class Date extends AbsHelper
         $arHtml[] = " type=\"date\"";
         if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        if($this->_value) $arHtml[] = " value=\"".$this->get_converted($this->_value)."\"";
+        if($this->value) $arHtml[] = " value=\"".$this->get_converted($this->value)."\"";
 
         //propiedades html5
         if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
@@ -133,8 +133,8 @@ class Date extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
-    public function set_today(){$this->_convert_date_before_show = false;$this->_value = date("d/m/Y");}
+    public function setvalue($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
+    public function set_today(){$this->_convert_date_before_show = false;$this->value = date("d/m/Y");}
     public function in_fieldsetdiv($isOn=true){$this->_inFieldsetDiv = $isOn;}
     public function use_clearbutton($isOn=true){$this->_useClearButton = $isOn;}
     public function set_is_ipadiphone($isOn=true){$this->isIpadIphone = $isOn;}
@@ -145,8 +145,8 @@ class Date extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function getname(){return $this->name;}
-    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
+    public function get_name(){return $this->name;}
+    public function getvalue($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
     
 }//Date
 

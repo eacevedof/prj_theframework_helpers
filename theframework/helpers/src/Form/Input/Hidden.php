@@ -19,7 +19,7 @@ class Hidden extends AbsHelper
         $this->type = "hidden";
         $this->idprefix = "";
         $this->id = $id;
-        $this->_value = $value;
+        $this->value = $value;
         $this->name = $name;
         $this->extras = $extras;
     }
@@ -32,8 +32,8 @@ class Hidden extends AbsHelper
         if($this->type) $arHtml[] = " type=\"$this->type\"";
         if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        if($this->_value || $this->_value=="0") 
-            $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
+        if($this->value || $this->value=="0") 
+            $arHtml[] = " value=\"{$this->get_cleaned($this->value)}\"";
         //propiedades html5
         if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
         //atributos extras pe. para usar el quryselector
@@ -56,11 +56,11 @@ class Hidden extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function setvalue($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
     
     //**********************************
     //             GETS
     //**********************************
-    public function getname(){return $this->name;}
-    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
+    public function get_name(){return $this->name;}
+    public function getvalue($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
 }//HelperHidden

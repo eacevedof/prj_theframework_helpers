@@ -14,7 +14,7 @@ use TheFramework\Helpers\Form\Label;
 class Radio extends AbsHelper
 {
     private $_arOptions;
-    private $_value_to_check;
+    private $value_to_check;
     private $_legendtext;
     
     public function __construct($arOptions, $grpname, $legendtext=""
@@ -24,7 +24,7 @@ class Radio extends AbsHelper
         $this->type = "radio";
         $this->idprefix="";
         $this->_arOptions = $arOptions;
-        $this->_value_to_check = $valuetocheck;
+        $this->value_to_check = $valuetocheck;
        
         $this->name = $grpname;
         $this->_legendtext = $legendtext;
@@ -41,7 +41,7 @@ class Radio extends AbsHelper
         $i=0;
         foreach($this->_arOptions as $sValue => $sLabel)
         {
-            $isChecked = ($this->_value_to_check == $sValue);
+            $isChecked = ($this->value_to_check == $sValue);
             $id = $this->idprefix.$this->name."_".$i;
             $id = str_replace("[]","",$id);
             $oLabel = new Label($id, $sLabel, "lbl$id");
@@ -96,14 +96,14 @@ class Radio extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function set_value_to_check($value){$this->_value_to_check = $value;}
+    public function setvalue_to_check($value){$this->value_to_check = $value;}
     public function set_legendtext($value){$this->_legendtext = $value;}
     
     //**********************************
     //             GETS
     //**********************************
-    public function getname(){return $this->name;}
-    public function get_value_checked(){return $this->_value_to_check;}
+    public function get_name(){return $this->name;}
+    public function getvalue_checked(){return $this->value_to_check;}
     public function get_legendtext(){return $this->_legendtext;}
 }
 /*<form>

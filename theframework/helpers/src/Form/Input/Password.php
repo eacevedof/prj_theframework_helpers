@@ -22,7 +22,7 @@ class Password extends AbsHelper
         $this->type = "password";
         $this->id = $id;
         $this->name = $name;
-        $this->_value = $value;
+        $this->value = $value;
         $this->maxlength = $length;
         if($class) $this->arclasses[] = $class;
         $this->oLabel = $oLabel;
@@ -38,8 +38,8 @@ class Password extends AbsHelper
         if($this->type) $arHtml[] = " type=\"$this->type\"";
         if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
         if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        if($this->_value || $this->_value=="0") 
-            $arHtml[] = " value=\"{$this->get_cleaned($this->_value)}\"";
+        if($this->value || $this->value=="0") 
+            $arHtml[] = " value=\"{$this->get_cleaned($this->value)}\"";
         //propiedades html5
         if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
         if($this->disabled) $arHtml[] = " disabled";
@@ -74,7 +74,7 @@ class Password extends AbsHelper
     //             SETS
     //**********************************
     public function name($value){$this->name = $value;}
-    public function set_value($value,$asEntity=0){($asEntity)?$this->_value = htmlentities($value):$this->_value=$value;}
+    public function setvalue($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
     public function setmaxlength($iNumChars){$this->maxlength = $iNumChars;}
     public function readonly($readonly=true){parent::readonly($readonly);}
     public function disabled($disabled=true){parent::disabled($disabled);}
@@ -83,8 +83,8 @@ class Password extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function getname(){return $this->name;}
-    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->_value); else return $this->_value;}
+    public function get_name(){return $this->name;}
+    public function getvalue($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
     public function getmaxlength(){return $this->maxlength;}
     public function is_readonly(){return $this->readonly;}
     

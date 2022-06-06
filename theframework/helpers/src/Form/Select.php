@@ -202,11 +202,11 @@ class Select extends AbsHelper
     //**********************************
     //             SETS
     //**********************************
-    //protected function set_value(){;}
+    //protected function setvalue(){;}
     
     public function readonly($readonly=true){$this->readonly = $readonly;}
     public function name($value){$this->name = $value;}
-    public function set_value_to_select($mxValues){$this->mxValuesToSelect = $mxValues;}
+    public function setvalue_to_select($mxValues){$this->mxValuesToSelect = $mxValues;}
     public function set_null_option_text($value){$this->_null_option = $value;}
     public function set_multiple_size($value)
     {
@@ -217,7 +217,7 @@ class Select extends AbsHelper
     /**
      * Usar en caso de aplicar el atributo disabled: set_extras("disabled");
      */
-    public function set_selected_value_as_hidden_on()
+    public function set_selectedvalue_as_hidden_on()
     {
         $this->_selected_as_hidden = "
         <input type=\"hidden\" name=\"$this->name\" id=\"$this->id\" value=\"$this->mxValuesToSelect\"/>\n";
@@ -228,8 +228,8 @@ class Select extends AbsHelper
     //**********************************
     //             GETS
     //**********************************
-    public function getname(){return $this->name;}
-    //public function get_value(){return $this->_value;}
-    public function get_selected_value(){return $this->mxValuesToSelect;}
+    public function get_name(){return $this->name;}
+    //public function getvalue(){return $this->value;}
+    public function get_selectedvalue(){return $this->mxValuesToSelect;}
     public function get_closetag(){return parent::get_closetag();}
 }

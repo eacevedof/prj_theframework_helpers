@@ -212,7 +212,7 @@ class Typed extends HelperTableBasic
         if($arProperties["onclick"]) $oInputText->set_js_onclick($arProperties["onclick"]);
         if($arProperties["onfocus"]) $oInputText->setjsonfocus($arProperties["onfocus"]);
         if($arProperties["readonly"]) $oInputText->readonly();
-        $oInputText->set_value($this->get_fieldvalue_byname($arRow,$sFieldName));
+        $oInputText->setvalue($this->get_fieldvalue_byname($arRow,$sFieldName));
         return $oInputText->get_html();
     }
     
@@ -226,7 +226,7 @@ class Typed extends HelperTableBasic
         $oSelect->setid("sel$sCellPos");
         $oSelect->name("sel$sCellPos");
         $oSelect->set_options($this->get_select_options($sFieldName));
-        $oSelect->set_value_to_select($this->get_fieldvalue_byname($arRow,$sFieldName));
+        $oSelect->setvalue_to_select($this->get_fieldvalue_byname($arRow,$sFieldName));
         return $oSelect->get_html();
     } 
     
@@ -246,11 +246,11 @@ class Typed extends HelperTableBasic
         if(is_array($arProperties) && in_array("forchecked",array_keys($arProperties)))
         {
             if($arProperties["forchecked"]==$sFieldValue)
-                $oCheckbox->set_values_to_check($this->get_keys_as_string($arRow));
+                $oCheckbox->setvalues_to_check($this->get_keys_as_string($arRow));
         }
         //si no hay valor configurado para marcado siempre que exista un valor que no sea "falsi" se da por seleccionado
         elseif($sFieldValue) 
-            $oCheckbox->set_values_to_check($this->get_keys_as_string($arRow));
+            $oCheckbox->setvalues_to_check($this->get_keys_as_string($arRow));
         
         return $oCheckbox->get_html();
     }
