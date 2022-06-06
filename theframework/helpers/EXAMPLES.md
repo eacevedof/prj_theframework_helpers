@@ -236,7 +236,7 @@ foreach($arLabel as $sLabel)
     $oTh = new Td();
     $oTh->type("th");
     $oTh->setcomment(" this is a comment before Th");
-    $oTh->set_js_onclick("alert('clicked on {$sLabel}')");
+    $oTh->setjsonclick("alert('clicked on {$sLabel}')");
     $oTh->innerhtml($sLabel);
     $oTr->add_td($oTh);
 }
@@ -349,7 +349,7 @@ foreach($arButtons as $sType=>$sInnerHtml)
     if($sType=="submit")
     {
         $oButton->add_style("background:red;color:white");
-        $oButton->set_js_onclick("alert('submit.clicked')");
+        $oButton->setjsonclick("alert('submit.clicked')");
     }
     elseif($sType=="reset")
     {

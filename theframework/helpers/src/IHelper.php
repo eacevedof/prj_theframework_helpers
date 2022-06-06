@@ -12,5 +12,4 @@ interface IHelper
 
     public function show(): void;
 
-    public function add(IHelper $helper): void;
 }

@@ -82,8 +82,8 @@ class Td extends AbsHelper
         //eventos
         if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
         if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->_js_onclick) $arHtml[] = " onclick=\"$this->_js_onclick\"";
-        if($this->jsonkeypress) $arHtml[] = " onon_keypress=\"$this->jsonkeypress\"";
+        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
+        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
         if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
         if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
         if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\""; 

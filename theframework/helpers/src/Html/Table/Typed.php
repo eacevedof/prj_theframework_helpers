@@ -209,7 +209,7 @@ class Typed extends HelperTableBasic
         if($arProperties["class"]) $oInputText->add_class($arProperties["class"]);
         //@TODOTEMPLATE
         else $oInputText->add_class("input-small");
-        if($arProperties["onclick"]) $oInputText->set_js_onclick($arProperties["onclick"]);
+        if($arProperties["onclick"]) $oInputText->setjsonclick($arProperties["onclick"]);
         if($arProperties["onfocus"]) $oInputText->setjsonfocus($arProperties["onfocus"]);
         if($arProperties["readonly"]) $oInputText->readonly();
         $oInputText->value($this->get_fieldvalue_byname($arRow,$sFieldName));
@@ -283,7 +283,7 @@ class Typed extends HelperTableBasic
         $sCellPos = "$iNumRow"."_$iNumColumn";
         $oButton->setid("butInsert$sCellPos");
         $oButton->innerhtml("Save");
-        $oButton->set_js_onclick("alert('new');");
+        $oButton->setjsonclick("alert('new');");
         //@TODOTEMPLATE
         $oButton->add_class("btn btn-alt btn-success");
         $oButton->add_extras("cellpos",$sCellPos);
@@ -299,7 +299,7 @@ class Typed extends HelperTableBasic
         $oButton->innerhtml("Save");
         //@TODOTEMPLATE
         $oButton->add_class("btn btn-alt btn-success");
-        $oButton->set_js_onclick("alert('TODO: Hi! I gonna save you');");        
+        $oButton->setjsonclick("alert('TODO: Hi! I gonna save you');");        
         $oButton->add_extras("cellpos",$sCellPos);
         return $oButton->get_html();
     }

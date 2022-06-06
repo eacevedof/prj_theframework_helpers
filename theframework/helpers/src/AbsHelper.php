@@ -70,8 +70,14 @@ abstract class AbsHelper implements IHelper
     {
         $tmp = [];
         foreach($this->arinnerhelpers as $mxValue) {
-            if (is_object($mxValue) && method_exists($mxValue, "get_html"))
+            if (is_object($mxValue) && method_exists($mxValue, "get_html")) {
+                if ($this->readonly) {
+                    if (method_exists($mxValue, "readonly")) {
+                        $mxValue->readonly();
+                    }
+                }
                 $tmp[] = $mxValue->get_html();
+            }
             elseif (is_string($mxValue))
                 $tmp[] = $mxValue;
         }

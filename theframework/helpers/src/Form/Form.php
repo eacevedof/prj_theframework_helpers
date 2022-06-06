@@ -41,7 +41,7 @@ class Form extends AbsHelper
         $this->_js_onsubmit = $onsubmit;
     }
 
-    public function get_html()
+    public function get_html(): string
     {  
         $arHtml = [];
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";       
@@ -56,29 +56,9 @@ class Form extends AbsHelper
         $arHtml[] = $this->get_closetag();
 
         return implode("",$arHtml);
-    }//get_html
-    
-    protected function _load_inner_objects()
-    {
-        foreach($this->arinnerhelpers as $oObject)
-            //este objeto suele ser el wrapper
-            if(method_exists($oObject,"get_html"))
-            {
-                if($this->readonly)
-                {
-                    if(method_exists($oObject,"readonly"))
-                    {   
-                        $oObject->readonly();
-                        $oObject->add_class("readonly");
-                    }
-                }
-                $this->innerhtml .= $oObject->get_html();
-            }
-            elseif(is_string($mxValue))
-                $this->innerhtml .= $mxValue;
-    }//load_inner_objects
-    
-    public function get_opentag()
+    }
+
+    public function get_opentag(): string
     {
         $arOpenTag = [];
         $arOpenTag[] = "<$this->type";
@@ -87,9 +67,9 @@ class Form extends AbsHelper
         //eventos
         if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
         if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
-        if($this->jsonkeypress)$arOpenTag[] = " onon_keypress=\"$this->jsonkeypress\"";
-        if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
+        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
+        if($this->jsonkeypress)$arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
+        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
         if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
         if($this->_js_onsubmit) $arOpenTag[] = " onsubmit=\"$this->_js_onsubmit\"";
         if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";

@@ -43,8 +43,8 @@ class P extends AbsHelper
         //eventos
         if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
         if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->_js_onclick) $arOpenTag[] = " onclick=\"$this->_js_onclick\"";
-        if($this->jsonkeypress) $arOpenTag[] = " onon_keypress=\"$this->jsonkeypress\"";
+        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
+        if($this->jsonkeypress) $arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
         if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
         if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
         if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\"";        

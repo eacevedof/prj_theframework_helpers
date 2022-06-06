@@ -886,7 +886,7 @@ class Basic extends HelperTable
                     $arNoOrder=array("delete","detail","singlepick","quarantine");
                     if($this->isOrdenable && !(in_array($sFieldName,$arNoOrder) || strstr($sFieldName,"virtual_")))
                     {    
-                        $oTh->set_js_onclick("order_by(this);");
+                        $oTh->setjsonclick("order_by(this);");
                         $oTh->setjsonmouseover("on_thover(this,'#000','#B2B2B2');");
                         $oTh->setjsonmouseout("on_thout(this);");
                     }
@@ -933,7 +933,7 @@ class Basic extends HelperTable
             if($this->isCheckOnRowclick)  
             {    
                 $sPostKey = $this->build_postkey();
-                $oTr->set_js_onclick("rowcheck('$iNumRow','$sPostKey');");
+                $oTr->setjsonclick("rowcheck('$iNumRow','$sPostKey');");
                 //$oTr->on_change("alert('changed')");//no escucha este evento
             }
             
@@ -1123,7 +1123,7 @@ class Basic extends HelperTable
         $oHidKey = new HelperInputHidden("hidKeySingle_$iNumRow");        
         $oHidDesc = new HelperInputHidden("hidDescSingle_$iNumRow");
 
-        $oButton->set_js_onclick("singleadd($iNumRow,'$sIdDestKey','$sIdDestDesc',$doClose);");
+        $oButton->setjsonclick("singleadd($iNumRow,'$sIdDestKey','$sIdDestDesc',$doClose);");
 
         $sHtmlButton = "";
         
@@ -1162,7 +1162,7 @@ class Basic extends HelperTable
             $oChekbox->set_options(array($sFldKeyNames=>null));
             $oChekbox->setid("pkeys_all");
             $oChekbox->name("pkeys_all");
-            $oChekbox->set_js_onclick("check_all();");
+            $oChekbox->setjsonclick("check_all();");
             $sHtmlCheck .= $oChekbox->get_html();
         }    
         else//No es un keymerge entonces se crea una caja por key
@@ -1171,7 +1171,7 @@ class Basic extends HelperTable
                 $oChekbox->set_options(array($sFldKeyName=>null));
                 $oChekbox->setid($sFldKeyName."_all");
                 $oChekbox->name($sFldKeyName."_all");
-                $oChekbox->set_js_onclick("check_all('$sFldKeyName"."_all','$sFldKeyName"."[]');");
+                $oChekbox->setjsonclick("check_all('$sFldKeyName"."_all','$sFldKeyName"."[]');");
                 $sHtmlCheck .= $oChekbox->get_html();
             }
             return $sHtmlCheck;
