@@ -54,14 +54,6 @@ final class Form extends AbsHelper
             ->enctype($enctype)
             ->on_submit($onsubmit)
         ;
-
-
-        
-        $this->extras = $extras;
-        $this->method = $method;
-        $this->action = $action;
-        $this->enctype = $enctype;
-        $this->jsonsubmit = $onsubmit;
     }
 
     public function get_html(): string

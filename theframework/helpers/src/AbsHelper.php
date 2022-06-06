@@ -112,6 +112,7 @@ abstract class AbsHelper implements IHelper
     
     public function add_class(string $class): self {if($class) $this->arclasses[] = $class; return $this;}
     public function style(string $style): self {$this->arstyles = []; if($style) $this->arstyles[] = $style; return $this;}
+    public function add_style(string $style): self {if($style) $this->arstyles[] = $style; return $this;}
 
     public function add_inner_object(IHelper|string $mxValue): self
     {
