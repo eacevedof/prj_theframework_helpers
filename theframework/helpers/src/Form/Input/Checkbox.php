@@ -63,7 +63,7 @@ class Checkbox extends AbsHelper
         $this->oFieldset = $oFieldset;
     }//__construct
 
-    public function get_html()
+    public function get_html(): string
     {  
         $sHtmlToReturn ="";
         if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
