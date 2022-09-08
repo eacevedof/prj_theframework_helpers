@@ -1407,7 +1407,7 @@ class TheFramework
     */
     public function remove_first_char(&$sString,$cLastChar="/")
     {
-        $cFirstChar = $sString{0};
+        $cFirstChar = substr($sString, 0);
         if($cFirstChar == $cLastChar)
             $sString = substr($sString,1);
     }
@@ -1415,7 +1415,7 @@ class TheFramework
     public function remove_last_char(&$sString,$cLastChar="/")
     {
         $iStrLen = strlen($sString);
-        $cLast = $sString{$iStrLen-1};
+        $cLast = substr($sString, -1, 1);
         
         if($cLast == $cLastChar)
             $sString = substr($sString,0,$iStrLen-1);
@@ -1425,7 +1425,7 @@ class TheFramework
     {
         $iLen = strlen($sURL);
         if($iLen>0)
-            $cLastChar = $sURL{$iLen-1};
+            $cLastChar = substr($sURL, -1, 1);
         return ($cLastChar == "/");
     }
             
