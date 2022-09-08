@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<!-- sitemap.xml 1.0.1 -->
+<url>
+  <loc>http://helpers.theframework.es/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/versions/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-theframework/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-theframework/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-anchor/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-anchor/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-button-basic/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-button-basic/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-checkbox/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-checkbox/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-link/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-link/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-div/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-div/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-form-fieldset/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-form-fieldset/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-form-legend/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-form-legend/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-form/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-form/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-pdf-cell/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-pdf-cell/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-googlemaps-3/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-googlemaps-3/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-image/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-image/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-date/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-date/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-file/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-file/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-hidden/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-hidden/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-password/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-password/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-text/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-input-text/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-label/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-label/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-p/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-p/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-radio/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-radio/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-raw/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-raw/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-select/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-select/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-span/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-span/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-style/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-style/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-basic/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-basic/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-raw/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-raw/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-td/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-td/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-tr/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-table-tr/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-text-area/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-text-area/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-ul-li/examples/</loc>
+</url>
+<url>
+  <loc>http://helpers.theframework.es/helper-ul-li/</loc>
+</url>
+</urlset>

@@ -18,10 +18,7 @@ final class NavMenuHelper
         $requri = $this->_load_request()->get_request_uri();
         $selected = "current-menu-item";
         $navmenu = [
-            "contacto" => Routes::url("home.contact"),
-            "eventos" => Routes::url("home.events"),
-            "nosotros" => Routes::url("home.we"),
-            "la-carta" => Routes::url("home.themenu"),
+            "nosotros" => Routes::url("home.versions"),
             "inicio" => Routes::url("home.index"),
         ];
 

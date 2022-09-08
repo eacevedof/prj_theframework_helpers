@@ -13,7 +13,7 @@ final class HomeController extends OpenController
 {
     use SessionTrait;
 
-    private const CACHE_TIME_IN_SECS = 3600 * 8;
+    private const CACHE_TIME_IN_SECS = 0;// 3600 * 8;
 
     public function index(): void
     {
@@ -27,66 +27,15 @@ final class HomeController extends OpenController
         $this->view->render();
     }
 
-    public function we(): void
+    public function versions(): void
     {
-        $seo = SeoService::get_meta("home.we");
+        $seo = SeoService::get_meta("home.versions");
         $this->set_layout("open/tema/home")
             ->add_var(PageType::TITLE, $seo["title"])
             ->add_var(PageType::H1, $seo["h1"])
             ->add_var("seo", $seo)
             ->cache(self::CACHE_TIME_IN_SECS);
         unset($seo);
-        $this->view->render();
-    }
-
-    public function the_menu(): void
-    {
-        $seo = SeoService::get_meta("home.themenu");
-        $this->set_layout("open/tema/home")
-            ->add_var(PageType::TITLE, $seo["title"])
-            ->add_var(PageType::H1, $seo["h1"])
-            ->add_var("seo", $seo)
-            ->cache(self::CACHE_TIME_IN_SECS);
-        unset($seo);
-        $this->view->render();
-    }
-
-    public function events(): void
-    {
-        $seo = SeoService::get_meta("home.events");
-        $this->set_layout("open/tema/home")
-            ->add_var(PageType::TITLE, $seo["title"])
-            ->add_var(PageType::H1, $seo["h1"])
-            ->add_var("seo", $seo)
-            ->cache(self::CACHE_TIME_IN_SECS);
-        unset($seo);
-        $this->view->render();
-    }
-
-    public function search(): void
-    {
-        $this->response->location(Routes::url("home.index"));
-    }
-
-    public function contact(): void
-    {
-        $this->_load_session();
-        $post = $this->session->get_once("contact-error-post", []);
-        $error = $this->session->get_once("contact-error-message", "");
-        $success = $this->session->get_once("contact-success", "");
-        $fields = $this->session->get_once("contact-error-fields", []);
-
-        $seo = SeoService::get_meta("home.contact");
-        $this->set_layout("open/tema/home")
-            ->add_var(PageType::TITLE, $seo["title"])
-            ->add_var(PageType::H1, $seo["h1"])
-            ->add_var(PageType::CSRF, SF::get(CsrfService::class)->get_token())
-            ->add_var("seo", $seo)
-            ->add_var("post", $post)
-            ->add_var("error", $error)
-            ->add_var("fields", $fields)
-            ->add_var( "success", $success);
-        unset($post, $error, $success, $fields, $seo);
         $this->view->render();
     }
 

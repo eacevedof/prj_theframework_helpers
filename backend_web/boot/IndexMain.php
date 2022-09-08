@@ -81,7 +81,7 @@ final class IndexMain
                 ?: "en";
     }
 
-    private function _error_response(array $response): void
+    private static function _error_response(array $response): void
     {
         $jsonheader = array_filter(getallheaders(), function ($v, $k) {
             $k = strtolower(trim($k));

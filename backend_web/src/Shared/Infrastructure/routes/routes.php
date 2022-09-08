@@ -1,34 +1,16 @@
 <?php
 return [
     [
-        "url"=>"/nosotros",
+        "url"=>"/versions",
         "controller"=>"App\Open\Home\Infrastructure\Controllers\HomeController",
-        "method"=>"we", "allowed"=>["get"],
-        "name"=>"home.we"
+        "method"=>"versions", "allowed"=>["get"],
+        "name"=>"home.versions"
     ],
     [
-        "url"=>"/la-carta",
+        "url"=>"/versions",
         "controller"=>"App\Open\Home\Infrastructure\Controllers\HomeController",
-        "method"=>"the_menu", "allowed"=>["get"],
-        "name"=>"home.themenu"
-    ],
-    [
-        "url"=>"/eventos",
-        "controller"=>"App\Open\Home\Infrastructure\Controllers\HomeController",
-        "method"=>"events", "allowed"=>["get"],
-        "name"=>"home.events"
-    ],
-    [
-        "url"=>"/contacto",
-        "controller"=>"App\Open\Home\Infrastructure\Controllers\HomeController",
-        "method"=>"contact", "allowed"=>["get"],
-        "name"=>"home.contact"
-    ],
-    [
-        "url"=>"/buscar",
-        "controller"=>"App\Open\Home\Infrastructure\Controllers\HomeController",
-        "method"=>"search", "allowed"=>["get"],
-        "name"=>"home.search"
+        "method"=>"versions", "allowed"=>["get"],
+        "name"=>"home.versions"
     ],
     [
         "url"=>"/",
@@ -55,13 +37,6 @@ return [
         "url"=>"/trs",
         "controller"=>"App\Open\Home\Infrastructure\Controllers\HomeController",
         "method"=>"trs", "allowed"=>["get"],
-    ],
-
-    [
-        "url"=>"/contact-send",
-        "controller"=>"App\Open\Home\Infrastructure\Controllers\ContactSendController",
-        "method"=>"send", "allowed"=>["post"],
-        "name"=>"home.contactsend"
     ],
 
     ["url"=>"/error/bad-request-400","controller"=>"App\Open\Errors\Infrastructure\Controllers\ErrorsController","method"=>"badrequest_400", "name"=>"error.400"],
