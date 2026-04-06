@@ -165,7 +165,7 @@ final class FpdfCell
         return $this->align;
     }
 
-    public function getUsefill(): bool
+    public function isFill(): bool
     {
         return $this->isFill;
     }
@@ -210,7 +210,7 @@ final class FpdfCell
         return $this->backColor;
     }
 
-    public function isResetcolors(): bool
+    public function isResetColors(): bool
     {
         return $this->isResetColors;
     }

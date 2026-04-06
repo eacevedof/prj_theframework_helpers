@@ -120,9 +120,6 @@ final class GoogleMaps3
 
     private function getJsAsArrayTableFromMarkers(array $markers): string
     {
-        if (empty($markers)) {
-            $markers = [];
-        }
         $items = [];
         $jsArray = "[";
         foreach ($markers as $row) {
@@ -173,7 +170,7 @@ final class GoogleMaps3
         return "'{$value}'";
     }
 
-    public function distanceCalculation(array $point1, array $point2): float
+    public function calculateDistance(array $point1, array $point2): float
     {
         $x1 = $point1["latitude"];
         $y1 = $point1["longitude"];
@@ -263,7 +260,7 @@ final class GoogleMaps3
             $point1["longitude"] = $this->markers[$i]["longitude"];
             $point2["latitude"] = $this->markers[$i + 1]["latitude"];
             $point2["longitude"] = $this->markers[$i + 1]["longitude"];
-            $distance += $this->distanceCalculation($point1, $point2);
+            $distance += $this->calculateDistance($point1, $point2);
         }
         return (float)$distance;
     }
@@ -351,50 +348,48 @@ final class GoogleMaps3
     public function getLatlongFromAddress(array $address): array
     {
         $ll = ["latitude" => "", "longitude" => ""];
-
-        if (!empty($address)) {
-            $urlApiGeocode = $this->urlApiGeocode;
-            $addrForUrl = join(", ", $address);
-            $addrForUrl = utf8_encode($addrForUrl);
-            $addrForUrl = urldecode($addrForUrl);
-            $addrForUrl = str_replace(" ", "+", $addrForUrl);
-            $urlApiGeocode = $urlApiGeocode . "?address=" . $addrForUrl . "&sensor=false";
-            $xml = simplexml_load_file($urlApiGeocode);
-
-            if ($this->useDelay) {
-                usleep($this->delayTime);
-            }
-
-            if ($xml !== false) {
-                $xmlStatus = $xml->status;
-                if (strcmp($xmlStatus, "OK") === 0) {
-                    $latitude = (float)$xml->result->geometry->location->lat;
-                    $longitude = (float)$xml->result->geometry->location->lng;
-
-                    if ($this->doNarrowSearch) {
-                        if ($this->isInRangeLatlong($latitude, $longitude)) {
-                            $ll["latitude"] = $latitude;
-                            $ll["longitude"] = $longitude;
-                            $this->message = "Address found";
-                        } else {
-                            $this->setMessageError("Address out of range: Lat:{$latitude}, Long:{$longitude}");
-                        }
-                    } else {
-                        $ll["latitude"] = $latitude;
-                        $ll["longitude"] = $longitude;
-                        $this->message = "Address found";
-                    }
-                } else {
-                    $this->setMessageError("Address could not be geolocated. Status={$xmlStatus}");
-                }
-            } else {
-                $this->setMessageError("Could not create xml from: {$urlApiGeocode}");
-            }
+        if (empty($address)) {
+            return $ll;
         }
+
+        $urlApiGeocode = $this->urlApiGeocode;
+        $addrForUrl = join(", ", $address);
+        $addrForUrl = utf8_encode($addrForUrl);
+        $addrForUrl = urldecode($addrForUrl);
+        $addrForUrl = str_replace(" ", "+", $addrForUrl);
+        $urlApiGeocode = $urlApiGeocode . "?address=" . $addrForUrl . "&sensor=false";
+        $xml = simplexml_load_file($urlApiGeocode);
+
+        if ($this->useDelay) {
+            usleep($this->delayTime);
+        }
+
+        if ($xml === false) {
+            $this->setMessageError("Could not create xml from: {$urlApiGeocode}");
+            return $ll;
+        }
+
+        $xmlStatus = $xml->status;
+        if (strcmp($xmlStatus, "OK") !== 0) {
+            $this->setMessageError("Address could not be geolocated. Status={$xmlStatus}");
+            return $ll;
+        }
+
+        $latitude = (float)$xml->result->geometry->location->lat;
+        $longitude = (float)$xml->result->geometry->location->lng;
+
+        if ($this->doNarrowSearch && !$this->isInRangeLatLong($latitude, $longitude)) {
+            $this->setMessageError("Address out of range: Lat:{$latitude}, Long:{$longitude}");
+            return $ll;
+        }
+
+        $ll["latitude"] = $latitude;
+        $ll["longitude"] = $longitude;
+        $this->message = "Address found";
         return $ll;
     }
 
-    private function isInRangeLatlong(float $latitude = 0.0, float $longitude = 0.0): bool
+    private function isInRangeLatLong(float $latitude = 0.0, float $longitude = 0.0): bool
     {
         return (
             $this->compareFloat($latitude, "<", $this->narrowLat["max"]) &&
