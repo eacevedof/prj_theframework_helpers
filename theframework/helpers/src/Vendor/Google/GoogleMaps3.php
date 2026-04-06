@@ -6,6 +6,18 @@
  */
 namespace TheFramework\Helpers\Vendor;
 
+use TheFramework\Helpers\Enums\ColorEnum;
+use TheFramework\Helpers\Enums\CompareOperatorEnum;
+use TheFramework\Helpers\Enums\RangeKeyEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\ApiStatusEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\MapTypeEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\MarkerFieldEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\PointKeyEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\RouteDataKeyEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\RouteModeEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\SizeUnitEnum;
+use TheFramework\Helpers\Enums\GoogleMaps\DistanceTimeKeyEnum;
+
 final class GoogleMaps3
 {
     private string $signature = "";
@@ -25,17 +37,17 @@ final class GoogleMaps3
 
     private string $markers = "[]";
     private bool $useMakersNumbers = true;
-    private string $markerColor = "green";
+    private string $markerColor = ColorEnum::GREEN;
     private bool $drawLinesEnabled = false;
 
     private string $idDivContainer = "'map_canvas'";
     private int $width = 800;
     private int $height = 600;
-    private string $unitWH = "px";
+    private string $unitWH = SizeUnitEnum::PX;
 
-    private string $routeMode = "driving";
+    private string $routeMode = RouteModeEnum::DRIVING;
     private bool $drawRoutesEnabled = false;
-    private string $routeColor = "green";
+    private string $routeColor = ColorEnum::GREEN;
     private float $routeAlpha = 0.5;
     private int $routeWidth = 3;
 
@@ -104,10 +116,10 @@ final class GoogleMaps3
         $jsArray = "[";
         foreach ($this->routes as $routeData) {
             $jsRoute = "[";
-            $jsRoute .= $this->getJsAsArrayTableFromMarkers($routeData["dots"]);
-            $jsRoute .= "," . $this->getJsAsArrayListOfStops($routeData["stops"]);
-            $jsRoute .= "," . $this->getAsJsString($routeData["pincolor"]);
-            $jsRoute .= "," . $this->getAsJsString($routeData["tracecolor"]);
+            $jsRoute .= $this->getJsAsArrayTableFromMarkers($routeData[RouteDataKeyEnum::DOTS]);
+            $jsRoute .= "," . $this->getJsAsArrayListOfStops($routeData[RouteDataKeyEnum::STOPS]);
+            $jsRoute .= "," . $this->getAsJsString($routeData[RouteDataKeyEnum::PINCOLOR]);
+            $jsRoute .= "," . $this->getAsJsString($routeData[RouteDataKeyEnum::TRACECOLOR]);
             $jsRoute .= "]";
             $jsRoutes[] = $jsRoute;
         }
@@ -160,11 +172,11 @@ final class GoogleMaps3
 
     private function getMarkerFieldAsJsValue(string $key, mixed $fieldValue): mixed
     {
-        if (in_array($key, ["content", "title"])) {
+        if (in_array($key, [MarkerFieldEnum::CONTENT, MarkerFieldEnum::TITLE])) {
             return $this->getAsJsString($fieldValue);
         }
 
-        if (in_array($key, ["number", "latitude", "longitude", "zindex"])) {
+        if (in_array($key, [MarkerFieldEnum::NUMBER, MarkerFieldEnum::LATITUDE, MarkerFieldEnum::LONGITUDE, MarkerFieldEnum::ZINDEX])) {
             return $fieldValue;
         }
 
@@ -178,10 +190,10 @@ final class GoogleMaps3
 
     public function calculateDistance(array $point1, array $point2): float
     {
-        $x1 = $point1["latitude"];
-        $y1 = $point1["longitude"];
-        $x2 = $point2["latitude"];
-        $y2 = $point2["longitude"];
+        $x1 = $point1[PointKeyEnum::LATITUDE];
+        $y1 = $point1[PointKeyEnum::LONGITUDE];
+        $x2 = $point2[PointKeyEnum::LATITUDE];
+        $y2 = $point2[PointKeyEnum::LONGITUDE];
 
         if (!$this->areValidCoordinates($x1, $y1, $x2, $y2)) {
             return (float)round($x1, 2);
@@ -198,7 +210,7 @@ final class GoogleMaps3
 
     public function getDistanceAndTime(array $point1, array $point2): array
     {
-        $timeDistance = ["time" => "", "distance" => ""];
+        $timeDistance = [DistanceTimeKeyEnum::TIME => "", DistanceTimeKeyEnum::DISTANCE => ""];
         $urlDistanceOrig = $this->buildDistanceMatrixUrl($point1, $point2);
         $urlDistanceSigned = $this->getUrlByKeypriority($urlDistanceOrig);
 
@@ -216,7 +228,7 @@ final class GoogleMaps3
         }
 
         $xmlStatus = $xml->status;
-        if (strcmp($xmlStatus, "OK") !== 0) {
+        if (strcmp($xmlStatus, ApiStatusEnum::OK) !== 0) {
             $this->setMessageError("Distance calculation failed. Status={$xmlStatus}");
             $this->writeLog($urlDistanceSigned, "distancematrix xml status fallido");
             return $timeDistance;
@@ -229,10 +241,10 @@ final class GoogleMaps3
 
     private function buildDistanceMatrixUrl(array $point1, array $point2): string
     {
-        $x1 = $point1["latitude"];
-        $y1 = $point1["longitude"];
-        $x2 = $point2["latitude"];
-        $y2 = $point2["longitude"];
+        $x1 = $point1[PointKeyEnum::LATITUDE];
+        $y1 = $point1[PointKeyEnum::LONGITUDE];
+        $x2 = $point2[PointKeyEnum::LATITUDE];
+        $y2 = $point2[PointKeyEnum::LONGITUDE];
 
         $params = [];
         if (!empty($this->clientId)) {
@@ -252,17 +264,17 @@ final class GoogleMaps3
 
     private function parseDistanceMatrixXml(object $xml): array
     {
-        $timeDistance = ["time" => "", "distance" => ""];
-        $timeDistance["time"]["min"] = (string)$xml->row->element->duration->text;
-        $timeDistance["time"]["sec"] = (string)$xml->row->element->duration->value;
-        $timeDistance["distance"]["m"] = (string)$xml->row->element->distance->value;
+        $timeDistance = [DistanceTimeKeyEnum::TIME => "", DistanceTimeKeyEnum::DISTANCE => ""];
+        $timeDistance[DistanceTimeKeyEnum::TIME][DistanceTimeKeyEnum::MIN] = (string)$xml->row->element->duration->text;
+        $timeDistance[DistanceTimeKeyEnum::TIME][DistanceTimeKeyEnum::SEC] = (string)$xml->row->element->duration->value;
+        $timeDistance[DistanceTimeKeyEnum::DISTANCE][DistanceTimeKeyEnum::M] = (string)$xml->row->element->distance->value;
 
-        $distanceInKm = ((float)$timeDistance["distance"]["m"]) / 1000;
+        $distanceInKm = ((float)$timeDistance[DistanceTimeKeyEnum::DISTANCE][DistanceTimeKeyEnum::M]) / 1000;
         $distanceInKm = number_format($distanceInKm, 3);
-        $timeDistance["distance"]["fkm"] = $distanceInKm;
-        $timeDistance["distance"]["km"] = number_format((float)$distanceInKm, 2);
-        $timeDistance["distance"]["km"] = str_replace(".", ",", $timeDistance["distance"]["km"]);
-        $timeDistance["distance"]["km"] .= " km";
+        $timeDistance[DistanceTimeKeyEnum::DISTANCE][DistanceTimeKeyEnum::FKM] = $distanceInKm;
+        $timeDistance[DistanceTimeKeyEnum::DISTANCE][DistanceTimeKeyEnum::KM] = number_format((float)$distanceInKm, 2);
+        $timeDistance[DistanceTimeKeyEnum::DISTANCE][DistanceTimeKeyEnum::KM] = str_replace(".", ",", $timeDistance[DistanceTimeKeyEnum::DISTANCE][DistanceTimeKeyEnum::KM]);
+        $timeDistance[DistanceTimeKeyEnum::DISTANCE][DistanceTimeKeyEnum::KM] .= " km";
 
         return $timeDistance;
     }
@@ -276,15 +288,15 @@ final class GoogleMaps3
 
     public function sumDistance(): float
     {
-        $point1 = ["latitude" => 0, "longitude" => 0];
-        $point2 = ["latitude" => 0, "longitude" => 0];
+        $point1 = [PointKeyEnum::LATITUDE => 0, PointKeyEnum::LONGITUDE => 0];
+        $point2 = [PointKeyEnum::LATITUDE => 0, PointKeyEnum::LONGITUDE => 0];
         $numMarkers = count($this->markers);
         $distance = 0;
         for ($i = 0; $i < $numMarkers - 1; $i++) {
-            $point1["latitude"] = $this->markers[$i]["latitude"];
-            $point1["longitude"] = $this->markers[$i]["longitude"];
-            $point2["latitude"] = $this->markers[$i + 1]["latitude"];
-            $point2["longitude"] = $this->markers[$i + 1]["longitude"];
+            $point1[PointKeyEnum::LATITUDE] = $this->markers[$i][PointKeyEnum::LATITUDE];
+            $point1[PointKeyEnum::LONGITUDE] = $this->markers[$i][PointKeyEnum::LONGITUDE];
+            $point2[PointKeyEnum::LATITUDE] = $this->markers[$i + 1][PointKeyEnum::LATITUDE];
+            $point2[PointKeyEnum::LONGITUDE] = $this->markers[$i + 1][PointKeyEnum::LONGITUDE];
             $distance += $this->calculateDistance($point1, $point2);
         }
         return (float)$distance;
@@ -379,7 +391,7 @@ final class GoogleMaps3
 
     public function getLatlongFromAddress(array $address): array
     {
-        $ll = ["latitude" => "", "longitude" => ""];
+        $ll = [PointKeyEnum::LATITUDE => "", PointKeyEnum::LONGITUDE => ""];
         if (empty($address)) {
             return $ll;
         }
@@ -394,7 +406,7 @@ final class GoogleMaps3
         }
 
         $xmlStatus = $xml->status;
-        if (strcmp($xmlStatus, "OK") !== 0) {
+        if (strcmp($xmlStatus, ApiStatusEnum::OK) !== 0) {
             $this->setMessageError("Address could not be geolocated. Status={$xmlStatus}");
             return $ll;
         }
@@ -407,8 +419,8 @@ final class GoogleMaps3
             return $ll;
         }
 
-        $ll["latitude"] = $latitude;
-        $ll["longitude"] = $longitude;
+        $ll[PointKeyEnum::LATITUDE] = $latitude;
+        $ll[PointKeyEnum::LONGITUDE] = $longitude;
         $this->message = "Address found";
         return $ll;
     }
@@ -432,30 +444,30 @@ final class GoogleMaps3
     private function isInRangeLatLong(float $latitude = 0.0, float $longitude = 0.0): bool
     {
         return (
-            $this->compareFloat($latitude, "<", $this->narrowLat["max"]) &&
-            $this->compareFloat($this->narrowLat["min"], "<", $latitude) &&
-            $this->compareFloat($longitude, "<", $this->narrowLong["max"]) &&
-            $this->compareFloat($this->narrowLong["min"], "<", $longitude)
+            $this->compareFloat($latitude, CompareOperatorEnum::LESS_THAN, $this->narrowLat[RangeKeyEnum::MAX]) &&
+            $this->compareFloat($this->narrowLat[RangeKeyEnum::MIN], CompareOperatorEnum::LESS_THAN, $latitude) &&
+            $this->compareFloat($longitude, CompareOperatorEnum::LESS_THAN, $this->narrowLong[RangeKeyEnum::MAX]) &&
+            $this->compareFloat($this->narrowLong[RangeKeyEnum::MIN], CompareOperatorEnum::LESS_THAN, $longitude)
         );
     }
 
-    private function compareFloat(float $float1, string $operator = "=", float $float2 = 0.0, int $precision = 10): bool|string
+    private function compareFloat(float $float1, string $operator = CompareOperatorEnum::EQUAL, float $float2 = 0.0, int $precision = 10): bool|string
     {
         switch (trim($operator)) {
-            case "=":
+            case CompareOperatorEnum::EQUAL:
                 return bccomp($float1, $float2, $precision) === 0;
-            case "<":
+            case CompareOperatorEnum::LESS_THAN:
                 return bccomp($float1, $float2, $precision) === -1;
-            case ">":
+            case CompareOperatorEnum::GREATER_THAN:
                 return bccomp($float1, $float2, $precision) === 1;
-            case "!=":
-                return !$this->compareFloat($float1, "=", $float2, $precision);
-            case ">=":
-                return $this->compareFloat($float1, ">", $float2, $precision)
-                    || $this->compareFloat($float1, "=", $float2, $precision);
-            case "<=":
-                return $this->compareFloat($float1, "<", $float2, $precision)
-                    || $this->compareFloat($float1, "=", $float2, $precision);
+            case CompareOperatorEnum::NOT_EQUAL:
+                return !$this->compareFloat($float1, CompareOperatorEnum::EQUAL, $float2, $precision);
+            case CompareOperatorEnum::GREATER_OR_EQUAL:
+                return $this->compareFloat($float1, CompareOperatorEnum::GREATER_THAN, $float2, $precision)
+                    || $this->compareFloat($float1, CompareOperatorEnum::EQUAL, $float2, $precision);
+            case CompareOperatorEnum::LESS_OR_EQUAL:
+                return $this->compareFloat($float1, CompareOperatorEnum::LESS_THAN, $float2, $precision)
+                    || $this->compareFloat($float1, CompareOperatorEnum::EQUAL, $float2, $precision);
             default:
                 return "operator error";
         }
@@ -616,7 +628,7 @@ final class GoogleMaps3
         }
     }
 
-    public function setSizeUnit(string $type = "pt"): void
+    public function setSizeUnit(string $type = SizeUnitEnum::PT): void
     {
         $this->unitWH = $type;
     }
@@ -631,17 +643,17 @@ final class GoogleMaps3
         $this->drawRoutesEnabled = $isOn;
     }
 
-    public function setRouteColor(string $color = "green"): void
+    public function setRouteColor(string $color = ColorEnum::GREEN): void
     {
         $this->routeColor = $color;
     }
 
-    public function setMarkerColor(string $color = "green"): void
+    public function setMarkerColor(string $color = ColorEnum::GREEN): void
     {
         $this->markerColor = $color;
     }
 
-    public function setRoutetype(string $type = "driving"): void
+    public function setRoutetype(string $type = RouteModeEnum::DRIVING): void
     {
         $this->routeMode = $type;
     }
