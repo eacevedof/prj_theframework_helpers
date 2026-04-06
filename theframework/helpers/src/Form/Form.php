@@ -11,10 +11,10 @@ use TheFramework\Helpers\IHelper;
 
 final class Form extends AbsHelper
 {
-    private const TYPE = "form";
-    public const METHOD_POST = "post";
-    public const METHOD_GET = "get";
-    public const ENCTYPE_MULTIPART = "multipart/form-data";
+    private const string TYPE = "form";
+    public const string METHOD_POST = "post";
+    public const string METHOD_GET = "get";
+    public const string ENCTYPE_MULTIPART = "multipart/form-data";
 
     private string $method = "";
     private string $enctype = "";

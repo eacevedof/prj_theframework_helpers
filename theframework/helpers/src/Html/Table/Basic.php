@@ -6,11 +6,11 @@
  */
 namespace TheFramework\Helpers\Html\Table;
 
-use TheFramework\Helpers\Html\Form\Fieldset;
-use TheFramework\Helpers\Html\Form\Form;
-use TheFramework\Helpers\Html\Form\Select;
-use TheFramework\Helpers\Html\Input\Hidden;
-use TheFramework\Helpers\Html\Input\Checkbox;
+use TheFramework\Helpers\Form\Fieldset;
+use TheFramework\Helpers\Form\Form;
+use TheFramework\Helpers\Form\Select;
+use TheFramework\Helpers\Form\Input\Hidden;
+use TheFramework\Helpers\Form\Input\Checkbox;
 use TheFramework\Helpers\Html\Anchor;
 use TheFramework\Helpers\Html\Button;
 
