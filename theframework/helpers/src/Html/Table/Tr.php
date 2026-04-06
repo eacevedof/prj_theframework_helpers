@@ -2,102 +2,180 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.1.2
  * @name TheFramework\Helpers\Html\Table\Tr
- * @date 25-06-2014 09:25 ESP
- * @file Tr.php
- * @requires
  */
 namespace TheFramework\Helpers\Html\Table;
+
 use TheFramework\Helpers\AbsHelper;
-class Tr extends AbsHelper
+
+final class Tr extends AbsHelper
 {
-    protected $isRowHead = false;
-    protected $isRowFoot = false;
-    protected $iColSpan = null;
-    protected $iRowSpan = null;
-    protected $iNumCols = 0;
-    
-    protected $sAttrRownumber;
-    
-    public function __construct
-    ($arinnerhelperss=[], $id="", $class="", $style="", $colspan=""
-            , $rowpan="", $extras=[])
-    {
+    private bool $isRowHead = false;
+    private bool $isRowFoot = false;
+    private ?string $colSpan = null;
+    private ?string $rowSpan = null;
+    private int $numCols = 0;
+    private string $attrRowNumber = "";
+
+    public function __construct(
+        array $innerHelpers = [],
+        string $id = "",
+        string $class = "",
+        string $style = "",
+        string $colSpan = "",
+        string $rowSpan = "",
+        array $extras = []
+    ) {
         $this->type = "tr";
-        $this->innerhtml = "";
-        $this->idprefix = "tr";
+        $this->innerHtml = "";
+        $this->idPrefix = "tr";
         $this->id = $id;
-        
-        //$this->innerhtml = $innertext;
-        $this->arinnerhelpers = $arinnerhelperss;
-        $this->iNumCols = count($this->arinnerhelpers);
-        $this->iColSpan = $colspan;
-        $this->iRowSpan = $rowpan;
-        if($class) $this->arclasses[] = $class;
-        if($style) $this->arStyles[] = $style;
+        $this->innerHelpers = $innerHelpers;
+        $this->numCols = count($this->innerHelpers);
+        $this->colSpan = $colSpan ?: null;
+        $this->rowSpan = $rowSpan ?: null;
+        if ($class) {
+            $this->classes[] = $class;
+        }
+        if ($style) {
+            $this->styles[] = $style;
+        }
         $this->extras = $extras;
     }
 
-    public function get_html()
+    public function getHtml(): string
     {
-        $arHtml[] = $this->get_opentag();
-        //$this->innerhtml .= $this->get_tds_as_string();
-        $this->_load_inner_objects();
-        if($this->innerhtml) $arHtml[] = $this->innerhtml;
-        $arHtml[] = $this->get_closetag();
-        return implode("",$arHtml);
+        $htmlParts = [];
+        $htmlParts[] = $this->getOpenTag();
+        $this->loadInnerObjects();
+        if ($this->innerHtml) {
+            $htmlParts[] = $this->innerHtml;
+        }
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
     }
-    
-    public function get_opentag() 
-    {
-         //tr
-        $arHtml[] = "<$this->type";
-        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
-        if($this->iRowSpan) $arHtml[] = " rowspan=\"$this->iRowSpan\"";
-        //eventos
-        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\""; 
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arHtml[] = " style=\"$this->style\"";
-        //atributos extras
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
-        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";  
-        if($this->sAttrRownumber!=="") $arHtml[] = " rownumber=\"$this->sAttrRownumber\"";  
-        $arHtml[] = ">\n";
-        return implode("",$arHtml);
-    }//get_opentag
-    
-    public function get_closetag(){ return parent::get_closetag();}
-        
-    //==================================
-    //             SETS
-    //==================================
-    public function set_colspan($value){$this->iColSpan = $value;}
-    public function set_objtds($arinnerhelpers=[]){$this->arinnerhelpers = $arinnerhelpers;$this->iNumCols = count($this->arinnerhelpers);}
-    public function set_as_rowhead($isOn=true){$this->isRowHead = $isOn;}
-    public function set_as_rowfoot($isOn=true){$this->isRowFoot = $isOn;}
-    public function set_attr_rownumber($value){$this->sAttrRownumber = $value;}
-    public function add_inner_object($mxValue){$this->arinnerhelpers[] = $mxValue; $this->iNumCols = count($this->arinnerhelpers);}
-    public function add_td(Td $oTd){$this->arinnerhelpers[] = $oTd; $this->iNumCols = count($this->arinnerhelpers);}
 
-    //==================================
-    //             GETS
-    //==================================
-    public function get_colspan(){return $this->iColSpan;}
-    public function get_objtds(){return $this->arinnerhelpers;}
-    public function is_rowhead(){return $this->isRowHead;}
-    public function is_rowfoot(){return $this->isRowFoot;}
-    public function get_num_columns(){return $this->iNumCols;}
-    
-}//Tr
+    public function getOpenTag(): string
+    {
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->rowSpan) {
+            $openTagParts[] = " rowspan=\"{$this->rowSpan}\"";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        if ($this->isPrimaryKey) {
+            $openTagParts[] = " pk=\"pk\"";
+        }
+        if ($this->attrDbtype) {
+            $openTagParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->attrRowNumber !== "") {
+            $openTagParts[] = " rownumber=\"{$this->attrRowNumber}\"";
+        }
+        $openTagParts[] = ">\n";
+        return implode("", $openTagParts);
+    }
+
+    public function getCloseTag(): string
+    {
+        return parent::getCloseTag();
+    }
+
+    public function setColSpan(string $value): void
+    {
+        $this->colSpan = $value;
+    }
+
+    public function setObjTds(array $innerHelpers = []): void
+    {
+        $this->innerHelpers = $innerHelpers;
+        $this->numCols = count($this->innerHelpers);
+    }
+
+    public function setAsRowHead(bool $isOn = true): void
+    {
+        $this->isRowHead = $isOn;
+    }
+
+    public function setAsRowFoot(bool $isOn = true): void
+    {
+        $this->isRowFoot = $isOn;
+    }
+
+    public function setAttrRowNumber(string $value): void
+    {
+        $this->attrRowNumber = $value;
+    }
+
+    public function addInnerObject(mixed $value): self
+    {
+        $this->innerHelpers[] = $value;
+        $this->numCols = count($this->innerHelpers);
+        return $this;
+    }
+
+    public function addTd(Td $td): void
+    {
+        $this->innerHelpers[] = $td;
+        $this->numCols = count($this->innerHelpers);
+    }
+
+    public function getColSpan(): ?string
+    {
+        return $this->colSpan;
+    }
+
+    public function getObjTds(): array
+    {
+        return $this->innerHelpers;
+    }
+
+    public function isRowHead(): bool
+    {
+        return $this->isRowHead;
+    }
+
+    public function isRowFoot(): bool
+    {
+        return $this->isRowFoot;
+    }
+
+    public function getNumColumns(): int
+    {
+        return $this->numCols;
+    }
+}

@@ -2,139 +2,154 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 2.0.0
  * @name TheFramework\Helpers\Html\Script
- * @file Script.php
- * @date 14-12-2018 10:46 (SPAIN)
- * @observations core library
  */
 namespace TheFramework\Helpers\Html;
+
 use TheFramework\Helpers\AbsHelper;
 
-class Script extends AbsHelper
-{ 
-    private $_tag;
-    protected $arSrc = [];
-    
-    //js que se moverán a la carpeta pública
-    protected $arPublic = [];
+final class Script extends AbsHelper
+{
+    private string $tag = "script";
+    private array $sources = [];
+    private array $publicFiles = [];
 
-    public function __construct($sType="")
+    public function __construct(string $type = "")
     {
-        $this->idprefix = "";
-        $this->_tag = "script";
-        $this->type = $sType;
+        $this->idPrefix = "";
+        $this->type = $type;
     }
- 
-    public function get_opentag() 
-    {
-        $arOpenTag[] = "<$this->_tag";
-        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
-        $arOpenTag[] = ">\n";
-        return implode("",$arOpenTag);
-    }//get_opentag
 
-    public function get_closetag(){return "\n</{$this->_tag}>";}//get_closetag
-
-    public function get_html()
-    {  
-        $arHtml[] = $this->get_opentag();
-        $this->load_inner_objects("\n");
-        $arHtml[] = $this->innerhtml;
-        $arHtml[] = $this->get_closetag();
-        return implode("",$arHtml);
-    }//get_html
-    
-    public function get_htmlsrc()
+    public function getOpenTag(): string
     {
-        //pr($this->arSrc);die;
-        $arHtml = [];
-        foreach($this->arSrc as $mxSrc)
-        {
-            $arTmp = [];       
-            if($this->type) 
-                $arTmp[] = "type=\"{$this->type}\"";
-                
-            if(is_string($mxSrc))
-            {
-                $arTmp[] = "src=\"$mxSrc\"";
-                $arHtml[] = "<script ".implode(" ",$arTmp)."></script>";
-            }
-            elseif(is_array($mxSrc))
-            {
-                foreach($mxSrc as $k=>$v)
-                    $arTmp[] = "$k=\"$v\"";
-                $arHtml[] = "<script ".implode(" ",$arTmp)."></script>";
-            }
-        }//foreach arSrc
-        return implode("\n",$arHtml);
-        
-    }//get_htmlsrc
-    
-    private function move($sFrom,$sTo,$sMode)
-    {
-        //bug("$sFrom,$sTo,$sMode","move");die;
-        switch($sMode) 
-        {
-            //solo copia si no existe
-            case "c":
-                if(is_file($sFrom) && !is_file($sTo))
-                {
-                    //pr("copying...");
-                    copy($sFrom,$sTo);
-                }
-            break;
-
-            //rescribe siempre
-            case "rw":
-                if(is_file($sFrom) && is_file($sTo))
-                {
-                    unlink($sTo);
-                    copy($sFrom,$sTo);
-                }
-            break;
-        
-            default:
-            break;
-        }//switch(mode)
-    }//move
-    
-    public function move_topublic()
-    {
-        foreach($this->arPublic as $arPublic)
-        {
-            //pr($arPublic,"arPublic");
-            $sFrom = $arPublic["from"];
-            $sTo = $arPublic["to"];
-            $sMode = $arPublic["mode"];
-            $this->move($sFrom,$sTo,$sMode);
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->tag}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
         }
-    }//move_topublic
-    
-    //**********************************
-    //             SETS
-    //**********************************
-    public function set_src($arSrc=[]){$this->arSrc = $arSrc;}    
-    public function add_src($sSrc){$this->arSrc[] = $sSrc;}
-    public function add_srcext($sSrc,$arExtra=[]){$this->arSrc[] = array_merge(["src"=>$sSrc],$arExtra);}
-    public function add_public($sPathFrom,$sPathTo,$sMode="c")
-    {
-        //pr("pathfrom:$sPathFrom,pathto:$sPathTo");
-        if($sPathFrom && $sPathTo)
-            $this->arPublic[] = ["from"=>$sPathFrom, "to"=>$sPathTo, "mode"=>$sMode];
-    }//add_public
-    
-    //**********************************
-    //             GETS
-    //**********************************
-    
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">\n";
+        return implode("", $openTagParts);
+    }
 
-    //**********************************
-    //           MAKE PUBLIC
-    //**********************************
-    public function show_opentag(){echo $this->get_opentag();}
-    public function show_closetag(){echo $this->get_closetag();}
-    public function show_htmlsrc(){echo $this->get_htmlsrc();}
-    
-}//Script
+    public function getCloseTag(): string
+    {
+        return "\n</{$this->tag}>";
+    }
+
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        $htmlParts[] = $this->getOpenTag();
+        $this->loadInnerObjectsWithSeparator("\n");
+        $htmlParts[] = $this->innerHtml;
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
+    }
+
+    private function loadInnerObjectsWithSeparator(string $separator): void
+    {
+        $innerParts = [];
+        foreach ($this->innerHelpers as $innerValue) {
+            if (is_object($innerValue) && method_exists($innerValue, "getHtml")) {
+                $innerParts[] = $innerValue->getHtml();
+            }
+            elseif (is_string($innerValue)) {
+                $innerParts[] = $innerValue;
+            }
+        }
+        if ($innerParts) {
+            $this->innerHtml .= implode($separator, $innerParts);
+        }
+    }
+
+    public function getHtmlSrc(): string
+    {
+        $htmlParts = [];
+        foreach ($this->sources as $source) {
+            $tmpParts = [];
+            if ($this->type) {
+                $tmpParts[] = "type=\"{$this->type}\"";
+            }
+
+            if (is_string($source)) {
+                $tmpParts[] = "src=\"{$source}\"";
+                $htmlParts[] = "<script " . implode(" ", $tmpParts) . "></script>";
+            }
+            elseif (is_array($source)) {
+                foreach ($source as $key => $value) {
+                    $tmpParts[] = "{$key}=\"{$value}\"";
+                }
+                $htmlParts[] = "<script " . implode(" ", $tmpParts) . "></script>";
+            }
+        }
+        return implode("\n", $htmlParts);
+    }
+
+    private function moveFile(string $from, string $to, string $mode): void
+    {
+        switch ($mode) {
+            case "c":
+                if (is_file($from) && !is_file($to)) {
+                    copy($from, $to);
+                }
+                break;
+
+            case "rw":
+                if (is_file($from) && is_file($to)) {
+                    unlink($to);
+                    copy($from, $to);
+                }
+                break;
+        }
+    }
+
+    public function moveToPublic(): void
+    {
+        foreach ($this->publicFiles as $publicFile) {
+            $from = $publicFile["from"];
+            $to = $publicFile["to"];
+            $mode = $publicFile["mode"];
+            $this->moveFile($from, $to, $mode);
+        }
+    }
+
+    public function setSrc(array $sources = []): void
+    {
+        $this->sources = $sources;
+    }
+
+    public function addSrc(string $src): void
+    {
+        $this->sources[] = $src;
+    }
+
+    public function addSrcExt(string $src, array $extra = []): void
+    {
+        $this->sources[] = array_merge(["src" => $src], $extra);
+    }
+
+    public function addPublic(string $pathFrom, string $pathTo, string $mode = "c"): void
+    {
+        if ($pathFrom && $pathTo) {
+            $this->publicFiles[] = ["from" => $pathFrom, "to" => $pathTo, "mode" => $mode];
+        }
+    }
+
+    public function showOpenTag(): void
+    {
+        echo $this->getOpenTag();
+    }
+
+    public function showCloseTag(): void
+    {
+        echo $this->getCloseTag();
+    }
+
+    public function showHtmlSrc(): void
+    {
+        echo $this->getHtmlSrc();
+    }
+}

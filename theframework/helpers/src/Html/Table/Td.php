@@ -2,112 +2,173 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.3
  * @name TheFramework\Helpers\Html\Table\Td
- * @date 11-04-2013 14:12
- * @file Td.php
- * @requires
  */
 namespace TheFramework\Helpers\Html\Table;
+
 use TheFramework\Helpers\AbsHelper;
 
-class Td extends AbsHelper
+final class Td extends AbsHelper
 {
-    private $_colspan = null;
-    private $_isHeader = false;
-    private $_attr_rownumber;
-    private $_attr_colnumber;
-    private $_attr_position;
-    
-    public function __construct($innerhtml="", $id="", $class="", $style="", $colspan="", $extras=[])
-    {
+    private ?string $colSpan = null;
+    private bool $isHeader = false;
+    private string $attrRowNumber = "";
+    private string $attrColNumber = "";
+    private string $attrPosition = "";
+
+    public function __construct(
+        string $innerHtml = "",
+        string $id = "",
+        string $class = "",
+        string $style = "",
+        string $colSpan = "",
+        array $extras = []
+    ) {
         $this->type = "td";
-        $this->idprefix = "td";
+        $this->idPrefix = "td";
         $this->id = $id;
-        
-        $this->innerhtml = $innerhtml;
-        $this->_colspan = $colspan;
-        if($class) $this->arclasses[] = $class;
-        if($style) $this->arStyles[] = $style;
+        $this->innerHtml = $innerHtml;
+        $this->colSpan = $colSpan ?: null;
+        if ($class) {
+            $this->classes[] = $class;
+        }
+        if ($style) {
+            $this->styles[] = $style;
+        }
         $this->extras = $extras;
     }
 
-    public function get_html()
-    {  
-        $arHtml = [];
-        $arHtml[] = $this->get_opentag();
-        //TODO puede que haya conflictos entre el add_inner_object y set_innerobject
-        //Hacer pruebas
-        $this->_load_inner_objects();
-        //Tengo que poner "" porque si el valor es mostrar un 0 o un espacio no lo mostraría
-        if($this->innerhtml!=="") $arHtml[] = $this->innerhtml;
-        $arHtml[] = $this->get_closetag();
-        return implode("",$arHtml);
-    }
-        
-    //**********************************
-    //             SETS
-    //**********************************
-    public function set_attr_rownumber($value){$this->_attr_rownumber = $value;}
-    public function set_attr_colnumber($value){$this->_attr_colnumber = $value;}
-    public function set_colspan($value){$this->_colspan = $value;}
-    public function set_as_header($isOn=true){$this->_isHeader=$isOn;
-    if($this->_isHeader)$this->type="th"; else $this->type="td";}
-
-    public function set_innerobject($mxHtmlObject)
+    public function getHtml(): string
     {
-        //si es un array de objetos
-        if(is_array($mxHtmlObject))
-            foreach($mxHtmlObject as $oHtml)
-            {
-                if(method_exists($oHtml,"get_html"))
-                    $this->innerhtml .= $oHtml->get_html();
+        $htmlParts = [];
+        $htmlParts[] = $this->getOpenTag();
+        $this->loadInnerObjects();
+        if ($this->innerHtml !== "") {
+            $htmlParts[] = $this->innerHtml;
+        }
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
+    }
+
+    public function getOpenTag(): string
+    {
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->colSpan) {
+            $openTagParts[] = " colspan=\"{$this->colSpan}\"";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->attrDbfield) {
+            $openTagParts[] = " dbfield=\"{$this->attrDbfield}\"";
+        }
+        if ($this->attrDbtype) {
+            $openTagParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->isPrimaryKey) {
+            $openTagParts[] = " pk=\"pk\"";
+        }
+        if ($this->attrRowNumber !== "") {
+            $openTagParts[] = " rownumber=\"{$this->attrRowNumber}\"";
+        }
+        if ($this->attrColNumber !== "") {
+            $openTagParts[] = " colnumber=\"{$this->attrColNumber}\"";
+        }
+        if ($this->attrPosition) {
+            $openTagParts[] = " cellpos=\"{$this->attrPosition}\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">";
+        return implode("", $openTagParts);
+    }
+
+    public function getCloseTag(): string
+    {
+        return parent::getCloseTag();
+    }
+
+    public function setAttrRowNumber(string $value): void
+    {
+        $this->attrRowNumber = $value;
+    }
+
+    public function setAttrColNumber(string $value): void
+    {
+        $this->attrColNumber = $value;
+    }
+
+    public function setColSpan(string $value): void
+    {
+        $this->colSpan = $value;
+    }
+
+    public function setAsHeader(bool $isOn = true): void
+    {
+        $this->isHeader = $isOn;
+        $this->type = $this->isHeader ? "th" : "td";
+    }
+
+    public function setInnerObject(mixed $htmlObject): void
+    {
+        if (is_array($htmlObject)) {
+            foreach ($htmlObject as $obj) {
+                if (method_exists($obj, "getHtml")) {
+                    $this->innerHtml .= $obj->getHtml();
+                }
             }
-        //si es un objeto
-        elseif(method_exists($mxHtmlObject,"get_html")) 
-            $this->innerhtml .= $mxHtmlObject->get_html();
-        else
-            $this->innerhtml .= $mxHtmlObject;
+        }
+        elseif (method_exists($htmlObject, "getHtml")) {
+            $this->innerHtml .= $htmlObject->getHtml();
+        }
+        else {
+            $this->innerHtml .= $htmlObject;
+        }
     }
-    
-    public function set_attr_position($iNumRow,$iNumColumn){$this->_attr_position=$iNumRow."_".$iNumColumn;}
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_opentag() 
-    {
-        $arHtml[] = "<$this->type";
-        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
-        if($this->_colspan) $arHtml[] = " colspan=\"$this->_colspan\"";
-        //eventos
-        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\""; 
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arHtml[] = " style=\"$this->style\"";
-        //atributos extras pe. para usar el quryselector
-        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->_attr_rownumber!=="") $arHtml[] = " rownumber=\"$this->_attr_rownumber\"";        
-        if($this->_attr_colnumber!=="") $arHtml[] = " colnumber=\"$this->_attr_colnumber\"";
-        if($this->_attr_position) $arHtml[] = " cellpos=\"$this->_attr_position\"";        
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
 
-        $arHtml[] = ">";
-        return implode("",$arHtml);
-    }//get_opentag
-    
-    public function get_closetag(){return parent::get_closetag();}
-    public function get_colspan(){return $this->_colspan;}
-    public function is_header(){return $this->_isHeader;}
-    
-}//Td
+    public function setAttrPosition(int $numRow, int $numColumn): void
+    {
+        $this->attrPosition = "{$numRow}_{$numColumn}";
+    }
+
+    public function getColSpan(): ?string
+    {
+        return $this->colSpan;
+    }
+
+    public function isHeader(): bool
+    {
+        return $this->isHeader;
+    }
+}

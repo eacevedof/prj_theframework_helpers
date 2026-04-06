@@ -2,368 +2,383 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.4.0
  * @name TheFramework\Helpers\Html\Table\Typed
- * @date 22-10-2016 14:48 (SPAIN)
- * @file Typed.php
- * @requires:
  */
 namespace TheFramework\Helpers\Html\Table;
-use TheFramework\Helpers\AbsHelper;
-//import_helper("table_basic,anchor,input_text,checkbox");
 
-class Typed extends HelperTableBasic
+use TheFramework\Helpers\Html\Form\Fieldset;
+use TheFramework\Helpers\Html\Form\Form;
+use TheFramework\Helpers\Html\Form\Select;
+use TheFramework\Helpers\Html\Input\Checkbox;
+use TheFramework\Helpers\Html\Input\Text;
+use TheFramework\Helpers\Html\Anchor;
+use TheFramework\Helpers\Html\Button;
+
+final class Typed extends Basic
 {
-    protected $arColumnsAnchor;
-    protected $arColumnsInputText;
-    
-    protected $arColumnsRadio;
-    protected $arColumnsCheckbox;
-    protected $arColumnsSelect;
-    //protected $arSelectOptions;
-    protected $arColumnsRaw;
-    protected $isColumnButtonUpdate;
-    protected $isColumnButtonInsert;
-    
-    public function __construct($arRows=[],$arColumns=[],$sFormId="frmList",$sModule="")
+    protected array $columnsAnchor = [];
+    protected array $columnsInputText = [];
+    protected array $columnsRadio = [];
+    protected array $columnsCheckbox = [];
+    protected array $columnsSelect = [];
+    protected array $columnsRaw = [];
+    protected bool $isColumnButtonUpdate = false;
+    protected bool $isColumnButtonInsert = false;
+
+    public function __construct(array $rows = [], array $columns = [], string $formId = "frmList", string $module = "")
     {
-        //1:table,innert,classes,extra,style
-        //2:arDataRows,arColumns,sFormId,idprefix,id,sModule,sUrlDel,sUrlUp
         parent::__construct();
-        $this->lower_fieldnames($arRows);
-        $this->arDataRows = $arRows;
-        $this->iNumRows = count($arRows);
-        //bug($arRows);
-        $this->arColumns = $arColumns;
-        $this->iNumCols = count($arColumns);
-        $this->sFormId = $sFormId;
-        $this->idprefix = "tbl";
-        $this->id = $sModule;
-        $this->sMergeGlue = ",";
-        
-        $this->arColumnsAnchor = [];
-        $this->arColumnsInputText = [];
-        $this->arColumnsRadio = [];
-        $this->arColumnsSelect = [];
-        $this->arColumnsCheckbox = [];
+        $this->lowerFieldnames($rows);
+        $this->dataRows = $rows;
+        $this->numRows = count($rows);
+        $this->columns = $columns;
+        $this->numCols = count($columns);
+        $this->formId = $formId;
+        $this->idPrefix = "tbl";
+        $this->id = $module;
+        $this->mergeGlue = ",";
+
+        $this->columnsAnchor = [];
+        $this->columnsInputText = [];
+        $this->columnsRadio = [];
+        $this->columnsSelect = [];
+        $this->columnsCheckbox = [];
     }
 
-    public function get_html()
+    public function getHtml(): string
     {
         $this->useThead = true;
-        $this->useTfoot =true;
-        
-        $arHtml = [];
-        $oFieldset = new HelperFieldset();
-        $oForm = new HelperForm($this->sFormId);
-        //@TODOTEMPLATE
-        $oForm->add_class("form-horizontal");
-        //@TODOTEMPLATE
-        $oForm->style("margin:0;padding:0;border:0;");
-        
-        $arHtml[] = $oForm->get_opentag();
-        $arHtml[] = $oFieldset->get_opentag();
-        //Los campos que se mostrarán antes del listado
-        $arHtml[] = $this->get_fields_as_string();
-        $arHtml[] = $oFieldset->get_closetag();
-        //Barra de navegacion por paginas
-        if($this->isPaginateBar)
-            $arHtml[] = $this->build_paginate_bar();
-        //crea la etiqueta table
-        $arHtml[] = $this->get_opentag();
-        //Filas.  Se carga en la propiedad arObjTrs de tfw_helper se utiliza el metodo tr_as_string (tablerow as string)
-        //para imprimir en formato cadena el array de objetos de tipo Tr
-        $this->load_array_object_tr();
-        $arHtml[] = $this->get_html_rows();
-        //Fin Filas
-        $arHtml[] = $this->get_closetag();
-        $arHtml[] = $this->build_hidden_fields();
-        $arHtml[] = $oForm->get_closetag();
-        //Fin formulario
-        $arHtml[] = $this->build_js();
-        return implode("",$arHtml);
-    }   
-    
-    protected function build_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)
-    {
-        $sTdInner = "";
-        if($iNumColumn===0)
-        {    
-            $sTdInner .= $this->build_hidden_rowchange($iNumRow);            
-            $sTdInner .= $this->build_hidden_row($iNumRow);
-            $sTdInner .= $this->build_hidden_keys($arRow,$iNumRow);
-            $sTdInner .= $this->build_hidden_columns($arRow,$iNumRow);
-            if($this->arHiddenColumns)
-                $sTdInner .= $this->build_extra_hidden($iNumRow);            
+        $this->useTfoot = true;
+
+        $htmlParts = [];
+        $fieldset = new Fieldset();
+        $form = new Form($this->formId);
+        $form->addClass("form-horizontal");
+        $form->setStyle("margin:0;padding:0;border:0;");
+
+        $htmlParts[] = $form->getOpenTag();
+        $htmlParts[] = $fieldset->getOpenTag();
+        $htmlParts[] = $this->getFieldsAsString();
+        $htmlParts[] = $fieldset->getCloseTag();
+
+        if ($this->isPaginateBar) {
+            $htmlParts[] = $this->buildPaginateBar();
         }
-        
-        //corrige los valores que van dentro de <td>. Leen this->arColumnLngth
-        $this->fix_length($arRow,$sFieldName);
-        
-        if(isset($arRow[$sFieldName]))
-            $arRow[$sFieldName] = htmlentities($arRow[$sFieldName]);
-        
-        switch($sFieldName)
-        {
-            //columna delete single
+
+        $htmlParts[] = $this->getOpenTag();
+        $this->loadArrayObjectTr();
+        $htmlParts[] = $this->getHtmlRows();
+        $htmlParts[] = $this->getCloseTag();
+        $htmlParts[] = $this->buildHiddenFields();
+        $htmlParts[] = $form->getCloseTag();
+        $htmlParts[] = $this->buildJs();
+        return implode("", $htmlParts);
+    }
+
+    protected function buildCellContent(array $row, string $fieldName, int $numRow, int $numColumn): string
+    {
+        $tdInner = "";
+        if ($numColumn === 0) {
+            $tdInner .= $this->buildHiddenRowchange($numRow);
+            $tdInner .= $this->buildHiddenRow($numRow);
+            $tdInner .= $this->buildHiddenKeys($row, $numRow);
+            $tdInner .= $this->buildHiddenColumns($row, $numRow);
+            if ($this->hiddenColumns) {
+                $tdInner .= $this->buildExtraHidden($numRow);
+            }
+        }
+
+        $this->fixLength($row, $fieldName);
+
+        if (isset($row[$fieldName])) {
+            $row[$fieldName] = htmlentities($row[$fieldName]);
+        }
+
+        switch ($fieldName) {
             case "delete":
-                $sTdInner .= $this->build_delete_button($arRow);
-            break;
+                $tdInner .= $this->buildDeleteButton($row);
+                break;
             case "quarantine":
-                $sTdInner .= $this->build_quarantine_button($arRow);
-            break;        
-            case "detail"://detail
-                $sTdInner .= $this->build_detail_button($arRow);
-            break;
-            case "butinsert"://ejecuta js: save_new
-                $sTdInner .= $this->build_new_button($iNumRow,$iNumColumn);
-            break;
-            case "butupdate"://ejecuta js: save_edit
-                $sTdInner .= $this->build_edit_button($iNumRow,$iNumColumn);
-            break;        
+                $tdInner .= $this->buildQuarantineButton($row);
+                break;
+            case "detail":
+                $tdInner .= $this->buildDetailButton($row);
+                break;
+            case "butinsert":
+                $tdInner .= $this->buildNewButton($numRow, $numColumn);
+                break;
+            case "butupdate":
+                $tdInner .= $this->buildEditButton($numRow, $numColumn);
+                break;
             case "multipick":
-                $sTdInner .= $this->build_multiple_button($arRow,$iNumRow);
-            break;
+                $tdInner .= $this->buildMultipleButton($row, $numRow);
+                break;
             case "singlepick":
-                $sTdInner .= $this->build_single_button($arRow,$iNumRow);
-                //bug($sTdInner,"tdinner");
-            break;                 
+                $tdInner .= $this->buildSingleButton($row, $numRow);
+                break;
             default:
-                //Columnas de datos. Puede ser texto plano o en un control
-                //14-09-2015 Hago este cambio para que me cargue los campos hidden no solo en la columna de checks
-                //$sTdInner = "";
-                if(in_array($sFieldName,array_keys($this->arColumnsAnchor)))
-                    $sTdInner .= $this->build_anchor_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn);
-                elseif(in_array($sFieldName,array_keys($this->arColumnsInputText)))
-                    $sTdInner .= $this->build_inputtext_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn);
-                elseif(in_array($sFieldName,array_keys($this->arColumnsSelect)))
-                    $sTdInner .= $this->build_select_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn);
-                elseif(in_array($sFieldName,array_keys($this->arColumnsCheckbox)))
-                    $sTdInner .= $this->build_checkbox_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn);                
-                elseif(in_array($sFieldName,array_keys($this->arColumnsRaw)))
-                    $sTdInner .= $this->build_raw_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn);                
-                else
-                    $sTdInner .= $this->get_fieldvalue_byname($arRow,$sFieldName);
-            break;
-        }//fin switch fieldname
-        return $sTdInner;
+                if (in_array($fieldName, array_keys($this->columnsAnchor))) {
+                    $tdInner .= $this->buildAnchorCellContent($row, $fieldName, $numRow, $numColumn);
+                } elseif (in_array($fieldName, array_keys($this->columnsInputText))) {
+                    $tdInner .= $this->buildInputtextCellContent($row, $fieldName, $numRow, $numColumn);
+                } elseif (in_array($fieldName, array_keys($this->columnsSelect))) {
+                    $tdInner .= $this->buildSelectCellContent($row, $fieldName, $numRow, $numColumn);
+                } elseif (in_array($fieldName, array_keys($this->columnsCheckbox))) {
+                    $tdInner .= $this->buildCheckboxCellContent($row, $fieldName, $numRow, $numColumn);
+                } elseif (in_array($fieldName, array_keys($this->columnsRaw))) {
+                    $tdInner .= $this->buildRawCellContent($row, $fieldName, $numRow, $numColumn);
+                } else {
+                    $tdInner .= $this->getFieldvalueByname($row, $fieldName) ?? "";
+                }
+                break;
+        }
+        return $tdInner;
     }
 
-    protected function get_operation_columns()
+    protected function getOperationColumns(): array
     {
-        $arColumns = parent::get_operation_columns();
-        if($this->isColumnButtonUpdate) $arColumns["butupdate"] = "Save";
-        if($this->isColumnButtonInsert) $arColumns["butinsert"] = "New";  
-        return $arColumns;
+        $columns = parent::getOperationColumns();
+        if ($this->isColumnButtonUpdate) {
+            $columns["butupdate"] = "Save";
+        }
+        if ($this->isColumnButtonInsert) {
+            $columns["butinsert"] = "New";
+        }
+        return $columns;
     }
-    
-    protected function build_anchor_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)
+
+    protected function buildAnchorCellContent(array $row, string $fieldName, int $numRow, int $numColumn): string
     {
-        $sCellPos = $iNumRow."_$iNumColumn";
-        $arAnchorData = $this->get_anchor_data($arRow,$sFieldName);
-        //bug($arAnchorData,"build_anchor_cell_content");
-        $sHref = $arAnchorData["href"];
-        //tag para evitar que cree botones donde no hay enlaces
-        if($sHref!=="%nohref%")
-        {
-            $oAnchor = new HelperAnchor();
-            $sHref = str_replace("%cellpos%","'$sCellPos'",$sHref);
-            if(!$arAnchorData["external"])
-                if($this->isPermaLink) 
-                    $sHref = "/".$sHref;
-                else
-                    $sHref = "index.php?".$sHref;
+        $cellPos = "{$numRow}_{$numColumn}";
+        $anchorData = $this->getAnchorData($row, $fieldName);
+        $href = $anchorData["href"];
 
-            $oAnchor->set_href($sHref);
+        if ($href !== "%nohref%") {
+            $anchor = new Anchor();
+            $href = str_replace("%cellpos%", "'{$cellPos}'", $href);
+            if (!($anchorData["external"] ?? false)) {
+                if ($this->isPermaLink) {
+                    $href = "/" . $href;
+                } else {
+                    $href = "index.php?" . $href;
+                }
+            }
 
-            $sTarget = $arAnchorData["target"];
-            if(!$sTarget) $sTarget = "self";
-            $oAnchor->set_target($sTarget);
-            $oAnchor->add_extras("cellpos",$sCellPos);
+            $anchor->setHref($href);
 
-            $sClass = $arAnchorData["class"];
-            if($sClass) $oAnchor->add_class($sClass);
+            $target = $anchorData["target"] ?? "self";
+            $anchor->setTarget($target);
+            $anchor->addExtras("cellpos", $cellPos);
 
-            $sInnerHtml = $arAnchorData["innerhtml"];
-            $sClassIcon = $arAnchorData["icon"];
-            //@TODOTEMPLATE
-            if($sClassIcon) $sInnerHtml = "<span class=\"$sClassIcon\"></span> $sInnerHtml";
-            $oAnchor->innerhtml($sInnerHtml);
-            return $oAnchor->get_html();
+            $class = $anchorData["class"] ?? "";
+            if ($class) {
+                $anchor->addClass($class);
+            }
+
+            $innerHtml = $anchorData["innerhtml"] ?? "";
+            $classIcon = $anchorData["icon"] ?? "";
+            if ($classIcon) {
+                $innerHtml = "<span class=\"{$classIcon}\"></span> {$innerHtml}";
+            }
+            $anchor->setInnerHtml($innerHtml);
+            return $anchor->getHtml();
         }
         return "-";
     }
-   
-    protected function build_inputtext_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)
+
+    protected function buildInputtextCellContent(array $row, string $fieldName, int $numRow, int $numColumn): string
     {
-        $oInputText = new HelperInputText();
-        $sCellPos = $iNumRow."_$iNumColumn";
-        $oInputText->add_extras("cellpos",$sCellPos);
-        $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
-        $oInputText->setid("txt$sCellPos");
-        $oInputText->name("txt$sCellPos");
-        
-        //PROPERTIES
-        $arProperties = $this->arColumnsInputText[$sFieldName];
-        //bug($arProperties);
-        if($arProperties["class"]) $oInputText->add_class($arProperties["class"]);
-        //@TODOTEMPLATE
-        else $oInputText->add_class("input-small");
-        if($arProperties["onclick"]) $oInputText->setjsonclick($arProperties["onclick"]);
-        if($arProperties["onfocus"]) $oInputText->setjsonfocus($arProperties["onfocus"]);
-        if($arProperties["readonly"]) $oInputText->readonly();
-        $oInputText->value($this->get_fieldvalue_byname($arRow,$sFieldName));
-        return $oInputText->get_html();
-    }
-    
-    protected function build_select_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)
-    {
-        $oSelect = new HelperSelect();
-        //$oInputText->style("margin:0");
-        $sCellPos = $iNumRow."_$iNumColumn";
-        $oSelect->add_extras("cellpos",$sCellPos);
-        $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
-        $oSelect->setid("sel$sCellPos");
-        $oSelect->name("sel$sCellPos");
-        $oSelect->set_options($this->get_select_options($sFieldName));
-        $oSelect->setvalue_to_select($this->get_fieldvalue_byname($arRow,$sFieldName));
-        return $oSelect->get_html();
-    } 
-    
-    protected function build_checkbox_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)
-    {
-        $oCheckbox = new HelperCheckbox();
-        $sCellPos = $iNumRow."_$iNumColumn";
-        $oCheckbox->add_extras("cellpos",$sCellPos);
-        $sCellPos = "$sFieldName"."_$iNumRow"."_$iNumColumn";
-        $oCheckbox->setid("chk$sCellPos");
-        $oCheckbox->name("chk$sFieldName");
-        $oCheckbox->set_options($this->get_keys_as_string($arRow));
-        
-        $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFieldName);
-        //bug($sFieldValue,"$sFieldName");
-        $arProperties = $this->arColumnsCheckbox[$sFieldName];
-        if(is_array($arProperties) && in_array("forchecked",array_keys($arProperties)))
-        {
-            if($arProperties["forchecked"]==$sFieldValue)
-                $oCheckbox->setvalues_to_check($this->get_keys_as_string($arRow));
+        $inputText = new Text();
+        $cellPos = "{$numRow}_{$numColumn}";
+        $inputText->addExtras("cellpos", $cellPos);
+        $cellPos = "{$fieldName}_{$numRow}_{$numColumn}";
+        $inputText->setId("txt{$cellPos}");
+        $inputText->setName("txt{$cellPos}");
+
+        $properties = $this->columnsInputText[$fieldName] ?? [];
+        if (!empty($properties["class"])) {
+            $inputText->addClass($properties["class"]);
+        } else {
+            $inputText->addClass("input-small");
         }
-        //si no hay valor configurado para marcado siempre que exista un valor que no sea "falsi" se da por seleccionado
-        elseif($sFieldValue) 
-            $oCheckbox->setvalues_to_check($this->get_keys_as_string($arRow));
-        
-        return $oCheckbox->get_html();
+        if (!empty($properties["onclick"])) {
+            $inputText->setJsOnClick($properties["onclick"]);
+        }
+        if (!empty($properties["onfocus"])) {
+            $inputText->setJsOnFocus($properties["onfocus"]);
+        }
+        if (!empty($properties["readonly"])) {
+            $inputText->setReadonly();
+        }
+        $inputText->setValue($this->getFieldvalueByname($row, $fieldName) ?? "");
+        return $inputText->getHtml();
     }
-    
-    protected function build_raw_cell_content($arRow,$sFieldName,$iNumRow,$iNumColumn)
+
+    protected function buildSelectCellContent(array $row, string $fieldName, int $numRow, int $numColumn): string
     {
-        $mxColumn = $this->arColumnsRaw[$sFieldName];
-        if(is_string($mxColumn))
-            $this->replace_tagnames($mxColumn,$arRow);
-        elseif(is_object($mxColumn))
-        {
-            if(method_exists($mxColumn,"get_html"))
-            {
-                $mxColumn = $mxColumn->get_html();
-                //bug($mxColumn,"mxColum");bug($arRow,"build_raw_cell_content");die;
-                $this->replace_tagnames($mxColumn,$arRow);
-                //bug($mxColumn,"mxColumn");die;
+        $select = new Select();
+        $cellPos = "{$numRow}_{$numColumn}";
+        $select->addExtras("cellpos", $cellPos);
+        $cellPos = "{$fieldName}_{$numRow}_{$numColumn}";
+        $select->setId("sel{$cellPos}");
+        $select->setName("sel{$cellPos}");
+        $select->setOptions($this->getSelectOptions($fieldName));
+        $select->setValueToSelect($this->getFieldvalueByname($row, $fieldName) ?? "");
+        return $select->getHtml();
+    }
+
+    protected function buildCheckboxCellContent(array $row, string $fieldName, int $numRow, int $numColumn): string
+    {
+        $checkbox = new Checkbox();
+        $cellPos = "{$numRow}_{$numColumn}";
+        $checkbox->addExtras("cellpos", $cellPos);
+        $cellPos = "{$fieldName}_{$numRow}_{$numColumn}";
+        $checkbox->setId("chk{$cellPos}");
+        $checkbox->setName("chk{$fieldName}");
+        $checkbox->setOptions([$this->getKeysAsString($row) => ""]);
+
+        $fieldValue = $this->getFieldvalueByname($row, $fieldName);
+        $properties = $this->columnsCheckbox[$fieldName] ?? [];
+        if (is_array($properties) && array_key_exists("forchecked", $properties)) {
+            if ($properties["forchecked"] == $fieldValue) {
+                $checkbox->setValuesToCheck([$this->getKeysAsString($row)]);
+            }
+        } elseif ($fieldValue) {
+            $checkbox->setValuesToCheck([$this->getKeysAsString($row)]);
+        }
+
+        return $checkbox->getHtml();
+    }
+
+    protected function buildRawCellContent(array $row, string $fieldName, int $numRow, int $numColumn): string
+    {
+        $column = $this->columnsRaw[$fieldName] ?? "";
+        if (is_string($column)) {
+            $this->replaceTagnames($column, $row);
+        } elseif (is_object($column)) {
+            if (method_exists($column, "getHtml")) {
+                $column = $column->getHtml();
+                $this->replaceTagnames($column, $row);
             }
         }
-        $mxColumn = str_replace("%numrow%",$iNumRow,$mxColumn);
-        $mxColumn = str_replace("%numcolum%",$iNumColumn,$mxColumn);
-        //bug($mxColumn,"stringed"); bug($arRow,"row");die;
-        return $mxColumn;
+        $column = str_replace("%numrow%", (string)$numRow, $column);
+        $column = str_replace("%numcolum%", (string)$numColumn, $column);
+        return $column;
     }
-    
-    protected function build_new_button($iNumRow,$iNumColumn)
+
+    protected function buildNewButton(int $numRow, int $numColumn): string
     {
-        $oButton = new HelperButtonBasic();
-        //$oInputText->style("margin:0");
-        $sCellPos = "$iNumRow"."_$iNumColumn";
-        $oButton->setid("butInsert$sCellPos");
-        $oButton->innerhtml("Save");
-        $oButton->setjsonclick("alert('new');");
-        //@TODOTEMPLATE
-        $oButton->add_class("btn btn-alt btn-success");
-        $oButton->add_extras("cellpos",$sCellPos);
-        return $oButton->get_html();
-    }    
-    
-    protected function build_edit_button($iNumRow,$iNumColumn)
-    {
-        $oButton = new HelperButtonBasic();
-        //$oInputText->style("margin:0");
-        $sCellPos = "$iNumRow"."_$iNumColumn";
-        $oButton->setid("butUpdate$sCellPos");
-        $oButton->innerhtml("Save");
-        //@TODOTEMPLATE
-        $oButton->add_class("btn btn-alt btn-success");
-        $oButton->setjsonclick("alert('TODO: Hi! I gonna save you');");        
-        $oButton->add_extras("cellpos",$sCellPos);
-        return $oButton->get_html();
+        $button = new Button();
+        $cellPos = "{$numRow}_{$numColumn}";
+        $button->setId("butInsert{$cellPos}");
+        $button->setInnerHtml("Save");
+        $button->setJsOnClick("alert('new');");
+        $button->addClass("btn btn-alt btn-success");
+        $button->addExtras("cellpos", $cellPos);
+        return $button->getHtml();
     }
-    
-    protected function get_anchor_data($arRow,$sFieldName)
+
+    protected function buildEditButton(int $numRow, int $numColumn): string
     {
-        $arAnchorData = array("href"=>"#","innerhtml"=>"");
-        $arConfigData = $this->arColumnsAnchor[$sFieldName];
-        //bug($arConfigData,"arConfigData");
-        //Pruebo extraer un valor de la columna guardada en href
-        $arAnchorData["href"] = $this->get_fieldvalue_byname($arRow,$arConfigData["href"]);
-        if(!$arAnchorData["href"]) $arAnchorData["href"]=$arConfigData["href"];
-        
-        //bug($arAnchorData["href"],"get_anchor_data(),href");
-        if(isset($_GET["tfw_iso_language"]) && !(strstr($arAnchorData["href"],"http")||strstr($arAnchorData["href"],"javascript:")))
-            $arAnchorData["href"] = "{$_GET["tfw_iso_language"]}/{$arAnchorData["href"]}";
-        //bug($arAnchorData["href"],"get_anchor_data(),href 2");    
-        //Pruebo extraer un valor de la columna guardada en href
-        $arAnchorData["innerhtml"] = $this->get_fieldvalue_byname($arRow,$arConfigData["innerhtml"]);
-        if(!$arAnchorData["innerhtml"]) $arAnchorData["innerhtml"]=$arConfigData["innerhtml"];
-        
-        if($arConfigData["external"]) $arAnchorData["external"] = $arConfigData["external"];
-        if($arConfigData["target"]) $arAnchorData["target"] = $arConfigData["target"];
-        
-        if($arConfigData["class"]) $arAnchorData["class"] = $arConfigData["class"];
-        
-        if($arConfigData["icon"]) $arAnchorData["icon"] = $arConfigData["icon"];
-        return $arAnchorData;
-    }//fin get_anchor_data
-    
-    protected function replace_tagnames(&$sValue,$arRow)
+        $button = new Button();
+        $cellPos = "{$numRow}_{$numColumn}";
+        $button->setId("butUpdate{$cellPos}");
+        $button->setInnerHtml("Save");
+        $button->addClass("btn btn-alt btn-success");
+        $button->setJsOnClick("alert('TODO: Hi! I gonna save you');");
+        $button->addExtras("cellpos", $cellPos);
+        return $button->getHtml();
+    }
+
+    protected function getAnchorData(array $row, string $fieldName): array
     {
-        $arTagNames = [];
-        //busca todas las coincidencias %value%
-        preg_match_all("/%[a-z,A-Z,\_]+%/",$sValue,$arTagNames);
-        $arTagNames = $arTagNames[0];
-        foreach($arTagNames as $i=>$sTag)
-            $arTagNames[$i] = str_replace("%","",$sTag);
-        
-        foreach($arTagNames as $sFieldName)
-        {
-            $sTmpFind = "%$sFieldName%";
-            $sFieldValue = $this->get_fieldvalue_byname($arRow,$sFieldName);
-            if($sFieldName!==null)
-                $sValue = str_replace($sTmpFind,$sFieldValue,$sValue);
+        $anchorData = ["href" => "#", "innerhtml" => ""];
+        $configData = $this->columnsAnchor[$fieldName] ?? [];
+
+        $anchorData["href"] = $this->getFieldvalueByname($row, $configData["href"] ?? "") ?? "";
+        if (!$anchorData["href"]) {
+            $anchorData["href"] = $configData["href"] ?? "#";
+        }
+
+        if (isset($_GET["tfw_iso_language"]) && !(strstr($anchorData["href"], "http") || strstr($anchorData["href"], "javascript:"))) {
+            $anchorData["href"] = "{$_GET["tfw_iso_language"]}/{$anchorData["href"]}";
+        }
+
+        $anchorData["innerhtml"] = $this->getFieldvalueByname($row, $configData["innerhtml"] ?? "") ?? "";
+        if (!$anchorData["innerhtml"]) {
+            $anchorData["innerhtml"] = $configData["innerhtml"] ?? "";
+        }
+
+        if (!empty($configData["external"])) {
+            $anchorData["external"] = $configData["external"];
+        }
+        if (!empty($configData["target"])) {
+            $anchorData["target"] = $configData["target"];
+        }
+        if (!empty($configData["class"])) {
+            $anchorData["class"] = $configData["class"];
+        }
+        if (!empty($configData["icon"])) {
+            $anchorData["icon"] = $configData["icon"];
+        }
+        return $anchorData;
+    }
+
+    protected function replaceTagnames(string &$value, array $row): void
+    {
+        $tagNames = [];
+        preg_match_all("/%[a-z,A-Z,\_]+%/", $value, $tagNames);
+        $tagNames = $tagNames[0];
+        foreach ($tagNames as $i => $tag) {
+            $tagNames[$i] = str_replace("%", "", $tag);
+        }
+
+        foreach ($tagNames as $fieldName) {
+            $tmpFind = "%{$fieldName}%";
+            $fieldValue = $this->getFieldvalueByname($row, $fieldName);
+            if ($fieldValue !== null) {
+                $value = str_replace($tmpFind, $fieldValue, $value);
+            }
         }
     }
-    
-    protected function get_select_options($sFieldName){return $this->arColumnsSelect[$sFieldName];}
-    //**********************************
-    //             SETS
-    //**********************************
-    /** Tanto innerhtml como href se pueden recuperar desde un campo concreto añadiendole el nombre del campo a estas claves
-     * @param array $arColumns ej: array("url_lines"=>array("href"=>"value or fieldname","innerhtml"=>"value or fieldname")
-     */
-    public function set_column_anchor($arColumns){$this->arColumnsAnchor = $arColumns;}
-    public function set_column_text($arColumns){$this->arColumnsInputText = $arColumns;}
-    public function set_column_select($arColumns){$this->arColumnsSelect = $arColumns;}
-    public function set_column_checkbox($arColumns){$this->arColumnsCheckbox = $arColumns;}
-    public function set_insert_button($isOn=true){$this->isColumnButtonInsert = $isOn;}
-    public function set_update_button($isOn=true){$this->isColumnButtonUpdate = $isOn;}
-    public function set_column_raw($arColumns){$this->arColumnsRaw = $arColumns;}
-    //**********************************
-    //             GETS
-    //**********************************
-    
+
+    protected function getSelectOptions(string $fieldName): array
+    {
+        return $this->columnsSelect[$fieldName] ?? [];
+    }
+
+    public function setColumnAnchor(array $columns): void
+    {
+        $this->columnsAnchor = $columns;
+    }
+
+    public function setColumnText(array $columns): void
+    {
+        $this->columnsInputText = $columns;
+    }
+
+    public function setColumnSelect(array $columns): void
+    {
+        $this->columnsSelect = $columns;
+    }
+
+    public function setColumnCheckbox(array $columns): void
+    {
+        $this->columnsCheckbox = $columns;
+    }
+
+    public function setInsertButton(bool $isOn = true): void
+    {
+        $this->isColumnButtonInsert = $isOn;
+    }
+
+    public function setUpdateButton(bool $isOn = true): void
+    {
+        $this->isColumnButtonUpdate = $isOn;
+    }
+
+    public function setColumnRaw(array $columns): void
+    {
+        $this->columnsRaw = $columns;
+    }
 }

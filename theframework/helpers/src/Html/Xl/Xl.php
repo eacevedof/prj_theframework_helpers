@@ -2,91 +2,117 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.2
  * @name TheFramework\Helpers\Html\Xl\Xl
- * @date 06-09-2013 16:58 (SPAIN)
- * @file Xl.php
  */
 namespace TheFramework\Helpers\Html\Xl;
+
 use TheFramework\Helpers\AbsHelper;
 
-class Xl extends AbsHelper
+final class Xl extends AbsHelper
 {
-    protected $arObjLi;
-  
-    public function __construct
-    ($innerhtml="",$id="",$arObjLi=[])
+    protected array $objLi = [];
+
+    public function __construct(string $innerHtml = "", string $id = "", array $objLi = [])
     {
-        $this->idprefix = "";
+        $this->idPrefix = "";
         $this->type = "ul";
         $this->id = $id;
-        $this->innerhtml = $innerhtml;
-        $this->arObjLi = $arObjLi;
+        $this->innerHtml = $innerHtml;
+        $this->objLi = $objLi;
     }
-    
-    public function get_html()
-    {  
-        $arHtml = [];
-        if(!$this->innerhtml) $this->innerhtml = $this->get_array_li_as_string();
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = $this->get_opentag();
-        $arHtml[] = $this->innerhtml;
-        $arHtml[] = $this->get_closetag();
-        return implode("",$arHtml);
-    }//get_html
 
-    private function get_array_li_as_string()
+    public function getHtml(): string
     {
-        $sLi = "";
-        foreach($this->arObjLi as $oLi) 
-            if(is_object($oLi))
-                $sLi .= $oLi->get_html();
-            elseif(is_string($oLi)) 
-                $sLi .= $oL;
-
-        return $sLi;
+        $htmlParts = [];
+        if (!$this->innerHtml) {
+            $this->innerHtml = $this->getArrayLiAsString();
+        }
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = $this->getOpenTag();
+        $htmlParts[] = $this->innerHtml;
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
     }
-        
-    public function get_opentag()
+
+    private function getArrayLiAsString(): string
     {
-        $arOpenTag[] = "<$this->type";
-        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
-        //propiedades html5
-        if($this->disabled) $arOpenTag[] = " disabled";
-        if($this->readonly) $arOpenTag[] = " readonly"; 
-        if($this->_isRequired) $arOpenTag[] = " required"; 
-        //eventos
-        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\""; 
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arOpenTag[] = " style=\"$this->style\"";
-        //atributos extras
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
-        //if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        //if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";
-        $arOpenTag[] =">\n";
-        return implode("",$arOpenTag);
+        $liString = "";
+        foreach ($this->objLi as $li) {
+            if (is_object($li) && method_exists($li, "getHtml")) {
+                $liString .= $li->getHtml();
+            } elseif (is_string($li)) {
+                $liString .= $li;
+            }
+        }
+        return $liString;
+    }
 
-    }//get_opentag
+    public function getOpenTag(): string
+    {
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->disabled) {
+            $openTagParts[] = " disabled";
+        }
+        if ($this->readonly) {
+            $openTagParts[] = " readonly";
+        }
+        if ($this->isRequired) {
+            $openTagParts[] = " required";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">\n";
+        return implode("", $openTagParts);
+    }
 
-    //**********************************
-    //             SETS
-    //**********************************
-    public function set_array_li($arObjLi){$this->arObjLi = $arObjLi;}
-    public function add_li($oLi){$this->arObjLi[] = $oLi;}
-    
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_array_li(){return $this->arObjLi;}
+    public function setArrayLi(array $objLi): void
+    {
+        $this->objLi = $objLi;
+    }
 
-}//Xl
+    public function addLi(mixed $li): void
+    {
+        $this->objLi[] = $li;
+    }
+
+    public function getArrayLi(): array
+    {
+        return $this->objLi;
+    }
+}

@@ -2,87 +2,106 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 2.0.0
  * @name TheFramework\Helpers\Html\Table\Raw
- * @date 14-05-2017 07:19 (SPAIN)
- * @file Raw.php
- * @requires 
  */
 namespace TheFramework\Helpers\Html\Table;
+
 use TheFramework\Helpers\AbsHelper;
 
-class Raw extends AbsHelper
+final class Raw extends AbsHelper
 {
-    protected $arLabels;
-    protected $arRows;
+    protected array $labels = [];
+    protected array $rows = [];
 
-    public function __construct($arRows,$arLabels=[]) 
+    public function __construct(array $rows = [], array $labels = [])
     {
-        $this->idprefix = "";
+        $this->idPrefix = "";
         $this->type = "table";
-        $this->arRows = $arRows;
-        $this->arLabels = $arLabels;
+        $this->rows = $rows;
+        $this->labels = $labels;
     }
-    
-    public function get_opentag()
-    {
-        $arOpenTag[] = "<$this->type";
-        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
 
-        //eventos
-        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress)$arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\"";
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arOpenTag[] = " style=\"$this->style\"";            
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
-
-        $arOpenTag[] =">\n";
-        return implode("",$arOpenTag);
-    }//get_opentag
-    
-    public function get_html() 
+    public function getOpenTag(): string
     {
-        $arHtml[] = $this->get_opentag()."\n";
-        //si no se hay pasado etiquetas se intentan recuperar desde la primera fila
-        if(!$this->arLabels)
-            if(isset($this->arRows[0]) && is_array($this->arRows[0]))
-                $this->arLabels = array_keys($this->arRows[0]);
-        
-        //LABELS EN COLUMNAS
-        if($this->arLabels)
-        {
-            $arHtml[] = "<tr>";
-            foreach($this->arLabels as $sLabel)
-                $arHtml[] = "<th>$sLabel</th>";
-            $arHtml[] = "</tr>\n";
-        }       
-        
-        //DATOS
-        if($this->arRows)
-        {
-            foreach($this->arRows as $arRows)
-            {
-                $arHtml[] = "<tr>";
-                foreach($arRows as $sValue)
-                    $arHtml[] = "<td>$sValue</td>";    
-                $arHtml[] = "</tr>\n";
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">\n";
+        return implode("", $openTagParts);
+    }
+
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        $htmlParts[] = $this->getOpenTag() . "\n";
+
+        if (!$this->labels && isset($this->rows[0]) && is_array($this->rows[0])) {
+            $this->labels = array_keys($this->rows[0]);
+        }
+
+        if ($this->labels) {
+            $htmlParts[] = "<tr>";
+            foreach ($this->labels as $label) {
+                $htmlParts[] = "<th>{$label}</th>";
+            }
+            $htmlParts[] = "</tr>\n";
+        }
+
+        if ($this->rows) {
+            foreach ($this->rows as $row) {
+                $htmlParts[] = "<tr>";
+                foreach ($row as $value) {
+                    $htmlParts[] = "<td>{$value}</td>";
+                }
+                $htmlParts[] = "</tr>\n";
             }
         }
 
-        $arHtml[] = "</table>";
-        return implode("",$arHtml);
-    }//get_html
-    
-    public function set_data($arRows){$this->arRows = $arRows;}
-    public function set_labels($arLabels){$this->arLabels=$arLabels;}
-}//TableRaw
+        $htmlParts[] = "</table>";
+        return implode("", $htmlParts);
+    }
+
+    public function setData(array $rows): void
+    {
+        $this->rows = $rows;
+    }
+
+    public function setLabels(array $labels): void
+    {
+        $this->labels = $labels;
+    }
+}

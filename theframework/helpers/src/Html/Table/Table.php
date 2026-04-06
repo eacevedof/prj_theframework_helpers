@@ -2,267 +2,284 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.10
  * @name TheFramework\Helpers\Html\Table\Table
- * @date 30-07-2016 15:44 (SPAIN)
- * @file Table.php
- * @requires
- *  Table_td.php
- *  ,Table_tr.php
  */
 namespace TheFramework\Helpers\Html\Table;
+
 use TheFramework\Helpers\AbsHelper;
-use TheFramework\Helpers\Html\Table\Tr;
 
 class Table extends AbsHelper
 {
-    protected $arObjTrs = null;
-    protected $useThead = false;
-    protected $useTfoot = false;    
-    protected $iNumRows = 0;
-    protected $iNumCols = 0;
-    
-    public function __construct
-    ($arMxTrs=[], $id="", $class="", $style="", $extras=[])
-    {
-        //clientbrowser,isMobileDevice,consolecalled,permalink
-        parent::__construct();
+    protected ?array $objTrs = null;
+    protected bool $useThead = false;
+    protected bool $useTfoot = false;
+    protected int $numRows = 0;
+    protected int $numCols = 0;
+
+    public function __construct(
+        array $mixedTrs = [],
+        string $id = "",
+        string $class = "",
+        string $style = "",
+        array $extras = []
+    ) {
         $this->type = "table";
-        $this->idprefix = "tbl";
+        $this->idPrefix = "tbl";
         $this->id = $id;
-        $this->innerhtml = "";
-        
-        $this->arObjTrs = $arMxTrs;
-        $this->iNumRows = count($this->arObjTrs);
-        $this->load_numcols();
-        
-        if($class) $this->arclasses[] = $class;
-        if($style) $this->arStyles[] = $style;
+        $this->innerHtml = "";
+        $this->objTrs = $mixedTrs;
+        $this->numRows = count($this->objTrs);
+        $this->loadNumCols();
+        if ($class) {
+            $this->classes[] = $class;
+        }
+        if ($style) {
+            $this->styles[] = $style;
+        }
         $this->extras = $extras;
     }
 
-    protected function load_numcols()
+    protected function loadNumCols(): void
     {
-        $this->iNumCols = 0;
-        if(isset($this->arObjTrs[0]))
-        {
-            $oTr0 = $this->arObjTrs[0];
-            //pr($oTr0);
-            if(is_object($oTr0) && ($oTr0 instanceof \TheFramework\Helpers\Html\Table\Tr))
-                $this->iNumCols = $oTr0->get_num_columns();
-            elseif(is_array($oTr0))
-                $this->iNumCols = count($oTr0);
-            elseif(is_string($oTr0))
-                $this->iNumCols = substr_count($oTr0,"</td>");  
-            else
-                $this->iNumCols = -1;
+        $this->numCols = 0;
+        if (!isset($this->objTrs[0])) {
+            return;
         }
-    }//load_numcols
-    
-    //table
-    public function get_html()
-    {  
-        $arHtml = [];
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = $this->get_opentag(); 
-        //Agrega a inner_html los valores obtenidos con get_html de cada objeto en $this->arinnerhelpers
-        //No usa inner objects porque lo unico q se puede añadir a un elemento <table> como innerhtml son trs
-        //$this->_load_inner_objects();
-        //$this->get_html_rows(): No es un simple bucle que recorre todos los objetos filas.
-        //este metodo recupera las filas th, tfoot y tr y guarda en cada caso los indices correspondientes
-        //para que despues se pinten de cabecera a pie. Esto da la versatilidad de añadir tr en cualquier puno del array
-        //con su tipo y el metodo se encargará de ordenarlo
-        if(!$this->innerhtml) $this->innerhtml = $this->get_html_rows();
-        $arHtml[] = $this->innerhtml;
-        $arHtml[] = $this->get_closetag();
-        return implode("",$arHtml);
-    }//get_html
-        
-    public function get_opentag()
-    {
-        $arHtml[] = "<$this->type";
-        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
-        //eventos
-        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\""; 
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arHtml[] = " style=\"$this->style\"";
-        //atributos extras
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
-        //if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        //if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";  
-        $arHtml[] = ">\n";
-        return implode("",$arHtml);
-    }//get_opentag
-    
-    protected function get_html_rows()
-    {
-        $arPosHead = $this->get_positions_head();
-        $arPosFoot = $this->get_positions_foot();
-        $arPosBody = $this->get_positions_body($arPosHead,$arPosFoot);
-        
-        $sHtmlRows = "";
-        $sHtmlRows .= $this->build_thead($arPosHead);
-        $sHtmlRows .= $this->build_tfoot($arPosFoot);
-        $sHtmlRows .= $this->build_tbody($arPosBody);
-        
-        return $sHtmlRows;
-    }//get_html_rows
-    
-    /**
-     * En el array de filas (arObjTrs) se puede añadir distintos tipos de datos. 
-     * Lo ideal es que sea un objeto ya que el framework se basa en POO.  No obstante
-     * se puede añadir strings tipo raw o array de strings tds
-     * @param mixed $mxTr Object HelperTr, array <td>..</td>, string <tr>
-     * @return string tr as html
-     */
-    protected function get_mxtr_as_string($mxTr)
-    {
-        $sTr = "";
-        //si es un objeto tipo helper
-        if(is_object($mxTr) && method_exists($mxTr,"get_html")) 
-            $sTr .= "\t".$mxTr->get_html();
-        //array de tds array("<td>...</td>","<td>..</td>",...)
-        elseif(is_array($sTr)) 
-            $sTr .= "\t<tr>".implode("\n",$mxTr)."</tr>";
-        else//string tipo <tr>...</tr>
-            $sTr .= "\t".$mxTr;
-        return $sTr;
-    }//get_mxtr_as_string
-    
-    protected function build_thead($arPosHead=[])
-    {
-        $sTr = "";
-        foreach($arPosHead as $iPos)
-        {    
-            $mxTr = $this->arObjTrs[$iPos];
-            $sTr .= $this->get_mxtr_as_string($mxTr);
-        }
-        $sThead = "";
-        if($sTr!="") $sThead = "<thead id=\"tblh\">\n$sTr</thead>\n";
-        
-        return $sThead;
-    }//build_thead
-    
-    protected function build_tbody($arPosBody=[])
-    {
-        $sTr = "";
-        foreach($arPosBody as $iPos)
-        {    
-            $mxTr = $this->arObjTrs[$iPos];
-            $sTr .= $this->get_mxtr_as_string($mxTr);
-        }
-        $sTbody = "";
-        if($sTr!="") $sTbody = "<tbody id=\"{$this->id}_tbody\">\n$sTr</tbody>\n";
-        
-        return $sTbody;
-    }//build_tbody
 
-    protected function build_tfoot($arPosFoot=[])
-    {
-        $sTr = "";
-        foreach($arPosFoot as $iPos)
-        {    
-            $mxTr = $this->arObjTrs[$iPos];
-            $sTr .= $this->get_mxtr_as_string($mxTr);
+        $firstTr = $this->objTrs[0];
+        if (is_object($firstTr) && ($firstTr instanceof Tr)) {
+            $this->numCols = $firstTr->getNumColumns();
         }
-        $sTfoot = "";
-        if($sTr!="") $sTfoot = "<tfoot id=\"{$this->id}_tfoot\">\n$sTr</tfoot>\n";
-        
-        return $sTfoot;
+        elseif (is_array($firstTr)) {
+            $this->numCols = count($firstTr);
+        }
+        elseif (is_string($firstTr)) {
+            $this->numCols = substr_count($firstTr, "</td>");
+        }
+        else {
+            $this->numCols = -1;
+        }
     }
 
-    protected function get_positions_head()
+    public function getHtml(): string
     {
-        $arReturn = [];
-        if($this->useThead)
-            foreach($this->arObjTrs as $i=>$mxRow)
-            {   
-                if(is_object($mxRow) && $mxRow->is_rowhead())
-                    $arReturn[]=$i;
-                //array tds
-                elseif(is_array($mxRow))
-                {   
-                    $isHead = false;
-                    foreach($mxRow as $sTd)
-                        if(is_string($sTd) && strstr($sTd,"</th>"))
-                        { 
-                            $isHead = true;
-                            break;
-                        }
-                    if($isHead) $arReturn[]=$i;
-                }
-                //string
-                elseif(is_string($mxRow) && strstr($mxRow,"</th>"))
-                {
-                    $arReturn[]=$i;
-                }
-                else //Es objeto y no es rowhead
-                {
-                    //bug($mxRow);
-                }
-            }//foreach arObjTrs
-        return $arReturn;
+        $htmlParts = [];
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = $this->getOpenTag();
+        if (!$this->innerHtml) {
+            $this->innerHtml = $this->getHtmlRows();
+        }
+        $htmlParts[] = $this->innerHtml;
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
     }
-    
-    protected function get_positions_body($arPosHead=[], $arPosFoot=[])
-    {
-        $arReturn = [];
-        //TODO solo usar indices
-        //foreach($this->arObjTrs as $i=>$oTr)
-        $iRows = count($this->arObjTrs);
-        for($i=0; $i<$iRows; $i++)
-            if(!in_array($i,$arPosHead) && !in_array($i,$arPosFoot))
-                $arReturn[] = $i;
-        
-        return $arReturn;
-    }
-    
-    protected function get_positions_foot()
-    {
-        $arReturn = [];
-        if($this->useTfoot)
-            foreach($this->arObjTrs as $i=>$oRow)
-                //la unica forma de saber si es pie es que sea un objeto sino no
-                if(is_object($oRow) && $oRow->is_rowfoot())
-                    $arReturn[]=$i;
 
-        return $arReturn;
-    }
-    //**********************************
-    //             SETS
-    //**********************************
-    public function use_header($isOn=true){$this->useThead=$isOn;}
-    public function use_footer($isOn=true){$this->useTfoot=$isOn;}
-    public function set_objrows($objArray=[])
+    public function getOpenTag(): string
     {
-        $this->arObjTrs = $objArray;
-        $this->iNumRows = count($this->arObjTrs);
-        $this->load_numcols();
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">\n";
+        return implode("", $openTagParts);
     }
-    
-    /**
-     * string: "<tr>...</tr>"
-     * object: Any object with get_html method
-     * array: array(0=>"<td>...</td>",1=>"<td>...</td>"...)
-     * @param string|object|array 
-     */
-    public function add_objrow($mxValue){$this->arObjTrs[] = $mxValue; $this->iNumRows = count($this->arObjTrs); $this->load_numcols();}
-    
-    public function add_tr(Tr $oTr){$this->arObjTrs[] = $oTr; $this->iNumRows = count($this->arObjTrs); $this->load_numcols();}
-    
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_objrows(){return $this->arObjTrs;}
-    
+
+    protected function getHtmlRows(): string
+    {
+        $positionsHead = $this->getPositionsHead();
+        $positionsFoot = $this->getPositionsFoot();
+        $positionsBody = $this->getPositionsBody($positionsHead, $positionsFoot);
+
+        $htmlRows = "";
+        $htmlRows .= $this->buildThead($positionsHead);
+        $htmlRows .= $this->buildTfoot($positionsFoot);
+        $htmlRows .= $this->buildTbody($positionsBody);
+
+        return $htmlRows;
+    }
+
+    protected function getMixedTrAsString(mixed $mixedTr): string
+    {
+        $trString = "";
+        if (is_object($mixedTr) && method_exists($mixedTr, "getHtml")) {
+            $trString .= "\t" . $mixedTr->getHtml();
+        }
+        elseif (is_array($mixedTr)) {
+            $trString .= "\t<tr>" . implode("\n", $mixedTr) . "</tr>";
+        }
+        else {
+            $trString .= "\t" . $mixedTr;
+        }
+        return $trString;
+    }
+
+    protected function buildThead(array $positionsHead = []): string
+    {
+        $trString = "";
+        foreach ($positionsHead as $pos) {
+            $mixedTr = $this->objTrs[$pos];
+            $trString .= $this->getMixedTrAsString($mixedTr);
+        }
+        $thead = "";
+        if ($trString !== "") {
+            $thead = "<thead id=\"tblh\">\n{$trString}</thead>\n";
+        }
+        return $thead;
+    }
+
+    protected function buildTbody(array $positionsBody = []): string
+    {
+        $trString = "";
+        foreach ($positionsBody as $pos) {
+            $mixedTr = $this->objTrs[$pos];
+            $trString .= $this->getMixedTrAsString($mixedTr);
+        }
+        $tbody = "";
+        if ($trString !== "") {
+            $tbody = "<tbody id=\"{$this->id}_tbody\">\n{$trString}</tbody>\n";
+        }
+        return $tbody;
+    }
+
+    protected function buildTfoot(array $positionsFoot = []): string
+    {
+        $trString = "";
+        foreach ($positionsFoot as $pos) {
+            $mixedTr = $this->objTrs[$pos];
+            $trString .= $this->getMixedTrAsString($mixedTr);
+        }
+        $tfoot = "";
+        if ($trString !== "") {
+            $tfoot = "<tfoot id=\"{$this->id}_tfoot\">\n{$trString}</tfoot>\n";
+        }
+        return $tfoot;
+    }
+
+    protected function getPositionsHead(): array
+    {
+        $positions = [];
+        if (!$this->useThead) {
+            return $positions;
+        }
+
+        foreach ($this->objTrs as $i => $mixedRow) {
+            if (is_object($mixedRow) && $mixedRow->isRowHead()) {
+                $positions[] = $i;
+            }
+            elseif (is_array($mixedRow)) {
+                $isHead = false;
+                foreach ($mixedRow as $td) {
+                    if (is_string($td) && strstr($td, "</th>")) {
+                        $isHead = true;
+                        break;
+                    }
+                }
+                if ($isHead) {
+                    $positions[] = $i;
+                }
+            }
+            elseif (is_string($mixedRow) && strstr($mixedRow, "</th>")) {
+                $positions[] = $i;
+            }
+        }
+        return $positions;
+    }
+
+    protected function getPositionsBody(array $positionsHead = [], array $positionsFoot = []): array
+    {
+        $positions = [];
+        $numRows = count($this->objTrs);
+        for ($i = 0; $i < $numRows; $i++) {
+            if (!in_array($i, $positionsHead) && !in_array($i, $positionsFoot)) {
+                $positions[] = $i;
+            }
+        }
+        return $positions;
+    }
+
+    protected function getPositionsFoot(): array
+    {
+        $positions = [];
+        if (!$this->useTfoot) {
+            return $positions;
+        }
+
+        foreach ($this->objTrs as $i => $row) {
+            if (is_object($row) && $row->isRowFoot()) {
+                $positions[] = $i;
+            }
+        }
+        return $positions;
+    }
+
+    public function useHeader(bool $isOn = true): void
+    {
+        $this->useThead = $isOn;
+    }
+
+    public function useFooter(bool $isOn = true): void
+    {
+        $this->useTfoot = $isOn;
+    }
+
+    public function setObjRows(array $objArray = []): void
+    {
+        $this->objTrs = $objArray;
+        $this->numRows = count($this->objTrs);
+        $this->loadNumCols();
+    }
+
+    public function addObjRow(mixed $value): void
+    {
+        $this->objTrs[] = $value;
+        $this->numRows = count($this->objTrs);
+        $this->loadNumCols();
+    }
+
+    public function addTr(Tr $tr): void
+    {
+        $this->objTrs[] = $tr;
+        $this->numRows = count($this->objTrs);
+        $this->loadNumCols();
+    }
+
+    public function getObjRows(): ?array
+    {
+        return $this->objTrs;
+    }
 }
