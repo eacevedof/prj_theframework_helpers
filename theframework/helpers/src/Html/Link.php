@@ -7,17 +7,20 @@
 namespace TheFramework\Helpers\Html;
 
 use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use TheFramework\Helpers\Enums\LinkRelEnum;
+use TheFramework\Helpers\Enums\MediaTypeEnum;
 
 final class Link extends AbstractHelper
 {
-    private string $mediaType = "text/css";
-    private string $rel = "stylesheet";
+    private string $mediaType = MediaTypeEnum::TEXT_CSS;
+    private string $rel = LinkRelEnum::STYLESHEET;
     private array $hrefs = [];
 
     public function __construct(
         array $hrefs = [],
-        string $type = "text/css",
-        string $rel = "stylesheet"
+        string $type = MediaTypeEnum::TEXT_CSS,
+        string $rel = LinkRelEnum::STYLESHEET
     ) {
         $this->mediaType = $type;
         $this->rel = $rel;
@@ -29,7 +32,7 @@ final class Link extends AbstractHelper
         $htmlParts = [];
         foreach ($this->hrefs as $hrefPath) {
             if ($hrefPath) {
-                $htmlParts[] = "<link type=\"{$this->mediaType}\" rel=\"{$this->rel}\" href=\"{$hrefPath}\">\n";
+                $htmlParts[] = "<" . HtmlTypeEnum::LINK . " type=\"{$this->mediaType}\" rel=\"{$this->rel}\" href=\"{$hrefPath}\">\n";
             }
         }
         return implode("", $htmlParts);

@@ -7,6 +7,7 @@
 namespace TheFramework\Helpers\Form;
 
 use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\Enums\HtmlTypeEnum;
 
 final class Textarea extends AbstractHelper
 {
@@ -27,7 +28,7 @@ final class Textarea extends AbstractHelper
         string $style = "",
         ?Label $label = null
     ) {
-        $this->type = "textarea";
+        $this->type = HtmlTypeEnum::TEXTAREA;
         $this->idPrefix = "";
         $this->id = $id;
         $this->innerHtml = $innerHtml;
@@ -99,7 +100,7 @@ final class Textarea extends AbstractHelper
         $htmlParts[] = $this->getCloseTag();
 
         if ($this->isCounterSpan) {
-            $htmlParts[] = "\n<span id=\"sp{$this->idPrefix}{$this->id}\"></span>";
+            $htmlParts[] = "\n<" . HtmlTypeEnum::SPAN . " id=\"sp{$this->idPrefix}{$this->id}\"></" . HtmlTypeEnum::SPAN . ">";
             if ($this->isCounterJs) {
                 $this->printJsCounter();
             }

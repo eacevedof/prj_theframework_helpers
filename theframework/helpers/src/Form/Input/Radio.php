@@ -7,6 +7,8 @@
 namespace TheFramework\Helpers\Form\Input;
 
 use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use TheFramework\Helpers\Enums\InputTypeEnum;
 use TheFramework\Helpers\Form\Label;
 
 final class Radio extends AbstractHelper
@@ -23,7 +25,7 @@ final class Radio extends AbstractHelper
         string $class = "",
         array $extras = []
     ) {
-        $this->type = "radio";
+        $this->type = InputTypeEnum::RADIO;
         $this->idPrefix = "";
         $this->options = $options;
         $this->valueToCheck = $valueToCheck;
@@ -42,7 +44,7 @@ final class Radio extends AbstractHelper
             $htmlParts[] = "<!-- {$this->comment} -->\n";
         }
         if ($this->legendText) {
-            $htmlParts[] = "<legend>{$this->legendText}</legend>\n";
+            $htmlParts[] = "<" . HtmlTypeEnum::LEGEND . ">{$this->legendText}</" . HtmlTypeEnum::LEGEND . ">\n";
         }
 
         $i = 0;
@@ -71,7 +73,7 @@ final class Radio extends AbstractHelper
     ): string {
         $this->id = $id;
         $htmlParts = [];
-        $htmlParts[] = "<input";
+        $htmlParts[] = "<" . HtmlTypeEnum::INPUT;
         if ($this->type) {
             $htmlParts[] = " type=\"{$this->type}\"";
         }

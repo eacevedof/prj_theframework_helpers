@@ -8,6 +8,8 @@
 namespace TheFramework\Helpers\Html;
 
 use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\Enums\ButtonTypeEnum;
+use TheFramework\Helpers\Enums\HtmlTypeEnum;
 
 final class Button extends AbstractHelper
 {
@@ -15,7 +17,7 @@ final class Button extends AbstractHelper
 
     public function __construct(
         string $innerHtml = "",
-        string $type = "button",
+        string $type = ButtonTypeEnum::BUTTON,
         string $id = ""
     ) {
         $this->type = $type;
@@ -42,7 +44,7 @@ final class Button extends AbstractHelper
     public function getOpenTag(): string
     {
         $openTagParts = [];
-        $openTagParts[] = "<button";
+        $openTagParts[] = "<" . HtmlTypeEnum::BUTTON;
         if ($this->type) {
             $openTagParts[] = " type=\"{$this->type}\"";
         }
@@ -96,7 +98,7 @@ final class Button extends AbstractHelper
 
     public function getCloseTag(): string
     {
-        return "</button>";
+        return "</" . HtmlTypeEnum::BUTTON . ">";
     }
 
     public function setIcon(string $iconClass): void

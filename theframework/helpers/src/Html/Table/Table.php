@@ -7,6 +7,7 @@
 namespace TheFramework\Helpers\Html\Table;
 
 use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\Enums\HtmlTypeEnum;
 
 class Table extends AbstractHelper
 {
@@ -23,7 +24,7 @@ class Table extends AbstractHelper
         string $style = "",
         array $extras = []
     ) {
-        $this->type = "table";
+        $this->type = HtmlTypeEnum::TABLE;
         $this->idPrefix = "tbl";
         $this->id = $id;
         $this->innerHtml = "";
@@ -54,7 +55,7 @@ class Table extends AbstractHelper
             $this->numCols = count($firstTr);
         }
         elseif (is_string($firstTr)) {
-            $this->numCols = substr_count($firstTr, "</td>");
+            $this->numCols = substr_count($firstTr, "</" . HtmlTypeEnum::TD . ">");
         }
         else {
             $this->numCols = -1;
@@ -140,7 +141,7 @@ class Table extends AbstractHelper
             $trString .= "\t" . $mixedTr->getHtml();
         }
         elseif (is_array($mixedTr)) {
-            $trString .= "\t<tr>" . implode("\n", $mixedTr) . "</tr>";
+            $trString .= "\t<" . HtmlTypeEnum::TR . ">" . implode("\n", $mixedTr) . "</" . HtmlTypeEnum::TR . ">";
         }
         else {
             $trString .= "\t" . $mixedTr;
@@ -157,7 +158,7 @@ class Table extends AbstractHelper
         }
         $thead = "";
         if ($trString !== "") {
-            $thead = "<thead id=\"tblh\">\n{$trString}</thead>\n";
+            $thead = "<" . HtmlTypeEnum::THEAD . " id=\"tblh\">\n{$trString}</" . HtmlTypeEnum::THEAD . ">\n";
         }
         return $thead;
     }
@@ -171,7 +172,7 @@ class Table extends AbstractHelper
         }
         $tbody = "";
         if ($trString !== "") {
-            $tbody = "<tbody id=\"{$this->id}_tbody\">\n{$trString}</tbody>\n";
+            $tbody = "<" . HtmlTypeEnum::TBODY . " id=\"{$this->id}_tbody\">\n{$trString}</" . HtmlTypeEnum::TBODY . ">\n";
         }
         return $tbody;
     }
@@ -185,7 +186,7 @@ class Table extends AbstractHelper
         }
         $tfoot = "";
         if ($trString !== "") {
-            $tfoot = "<tfoot id=\"{$this->id}_tfoot\">\n{$trString}</tfoot>\n";
+            $tfoot = "<" . HtmlTypeEnum::TFOOT . " id=\"{$this->id}_tfoot\">\n{$trString}</" . HtmlTypeEnum::TFOOT . ">\n";
         }
         return $tfoot;
     }
@@ -204,7 +205,7 @@ class Table extends AbstractHelper
             elseif (is_array($mixedRow)) {
                 $isHead = false;
                 foreach ($mixedRow as $td) {
-                    if (is_string($td) && strstr($td, "</th>")) {
+                    if (is_string($td) && strstr($td, "</" . HtmlTypeEnum::TH . ">")) {
                         $isHead = true;
                         break;
                     }
@@ -213,7 +214,7 @@ class Table extends AbstractHelper
                     $positions[] = $i;
                 }
             }
-            elseif (is_string($mixedRow) && strstr($mixedRow, "</th>")) {
+            elseif (is_string($mixedRow) && strstr($mixedRow, "</" . HtmlTypeEnum::TH . ">")) {
                 $positions[] = $i;
             }
         }

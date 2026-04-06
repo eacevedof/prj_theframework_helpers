@@ -7,6 +7,7 @@
 namespace TheFramework\Helpers\Form;
 
 use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\Enums\HtmlTypeEnum;
 
 final class Select extends AbstractHelper
 {
@@ -28,7 +29,7 @@ final class Select extends AbstractHelper
         string $class = "",
         bool $readonly = false
     ) {
-        $this->type = "select";
+        $this->type = HtmlTypeEnum::SELECT;
         $this->valuesToSelect = $valueToSelect;
         $this->options = $options;
         $this->idPrefix = "";
@@ -182,7 +183,7 @@ final class Select extends AbstractHelper
 
     private function buildHtmlOption(mixed $value, string $innerText, bool $isSelected = false): string
     {
-        $option = "\t<option";
+        $option = "\t<" . HtmlTypeEnum::OPTION;
         $value = $this->getEscapedQuot($value);
         $option .= " value=\"{$value}\"";
         if ($isSelected) {
@@ -190,7 +191,7 @@ final class Select extends AbstractHelper
         }
         $option .= ">";
         $option .= htmlentities($innerText);
-        $option .= "</option>\n";
+        $option .= "</" . HtmlTypeEnum::OPTION . ">\n";
         return $option;
     }
 

@@ -7,10 +7,11 @@
 namespace TheFramework\Helpers\Html;
 
 use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\Enums\HtmlTypeEnum;
 
 final class Script extends AbstractHelper
 {
-    private string $tag = "script";
+    private string $tag = HtmlTypeEnum::SCRIPT;
     private array $sources = [];
     private array $publicFiles = [];
 
@@ -76,13 +77,13 @@ final class Script extends AbstractHelper
 
             if (is_string($source)) {
                 $tmpParts[] = "src=\"{$source}\"";
-                $htmlParts[] = "<script " . implode(" ", $tmpParts) . "></script>";
+                $htmlParts[] = "<" . HtmlTypeEnum::SCRIPT . " " . implode(" ", $tmpParts) . "></" . HtmlTypeEnum::SCRIPT . ">";
             }
             elseif (is_array($source)) {
                 foreach ($source as $key => $value) {
                     $tmpParts[] = "{$key}=\"{$value}\"";
                 }
-                $htmlParts[] = "<script " . implode(" ", $tmpParts) . "></script>";
+                $htmlParts[] = "<" . HtmlTypeEnum::SCRIPT . " " . implode(" ", $tmpParts) . "></" . HtmlTypeEnum::SCRIPT . ">";
             }
         }
         return implode("\n", $htmlParts);
