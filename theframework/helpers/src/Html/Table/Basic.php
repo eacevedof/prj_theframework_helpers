@@ -38,7 +38,7 @@ class Basic extends Table
     protected bool $isPickMultiple = false;
     protected bool $isPickSingle = false;
     protected bool $doMergePkeys = false;
-    protected bool $isMergeKeyfields = false;
+    protected bool $isMergeKeyFields = false;
     protected string $mergeGlue = ",";
     protected ?array $assignSingle = null;
     protected ?array $assignMulti = null;
