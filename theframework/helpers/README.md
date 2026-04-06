@@ -11,36 +11,36 @@ PHP view helpers for rendering html elements using objects
 
 Let's suppose you have your root folder **"myphpsite"** with an **index.php** file in it:
 ```bash
-    PCALEX@MSI MINGW64 /d/temp/myphpsite
+PCALEX@MSI MINGW64 /d/temp/myphpsite
 
-    $ composer require theframework/helpers
+$ composer require theframework/helpers
 
-    Using version ^0.0.2 for theframework/helpers
-    ./composer.json has been created
-    Loading composer repositories with package information
-    Updating dependencies (including require-dev)
-    Package operations: 1 install, 0 updates, 0 removals
-      - Installing theframework/helpers (0.0.2): Loading from cache
-    Writing lock file
-    Generating autoload files
+Using version ^0.0.2 for theframework/helpers
+./composer.json has been created
+Loading composer repositories with package information
+Updating dependencies (including require-dev)
+Package operations: 1 install, 0 updates, 0 removals
+  - Installing theframework/helpers (0.0.2): Loading from cache
+Writing lock file
+Generating autoload files
 
-    PCALEX@MSI MINGW64 /d/temp/myphpsite
+PCALEX@MSI MINGW64 /d/temp/myphpsite
 ```
 
 Once it is installed with composer this structure is created:
 ```
-    myphpsite/
-        vendor/
-            composer/
-            theframework/
-                helpers/
-                    autoload.php
-                    ...
-            autoload.php
-        composer.json
-        composer.lock
+myphpsite/
+    vendor/
+        composer/
+        thefrmework/
+            helpers/
+                autoload.php
+                ...
+        autoload.php
+    composer.json
+    composer.lock
 
-        index.php  --> your index file
+    index.php  --> your index filea
 ```
 
 ## Including autoload.php
@@ -67,7 +67,6 @@ $oInput->is_readonly();
 $oInput->required();
 $oInput->setmaxlength(35);
 $oInput->show();
-
 ```
 <!--
 https://getcomposer.org/doc/04-schema.md#psr-0

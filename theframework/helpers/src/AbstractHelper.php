@@ -2,7 +2,7 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link eduardoaf.com
- * @name TheFramework\Helpers\AbsHelper
+ * @name TheFramework\Helpers\AbstractHelper
  */
 namespace TheFramework\Helpers;
 
