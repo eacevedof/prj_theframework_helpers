@@ -2,67 +2,86 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.3
  * @name TheFramework\Helpers\Form\Fieldset
- * @file Fieldset.php
- * @date 06-06-2013 14:02 (SPAIN)
- * @observations: 
  */
 namespace TheFramework\Helpers\Form;
+
 use TheFramework\Helpers\AbsHelper;
 
 final class Fieldset extends AbsHelper
 {
     private const TYPE = "fieldset";
-    
+
     public function __construct(
-        string $innerhtml="", 
-        string $id="", 
-        string $class="", 
-        string $style="", 
-        array $extras=[]
+        string $innerHtml = "",
+        string $id = "",
+        string $class = "",
+        string $style = "",
+        array $extras = []
     ) {
-        
         $this
-            ->type(self::TYPE)
-            ->id($id)
-            ->innerhtml($innerhtml)
-            ->class($class)
-            ->style($style)
-            ->extras($extras)
+            ->setType(self::TYPE)
+            ->setId($id)
+            ->setInnerHtml($innerHtml)
+            ->setClass($class)
+            ->setStyle($style)
+            ->setExtras($extras)
         ;
     }
 
-    public function get_html(): string
-    {  
-        $arhtml = [];
-        if($this->comment) $arhtml[] = "<!-- $this->comment -->\n";
-        $arhtml[] = $this->get_opentag();
-        $this->_load_inner_objects();
-        $arhtml[] = $this->innerhtml;
-        $arhtml[] = $this->get_closetag();
-        return implode("",$arhtml);
-    }//get_html
-        
-    public function get_opentag(): string
+    public function getHtml(): string
     {
-        $arOpenTag[] = "<$this->type";
-        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
-        //eventos
-        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\"";        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arOpenTag[] = " style=\"$this->style\"";
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
-        $arOpenTag[] =">";        
-        return implode("",$arOpenTag);        
+        $htmlParts = [];
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = $this->getOpenTag();
+        $this->loadInnerObjects();
+        $htmlParts[] = $this->innerHtml;
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
+    }
+
+    public function getOpenTag(): string
+    {
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">";
+        return implode("", $openTagParts);
     }
 }

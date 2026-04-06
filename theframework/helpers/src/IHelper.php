@@ -8,8 +8,7 @@ namespace TheFramework\Helpers;
 
 interface IHelper
 {
-    public function get_html(): string;
+    public function getHtml(): string;
 
     public function show(): void;
-
 }

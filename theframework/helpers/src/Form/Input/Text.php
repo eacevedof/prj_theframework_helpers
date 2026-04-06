@@ -2,91 +2,174 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.8
  * @name TheFramework\Helpers\Form\Input\Text
- * @date 04-12-2018 17:56 (SPAIN)
- * @file Text.php
  */
 namespace TheFramework\Helpers\Form\Input;
+
 use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Text extends AbsHelper
-{ 
-    public function __construct
-    ($id="", $name="", $value="", $length=50, $class="", Label $oLabel=null)
-    {
-        $this->oLabel = $oLabel;
-        $this->idprefix = "";
+final class Text extends AbsHelper
+{
+    public function __construct(
+        string $id = "",
+        string $name = "",
+        string $value = "",
+        int $length = 50,
+        string $class = "",
+        ?Label $label = null
+    ) {
+        $this->label = $label;
+        $this->idPrefix = "";
         $this->type = "text";
         $this->id = $id;
         $this->name = $name;
         $this->value = $value;
-        $this->maxlength = $length;
-        if($class) $this->arclasses[] = $class;
-        $this->oLabel = $oLabel;
+        $this->maxLength = (string) $length;
+        if ($class) {
+            $this->classes[] = $class;
+        }
     }
-    
-    public function get_html()
-    {  
-        $arHtml = [];
-        
-        if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = "<input";
-        if($this->type) $arHtml[] = " type=\"$this->type\"";
-        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
-        if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        if($this->value || $this->value=="0") 
-            $arHtml[] = " value=\"{$this->_get_escaped_quot($this->value)}\"";
 
-        //propiedades html5
-        if($this->maxlength) $arHtml[] = " maxlength=\"$this->maxlength\"";
-        if($this->disabled) $arHtml[] = " disabled";
-        if($this->readonly) $arHtml[] = " readonly"; 
-        if($this->_isRequired) $arHtml[] = " required"; 
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        if ($this->label) {
+            $htmlParts[] = $this->label->getHtml();
+        }
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = "<input";
+        if ($this->type) {
+            $htmlParts[] = " type=\"{$this->type}\"";
+        }
+        if ($this->id) {
+            $htmlParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->name) {
+            $htmlParts[] = " name=\"{$this->idPrefix}{$this->name}\"";
+        }
+        if ($this->value || $this->value === "0") {
+            $htmlParts[] = " value=\"{$this->getEscapedQuot($this->value)}\"";
+        }
+        if ($this->maxLength) {
+            $htmlParts[] = " maxlength=\"{$this->maxLength}\"";
+        }
+        if ($this->disabled) {
+            $htmlParts[] = " disabled";
+        }
+        if ($this->readonly) {
+            $htmlParts[] = " readonly";
+        }
+        if ($this->isRequired) {
+            $htmlParts[] = " required";
+        }
+        if ($this->jsOnBlur) {
+            $htmlParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $htmlParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $htmlParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $htmlParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $htmlParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $htmlParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $htmlParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $htmlParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $htmlParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->placeholder) {
+            $htmlParts[] = " placeholder=\"{$this->placeholder}\"";
+        }
+        if ($this->attrDbfield) {
+            $htmlParts[] = " dbfield=\"{$this->attrDbfield}\"";
+        }
+        if ($this->attrDbtype) {
+            $htmlParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->isPrimaryKey) {
+            $htmlParts[] = " pk=\"pk\"";
+        }
+        if ($this->extras) {
+            $htmlParts[] = " " . $this->getExtras();
+        }
+        $htmlParts[] = ">\n";
+        return implode("", $htmlParts);
+    }
 
-        //eventos
-        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\"";   
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arHtml[] = " style=\"$this->style\"";
-        //atributos extras pe. para usar el quryselector
-        if($this->placeholder) $arHtml[] = " placeholder=\"$this->placeholder\"";
-        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
-        
-        $arHtml[] = ">\n";
-        return implode("",$arHtml);
-    }//get_html
+    public function getOpenTag(): string
+    {
+        return $this->getHtml();
+    }
 
-    //**********************************
-    //             SETS
-    //**********************************
-    public function name($value){$this->name = $value;}
-    public function value($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
-    public function setmaxlength($iNumChars){$this->maxlength = $iNumChars;}
-    public function readonly($readonly=true){$this->readonly=$readonly;}
-    public function disabled($disabled=true){$this->disabled=$disabled;}
-    public function required($isRequired = true){$this->_isRequired=$isRequired;}
-    
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_name(){return $this->name;}
-    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
-    public function getmaxlength(){return $this->maxlength;}
-    public function is_readonly(){return $this->readonly;}
+    public function setName(string $value): self
+    {
+        $this->name = $value;
+        return $this;
+    }
 
-}//class Text
+    public function setValue(mixed $value, bool $asEntity = false): self
+    {
+        $this->value = $asEntity ? htmlentities((string) $value) : $value;
+        return $this;
+    }
+
+    public function setMaxLength(int $numChars): void
+    {
+        $this->maxLength = (string) $numChars;
+    }
+
+    public function setReadonly(bool $readonly = true): self
+    {
+        $this->readonly = $readonly;
+        return $this;
+    }
+
+    public function setDisabled(bool $disabled = true): self
+    {
+        $this->disabled = $disabled;
+        return $this;
+    }
+
+    public function setRequired(bool $isRequired = true): self
+    {
+        $this->isRequired = $isRequired;
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getValue(bool $asEntity = false): mixed
+    {
+        return $asEntity ? htmlentities((string) $this->value) : $this->value;
+    }
+
+    public function getMaxLength(): string
+    {
+        return $this->maxLength;
+    }
+
+    public function isReadonly(): bool
+    {
+        return $this->readonly;
+    }
+}

@@ -2,48 +2,52 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.6
  * @name TheFramework\Helpers\Form\Input\Generic
- * @date 04-12-2018 17:56 (SPAIN)
- * @file Generic.php
  */
 namespace TheFramework\Helpers\Form\Input;
+
 use TheFramework\Helpers\AbsHelper;
 
-class Generic extends AbsHelper
+final class Generic extends AbsHelper
 {
-    public function __construct($value,$extras=[])
-    {
+    public function __construct(
+        mixed $value,
+        array $extras = []
+    ) {
         $this->value = $value;
         $this->extras = $extras;
     }
 
-    public function get_html()
-    {  
-        $arHtml = [];
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = "<input";
-        if($this->value || $this->value=="0") 
-            $arHtml[] = " value=\"{$this->_get_escaped_quot($this->value)}\"";
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = "<input";
+        if ($this->value || $this->value === "0") {
+            $htmlParts[] = " value=\"{$this->getEscapedQuot($this->value)}\"";
+        }
+        if ($this->extras) {
+            $htmlParts[] = " " . $this->getExtras();
+        }
+        $htmlParts[] = ">\n";
+        return implode("", $htmlParts);
+    }
 
-        $arHtml[] = ">\n";
-        return implode("",$arHtml);
-    }//get_html
-    
-    //**********************************
-    //             TO HIDE
-    //**********************************
-    //private function get_closetag(){;}     
-    //private function get_opentag(){;}
+    public function getOpenTag(): string
+    {
+        return $this->getHtml();
+    }
 
-    //**********************************
-    //             SETS
-    //**********************************
-    public function value($value,$asEntity=0){($asEntity)?$this->value = htmlentities($value):$this->value=$value;}
-    
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_value($asEntity=0){if($asEntity) return htmlentities($this->value); else return $this->value;}
-}//HelperGeneric
+    public function setValue(mixed $value, bool $asEntity = false): self
+    {
+        $this->value = $asEntity ? htmlentities((string) $value) : $value;
+        return $this;
+    }
+
+    public function getValue(bool $asEntity = false): mixed
+    {
+        return $asEntity ? htmlentities((string) $this->value) : $this->value;
+    }
+}

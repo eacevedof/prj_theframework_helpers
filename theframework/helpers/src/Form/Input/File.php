@@ -2,94 +2,181 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 2.0.0
  * @name TheFramework\Helpers\Form\Input\File
- * @date 06-12-2018 17:56 (SPAIN)
- * @file File.php
- * @observations
- * @requires:
  */
 namespace TheFramework\Helpers\Form\Input;
+
 use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class File extends AbsHelper
+final class File extends AbsHelper
 {
-    protected $_maxsize;
-    protected $_accept;
-  //<input accept="audio/*|video/*|image/*|MIMEtype"> 
-    public function __construct
-    ($id="", $name="", $class="", Label $oLabel=null)
-    {
-        $this->oLabel = $oLabel;
-        $this->idprefix = "";
+    private string $maxSize = "";
+    private string $accept = "";
+
+    public function __construct(
+        string $id = "",
+        string $name = "",
+        string $class = "",
+        ?Label $label = null
+    ) {
+        $this->label = $label;
+        $this->idPrefix = "";
         $this->type = "file";
         $this->id = $id;
         $this->name = $name;
-        if($class) $this->arclasses[] = $class;
-        $this->oLabel = $oLabel;
+        if ($class) {
+            $this->classes[] = $class;
+        }
     }
-    
-    public function get_html()
-    {  
-        $arHtml = [];
-        
-        if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = "<input";
-        if($this->type) $arHtml[] = " type=\"$this->type\"";
-        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
-        if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        if($this->value || $this->value=="0") $arHtml[] = " value=\"$this->value\"";
-        //bug($this->value,"input_file $this->id");
-        //propiedades html5
-        if($this->_accept) $arHtml[] = " accept=\"$this->_accept\"";
-        if($this->_maxsize) $arHtml[] = " maxsize=\"$this->_maxsize\"";
-        if($this->disabled) $arHtml[] = " disabled";
-        if($this->readonly) $arHtml[] = " readonly"; 
-        if($this->_isRequired) $arHtml[] = " required"; 
-        //bug($this->_isRequired,  $this->id);
-        //eventos
-        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
-        
-        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
 
-        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\"";        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arHtml[] = " style=\"$this->style\"";
-        //atributos extras pe. para usar el quryselector
-        if($this->placeholder) $arHtml[] = " placeholder=\"$this->placeholder\"";
-        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
-        
-        $arHtml[] = ">\n";
-        return implode("",$arHtml);
-    }//get_html
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        if ($this->label) {
+            $htmlParts[] = $this->label->getHtml();
+        }
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = "<input";
+        if ($this->type) {
+            $htmlParts[] = " type=\"{$this->type}\"";
+        }
+        if ($this->id) {
+            $htmlParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->name) {
+            $htmlParts[] = " name=\"{$this->idPrefix}{$this->name}\"";
+        }
+        if ($this->value || $this->value === "0") {
+            $htmlParts[] = " value=\"{$this->value}\"";
+        }
+        if ($this->accept) {
+            $htmlParts[] = " accept=\"{$this->accept}\"";
+        }
+        if ($this->maxSize) {
+            $htmlParts[] = " maxsize=\"{$this->maxSize}\"";
+        }
+        if ($this->disabled) {
+            $htmlParts[] = " disabled";
+        }
+        if ($this->readonly) {
+            $htmlParts[] = " readonly";
+        }
+        if ($this->isRequired) {
+            $htmlParts[] = " required";
+        }
+        if ($this->jsOnBlur) {
+            $htmlParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $htmlParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $htmlParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $htmlParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $htmlParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $htmlParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $htmlParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $htmlParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $htmlParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->placeholder) {
+            $htmlParts[] = " placeholder=\"{$this->placeholder}\"";
+        }
+        if ($this->attrDbfield) {
+            $htmlParts[] = " dbfield=\"{$this->attrDbfield}\"";
+        }
+        if ($this->attrDbtype) {
+            $htmlParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->isPrimaryKey) {
+            $htmlParts[] = " pk=\"pk\"";
+        }
+        if ($this->extras) {
+            $htmlParts[] = " " . $this->getExtras();
+        }
+        $htmlParts[] = ">\n";
+        return implode("", $htmlParts);
+    }
 
-    //**********************************
-    //             SETS
-    //**********************************
-    public function name($value){$this->name = $value;}
-    public function value($value,$sVoid=null){$this->value = $value;}
-    public function set_maxsize($iNumBytes){$this->_maxsize = $iNumBytes;}
-    public function readonly($readonly=true){$this->readonly=$readonly;}
-    public function disabled($disabled=true){$this->disabled=$disabled;}
-    public function required($isRequired = true){$this->_isRequired=$isRequired;}
-    public function set_accept($sAccept){$this->_accept=$sAccept;}
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_name(){return $this->name;}
-    public function get_maxsize(){return $this->_maxsize;}
-    public function is_readonly(){return $this->readonly;}
-    public function get_accept(){return $this->_accept;}
-}//File
+    public function getOpenTag(): string
+    {
+        return $this->getHtml();
+    }
+
+    public function setName(string $value): self
+    {
+        $this->name = $value;
+        return $this;
+    }
+
+    public function setValue(mixed $value): self
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    public function setMaxSize(int $numBytes): void
+    {
+        $this->maxSize = (string) $numBytes;
+    }
+
+    public function setReadonly(bool $readonly = true): self
+    {
+        $this->readonly = $readonly;
+        return $this;
+    }
+
+    public function setDisabled(bool $disabled = true): self
+    {
+        $this->disabled = $disabled;
+        return $this;
+    }
+
+    public function setRequired(bool $isRequired = true): self
+    {
+        $this->isRequired = $isRequired;
+        return $this;
+    }
+
+    public function setAccept(string $accept): void
+    {
+        $this->accept = $accept;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getMaxSize(): string
+    {
+        return $this->maxSize;
+    }
+
+    public function isReadonly(): bool
+    {
+        return $this->readonly;
+    }
+
+    public function getAccept(): string
+    {
+        return $this->accept;
+    }
+}

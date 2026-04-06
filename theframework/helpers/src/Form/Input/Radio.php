@@ -2,123 +2,174 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.2
  * @name TheFramework\Helpers\Form\Input\Radio
- * @date 04-12-2018 17:56 (SPAIN)
- * @file Radio.php
  */
 namespace TheFramework\Helpers\Form\Input;
+
 use TheFramework\Helpers\AbsHelper;
 use TheFramework\Helpers\Form\Label;
 
-class Radio extends AbsHelper
+final class Radio extends AbsHelper
 {
-    private $_arOptions;
-    private $value_to_check;
-    private $_legendtext;
-    
-    public function __construct($arOptions, $grpname, $legendtext=""
-            , $valuetocheck="", $class="", $extras=[])
-    {
-        //$this->id = ""; el id se aplica por check no por legend
+    private array $options = [];
+    private string $valueToCheck = "";
+    private string $legendText = "";
+
+    public function __construct(
+        array $options,
+        string $groupName,
+        string $legendText = "",
+        string $valueToCheck = "",
+        string $class = "",
+        array $extras = []
+    ) {
         $this->type = "radio";
-        $this->idprefix="";
-        $this->_arOptions = $arOptions;
-        $this->value_to_check = $valuetocheck;
-       
-        $this->name = $grpname;
-        $this->_legendtext = $legendtext;
-        if($class) $this->arclasses[] = $class;
+        $this->idPrefix = "";
+        $this->options = $options;
+        $this->valueToCheck = $valueToCheck;
+        $this->name = $groupName;
+        $this->legendText = $legendText;
+        if ($class) {
+            $this->classes[] = $class;
+        }
         $this->extras = $extras;
     }
 
-    public function get_html()
-    {  
-        $arHtml = [];
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        if($this->_legendtext) $arHtml[] = "<legend>$this->_legendtext</legend>\n";
-
-        $i=0;
-        foreach($this->_arOptions as $sValue => $sLabel)
-        {
-            $isChecked = ($this->value_to_check == $sValue);
-            $id = $this->idprefix.$this->name."_".$i;
-            $id = str_replace("[]","",$id);
-            $oLabel = new Label($id, $sLabel, "lbl$id");
-            $arHtml[] = $this->build_input_radio($id, $sValue, $oLabel, $isChecked);
-            $i++;            
-        }
-        //if($this->_inFieldsetDiv) $sHtmlToReturn = $sHtmlFieldSet.$sHtmlToReturn.$sHtmlFieldSetEnd;
-        return implode("",$arHtml);
-    }//get_html
-
-    private function build_input_radio($id, $value, Label $oLabel=null, $isChecked=false)
+    public function getHtml(): string
     {
+        $htmlParts = [];
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        if ($this->legendText) {
+            $htmlParts[] = "<legend>{$this->legendText}</legend>\n";
+        }
+
+        $i = 0;
+        foreach ($this->options as $value => $labelText) {
+            $isChecked = ($this->valueToCheck == $value);
+            $id = $this->idPrefix . $this->name . "_" . $i;
+            $id = str_replace("[]", "", $id);
+            $label = new Label($id, $labelText, "lbl{$id}");
+            $htmlParts[] = $this->buildInputRadio($id, (string) $value, $label, $isChecked);
+            $i++;
+        }
+
+        return implode("", $htmlParts);
+    }
+
+    public function getOpenTag(): string
+    {
+        return $this->getHtml();
+    }
+
+    private function buildInputRadio(
+        string $id,
+        string $value,
+        ?Label $label = null,
+        bool $isChecked = false
+    ): string {
         $this->id = $id;
-        $arHtml = [];
-        $arHtml[] = "<input";
-        if($this->type) $arHtml[] = " type=\"$this->type\"";
-        if($this->id) $arHtml[] = " id=\"$id\"";
-        if($this->name) $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        if($value) $arHtml[] = " value=\"$value\"";
-        if($isChecked) $arHtml[] = " checked" ;
-        //propiedades html5
-        //if($this->maxlength)$arHtml[] = " maxlength=\"$this->maxlength\"";
-        if($this->disabled) $arHtml[] = " disabled";
-        if($this->readonly) $arHtml[] = " readonly"; 
-        //if($this->_isRequired) $arHtml[] = " required"; 
-        //eventos
-        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange)$arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\""; 
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arHtml[] = " style=\"$this->style\"";
-        //atributos extras pe. para usar el quryselector
-        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
-        $arHtml[] = " />\n";
-        if($oLabel) $arHtml[] = $oLabel->get_html();
+        $htmlParts = [];
+        $htmlParts[] = "<input";
+        if ($this->type) {
+            $htmlParts[] = " type=\"{$this->type}\"";
+        }
+        if ($this->id) {
+            $htmlParts[] = " id=\"{$id}\"";
+        }
+        if ($this->name) {
+            $htmlParts[] = " name=\"{$this->idPrefix}{$this->name}\"";
+        }
+        if ($value) {
+            $htmlParts[] = " value=\"{$value}\"";
+        }
+        if ($isChecked) {
+            $htmlParts[] = " checked";
+        }
+        if ($this->disabled) {
+            $htmlParts[] = " disabled";
+        }
+        if ($this->readonly) {
+            $htmlParts[] = " readonly";
+        }
+        if ($this->jsOnBlur) {
+            $htmlParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $htmlParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $htmlParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $htmlParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $htmlParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $htmlParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $htmlParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $htmlParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $htmlParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->attrDbfield) {
+            $htmlParts[] = " dbfield=\"{$this->attrDbfield}\"";
+        }
+        if ($this->attrDbtype) {
+            $htmlParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->isPrimaryKey) {
+            $htmlParts[] = " pk=\"pk\"";
+        }
+        if ($this->extras) {
+            $htmlParts[] = " " . $this->getExtras();
+        }
+        $htmlParts[] = " />\n";
+        if ($label) {
+            $htmlParts[] = $label->getHtml();
+        }
 
-        return implode("",$arHtml);
-    }//build_input_radio
+        return implode("", $htmlParts);
+    }
 
-    //**********************************
-    //             SETS
-    //**********************************
-    public function name($value){$this->name = $value;}
-    public function setvalue_to_check($value){$this->value_to_check = $value;}
-    public function set_legendtext($value){$this->_legendtext = $value;}
-    
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_name(){return $this->name;}
-    public function getvalue_checked(){return $this->value_to_check;}
-    public function get_legendtext(){return $this->_legendtext;}
+    public function setName(string $value): self
+    {
+        $this->name = $value;
+        return $this;
+    }
+
+    public function setValueToCheck(string $value): void
+    {
+        $this->valueToCheck = $value;
+    }
+
+    public function setLegendText(string $value): void
+    {
+        $this->legendText = $value;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getValueChecked(): string
+    {
+        return $this->valueToCheck;
+    }
+
+    public function getLegendText(): string
+    {
+        return $this->legendText;
+    }
 }
-/*<form>
-  <fieldset>
-    <legend>Personalia:</legend> The <legend> tag defines a caption for the <fieldset> element.
-    Name: <input type="text" size="30"><br>
-    Email: <input type="text" size="30"><br>
-    Date of birth: <input type="text" size="10">
-  </fieldset>
-</form>
- * 
-<form ...>
-    <input type="radio" name="creditcard" value="Visa" id="visa" />
-    <label for="visa">Visa</label>
-    <input type="radio" name="creditcard" value="Mastercard" id="mastercard" />
-    <label for="mastercard">Mastercard</label>
-</form>
- */

@@ -2,71 +2,96 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.1.0
  * @name TheFramework\Helpers\Html\Span
- * @date 08-01-2017 12:40
- * @file Span.php
  */
 namespace TheFramework\Helpers\Html;
+
 use TheFramework\Helpers\AbsHelper;
-class Span extends AbsHelper
-{    
-    public function __construct($innerhtml="", $id="", 
-            $class="", $style="", $extras=[])
-    {
+
+final class Span extends AbsHelper
+{
+    public function __construct(
+        string $innerHtml = "",
+        string $id = "",
+        string $class = "",
+        string $style = "",
+        array $extras = []
+    ) {
         $this->type = "span";
-        $this->idprefix = "";
+        $this->idPrefix = "";
         $this->id = $id;
-        
-        $this->innerhtml = $innerhtml;
-        if($class) $this->arclasses[] = $class;
-        if($style) $this->arStyles[] = $style;
+        $this->innerHtml = $innerHtml;
+        if ($class) {
+            $this->classes[] = $class;
+        }
+        if ($style) {
+            $this->styles[] = $style;
+        }
         $this->extras = $extras;
     }
-    
-    //span
-    public function get_html()
-    {  
-        $arHtml = [];
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = $this->get_opentag(); 
-        $this->_load_inner_objects();
-        $arHtml[] = $this->innerhtml;
-        $arHtml[] = $this->get_closetag();
-        return implode("",$arHtml);
-    }
-        
-    public function get_opentag()
-    {
-        $arOpenTag[] = "<$this->type";
-        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
-        //eventos
-        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\""; 
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arOpenTag[] = " style=\"$this->style\"";
-        //atributos extras pe. para usar el quryselector
-        if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $arOpenTag[] = " pk=\"pk\"";
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
 
-        $arOpenTag[] =">";        
-        return implode("",$arOpenTag);        
-    }    
-    //**********************************
-    //             SETS
-    //**********************************
-    //**********************************
-    //             GETS
-    //**********************************
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = $this->getOpenTag();
+        $this->loadInnerObjects();
+        $htmlParts[] = $this->innerHtml;
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
+    }
+
+    public function getOpenTag(): string
+    {
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->attrDbfield) {
+            $openTagParts[] = " dbfield=\"{$this->attrDbfield}\"";
+        }
+        if ($this->attrDbtype) {
+            $openTagParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->isPrimaryKey) {
+            $openTagParts[] = " pk=\"pk\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">";
+        return implode("", $openTagParts);
+    }
 }

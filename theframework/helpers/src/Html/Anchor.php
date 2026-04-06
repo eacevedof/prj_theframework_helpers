@@ -2,87 +2,116 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.6
  * @name TheFramework\Helpers\Html\Anchor
- * @file Anchor.php
- * @date 30-07-2016 15:52 (SPAIN)
- * @observations: 
  */
 namespace TheFramework\Helpers\Html;
 
 use TheFramework\Helpers\AbsHelper;
 
-class Anchor extends AbsHelper
+final class Anchor extends AbsHelper
 {
-    private $_href;
-    private $_target;
-    
-    public function __construct($innerhtml="", $id="", $href="", $target="", 
-            $class="", $style="", $extras=[])
-    {
+    private string $href = "";
+    private string $target = "";
+
+    public function __construct(
+        string $innerHtml = "",
+        string $id = "",
+        string $href = "",
+        string $target = "",
+        string $class = "",
+        string $style = "",
+        array $extras = []
+    ) {
         $this->type = "a";
-        $this->idprefix = "";
+        $this->idPrefix = "";
         $this->id = $id;
-    
-        $this->_href = $href;
-        $this->_target = $target;
-        $this->innerhtml = $innerhtml;
-        
-        if($class) $this->arclasses[] = $class;
-        if($style) $this->arStyles[] = $style;
-        
+        $this->href = $href;
+        $this->target = $target;
+        $this->innerHtml = $innerHtml;
+        if ($class) {
+            $this->classes[] = $class;
+        }
+        if ($style) {
+            $this->styles[] = $style;
+        }
         $this->extras = $extras;
     }
 
-    public function get_html()
-    {  
-        $arHtml = [];
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = $this->get_opentag();
-        //Agrega a inner_html los valores obtenidos con 
-        $this->_load_inner_objects();
-        $arHtml[] = $this->innerhtml;
-        $arHtml[] = $this->get_closetag();
-        return implode("",$arHtml);
-    }
-        
-    public function get_opentag()
+    public function getHtml(): string
     {
-        $arOpenTag[] = "<$this->type";
-        if($this->id) $arOpenTag[] = " id=\"$this->idprefix$this->id\"";
-        if($this->_href) $arOpenTag[] = " href=\"$this->_href\"";
-        if($this->_target) $arOpenTag[] = " target=\"$this->_target\"";
-        //eventos
-        if($this->jsonblur) $arOpenTag[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange) $arOpenTag[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arOpenTag[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arOpenTag[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arOpenTag[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arOpenTag[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arOpenTag[] = " onmouseout=\"$this->jsonmouseout\"";
-
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arOpenTag[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arOpenTag[] = " style=\"$this->style\"";
-        //atributos extras
-        if($this->_attr_dbfield) $arOpenTag[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arOpenTag[] = " dbtype=\"$this->_attr_dbtype\"";
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
-        $arOpenTag[] =">";        
-        return implode("",$arOpenTag);
+        $htmlParts = [];
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = $this->getOpenTag();
+        $this->loadInnerObjects();
+        $htmlParts[] = $this->innerHtml;
+        $htmlParts[] = $this->getCloseTag();
+        return implode("", $htmlParts);
     }
-    
-    //**********************************
-    //             SETS
-    //**********************************
-    public function set_href($value){$this->_href=$value;}
-    public function set_target($value){$this->_target="_".$value;}
 
+    public function getOpenTag(): string
+    {
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->href) {
+            $openTagParts[] = " href=\"{$this->href}\"";
+        }
+        if ($this->target) {
+            $openTagParts[] = " target=\"{$this->target}\"";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->attrDbfield) {
+            $openTagParts[] = " dbfield=\"{$this->attrDbfield}\"";
+        }
+        if ($this->attrDbtype) {
+            $openTagParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">";
+        return implode("", $openTagParts);
+    }
 
-    //**********************************
-    //             GETS
-    //**********************************
-    
-}//Anchor
+    public function setHref(string $value): void
+    {
+        $this->href = $value;
+    }
+
+    public function setTarget(string $value): void
+    {
+        $this->target = "_{$value}";
+    }
+}
