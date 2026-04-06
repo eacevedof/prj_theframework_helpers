@@ -6,12 +6,12 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 use TheFramework\Helpers\Form\Label;
 use TheFramework\Helpers\Form\Legend;
 use TheFramework\Helpers\Form\Fieldset;
 
-final class Checkbox extends AbsHelper
+final class Checkbox extends AbstractHelper
 {
     private array $options = [];
     private array $valuesToCheck = [];

@@ -6,10 +6,10 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 use TheFramework\Helpers\Form\Label;
 
-final class Radio extends AbsHelper
+final class Radio extends AbstractHelper
 {
     private array $options = [];
     private string $valueToCheck = "";

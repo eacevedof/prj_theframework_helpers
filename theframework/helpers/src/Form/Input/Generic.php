@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Generic extends AbsHelper
+final class Generic extends AbstractHelper
 {
     public function __construct(
         mixed $value,

@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html\Table;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-class Table extends AbsHelper
+class Table extends AbstractHelper
 {
     protected ?array $objTrs = null;
     protected bool $useThead = false;

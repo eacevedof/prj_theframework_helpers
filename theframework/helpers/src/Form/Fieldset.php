@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Form;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Fieldset extends AbsHelper
+final class Fieldset extends AbstractHelper
 {
     private const TYPE = "fieldset";
 

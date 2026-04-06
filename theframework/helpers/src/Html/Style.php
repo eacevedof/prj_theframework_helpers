@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Style extends AbsHelper
+final class Style extends AbstractHelper
 {
     private string $classWarning = "";
     private string $classError = "";

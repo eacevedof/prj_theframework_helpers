@@ -7,9 +7,9 @@
  */
 namespace TheFramework\Helpers\Html;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Button extends AbsHelper
+final class Button extends AbstractHelper
 {
     private string $icon = "";
 

@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Form;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Select extends AbsHelper
+final class Select extends AbstractHelper
 {
     private array $options = [];
     private mixed $valuesToSelect = null;

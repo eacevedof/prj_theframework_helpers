@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Link extends AbsHelper
+final class Link extends AbstractHelper
 {
     private string $mediaType = "text/css";
     private string $rel = "stylesheet";

@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Image extends AbsHelper
+final class Image extends AbstractHelper
 {
     private string $src = "";
     private string $alt = "";

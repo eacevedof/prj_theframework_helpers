@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Script extends AbsHelper
+final class Script extends AbstractHelper
 {
     private string $tag = "script";
     private array $sources = [];

@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Form;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Textarea extends AbsHelper
+final class Textarea extends AbstractHelper
 {
     private int $cols = 40;
     private int $rows = 8;
@@ -58,7 +58,7 @@ final class Textarea extends AbsHelper
             oSpan.innerHTML = sValue;
     };
 
-    var fn_txamaxlength = function(oTextarea,oEvent)
+    var fn_txamaxlength = function(oTextarea, oEvent)
     {
         var sInnerHtml = "";
         var isEvent = true;

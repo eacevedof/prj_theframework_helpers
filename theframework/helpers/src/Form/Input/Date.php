@@ -6,10 +6,10 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 use TheFramework\Helpers\Form\Label;
 
-final class Date extends AbsHelper
+final class Date extends AbstractHelper
 {
     private bool $useClearButton = true;
     private bool $convertDateBeforeShow = true;

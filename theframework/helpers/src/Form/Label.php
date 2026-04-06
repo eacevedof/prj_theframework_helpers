@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Form;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Label extends AbsHelper
+final class Label extends AbstractHelper
 {
     private string $for = "";
 

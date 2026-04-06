@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html\Xl;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Li extends AbsHelper
+final class Li extends AbstractHelper
 {
     public function __construct(string $innerHtml = "", string $id = "")
     {

@@ -6,10 +6,10 @@
  */
 namespace TheFramework\Helpers\Form;
 
-use TheFramework\Helpers\AbsHelper;
-use TheFramework\Helpers\IHelper;
+use TheFramework\Helpers\AbstractHelper;
+use TheFramework\Helpers\InterfaceHelper;
 
-final class Form extends AbsHelper
+final class Form extends AbstractHelper
 {
     private const string TYPE = "form";
     public const string METHOD_POST = "post";
@@ -175,7 +175,7 @@ final class Form extends AbsHelper
         return $this;
     }
 
-    public function addFirstInner(IHelper $helper): self
+    public function addFirstInner(InterfaceHelper $helper): self
     {
         array_unshift($this->innerHelpers, $helper);
         return $this;

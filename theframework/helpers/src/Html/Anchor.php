@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Anchor extends AbsHelper
+final class Anchor extends AbstractHelper
 {
     private string $href = "";
     private string $target = "";

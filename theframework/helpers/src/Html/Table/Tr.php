@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html\Table;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Tr extends AbsHelper
+final class Tr extends AbstractHelper
 {
     private bool $isRowHead = false;
     private bool $isRowFoot = false;
@@ -141,7 +141,7 @@ final class Tr extends AbsHelper
         $this->attrRowNumber = $value;
     }
 
-    public function addInnerObject(mixed $value): self
+    public function addInnerHelper(mixed $value): self
     {
         $this->innerHelpers[] = $value;
         $this->numCols = count($this->innerHelpers);

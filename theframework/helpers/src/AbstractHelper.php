@@ -9,7 +9,7 @@ namespace TheFramework\Helpers;
 use TheFramework\Helpers\Form\Label;
 use TheFramework\Helpers\Html\Style;
 
-abstract class AbsHelper implements IHelper
+abstract class AbstractHelper implements InterfaceHelper
 {
     protected string $comment = "";
     protected string $type = "";
@@ -218,7 +218,7 @@ abstract class AbsHelper implements IHelper
         return $this;
     }
 
-    public function addInnerObject(IHelper|string $innerValue): self
+    public function addInnerHelper(InterfaceHelper|string $innerValue): self
     {
         if ($innerValue) {
             $this->innerHelpers[] = $innerValue;

@@ -6,7 +6,7 @@
  */
 namespace TheFramework\Helpers;
 
-interface IHelper
+interface InterfaceHelper
 {
     public function getHtml(): string;
 

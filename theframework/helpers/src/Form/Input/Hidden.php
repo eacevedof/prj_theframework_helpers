@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Hidden extends AbsHelper
+final class Hidden extends AbstractHelper
 {
     public function __construct(
         string $id = "",

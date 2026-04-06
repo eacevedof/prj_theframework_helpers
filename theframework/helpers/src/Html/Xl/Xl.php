@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html\Xl;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Xl extends AbsHelper
+final class Xl extends AbstractHelper
 {
     protected array $objLi = [];
 

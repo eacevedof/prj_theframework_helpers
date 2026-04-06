@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html\Table;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Td extends AbsHelper
+final class Td extends AbstractHelper
 {
     private ?string $colSpan = null;
     private bool $isHeader = false;

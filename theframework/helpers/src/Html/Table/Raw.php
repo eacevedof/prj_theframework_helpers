@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Html\Table;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Raw extends AbsHelper
+final class Raw extends AbstractHelper
 {
     protected array $labels = [];
     protected array $rows = [];

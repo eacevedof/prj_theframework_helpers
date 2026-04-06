@@ -6,9 +6,9 @@
  */
 namespace TheFramework\Helpers\Form;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 
-final class Legend extends AbsHelper
+final class Legend extends AbstractHelper
 {
     public function __construct(
         string $innerHtml = "",

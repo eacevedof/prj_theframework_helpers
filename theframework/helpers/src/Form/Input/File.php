@@ -6,10 +6,10 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 use TheFramework\Helpers\Form\Label;
 
-final class File extends AbsHelper
+final class File extends AbstractHelper
 {
     private string $maxSize = "";
     private string $accept = "";

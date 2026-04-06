@@ -6,10 +6,10 @@
  */
 namespace TheFramework\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbsHelper;
+use TheFramework\Helpers\AbstractHelper;
 use TheFramework\Helpers\Form\Label;
 
-final class Password extends AbsHelper
+final class Password extends AbstractHelper
 {
     public function __construct(
         string $id = "",
