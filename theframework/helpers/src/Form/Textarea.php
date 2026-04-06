@@ -2,50 +2,51 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.2.2
  * @name TheFramework\Helpers\Form\Textarea
- * @date 21-11-2016 22:24 (SPAIN)
- * @file Textarea.php
- * @observations
  */
 namespace TheFramework\Helpers\Form;
+
 use TheFramework\Helpers\AbsHelper;
-use TheFramework\Helpers\Form\Label;
 
-class Textarea extends AbsHelper
-{ 
-    private $_cols;
-    private $_rows;
-    private $isCounterSpan;
-    private $isCounterJs;
-    
-    public function __construct
-    ($id="",$name="",$innerhtml="",$extras=[],$maxlength=-1
-    ,$cols=40,$rows=8,$class="",$style="",Label $oLabel=null)
-    {
+final class Textarea extends AbsHelper
+{
+    private int $cols = 40;
+    private int $rows = 8;
+    private bool $isCounterSpan = false;
+    private bool $isCounterJs = false;
+
+    public function __construct(
+        string $id = "",
+        string $name = "",
+        string $innerHtml = "",
+        array $extras = [],
+        int $maxLength = -1,
+        int $cols = 40,
+        int $rows = 8,
+        string $class = "",
+        string $style = "",
+        ?Label $label = null
+    ) {
         $this->type = "textarea";
-
-        $this->idprefix = "";
+        $this->idPrefix = "";
         $this->id = $id;
-        $this->innerhtml = $innerhtml;
+        $this->innerHtml = $innerHtml;
         $this->name = $name;
-        $this->_cols = $cols;
-        $this->_rows = $rows;
-
-        if($class) $this->arclasses[] = $class;
-        if($style) $this->arStyles[] = $style;
-       
-        $this->maxlength = $maxlength;
+        $this->cols = $cols;
+        $this->rows = $rows;
+        if ($class) {
+            $this->classes[] = $class;
+        }
+        if ($style) {
+            $this->styles[] = $style;
+        }
+        $this->maxLength = (string) $maxLength;
         $this->extras = $extras;
-        $this->oLabel = $oLabel;
-        
-        $this->isCounterSpan = false;
-        $this->isCounterJs = false;        
-    }//__construct
-    
-    private function js_counter()
+        $this->label = $label;
+    }
+
+    private function printJsCounter(): void
     {
-        //pr("js_counter.in");
 ?>
 
 <script type="text/javascript" helper="textarea.js_counter">
@@ -56,7 +57,7 @@ class Textarea extends AbsHelper
         if(oSpan)
             oSpan.innerHTML = sValue;
     };
-    
+
     var fn_txamaxlength = function(oTextarea,oEvent)
     {
         var sInnerHtml = "";
@@ -77,87 +78,145 @@ class Textarea extends AbsHelper
         }
         return isEvent;
     };
-</script>    
+</script>
 <?php
-    }//js_counter
-    
-    public function get_html()
-    {  
-        $arHtml = [];
-        if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        //Una longitud de 0 tiene un comportamiento parecido a un bloqueado
-        if($this->maxlength>-1 && $this->isCounterJs && $this->isCounterSpan) 
-            $this->jsonkeyup .= " return fn_txamaxlength(this,event);";              
-        $arHtml[] = $this->get_opentag();
-        $arHtml[] = htmlentities($this->innerhtml);
-        $arHtml[] = $this->get_closetag();
+    }
 
-        //addon contador
-        if($this->isCounterSpan)
-        {
-            $arHtml[] = "\n<span id=\"sp$this->idprefix$this->id\"></span>"; 
-            //se imprime el js que gestiona el contador (si se desea)
-            if($this->isCounterJs) 
-            {              
-                //bug("js_counter");die;
-                $this->js_counter();
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        if ($this->label) {
+            $htmlParts[] = $this->label->getHtml();
+        }
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        if ((int) $this->maxLength > -1 && $this->isCounterJs && $this->isCounterSpan) {
+            $this->jsOnKeyup .= " return fn_txamaxlength(this,event);";
+        }
+        $htmlParts[] = $this->getOpenTag();
+        $htmlParts[] = htmlentities($this->innerHtml);
+        $htmlParts[] = $this->getCloseTag();
+
+        if ($this->isCounterSpan) {
+            $htmlParts[] = "\n<span id=\"sp{$this->idPrefix}{$this->id}\"></span>";
+            if ($this->isCounterJs) {
+                $this->printJsCounter();
             }
         }
 
-        return implode("",$arHtml);
-    }//get_html
-    
-    public function get_opentag()
+        return implode("", $htmlParts);
+    }
+
+    public function getOpenTag(): string
     {
-        $arOpenTag[] = "<$this->type ";
-        if($this->id) $arOpenTag[] = "id=\"$this->idprefix$this->id\" ";
-        if($this->name) $arOpenTag[] = "name=\"$this->idprefix$this->name\" ";
-        if($this->_rows) $arOpenTag[] = "rows=\"$this->_rows\" ";
-        if($this->_cols) $arOpenTag[] = "cols=\"$this->_cols\" ";
-        //propiedades html5
-        if($this->disabled) $arOpenTag[] = "disabled ";
-        if($this->readonly) $arOpenTag[] = "readonly "; 
-        if($this->_isRequired) $arOpenTag[] = "required "; 
-        //eventos
-        if($this->jsonfocus) $arOpenTag[] = "onfocus=\"$this->jsonfocus\" ";
-        if($this->jsonblur) $arOpenTag[] = "onblur=\"$this->jsonblur\" ";
-        if($this->jsonchange) $arOpenTag[] = "onchange=\"$this->jsonchange\" ";
-        if($this->jsonclick) $arOpenTag[] = "onclick=\"$this->jsonclick\" ";
-        if($this->jsonkeypress) $arOpenTag[] = "onkeypress=\"$this->jsonkeypress\" ";        
-        if($this->jsonkeydown) $arOpenTag[] = "onkeydown=\"$this->jsonkeydown\" ";
-        if($this->jsonkeyup) $arOpenTag[] = "onkeyup=\"$this->jsonkeyup\" ";
-        if($this->jsonmouseover) $arOpenTag[] = "onmouseover=\"$this->jsonmouseover\" ";
-        if($this->jsonmouseout) $arOpenTag[] = "onmouseout=\"$this->jsonmouseout\" ";
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type} ";
+        if ($this->id) {
+            $openTagParts[] = "id=\"{$this->idPrefix}{$this->id}\" ";
+        }
+        if ($this->name) {
+            $openTagParts[] = "name=\"{$this->idPrefix}{$this->name}\" ";
+        }
+        if ($this->rows) {
+            $openTagParts[] = "rows=\"{$this->rows}\" ";
+        }
+        if ($this->cols) {
+            $openTagParts[] = "cols=\"{$this->cols}\" ";
+        }
+        if ($this->disabled) {
+            $openTagParts[] = "disabled ";
+        }
+        if ($this->readonly) {
+            $openTagParts[] = "readonly ";
+        }
+        if ($this->isRequired) {
+            $openTagParts[] = "required ";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = "onfocus=\"{$this->jsOnFocus}\" ";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = "onblur=\"{$this->jsOnBlur}\" ";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = "onchange=\"{$this->jsOnChange}\" ";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = "onclick=\"{$this->jsOnClick}\" ";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = "onkeypress=\"{$this->jsOnKeypress}\" ";
+        }
+        if ($this->jsOnKeydown) {
+            $openTagParts[] = "onkeydown=\"{$this->jsOnKeydown}\" ";
+        }
+        if ($this->jsOnKeyup) {
+            $openTagParts[] = "onkeyup=\"{$this->jsOnKeyup}\" ";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = "onmouseover=\"{$this->jsOnMouseover}\" ";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = "onmouseout=\"{$this->jsOnMouseout}\" ";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = "class=\"{$this->class}\" ";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = "style=\"{$this->style}\" ";
+        }
+        if ($this->maxLength) {
+            $openTagParts[] = "maxlength=\"{$this->maxLength}\" ";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        if ($this->isPrimaryKey) {
+            $openTagParts[] = "pk=\"pk\" ";
+        }
+        if ($this->attrDbtype) {
+            $openTagParts[] = "dbtype=\"{$this->attrDbtype}\" ";
+        }
+        $openTagParts[] = ">\n";
+        return implode("", $openTagParts);
+    }
 
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arOpenTag[] = "class=\"$this->class\" ";
-        $this->_load_style();
-        if($this->style) $arOpenTag[] = "style=\"$this->style\" ";
-        //atributos extras
-        if($this->maxlength) $arOpenTag[] = "maxlength=\"$this->maxlength\" ";
-        if($this->extras) $arOpenTag[] = " ".$this->get_extras();
-        if($this->_isPrimaryKey) $arOpenTag[] = "pk=\"pk\" ";
-        if($this->_attr_dbtype) $arOpenTag[] = "dbtype=\"$this->_attr_dbtype\" ";
-        
-        $arOpenTag[] = ">\n";        
-        return implode("",$arOpenTag);
-    }//get_opentag
-    
-    //**********************************
-    //             SETS
-    //**********************************
-    public function setmaxlength($value){$this->maxlength = $value;}
-    public function set_rows($iValue){$this->_rows=$iValue;}
-    public function set_cols($iValue){$this->_cols=$iValue;}
-    public function set_counterspan($isOn=true){$this->isCounterSpan = $isOn;}
-    public function set_counterjs($isOn=true){$this->isCounterJs = $isOn;}
-    
-    //**********************************
-    //             GETS
-    //**********************************
-    public function getmaxlength(){return $this->maxlength;}
-    public function readonly($readonly=true){$this->readonly = $readonly;}
+    public function setMaxLength(int $value): void
+    {
+        $this->maxLength = (string) $value;
+    }
 
-}//Textarea
+    public function setRows(int $value): void
+    {
+        $this->rows = $value;
+    }
+
+    public function setCols(int $value): void
+    {
+        $this->cols = $value;
+    }
+
+    public function setCounterSpan(bool $isOn = true): void
+    {
+        $this->isCounterSpan = $isOn;
+    }
+
+    public function setCounterJs(bool $isOn = true): void
+    {
+        $this->isCounterJs = $isOn;
+    }
+
+    public function getMaxLength(): string
+    {
+        return $this->maxLength;
+    }
+
+    public function setReadonly(bool $readonly = true): self
+    {
+        $this->readonly = $readonly;
+        return $this;
+    }
+}

@@ -2,234 +2,252 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.1.0
  * @name TheFramework\Helpers\Form\Select
- * @date 17-02-2016 17:27
- * @file Select.php
  */
 namespace TheFramework\Helpers\Form;
-use TheFramework\Helpers\AbsHelper;
-use TheFramework\Helpers\Form\Label;
 
-class Select extends AbsHelper
+use TheFramework\Helpers\AbsHelper;
+
+final class Select extends AbsHelper
 {
-    private $arOptions;
-    private $mxValuesToSelect=null;
-    private $_selected_as_hidden=null;
-    private $_isMultiple;
-    private $_size;
-    
-    public function __construct
-    ($arOptions, $id="", $name="", Label $oLabel=null, $mxValueToSelect ="", $size=1
-     ,$isMultiple=false, $extras=[], $class="", $readonly=false)
-    {
+    private array $options = [];
+    private mixed $valuesToSelect = null;
+    private ?string $selectedAsHidden = null;
+    private bool $isMultiple = false;
+    private int $size = 1;
+
+    public function __construct(
+        array $options,
+        string $id = "",
+        string $name = "",
+        ?Label $label = null,
+        mixed $valueToSelect = "",
+        int $size = 1,
+        bool $isMultiple = false,
+        array $extras = [],
+        string $class = "",
+        bool $readonly = false
+    ) {
         $this->type = "select";
-        $this->mxValuesToSelect = $mxValueToSelect;
-        
-        $this->arOptions = $arOptions;
-        $this->idprefix = "";
+        $this->valuesToSelect = $valueToSelect;
+        $this->options = $options;
+        $this->idPrefix = "";
         $this->id = $id;
         $this->name = $name;
-        $this->_isMultiple = $isMultiple;
-        if($this->_size>1) $this->_isMultiple = true;
-        $this->_size = $size;
-        $this->oLabel = $oLabel;
+        $this->isMultiple = $isMultiple;
+        if ($this->size > 1) {
+            $this->isMultiple = true;
+        }
+        $this->size = $size;
+        $this->label = $label;
         $this->extras = $extras;
-        if($class) $this->arclasses[] = $class;
+        if ($class) {
+            $this->classes[] = $class;
+        }
         $this->readonly = $readonly;
     }
 
-    public function get_html()
-    {  
-        $arHtml = [];
-        if($this->oLabel) $arHtml[] = $this->oLabel->get_html();
-        if($this->comment) $arHtml[] = "<!-- $this->comment -->\n";
-        $arHtml[] = $this->get_opentag(); 
-        //INICIO OPTIONS
-        if(!is_array($this->mxValuesToSelect)) 
-            $mxValueToSelect = (string)$this->mxValuesToSelect;
-        else 
-            $mxValueToSelect = $this->mxValuesToSelect;
-        
-        //No es readonly
-        if(!$this->readonly)        
-        {
-            if(!$this->_isMultiple)
-            {    
-                //bug($mxValueToSelect,"to sel of $this->id");
-                foreach($this->arOptions as $sValue=>$sInnerText)
-                {
-                    $sOptionValue = (string)$sValue;
-                    //bug("$mxValueToSelect===$sOptionValue");
-                    $isSelected = ($mxValueToSelect===$sOptionValue);
-                    $arHtml[] = $this->build_htmloption($sValue, $sInnerText, $isSelected);
+    public function getHtml(): string
+    {
+        $htmlParts = [];
+        if ($this->label) {
+            $htmlParts[] = $this->label->getHtml();
+        }
+        if ($this->comment) {
+            $htmlParts[] = "<!-- {$this->comment} -->\n";
+        }
+        $htmlParts[] = $this->getOpenTag();
+
+        $valueToSelect = !is_array($this->valuesToSelect)
+            ? (string) $this->valuesToSelect
+            : $this->valuesToSelect;
+
+        if (!$this->readonly) {
+            if (!$this->isMultiple) {
+                foreach ($this->options as $value => $innerText) {
+                    $optionValue = (string) $value;
+                    $isSelected = ($valueToSelect === $optionValue);
+                    $htmlParts[] = $this->buildHtmlOption($value, $innerText, $isSelected);
                 }
             }
-            //Multiple
-            else
-            {
-                foreach($this->arOptions as $sValue=>$sInnerText)
-                {
-                    if(is_array($mxValueToSelect))
-                        $isSelected = in_array($sValue, $mxValueToSelect);
-                    else
-                        $isSelected = ($mxValueToSelect==((string)$sValue));
-                    $arHtml[] = $this->build_htmloption($sValue, $sInnerText, $isSelected);
+            else {
+                foreach ($this->options as $value => $innerText) {
+                    $isSelected = is_array($valueToSelect)
+                        ? in_array($value, $valueToSelect)
+                        : ($valueToSelect === (string) $value);
+                    $htmlParts[] = $this->buildHtmlOption($value, $innerText, $isSelected);
                 }
             }
         }
-        //es readonly
-        else
-        {
-            if(!$this->_isMultiple)
-            {
-                //Hay dos opciones y una es vacia.
-                if(count($this->arOptions)<=2 && key_exists("",$this->arOptions))
-                {
-                    unset($this->arOptions[""]);
-                    $arItemReadonly = $this->arOptions;
+        else {
+            if (!$this->isMultiple) {
+                if (count($this->options) <= 2 && array_key_exists("", $this->options)) {
+                    unset($this->options[""]);
+                    $itemReadonly = $this->options;
                 }
-                //no tiene item en blanco
-                else
-                {    
-                    //recupera el valor de autoselección
-                    $arItemReadonly = $this->get_item_readonly($this->arOptions,$mxValueToSelect);
+                else {
+                    $itemReadonly = $this->getItemReadonly($this->options, $valueToSelect);
                 }
-                foreach($arItemReadonly as $sValue => $sText)
-                    $arHtml[] = $this->build_htmloption($sValue, $sText, true);
+                foreach ($itemReadonly as $value => $text) {
+                    $htmlParts[] = $this->buildHtmlOption($value, $text, true);
+                }
             }
-            //es readonly y multiple
-            else
-            {
-                //bug("is multiple"); bug(is_array($this->_isMultiple),"is multiple");
-                //Falta implementar
-            }
-        }//fin es readonly
-        //FIN OPTIONS
-        
-        $arHtml[] = $this->get_closetag();
-        //el valor seleccionado se crea como hidden
-        $arHtml[] = $this->_selected_as_hidden;
-        return implode("",$arHtml);
-    }//get_html
-        
-    public function get_opentag()
-    {
-        $arHtml[] = "<$this->type";
-        if($this->id) $arHtml[] = " id=\"$this->idprefix$this->id\"";
-        //Nombre dependiendo si es multiple o no
-        if($this->_isMultiple) $arHtml[] = " name=\"$this->idprefix$this->name[]\"";
-        else $arHtml[] = " name=\"$this->idprefix$this->name\"";
-        
-        if($this->_size) $arHtml[] = " size=\"$this->_size\"";
-        if($this->_isMultiple) $arHtml[] = " multiple";
-        if($this->disabled) $arHtml[] = " disabled";
-        //if($this->readonly) $arHtml[] = " readonly"; //no existe esta propiedad para select
-        if($this->_isRequired) $arHtml[] = " required"; 
-        
-        //eventos
-        if($this->jsonblur) $arHtml[] = " onblur=\"$this->jsonblur\"";
-        if($this->jsonchange)$arHtml[] = " onchange=\"$this->jsonchange\"";
-        if($this->jsonclick) $arHtml[] = " onclick=\"$this->jsonclick\"";
-        if($this->jsonkeypress) $arHtml[] = " onkeypress=\"$this->jsonkeypress\"";
-        if($this->jsonfocus) $arHtml[] = " onfocus=\"$this->jsonfocus\"";
-        if($this->jsonmouseover) $arHtml[] = " onmouseover=\"$this->jsonmouseover\"";
-        if($this->jsonmouseout) $arHtml[] = " onmouseout=\"$this->jsonmouseout\""; 
-        
-        //aspecto
-        $this->_load_cssclass();
-        if($this->class) $arHtml[] = " class=\"$this->class\"";
-        $this->_load_style();
-        if($this->style) $arHtml[] = " style=\"$this->style\"";
-        //atributos extras pe. para usar el quryselector
-        if($this->_attr_dbfield) $arHtml[] = " dbfield=\"$this->_attr_dbfield\"";
-        if($this->_attr_dbtype) $arHtml[] = " dbtype=\"$this->_attr_dbtype\"";        
-        if($this->_isPrimaryKey) $arHtml[] = " pk=\"pk\"";
-        if($this->extras) $arHtml[] = " ".$this->get_extras();
-        $arHtml[] = ">\n";
-        return implode("",$arHtml);        
-    }//get_opentag
-   
-    /**
-     * @param array $arOptions
-     * @param string $sValueToSelect
-     * @return array De un solo item tipo array[$value]=innertext
-     */
-    private function get_item_readonly($arOptions,$sValueToSelect)
-    {
-        $arItemReadOnly = array(""=>"");
-        foreach($arOptions as $sOptValue=>$sOptText)
-            if($sValueToSelect == (string)$sOptValue)
-            {    
-                $arItemReadOnly = array($sOptValue=>$sOptText);
-                return $arItemReadOnly;
-            }
-        return $arItemReadOnly;
-    }
-   
-    /**
-     * @param array $arOptions 
-     * @param array $arValuesToSelect
-     * @return array
-     */
-    private function get_items_readonly($arOptions,$arValuesToSelect=[])
-    {
-        $arItemReadOnly = [];
-        
-        foreach($arOptions as $sOptValue=>$sOptText)
-            foreach($arValuesToSelect as $sValue)
-                if($sValue == (string)$sOptValue)
-                    $arItemReadOnly[$sOptValue] = $sOptText;
-        
-        if(empty($arItemReadOnly))$arItemReadOnly = array(""=>"");
-        
-        return $arItemReadOnly;
-    }
-    
-    private function build_htmloption($value,$innertext,$isSelected=false)
-    {
-        $sOption = "";
-        $sOption .= "\t<option";
-        $value = $this->_get_escaped_quot($value);
-        $sOption .= " value=\"$value\"";
-        if($isSelected) $sOption .= " selected";
-        $sOption .= ">";
-        $sOption .= htmlentities($innertext);                  
-        $sOption .= "</option>\n";
-        return $sOption;
+        }
+
+        $htmlParts[] = $this->getCloseTag();
+        $htmlParts[] = $this->selectedAsHidden;
+        return implode("", $htmlParts);
     }
 
-    //**********************************
-    //             SETS
-    //**********************************
-    //protected function value(){;}
-    
-    public function readonly($readonly=true){$this->readonly = $readonly;}
-    public function name($value){$this->name = $value;}
-    public function setvalue_to_select($mxValues){$this->mxValuesToSelect = $mxValues;}
-    public function set_null_option_text($value){$this->_null_option = $value;}
-    public function set_multiple_size($value)
+    public function getOpenTag(): string
     {
-        $this->_size = (int)$value;
-        if($this->_size>1) $this->_isMultiple = true;
+        $openTagParts = [];
+        $openTagParts[] = "<{$this->type}";
+        if ($this->id) {
+            $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
+        }
+        if ($this->isMultiple) {
+            $openTagParts[] = " name=\"{$this->idPrefix}{$this->name}[]\"";
+        }
+        else {
+            $openTagParts[] = " name=\"{$this->idPrefix}{$this->name}\"";
+        }
+        if ($this->size) {
+            $openTagParts[] = " size=\"{$this->size}\"";
+        }
+        if ($this->isMultiple) {
+            $openTagParts[] = " multiple";
+        }
+        if ($this->disabled) {
+            $openTagParts[] = " disabled";
+        }
+        if ($this->isRequired) {
+            $openTagParts[] = " required";
+        }
+        if ($this->jsOnBlur) {
+            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
+        }
+        if ($this->jsOnChange) {
+            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
+        }
+        if ($this->jsOnClick) {
+            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
+        }
+        if ($this->jsOnKeypress) {
+            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
+        }
+        if ($this->jsOnFocus) {
+            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
+        }
+        if ($this->jsOnMouseover) {
+            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
+        }
+        if ($this->jsOnMouseout) {
+            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
+        }
+        $this->loadCssClass();
+        if ($this->class) {
+            $openTagParts[] = " class=\"{$this->class}\"";
+        }
+        $this->loadStyle();
+        if ($this->style) {
+            $openTagParts[] = " style=\"{$this->style}\"";
+        }
+        if ($this->attrDbfield) {
+            $openTagParts[] = " dbfield=\"{$this->attrDbfield}\"";
+        }
+        if ($this->attrDbtype) {
+            $openTagParts[] = " dbtype=\"{$this->attrDbtype}\"";
+        }
+        if ($this->isPrimaryKey) {
+            $openTagParts[] = " pk=\"pk\"";
+        }
+        if ($this->extras) {
+            $openTagParts[] = " " . $this->getExtras();
+        }
+        $openTagParts[] = ">\n";
+        return implode("", $openTagParts);
     }
-    
-    /**
-     * Usar en caso de aplicar el atributo disabled: set_extras("disabled");
-     */
-    public function set_selectedvalue_as_hidden_on()
+
+    private function getItemReadonly(array $options, mixed $valueToSelect): array
     {
-        $this->_selected_as_hidden = "
-        <input type=\"hidden\" name=\"$this->name\" id=\"$this->id\" value=\"$this->mxValuesToSelect\"/>\n";
+        $itemReadOnly = ["" => ""];
+        foreach ($options as $optValue => $optText) {
+            if ($valueToSelect == (string) $optValue) {
+                return [$optValue => $optText];
+            }
+        }
+        return $itemReadOnly;
     }
-    
-    public function set_options($arOptions){$this->arOptions=$arOptions;}    
-    public function required($isRequired = true){$this->_isRequired=$isRequired;}
-    //**********************************
-    //             GETS
-    //**********************************
-    public function get_name(){return $this->name;}
-    //public function get_value(){return $this->value;}
-    public function get_selectedvalue(){return $this->mxValuesToSelect;}
-    public function get_closetag(){return parent::get_closetag();}
+
+    private function buildHtmlOption(mixed $value, string $innerText, bool $isSelected = false): string
+    {
+        $option = "\t<option";
+        $value = $this->getEscapedQuot($value);
+        $option .= " value=\"{$value}\"";
+        if ($isSelected) {
+            $option .= " selected";
+        }
+        $option .= ">";
+        $option .= htmlentities($innerText);
+        $option .= "</option>\n";
+        return $option;
+    }
+
+    public function setReadonly(bool $readonly = true): self
+    {
+        $this->readonly = $readonly;
+        return $this;
+    }
+
+    public function setName(string $value): self
+    {
+        $this->name = $value;
+        return $this;
+    }
+
+    public function setValueToSelect(mixed $values): void
+    {
+        $this->valuesToSelect = $values;
+    }
+
+    public function setMultipleSize(int $value): void
+    {
+        $this->size = $value;
+        if ($this->size > 1) {
+            $this->isMultiple = true;
+        }
+    }
+
+    public function setSelectedValueAsHiddenOn(): void
+    {
+        $this->selectedAsHidden = "
+        <input type=\"hidden\" name=\"{$this->name}\" id=\"{$this->id}\" value=\"{$this->valuesToSelect}\"/>\n";
+    }
+
+    public function setOptions(array $options): void
+    {
+        $this->options = $options;
+    }
+
+    public function setRequired(bool $isRequired = true): self
+    {
+        $this->isRequired = $isRequired;
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getSelectedValue(): mixed
+    {
+        return $this->valuesToSelect;
+    }
+
+    public function getCloseTag(): string
+    {
+        return parent::getCloseTag();
+    }
 }
