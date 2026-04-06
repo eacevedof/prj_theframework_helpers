@@ -145,24 +145,30 @@ final class GoogleMaps3
         $items = [];
         $jsArray = "[";
         foreach ($rowMarker as $key => $fieldValue) {
-            switch ($key) {
-                case "content":
-                case "title":
-                    $items[] = $this->getAsJsString($fieldValue);
-                    break;
-                case "number":
-                case "latitude":
-                case "longitude":
-                case "zindex":
-                    $items[] = $fieldValue;
-                    break;
+            $jsValue = $this->getMarkerFieldAsJsValue($key, $fieldValue);
+            if ($jsValue === null) {
+                continue;
             }
+            $items[] = $jsValue;
         }
         if (!empty($items)) {
             $jsArray .= implode(",", $items);
         }
         $jsArray .= "]\n";
         return $jsArray;
+    }
+
+    private function getMarkerFieldAsJsValue(string $key, mixed $fieldValue): mixed
+    {
+        if (in_array($key, ["content", "title"])) {
+            return $this->getAsJsString($fieldValue);
+        }
+
+        if (in_array($key, ["number", "latitude", "longitude", "zindex"])) {
+            return $fieldValue;
+        }
+
+        return null;
     }
 
     private function getAsJsString(string $value): string
@@ -177,16 +183,52 @@ final class GoogleMaps3
         $x2 = $point2["latitude"];
         $y2 = $point2["longitude"];
 
-        if (is_numeric($x1) && is_numeric($y1) && is_numeric($x2) && is_numeric($y2)) {
-            $x1 = sqrt(pow(($x1 - $x2), 2) + pow(($y1 - $y2), 2));
+        if (!$this->areValidCoordinates($x1, $y1, $x2, $y2)) {
+            return (float)round($x1, 2);
         }
-        $x1 = round($x1, 2);
-        return (float)$x1;
+
+        $distance = sqrt(pow(($x1 - $x2), 2) + pow(($y1 - $y2), 2));
+        return (float)round($distance, 2);
+    }
+
+    private function areValidCoordinates(mixed $x1, mixed $y1, mixed $x2, mixed $y2): bool
+    {
+        return is_numeric($x1) && is_numeric($y1) && is_numeric($x2) && is_numeric($y2);
     }
 
     public function getDistanceAndTime(array $point1, array $point2): array
     {
         $timeDistance = ["time" => "", "distance" => ""];
+        $urlDistanceOrig = $this->buildDistanceMatrixUrl($point1, $point2);
+        $urlDistanceSigned = $this->getUrlByKeypriority($urlDistanceOrig);
+
+        $xml = simplexml_load_file($urlDistanceSigned);
+        if ($xml === false) {
+            $this->writeLog($urlDistanceSigned, "distancematrix error obtencion xml");
+            $urlDistanceSigned = $urlDistanceOrig;
+            $xml = simplexml_load_file($urlDistanceSigned);
+        }
+
+        if ($xml === false) {
+            $this->setMessageError("Could not create xml from: {$urlDistanceSigned}");
+            $this->writeLog($urlDistanceSigned, "distancematrix error obtencion xml");
+            return $timeDistance;
+        }
+
+        $xmlStatus = $xml->status;
+        if (strcmp($xmlStatus, "OK") !== 0) {
+            $this->setMessageError("Distance calculation failed. Status={$xmlStatus}");
+            $this->writeLog($urlDistanceSigned, "distancematrix xml status fallido");
+            return $timeDistance;
+        }
+
+        $timeDistance = $this->parseDistanceMatrixXml($xml);
+        $this->writeLog($urlDistanceSigned, "distancematrix ok");
+        return $timeDistance;
+    }
+
+    private function buildDistanceMatrixUrl(array $point1, array $point2): string
+    {
         $x1 = $point1["latitude"];
         $y1 = $point1["longitude"];
         $x2 = $point2["latitude"];
@@ -205,48 +247,31 @@ final class GoogleMaps3
         $params["mode"] = "mode=driving";
         $params["language"] = "language=es-ES";
 
-        $params = implode("&", $params);
-        $urlDistanceOrig = $this->urlApiDistanceMatrix . $params;
-        $urlDistanceSigned = $this->getUrlByKeypriority($urlDistanceOrig);
+        return $this->urlApiDistanceMatrix . implode("&", $params);
+    }
 
-        $xml = simplexml_load_file($urlDistanceSigned);
-        if ($xml === false) {
-            if (function_exists('writelog')) {
-                writelog("bd_ask", $urlDistanceSigned, "distancematrix error obtencion xml");
-            }
-            $urlDistanceSigned = $urlDistanceOrig;
-            $xml = simplexml_load_file($urlDistanceSigned);
-        }
+    private function parseDistanceMatrixXml(object $xml): array
+    {
+        $timeDistance = ["time" => "", "distance" => ""];
+        $timeDistance["time"]["min"] = (string)$xml->row->element->duration->text;
+        $timeDistance["time"]["sec"] = (string)$xml->row->element->duration->value;
+        $timeDistance["distance"]["m"] = (string)$xml->row->element->distance->value;
 
-        if ($xml !== false) {
-            $xmlStatus = $xml->status;
-            if (strcmp($xmlStatus, "OK") === 0) {
-                $timeDistance["time"]["min"] = (string)$xml->row->element->duration->text;
-                $timeDistance["time"]["sec"] = (string)$xml->row->element->duration->value;
-                $timeDistance["distance"]["m"] = (string)$xml->row->element->distance->value;
+        $distanceInKm = ((float)$timeDistance["distance"]["m"]) / 1000;
+        $distanceInKm = number_format($distanceInKm, 3);
+        $timeDistance["distance"]["fkm"] = $distanceInKm;
+        $timeDistance["distance"]["km"] = number_format((float)$distanceInKm, 2);
+        $timeDistance["distance"]["km"] = str_replace(".", ",", $timeDistance["distance"]["km"]);
+        $timeDistance["distance"]["km"] .= " km";
 
-                $distanceInKm = ((float)$timeDistance["distance"]["m"]) / 1000;
-                $distanceInKm = number_format($distanceInKm, 3);
-                $timeDistance["distance"]["fkm"] = $distanceInKm;
-                $timeDistance["distance"]["km"] = number_format((float)$distanceInKm, 2);
-                $timeDistance["distance"]["km"] = str_replace(".", ",", $timeDistance["distance"]["km"]);
-                $timeDistance["distance"]["km"] .= " km";
-                if (function_exists('writelog')) {
-                    writelog("bd_ask", $urlDistanceSigned, "distancematrix ok");
-                }
-            } else {
-                $this->setMessageError("Distance calculation failed. Status={$xmlStatus}");
-                if (function_exists('writelog')) {
-                    writelog("bd_ask", $urlDistanceSigned, "distancematrix xml status fallido");
-                }
-            }
-        } else {
-            $this->setMessageError("Could not create xml from: {$urlDistanceSigned}");
-            if (function_exists('writelog')) {
-                writelog("bd_ask", $urlDistanceSigned, "distancematrix error obtencion xml");
-            }
-        }
         return $timeDistance;
+    }
+
+    private function writeLog(string $url, string $message): void
+    {
+        if (function_exists('writelog')) {
+            writelog("bd_ask", $url, $message);
+        }
     }
 
     public function sumDistance(): float
@@ -297,16 +322,23 @@ final class GoogleMaps3
 
     private function getUrlByKeypriority(string $urlEncoded): string
     {
-        if (!empty($urlEncoded)) {
-            if (!empty($this->signature) && $this->useSignature) {
-                $urlEncoded .= "&client={$this->clientId}&signature={$this->signature}";
-            } elseif (!empty($this->criptokey) && $this->useCriptoKey) {
-                $this->signature = $this->getEncodedSignature($urlEncoded, $this->criptokey);
-                $urlEncoded .= "&signature={$this->signature}";
-            } elseif (!empty($this->apikey) && $this->useApikey) {
-                $urlEncoded .= "&key={$this->apikey}";
-            }
+        if (empty($urlEncoded)) {
+            return $urlEncoded;
         }
+
+        if (!empty($this->signature) && $this->useSignature) {
+            return $urlEncoded . "&client={$this->clientId}&signature={$this->signature}";
+        }
+
+        if (!empty($this->criptokey) && $this->useCriptoKey) {
+            $this->signature = $this->getEncodedSignature($urlEncoded, $this->criptokey);
+            return $urlEncoded . "&signature={$this->signature}";
+        }
+
+        if (!empty($this->apikey) && $this->useApikey) {
+            return $urlEncoded . "&key={$this->apikey}";
+        }
+
         return $urlEncoded;
     }
 
@@ -352,17 +384,9 @@ final class GoogleMaps3
             return $ll;
         }
 
-        $urlApiGeocode = $this->urlApiGeocode;
-        $addrForUrl = join(", ", $address);
-        $addrForUrl = utf8_encode($addrForUrl);
-        $addrForUrl = urldecode($addrForUrl);
-        $addrForUrl = str_replace(" ", "+", $addrForUrl);
-        $urlApiGeocode = $urlApiGeocode . "?address=" . $addrForUrl . "&sensor=false";
+        $urlApiGeocode = $this->buildGeocodeUrl($address);
         $xml = simplexml_load_file($urlApiGeocode);
-
-        if ($this->useDelay) {
-            usleep($this->delayTime);
-        }
+        $this->applyDelay();
 
         if ($xml === false) {
             $this->setMessageError("Could not create xml from: {$urlApiGeocode}");
@@ -387,6 +411,22 @@ final class GoogleMaps3
         $ll["longitude"] = $longitude;
         $this->message = "Address found";
         return $ll;
+    }
+
+    private function buildGeocodeUrl(array $address): string
+    {
+        $addrForUrl = join(", ", $address);
+        $addrForUrl = utf8_encode($addrForUrl);
+        $addrForUrl = urldecode($addrForUrl);
+        $addrForUrl = str_replace(" ", "+", $addrForUrl);
+        return $this->urlApiGeocode . "?address=" . $addrForUrl . "&sensor=false";
+    }
+
+    private function applyDelay(): void
+    {
+        if ($this->useDelay) {
+            usleep($this->delayTime);
+        }
     }
 
     private function isInRangeLatLong(float $latitude = 0.0, float $longitude = 0.0): bool
@@ -428,11 +468,10 @@ final class GoogleMaps3
 
     public function getApikeyTag(): string
     {
-        $apiUrl = "<script type=\"text/javascript\" src=\"noapikeysuplied\"></script>";
-        if (!empty($this->apikey)) {
-            $apiUrl = "<script type=\"text/javascript\" src=\"http://maps.googleapis.com/maps/api/js?v=3&sensor=false\"></script>\n";
+        if (empty($this->apikey)) {
+            return "<script type=\"text/javascript\" src=\"noapikeysuplied\"></script>";
         }
-        return $apiUrl;
+        return "<script type=\"text/javascript\" src=\"http://maps.googleapis.com/maps/api/js?v=3&sensor=false\"></script>\n";
     }
 
     public function getJsapiV3Tag(): string
