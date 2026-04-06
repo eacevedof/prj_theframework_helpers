@@ -19,7 +19,7 @@ final class Form extends AbstractHelper
     private string $method = "";
     private string $enctype = "";
     private string $action = "";
-    protected ?string $jsOnSubmit = null;
+    protected string $jsOnSubmit = "";
 
     private ?Fieldset $fieldset = null;
     private ?Legend $legend = null;

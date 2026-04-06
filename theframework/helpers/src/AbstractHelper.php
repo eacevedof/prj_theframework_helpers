@@ -36,16 +36,16 @@ abstract class AbstractHelper implements InterfaceHelper
     protected bool $isRequired = false;
     protected bool $isPrimaryKey = false;
 
-    protected ?string $jsOnClick = null;
-    protected ?string $jsOnChange = null;
-    protected ?string $jsOnKeypress = null;
-    protected ?string $jsOnKeydown = null;
-    protected ?string $jsOnKeyup = null;
+    protected string $jsOnClick = "";
+    protected string $jsOnChange = "";
+    protected string $jsOnKeypress = "";
+    protected string $jsOnKeydown = "";
+    protected string $jsOnKeyup = "";
 
-    protected ?string $jsOnBlur = null;
-    protected ?string $jsOnFocus = null;
-    protected ?string $jsOnMouseover = null;
-    protected ?string $jsOnMouseout = null;
+    protected string $jsOnBlur = "";
+    protected string $jsOnFocus = "";
+    protected string $jsOnMouseover = "";
+    protected string $jsOnMouseout = "";
 
     protected ?Label $label = null;
     protected ?Style $styleObject = null;
@@ -232,12 +232,11 @@ abstract class AbstractHelper implements InterfaceHelper
         return $this;
     }
 
-    public function addExtras(string $attr, ?string $value = null): self
+    public function addExtras(string $attr, string $value = ""): self
     {
         if ($attr) {
             $this->extras[$attr] = $value;
-        }
-        else {
+        } else {
             $this->extras[] = $value;
         }
         return $this;

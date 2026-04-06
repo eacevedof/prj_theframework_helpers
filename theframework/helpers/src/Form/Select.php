@@ -12,7 +12,7 @@ final class Select extends AbstractHelper
 {
     private array $options = [];
     private mixed $valuesToSelect = null;
-    private ?string $selectedAsHidden = null;
+    private string $selectedAsHidden = "";
     private bool $isMultiple = false;
     private int $size = 1;
 

@@ -12,8 +12,8 @@ final class Tr extends AbstractHelper
 {
     private bool $isRowHead = false;
     private bool $isRowFoot = false;
-    private ?string $colSpan = null;
-    private ?string $rowSpan = null;
+    private string $colSpan = "";
+    private string $rowSpan = "";
     private int $numCols = 0;
     private string $attrRowNumber = "";
 
@@ -32,8 +32,8 @@ final class Tr extends AbstractHelper
         $this->id = $id;
         $this->innerHelpers = $innerHelpers;
         $this->numCols = count($this->innerHelpers);
-        $this->colSpan = $colSpan ?: null;
-        $this->rowSpan = $rowSpan ?: null;
+        $this->colSpan = $colSpan;
+        $this->rowSpan = $rowSpan;
         if ($class) {
             $this->classes[] = $class;
         }
@@ -154,7 +154,7 @@ final class Tr extends AbstractHelper
         $this->numCols = count($this->innerHelpers);
     }
 
-    public function getColSpan(): ?string
+    public function getColSpan(): string
     {
         return $this->colSpan;
     }

@@ -22,10 +22,10 @@ final class FpdfCell
     protected ?int $x = null;
     protected ?int $y = null;
 
-    protected ?string $font = null;
+    protected string $font = "";
     protected ?int $fontColor = null;
     protected ?int $fontSize = null;
-    protected ?string $fontStyle = null;
+    protected string $fontStyle = "";
     protected ?int $backColor = null;
     protected bool $isResetColors = false;
 
@@ -185,12 +185,12 @@ final class FpdfCell
         return $this->y;
     }
 
-    public function getFont(): ?string
+    public function getFont(): string
     {
         return $this->font;
     }
 
-    public function getFontstyle(): ?string
+    public function getFontstyle(): string
     {
         return $this->fontStyle;
     }

@@ -10,7 +10,7 @@ use TheFramework\Helpers\AbstractHelper;
 
 final class Td extends AbstractHelper
 {
-    private ?string $colSpan = null;
+    private string $colSpan = "";
     private bool $isHeader = false;
     private string $attrRowNumber = "";
     private string $attrColNumber = "";
@@ -28,7 +28,7 @@ final class Td extends AbstractHelper
         $this->idPrefix = "td";
         $this->id = $id;
         $this->innerHtml = $innerHtml;
-        $this->colSpan = $colSpan ?: null;
+        $this->colSpan = $colSpan;
         if ($class) {
             $this->classes[] = $class;
         }
@@ -162,7 +162,7 @@ final class Td extends AbstractHelper
         $this->attrPosition = "{$numRow}_{$numColumn}";
     }
 
-    public function getColSpan(): ?string
+    public function getColSpan(): string
     {
         return $this->colSpan;
     }

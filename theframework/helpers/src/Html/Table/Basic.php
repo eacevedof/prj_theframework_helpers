@@ -930,7 +930,7 @@ class Basic extends Table
         return $tdInner;
     }
 
-    protected function buildUrlButton(string $urlMethod, array $row, ?string $exclude = null): string
+    protected function buildUrlButton(string $urlMethod, array $row, string $exclude = ""): string
     {
         $returnUrl = $urlMethod;
         $keys = $this->getKeysAsUrl($row, $exclude);
