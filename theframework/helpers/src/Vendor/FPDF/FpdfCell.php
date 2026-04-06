@@ -2,119 +2,216 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.0.2
  * @name TheFramework\Helpers\Vendor\FpdfCell
- * @date 01-06-2014 12:45
- * @file FpdfCell.php
- * @observations
- *      requires: FPDF
  */
 namespace TheFramework\Helpers\Vendor;
 
-class FpdfCell 
+final class FpdfCell
 {
-    protected $isSingle;//=false;//single,multi
-    
-    //cell params
-    protected $iWidth;
-    protected $iHeigth;
-    protected $sText;
-    //protected $isTextUTF;
-    protected $iBorder;
-    protected $iNumNL;
-    protected $cAlign;
-    protected $isFill;
-    protected $sUrlPageLink;
-    
-    //Localizacion
-    protected $iX;
-    protected $iY;
-    
-    //Estilos
-    protected $iFontColor;
-    protected $iFontSize;
-    protected $sFontStyle;
-    protected $iBackColor;
-    protected $isResetColors;
-    
-    /**
-     * Por defecto crea tipo multiline
-     * @param boolean $isSingle
-     */
-    public function __construct($isSingle=false)
-    {
-        //$this->Cell($iAncho,$iAltura,$sTitulo,$iAnchoBorde,$iSaltosLinea,$cAlineacion,fondo?true|false,??);
-        //$w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link=''
-        $this->isSingle = $isSingle;
-        $this->iWidth = 1;
-        $this->iHeigth = 1;
-        $this->sText = "";
-        $this->iBorder = 0;
-        $this->iNumNL = 0;
-        $this->isFill = false;
-        $this->sUrlPageLink = "";
-        //$this->isTextUTF = true;
-        //MultiCell($w, $h, $txt, $border=0, $align='J', $fill=false)
-    }
-    
-    //==================================
-    //             SETS
-    //==================================
-    public function set_y_byheight(){}
+    protected bool $isSingle = false;
 
-    public function set_single($isOn=true){$this->isSingle = $isOn;}
-    public function set_width($iValue){$this->iWidth = $iValue;}
-    public function set_height($iValue){$this->iHeigth = $iValue;}
-    public function set_text($sValue){$this->sText = $sValue;}
-    public function set_border($iWidth){$this->iBorder = $iWidth;}
-    public function set_numline_unit($iUnit){$this->iNumNL = $iUnit;}
-    /**
-     * Right, Center, Left, J??
-     * @param char $cAlign R|C|J
-     */
-    public function settype_align($cAlign){$this->cAlign = $cAlign;}
-    public function set_usefill($isOn=true){$this->isFill = $isOn;}
-    public function set_pagelink($sValue){$this->sUrlPageLink = $sValue;}
-    
-    public function set_x($iX){$this->iX=$iX;}
-    public function set_y($iY){$this->iY=$iY;}
-    
-    public function set_font($sValue){$this->sFont=$sValue;}
-    /**
-     * @param string $sValue B|IB|U
-     */
-    public function set_fontstyle($sValue){$this->sFontStyle=$sValue;}
-    public function set_fontsize($iSize){$this->iFontSize=$iSize;}
-    public function set_fontcolor($iValue){$this->iFontColor = $iValue;}
-    public function set_backcolor($iValue){$this->iBackColor = $iValue;}
-    public function set_resetcolors($isOn=true){$this->isResetColors = $isOn;}
-    //public function set_utf8($isOn=true){$this->isTextUTF=$isOn;}
-    
-    //==================================
-    //             GETS
-    //==================================
-    public function is_single(){return $this->isSingle;}
-    public function get_width(){return $this->iWidth;}
-    public function get_height(){return $this->iHeigth;}
-    public function get_text()
+    protected int $width = 1;
+    protected int $height = 1;
+    protected string $text = "";
+    protected int $border = 0;
+    protected int $numNl = 0;
+    protected string $align = "";
+    protected bool $isFill = false;
+    protected string $urlPageLink = "";
+
+    protected ?int $x = null;
+    protected ?int $y = null;
+
+    protected ?string $font = null;
+    protected ?int $fontColor = null;
+    protected ?int $fontSize = null;
+    protected ?string $fontStyle = null;
+    protected ?int $backColor = null;
+    protected bool $isResetColors = false;
+
+    public function __construct(bool $isSingle = false)
     {
-        return $this->sText;
+        $this->isSingle = $isSingle;
+        $this->width = 1;
+        $this->height = 1;
+        $this->text = "";
+        $this->border = 0;
+        $this->numNl = 0;
+        $this->isFill = false;
+        $this->urlPageLink = "";
     }
-    
-    public function get_border(){return $this->iBorder;}
-    public function get_numline_unit(){return $this->iNumNL;}
-    public function get_type(_align(){return $this->cAlign;}
-    public function get_usefill(){return $this->isFill;}
-    public function get_pagelink(){return $this->sUrlPageLink;}
-    
-    public function get_x(){return $this->iX;}
-    public function get_y(){return $this->iY;}
-    
-    public function get_font(){return $this->sFont;}
-    public function get_fontstyle(){return $this->sFontStyle;}
-    public function get_fontsize(){return $this->iFontSize;}
-    public function get_fontcolor(){return $this->iFontColor;}
-    public function get_backcolor(){return $this->iBackColor;}
-    public function is_resetcolors(){return $this->isResetColors;}
-    
-}//FpdfCell
+
+    public function setYByHeight(): void
+    {
+    }
+
+    public function setSingle(bool $isOn = true): void
+    {
+        $this->isSingle = $isOn;
+    }
+
+    public function setWidth(int $value): void
+    {
+        $this->width = $value;
+    }
+
+    public function setHeight(int $value): void
+    {
+        $this->height = $value;
+    }
+
+    public function setText(string $value): void
+    {
+        $this->text = $value;
+    }
+
+    public function setBorder(int $width): void
+    {
+        $this->border = $width;
+    }
+
+    public function setNumlineUnit(int $unit): void
+    {
+        $this->numNl = $unit;
+    }
+
+    public function setTypeAlign(string $align): void
+    {
+        $this->align = $align;
+    }
+
+    public function setUsefill(bool $isOn = true): void
+    {
+        $this->isFill = $isOn;
+    }
+
+    public function setPagelink(string $value): void
+    {
+        $this->urlPageLink = $value;
+    }
+
+    public function setX(int $x): void
+    {
+        $this->x = $x;
+    }
+
+    public function setY(int $y): void
+    {
+        $this->y = $y;
+    }
+
+    public function setFont(string $value): void
+    {
+        $this->font = $value;
+    }
+
+    public function setFontstyle(string $value): void
+    {
+        $this->fontStyle = $value;
+    }
+
+    public function setFontsize(int $size): void
+    {
+        $this->fontSize = $size;
+    }
+
+    public function setFontcolor(int $value): void
+    {
+        $this->fontColor = $value;
+    }
+
+    public function setBackcolor(int $value): void
+    {
+        $this->backColor = $value;
+    }
+
+    public function setResetcolors(bool $isOn = true): void
+    {
+        $this->isResetColors = $isOn;
+    }
+
+    public function isSingle(): bool
+    {
+        return $this->isSingle;
+    }
+
+    public function getWidth(): int
+    {
+        return $this->width;
+    }
+
+    public function getHeight(): int
+    {
+        return $this->height;
+    }
+
+    public function getText(): string
+    {
+        return $this->text;
+    }
+
+    public function getBorder(): int
+    {
+        return $this->border;
+    }
+
+    public function getNumlineUnit(): int
+    {
+        return $this->numNl;
+    }
+
+    public function getTypeAlign(): string
+    {
+        return $this->align;
+    }
+
+    public function getUsefill(): bool
+    {
+        return $this->isFill;
+    }
+
+    public function getPagelink(): string
+    {
+        return $this->urlPageLink;
+    }
+
+    public function getX(): ?int
+    {
+        return $this->x;
+    }
+
+    public function getY(): ?int
+    {
+        return $this->y;
+    }
+
+    public function getFont(): ?string
+    {
+        return $this->font;
+    }
+
+    public function getFontstyle(): ?string
+    {
+        return $this->fontStyle;
+    }
+
+    public function getFontsize(): ?int
+    {
+        return $this->fontSize;
+    }
+
+    public function getFontcolor(): ?int
+    {
+        return $this->fontColor;
+    }
+
+    public function getBackcolor(): ?int
+    {
+        return $this->backColor;
+    }
+
+    public function isResetcolors(): bool
+    {
+        return $this->isResetColors;
+    }
+}

@@ -2,780 +2,689 @@
 /**
  * @author Eduardo Acevedo Farje.
  * @link www.eduardoaf.com
- * @version 1.1.11
- * @name TheFramework\Helpers\Vendor\GoogleMaps3  
- * @date 16-12-2018 14:50
- * @file GoogleMaps3.php
- * @requires js_google_map_3.js v1.1.4, jquery v1.7+ 
+ * @name TheFramework\Helpers\Vendor\GoogleMaps3
  */
 namespace TheFramework\Helpers\Vendor;
 
-class GoogleMaps3
+final class GoogleMaps3
 {
-    //=====================
-    //      ATRIBUTOS
-    //=====================
-    //Signatura codificada. Se puede proporcionar una o se puede generar a partir de criptokey y clientid
-    private $_sSignature = "";
-    private $_useSignature = false;
-    //Una criptokey se proporciona cuando se contrata el plan empresarial
-    private $_sCriptokey = "";
-    private $_useCriptoKey = false;
-    //Un clientid se proporciona cuando se contrata el plan empresarial
-    private $_sClientId = "";
-    //Si el client id lo van a utilizar distintas apps para diferenciar las llamadas se utiliza un canal.
-    private $_sChannel = "";
-    
-    //Apikey son las claves no empresariales
-    private $_sApikey = "";
-    //Indica si se cargara automaticamente el tag "<script>" con la url 
-    //de googlemaps. Si se ha definido una apikey se incluye
-    private $_useApikey = true;
-    //Indica si se va a incluir la libreria jquery desde google. 
-    //Si dispones de una copia local se puede desactivar.
-    private $_useGoogleJquery = true;
-    
-    //FOR JS
-    //Estos son parametros de configuración para el archivo: js_google_map_3.js
+    private string $signature = "";
+    private bool $useSignature = false;
+    private string $criptokey = "";
+    private bool $useCriptoKey = false;
+    private string $clientId = "";
+    private string $channel = "";
+    private string $apikey = "";
+    private bool $useApikey = true;
+    private bool $useGoogleJquery = true;
 
-    //Mapa
-    private $_sMapType = "'roadmap'"; //El tipo de mapa. 
-    //Punto inicial de muestreo. Cuando se crea el mapa debe mostrar algún punto
-    //he escogido las coord. de la Puerta del Sol (Madrid)
-    private $_fLatitude = 40.41694; 
-    private $_fLongitude = -3.70361;
-    //El zoom
-    private $_iZoom = 6;
-    
-    //Marcadores
-    private $_arMarkers = "[]"; //Las chinchetas
-    private $_useMakersNumbers = true; //Si las chinchetas mostrarán números.
-    private $_sMarkerColor = "green";
+    private string $mapType = "'roadmap'";
+    private float $latitude = 40.41694;
+    private float $longitude = -3.70361;
+    private int $zoom = 6;
 
-    //Lineas
-    //Indica si ha de pintarse lineas entre las chinchetas (Markers).
-    private $_drawLines = false;
-    
-    //Lienzo 
-    //Elemento div donde se mostrará el mapa generado.
-    private $_sIdDivContainer = "'map_canvas'";
-    //Configuración del tamaño del mapa y su unidad. 
-    private $_iWidth = 800;
-    private $_iHeight = 600;
-    private $_sUnitWH = "px";
-    
-    //Rutas
-    private $_sRouteMode = "driving";
-    private $_drawRoutes = false;
-    private $_sRouteColor = "green";
-    private $_fRouteAlpha = 0.5;
-    private $_iRouteWidth = 3;    
-    //FIN FOR JS
-    
-    
-    //FOR PHP
-    //Url para calculo de distancia en km y tiempo entre dos marcadores
-    // 173.194.67.95 (era 173.194.78.95) en lugar de maps.googleapis.com porque el firewall lo bloquea
-    //private $_sUrlApiDistanceMatrix = "http://173.194.67.95/maps/api/distancematrix/xml?";
-    private $_sUrlApiDistanceMatrix = "http://maps.googleapis.com/maps/api/distancematrix/xml?";
-    //Parametros para hacer peticiones de latitud y longitud de una dirección
-    //Url para enviar peticiones por get. Devolvera un objeto xml
-    private $_sUrlApiGeocode = "http://maps.googleapis.com/maps/api/geocode/xml";
-    //Indica si se ha de acotar la busqueda de una dirección.
-    //Evita que te encuentre una dirección equivalente en otro país.
-    private $_doNarrowSearch = true;
-    //Coordenadas de acotación de España. Peninsula y Canarias.
-    //private $_arNarrowLat = array("min"=>24.654534254781115,"max"=>45.18786629495072);
-    //private $_arNarrowLong = array("min"=>-19.80908203125, "max"=>4.3828125);
-    private $_arNarrowLat = array("min"=>35,"max"=>43); //Eje Y
-    private $_arNarrowLong = array("min"=>-9, "max"=>4); //Eje X
-    
-    //TODO: Direcciones a geolocalizar. Lo dejaré para otra versión.
-    private $_arAddresses = [];
-    //Indica si se ha de esperar x microsegundos a que responda la url de petición
-    private $_useDelay = true;
-    private $_iDelayTime = 250;
-    
-    //Indicadores del estado de la petición de geolocalización.
-    private $_is_error = false;
-    private $_message = "";
-    private $_arRoutes = [];
-    
-    /**
-     * Formato del array de marcadores:
-       $arMarkers[]=array
-       (
-            "title"=>"un titulo ", Lo que se mostrara al pasar el raton
-            "content"=>"<b>Un contenido</b>", El texto dentro del popup de dialogo
-            "latitude"=>"36.643271085342",
-            "longitude"=>"-4.578660819468"
-        );
-     * @param array $arRutas Array anidado tipo tabla filas x columnas 
-     * @param array $arAddresses TODO próxima entrega ;0) 
-     */
-    public function __construct($arRutas=[],$arAddresses=[],$sApikey="") 
-    { 
-        $this->_arRoutes = $arRutas;
-        $this->_arAddresses = $arAddresses;
-        if(!empty($sApikey)) $this->_sApikey = $sApikey;
-    }
-    
-    //Pasa al objeto javascript los datos configurados en esta clase y despues
-    //ejecuta load_map(), función javascript que dibuja el mapa con los datos
-    //de configuración.
-    public function draw_map()
+    private string $markers = "[]";
+    private bool $useMakersNumbers = true;
+    private string $markerColor = "green";
+    private bool $drawLinesEnabled = false;
+
+    private string $idDivContainer = "'map_canvas'";
+    private int $width = 800;
+    private int $height = 600;
+    private string $unitWH = "px";
+
+    private string $routeMode = "driving";
+    private bool $drawRoutesEnabled = false;
+    private string $routeColor = "green";
+    private float $routeAlpha = 0.5;
+    private int $routeWidth = 3;
+
+    private string $urlApiDistanceMatrix = "http://maps.googleapis.com/maps/api/distancematrix/xml?";
+    private string $urlApiGeocode = "http://maps.googleapis.com/maps/api/geocode/xml";
+    private bool $doNarrowSearch = true;
+    private array $narrowLat = ["min" => 35, "max" => 43];
+    private array $narrowLong = ["min" => -9, "max" => 4];
+
+    private array $addresses = [];
+    private bool $useDelay = true;
+    private int $delayTime = 250;
+
+    private bool $isError = false;
+    private string $message = "";
+    private array $routes = [];
+
+    public function __construct(array $routes = [], array $addresses = [], string $apikey = "")
     {
-        //bug($this); die;
-        if($this->_useGoogleJquery) $this->show_google_jquery_tag();
-        //Muestra el tag <script> que importa la api v3 en js de gmaps
-        $this->show_jsapi_v3_tag();
- ?>
+        $this->routes = $routes;
+        $this->addresses = $addresses;
+        if (!empty($apikey)) {
+            $this->apikey = $apikey;
+        }
+    }
+
+    public function drawMap(): void
+    {
+        if ($this->useGoogleJquery) {
+            $this->showGoogleJqueryTag();
+        }
+        $this->showJsapiV3Tag();
+?>
 <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js"></script>
 <script type="text/javascript">
-    //Configurando el objeto gmaps3
-    //Mapa
-    gmaps3.config.sMapType = <?php $this->get_maptype(); ?>;
-    gmaps3.config.fLatitude = <?php $this->get_latitude(); ?>;
-    gmaps3.config.fLongitude = <?php $this->get_longitude(); ?>;
-    gmaps3.config.iZoom = <?php $this->get_zoom(); ?>;
-    //Rutas
-    gmaps3.config.arRoutes = <?php $this->show_js_array_routes(); ?>;
-    gmaps3.config.useMarkersNumbers = <?php $this->is_makers_with_numbers(); ?>;
-    //gmaps3.config.sMarkerColor = <?php $this->get_marker_color(); ?>;
-    //Lineas
-    gmaps3.config.drawLines = <?php $this->do_draw_lines(); ?>;
-    //Lienzo
-    gmaps3.config.sIdDivContainer = <?php $this->get_div_container(); ?>;
-    gmaps3.config.iHeight = <?php $this->get_height(); ?>;
-    gmaps3.config.iWidth = <?php $this->get_width(); ?>;
-    gmaps3.config.sUnitWH = <?php $this->get_size_unit(); ?>;
-    //Rutas
-    gmaps3.config.sRouteMode = <?php $this->get_routetype(); ?>;
-    gmaps3.config.drawRoutes = <?php $this->do_draw_routes(); ?>;
-    gmaps3.config.sRouteColor = <?php $this->get_route_color(); ?>;
-    gmaps3.config.iRouteWidth = <?php $this->get_route_width(); ?>;
-    gmaps3.config.fRouteAlpha = <?php $this->get_route_alpha(); ?>;
-    
-    //bug(gmaps3,"gmaps3"); //La función bug es equivalente a console.debug
-    //bug(gmaps3.config.arMarkers,"markers");
+    gmaps3.config.sMapType = <?php $this->echoMaptype(); ?>;
+    gmaps3.config.fLatitude = <?php $this->echoLatitude(); ?>;
+    gmaps3.config.fLongitude = <?php $this->echoLongitude(); ?>;
+    gmaps3.config.iZoom = <?php $this->echoZoom(); ?>;
+    gmaps3.config.arRoutes = <?php $this->showJsArrayRoutes(); ?>;
+    gmaps3.config.useMarkersNumbers = <?php $this->echoIsMakersWithNumbers(); ?>;
+    gmaps3.config.drawLines = <?php $this->echoDoDrawLines(); ?>;
+    gmaps3.config.sIdDivContainer = <?php $this->echoDivContainer(); ?>;
+    gmaps3.config.iHeight = <?php $this->echoHeight(); ?>;
+    gmaps3.config.iWidth = <?php $this->echoWidth(); ?>;
+    gmaps3.config.sUnitWH = <?php $this->echoSizeUnit(); ?>;
+    gmaps3.config.sRouteMode = <?php $this->echoRoutetype(); ?>;
+    gmaps3.config.drawRoutes = <?php $this->echoDoDrawRoutes(); ?>;
+    gmaps3.config.sRouteColor = <?php $this->echoRouteColor(); ?>;
+    gmaps3.config.iRouteWidth = <?php $this->echoRouteWidth(); ?>;
+    gmaps3.config.fRouteAlpha = <?php $this->echoRouteAlpha(); ?>;
+
     jQuery(document).ready(gmaps3.load_map);
 </script>
 <?php
     }
-    
-    /** 
-     * Imprime en pantalla un array javascript de dos dimensiones.
-     */
-    public function show_js_array_routes()
+
+    public function showJsArrayRoutes(): void
     {
-        echo $this->get_js_as_array_from_routes();
+        echo $this->getJsAsArrayFromRoutes();
     }
-    
-    private function get_js_as_array_from_routes()
+
+    private function getJsAsArrayFromRoutes(): string
     {
-        $arJsRoutes = [];
-        $sJsArray = "[";
-        foreach($this->_arRoutes as $arRouteData)
-        {
-            $sJsRoute = "[";
-            //Todos los puntos con sus datos
-            $sJsRoute .= $this->get_js_as_array_table_from_markers($arRouteData["dots"]);
-            //Los indices de esos puntos que indican que son las paradas
-            $sJsRoute .= ",".$this->get_js_as_array_list_of_stops($arRouteData["stops"]);
-            $sJsRoute .= ",".$this->get_as_js_string($arRouteData["pincolor"]);
-            $sJsRoute .= ",".$this->get_as_js_string($arRouteData["tracecolor"]);
-            $sJsRoute .= "]";
-            $arJsRoutes[] = $sJsRoute;
+        $jsRoutes = [];
+        $jsArray = "[";
+        foreach ($this->routes as $routeData) {
+            $jsRoute = "[";
+            $jsRoute .= $this->getJsAsArrayTableFromMarkers($routeData["dots"]);
+            $jsRoute .= "," . $this->getJsAsArrayListOfStops($routeData["stops"]);
+            $jsRoute .= "," . $this->getAsJsString($routeData["pincolor"]);
+            $jsRoute .= "," . $this->getAsJsString($routeData["tracecolor"]);
+            $jsRoute .= "]";
+            $jsRoutes[] = $jsRoute;
         }
-        if(!empty($arJsRoutes))
-            $sJsArray .= implode(",",$arJsRoutes);
-        //$arMarkers = $arRoutes
-        $sJsArray .= "]";
-        return $sJsArray;
-    }
-    
-    private function get_js_as_array_table_from_markers($arMarkers)
-    {
-        if(empty($arMarkers))$arMarkers=$this->_arMarkers;
-        $arItems = [];
-        $sJsArray = "[";
-        foreach($arMarkers as $arRow)
-            $arItems[] = $this->get_as_js_array_row($arRow);
-
-        if(!empty($arItems)) $sJsArray .= implode(",",$arItems);
-        $sJsArray .= "]";
-        return $sJsArray; 
-    }
-    
-    private function get_js_as_array_list_of_stops($arStops)
-    {
-        $sJsArray = "[";
-        $sJsArray .= implode(",", $arStops);
-        $sJsArray .= "]";
-        return $sJsArray; 
-    }
-    
-    /* DEPRECATED
-     * Imprime en pantalla un array javascript de dos dimensiones.
-     */
-    private function show_js_array_table()
-    {
-        echo $this->get_js_as_array_table();
+        if (!empty($jsRoutes)) {
+            $jsArray .= implode(",", $jsRoutes);
+        }
+        $jsArray .= "]";
+        return $jsArray;
     }
 
-    /* DEPRECATED
-     * Devuelve un string js con el formato de un array generado desde 
-     * $this_arMarkers
-     */
-    private function get_js_as_array_table()
+    private function getJsAsArrayTableFromMarkers(array $markers): string
     {
-        $arTable = $this->_arMarkers;
-        //bug($arTable,"a pasar a js");
-        $arItems = [];
-        $sJsArray = "[";
-        foreach($arTable as $arRow)
-            $arItems[] = $this->get_as_js_array_row($arRow);
-
-        if(!empty($arItems)) $sJsArray .= implode(",", $arItems);
-        $sJsArray .= "]";
-        return $sJsArray;
+        if (empty($markers)) {
+            $markers = [];
+        }
+        $items = [];
+        $jsArray = "[";
+        foreach ($markers as $row) {
+            $items[] = $this->getAsJsArrayRow($row);
+        }
+        if (!empty($items)) {
+            $jsArray .= implode(",", $items);
+        }
+        $jsArray .= "]";
+        return $jsArray;
     }
 
-    /**
-     * Se le pasa un array de tipo columnas y lo convierte en array js
-     * @param array $arRowMarker tipo array("nombre_columna"=>"valor",..,)
-     * @return string Cadena de texto en formato array 
-     */
-    private function get_as_js_array_row($arRowMarker=[])
+    private function getJsAsArrayListOfStops(array $stops): string
     {
-        $arItems = [];
-        $sJsArray = "[";
-        foreach($arRowMarker as $key=>$sFieldValue)
-        {
-            switch($key) 
-            {
+        $jsArray = "[";
+        $jsArray .= implode(",", $stops);
+        $jsArray .= "]";
+        return $jsArray;
+    }
+
+    private function getAsJsArrayRow(array $rowMarker = []): string
+    {
+        $items = [];
+        $jsArray = "[";
+        foreach ($rowMarker as $key => $fieldValue) {
+            switch ($key) {
                 case "content":
                 case "title":
-                    $arItems[] = $this->get_as_js_string($sFieldValue);
-                break;
+                    $items[] = $this->getAsJsString($fieldValue);
+                    break;
                 case "number":
                 case "latitude":
                 case "longitude":
                 case "zindex":
-                    $arItems[] = $sFieldValue;
-                break;
+                    $items[] = $fieldValue;
+                    break;
             }
         }
-        if(!empty($arItems)) $sJsArray .= implode(",", $arItems);
-        $sJsArray .= "]\n";
-        return $sJsArray;
-        //['sTitle', fLat, fLong, iZindex, sContent, iIconNumber]
-    }
-    
-    /**
-     * Se utiliza para generar un array de substrings
-     * @param string $sValue
-     * @return string algo como '1'. Asi js lo entenderá como un string.
-     */
-    private function get_as_js_string($sValue){return "'$sValue'";}
-    
-    /**
-     *
-     * @param array $arPoint1 array("latitude"=>valor,"longitude"=>valor)
-     * @param array $arPoint2 array("latitude"=>valor,"longitude"=>valor)
-     * @return float distancia redondeada a dos decimales. 
-     */
-    public function distance_calculation(array $arPoint1, array $arPoint2)
-    {
-        $fX1 = $arPoint1["latitude"];
-        $fY1 = $arPoint1["longitude"];
-        $fX2 = $arPoint2["latitude"];
-        $fY2 = $arPoint2["longitude"];
-        
-        if(is_numeric($fX1)&&is_numeric($fY1)&&is_numeric($fX2)&&is_numeric($fY2))
-            $fX1 = sqrt(pow(($fX1 - $fX2),2) + pow(($fY1-$fY2),2));
-        $fX1 = round($fX1, 2);
-        return (float)$fX1;
-    }
-    
-    /**
-     * Calcula el tiempo y distancia entre dos puntos 
-     * @param array $arPoint1 array(latitude, longitude)
-     * @param array $arPoint2 array(latitude, longitude)
-     */
-    public function get_distance_and_time(array $arPoint1, array $arPoint2)
-    {
-        //bug($arPoint1); bug($arPoint2);
-        $arTimeDistance = array("time"=>"","distance"=>"");
-        $fX1 = $arPoint1["latitude"];
-        $fY1 = $arPoint1["longitude"];
-        $fX2 = $arPoint2["latitude"];
-        $fY2 = $arPoint2["longitude"];
-        
-        $arParams = [];
-        
-        if(!empty($this->_sClientId) )$arParams["clientid"]="client=$this->_sClientId";
-        if(!empty($this->_sChannel)) $arParams["channel"]="channel=$this->_sChannel";
-        $arParams["sensor"] = "sensor=false";
-        //La tuberia me fastidiaba la peticion. Solo se debe usar para los arrays de puntos.
-        $arParams["origins"] = "origins=$fX1,$fY1"; //longitud, latitud
-        $arParams["destinations"] = "destinations=$fX2,$fY2";
-        $arParams["mode"] = "mode=driving";
-        $arParams["language"] = "language=es-ES";
-        //este parametro ayuda a diferenciar las distintas aplicaciones que hacen la petición
-        
-        $arParams = implode("&",$arParams);
-        //http://maps.googleapis.com/maps/api/distancematrix/xml?
-        $sUrlDistanceOrig = $this->_sUrlApiDistanceMatrix.$arParams;
-        $sUrlDistanceSigned = $this->get_url_by_keypriority($sUrlDistanceOrig);
-        //writelog("bd_ask",$sUrlDistance,"distancematrix request");
-        
-        //$sUrlDistance = "http://173.194.67.95/maps/api/distancematrix/xml?origins=40.356036037274,-3.686662625685&destinations=40.356083897923,-3.686544105619&mode=driving&language=es-ES&sensor=false&client=gme-telynetsa&signature=XBqNzocRJzYp0gIFi4Dx0kUoxd4=";
-        $oXml = simplexml_load_file($sUrlDistanceSigned);
-        //Si no ha funcionado la url con firma. Se prueba la gratuita. A veces funciona con 
-        if($oXml==false) 
-        {
-            writelog("bd_ask",$sUrlDistanceSigned,"distancematrix error obtencion xml");
-            $sUrlDistanceSigned = $sUrlDistanceOrig;
-            //llamada con url gratuita
-            $oXml = simplexml_load_file($sUrlDistanceSigned);
+        if (!empty($items)) {
+            $jsArray .= implode(",", $items);
         }
-        //bug($oXml,"xml distance matrix resultado $sUrlDistance"); die;
-        if($oXml!=false)
-        {
-            $oXmlStatus = $oXml->status;
-            //bug($oXmlStatus,"xmlstatus $sUrlDistance");
-            //status ok. Se ha localizado la dirección
-            if(strcmp($oXmlStatus,"OK") == 0)
-            {
-                
-                $arTimeDistance["time"]["min"] = (string)$oXml->row->element->duration->text;//v3
-                $arTimeDistance["time"]["sec"] = (string)$oXml->row->element->duration->value;
-                $arTimeDistance["distance"]["m"] = (string)$oXml->row->element->distance->value;//v3
-                //los kilomentros se redondean a dos decimales. 172m = 0.2km deberia ser 0.17 km
-                //$arTimeDistance["distance"]["km"] = (string)$oXml->row->element->distance->text;//v3
-                
-                //fkm flotante para calculos matematicos. 
-                $fDistanceInKm = ((float)$arTimeDistance["distance"]["m"])/1000;
-                $fDistanceInKm = number_format($fDistanceInKm,3);
-                $arTimeDistance["distance"]["fkm"] = $fDistanceInKm;
-                //km en formato internacionalizacion España
-                $arTimeDistance["distance"]["km"] = number_format($fDistanceInKm,2);
-                $arTimeDistance["distance"]["km"] = str_replace(".",",",$arTimeDistance["distance"]["km"]);
-                $arTimeDistance["distance"]["km"] .=" km";
-                writelog("bd_ask",$sUrlDistanceSigned,"distancematrix ok");
+        $jsArray .= "]\n";
+        return $jsArray;
+    }
+
+    private function getAsJsString(string $value): string
+    {
+        return "'{$value}'";
+    }
+
+    public function distanceCalculation(array $point1, array $point2): float
+    {
+        $x1 = $point1["latitude"];
+        $y1 = $point1["longitude"];
+        $x2 = $point2["latitude"];
+        $y2 = $point2["longitude"];
+
+        if (is_numeric($x1) && is_numeric($y1) && is_numeric($x2) && is_numeric($y2)) {
+            $x1 = sqrt(pow(($x1 - $x2), 2) + pow(($y1 - $y2), 2));
+        }
+        $x1 = round($x1, 2);
+        return (float)$x1;
+    }
+
+    public function getDistanceAndTime(array $point1, array $point2): array
+    {
+        $timeDistance = ["time" => "", "distance" => ""];
+        $x1 = $point1["latitude"];
+        $y1 = $point1["longitude"];
+        $x2 = $point2["latitude"];
+        $y2 = $point2["longitude"];
+
+        $params = [];
+        if (!empty($this->clientId)) {
+            $params["clientid"] = "client={$this->clientId}";
+        }
+        if (!empty($this->channel)) {
+            $params["channel"] = "channel={$this->channel}";
+        }
+        $params["sensor"] = "sensor=false";
+        $params["origins"] = "origins={$x1},{$y1}";
+        $params["destinations"] = "destinations={$x2},{$y2}";
+        $params["mode"] = "mode=driving";
+        $params["language"] = "language=es-ES";
+
+        $params = implode("&", $params);
+        $urlDistanceOrig = $this->urlApiDistanceMatrix . $params;
+        $urlDistanceSigned = $this->getUrlByKeypriority($urlDistanceOrig);
+
+        $xml = simplexml_load_file($urlDistanceSigned);
+        if ($xml === false) {
+            if (function_exists('writelog')) {
+                writelog("bd_ask", $urlDistanceSigned, "distancematrix error obtencion xml");
             }
-            //status de xml fallido
-            else
-            {
-                $this->set_message_error("La distancia entre $arParams[origin] y $arParams[destination] no se pudo calcular. Estado=$oXmlStatus");
-                writelog("bd_ask",$sUrlDistanceSigned,"distancematrix xml status fallido");
-            }
+            $urlDistanceSigned = $urlDistanceOrig;
+            $xml = simplexml_load_file($urlDistanceSigned);
         }
-        //error en simplexml_load_file
-        else
-        {
-            $this->set_message_error("No se ha podido crear xml desde: $sUrlDistanceSigned");
-            writelog("bd_ask",$sUrlDistanceSigned,"distancematrix error obtencion xml");
-        }
-        //bug($oXml->row->element->distance,"distance object");
-        //bug($arTimeDistance);
-        return $arTimeDistance;
-    }
-    
-    /*
-     * Dependiendo de los datos de las chinchetas se va calculando las distancias
-     * ojo, NO EL RECORRIDO.
-     */
-    public function sum_distance()
-    {
-        $arPoint1 = array("latitude"=>0,"longitude"=>0);
-        $arPoint2 = array("latitude"=>0,"longitude"=>0);
-        $iNumMarkers =count($this->_arMarkers);
-        $fDistance = 0;
-        for($i=0; $i<$iNumMarkers-1; $i++)
-        {
-            $arPoint1["latitude"] = $this->_arMarkers[$i]["latitude"];
-            $arPoint1["longitude"] = $this->_arMarkers[$i]["longitude"];                
-            $arPoint2["latitude"] = $this->_arMarkers[$i+1]["latitude"];
-            $arPoint2["longitude"] = $this->_arMarkers[$i+1]["longitude"];
-            $fDistance += $this->distance_calculation($arPoint1, $arPoint2);
-        }
-        return (float)$fDistance;
-    }
 
-    private function is_distance_in_km($sText)
-    {
-        if(strpos($sText,"km")!== false)
-            return true;
-        return false;
-    }
-    
-    //http://gmaps-samples.googlecode.com/svn/trunk/urlsigning/UrlSigner.php-source
-    //GOOGLE owns: Encode a string to URL-safe base64
-    private function encodeBase64UrlSafe($value)
-    {
-        return str_replace(array("+", "/"), array("-", "_"), base64_encode($value));
-    }
+        if ($xml !== false) {
+            $xmlStatus = $xml->status;
+            if (strcmp($xmlStatus, "OK") === 0) {
+                $timeDistance["time"]["min"] = (string)$xml->row->element->duration->text;
+                $timeDistance["time"]["sec"] = (string)$xml->row->element->duration->value;
+                $timeDistance["distance"]["m"] = (string)$xml->row->element->distance->value;
 
-    // Decode a string from URL-safe base64
-    //GOOGLE owns
-    private function decodeBase64UrlSafe($value)
-    {
-        return base64_decode(str_replace(array("-", "_"),array("+", "/"),$value));
-    }
-
-    // Sign a URL with a given crypto key
-    // Note that this URL must be properly URL-encoded
-    //GOOGLE owns
-    public function get_encoded_signature($sUrlEncoded,$sCryptokey)
-    {
-        //parse_url parte la url en sus componentes
-        $arUrlComponents = parse_url($sUrlEncoded);
-        $urlPartToSign = $arUrlComponents["path"] . "?" . $arUrlComponents["query"];
-        // Decode the private key into its binary format
-        $sBinDecodedCryptokey = $this->decodeBase64UrlSafe($sCryptokey);
-        // Create a signature using the private key and the URL-encoded
-        // string using HMAC SHA1. This signature will be binary.
-        $sSignature = hash_hmac("sha1",$urlPartToSign, $sBinDecodedCryptokey,true);
-        $sEncodedSignature = $this->encodeBase64UrlSafe($sSignature);
-        return $sEncodedSignature;
-    }
-    
-    /**
-     * Crea una url codificada con la firma que le corresponde a la cryptokey
-     * @param string $sUrlEncoded tipo: http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID
-     * @param string $sCryptokey vNIXE0xscrmjlyV-12Nj_BvUPaw
-     * @return string http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID&signature=xxxsignaturexxx
-     */
-    public function get_url_signed($sUrlEncoded, $sCryptokey)
-    {
-        $sEncodedSignature = $this->get_encoded_signature($sUrlEncoded,$sCryptokey);
-        return $sUrlEncoded."&signature=".$sEncodedSignature;
-    }
-    
-    /**
-     * Si se aplica la firma devuelve la url + client + signature
-     * sino se asume que la url lleva client, con esta se genera una firma y se devuelve la url pasada + signature 
-     * @param string $sUrlEncoded Al menos lleva el parametro ?sensor=false. No debe llevar client=Client_ID
-     * @return string url con tipo: http://..?sensor=false..&signature=encodedsignature
-     */
-    private function get_url_by_keypriority($sUrlEncoded)
-    {
-        //bug($sUrlEncoded,"url a firmar");
-        if(!empty($sUrlEncoded))
-        {
-            //Si se proporciona la firma y se ha especificado su uso no se evalua ninguna otra condición
-            if(!empty($this->_sSignature) && $this->_useSignature)
-                $sUrlEncoded .= "&client=$this->_sClientId&signature=$this->_sSignature";
-            //En segundo nivel se comprueba la criptokey (pago plan empresarial)
-            elseif(!empty($this->_sCriptokey) && $this->_useCriptoKey)
-            {
-                $this->_sSignature = $this->get_encoded_signature($sUrlEncoded, $this->_sCriptokey);
-                $sUrlEncoded .= "&signature=$this->_sSignature";
-            }
-            //Despues se verifica la apikey (gratuita)
-            elseif(!empty($this->_sApikey) && $this->_useApikey)
-            {
-                $sUrlEncoded .= "&key=$this->_sApikey";
-            }
-        }
-        return $sUrlEncoded;
-    }
-
-    /**
-     * Imprime en pantalla la url con la apikey. 
-     * Si se desea firmar hay que pasar la criptokey habilitar el objeto para su uso con use_criptokey
-     * @param string $sUrlEncoded url con el clientid si se quiere imprimir con firma
-     */
-    public function show_url_by_keypriority($sUrlEncoded)
-    {
-        echo $this->get_url_by_keypriority($sUrlEncoded);
-    }
-    
-    public function show_google_jquery_tag(){echo $this->get_google_jquery();}
-    
-    public function show_apikey_tag(){echo $this->get_apikey_tag();}
-
-    //echo $this->build_url_signed("http://maps.google.com/maps/api/geocode/json?address=New+York&sensor=false&client=clientID","vNIXE0xscrmjlyV-12Nj_BvUPaw=");
-//======================    
-//       GETTERS
-//======================
-    public function get_markers(){return $this->_arMarkers;}
-    public function is_makers_with_numbers()
-    {
-        if($this->_useMakersNumbers) echo "true";
-        else echo "false";
-    }
-    
-    public function do_draw_lines()
-    {
-        if($this->_drawLines) echo "true";
-        else echo "false";
-    }
-    
-    private function do_draw_routes(){if($this->_drawRoutes) echo "true"; else echo "false";}
-    
-    /**
-     * Segun un array con datos de una dirección se recupera su latitud y longitud
-     * @param array $arAddress array("pais"=>"España","direccion"=>"Conde de Peñalver 32", "zona"=>"Madrid", "cp"=>"28006");
-     */
-    public function get_latlong_from_address(array $arAddress)
-    {
-        //bug("get latlong from addres"); die;
-        $arLl = array("latitude"=>"","longitude"=>"");
-        
-        if(!empty($arAddress))
-        {
-            $sUrlApiGeocode = $this->_sUrlApiGeocode;
-            //Une con comas el array
-            $sAddrForUrl = join(", ",$arAddress);
-            //codifica el string en utf
-            $sAddrForUrl = utf8_encode($sAddrForUrl);
-            //codifica el string en formato url
-            $sAddrForUrl = urldecode($sAddrForUrl);
-            //sustituye espacios por el caracter +
-            $sAddrForUrl = str_replace(" ", "+", $sAddrForUrl);
-            //TODO se deberia adaptar esta url para usar la apikey privada o la firma única (signature)
-            $sUrlApiGeocode = $sUrlApiGeocode."?address=".$sAddrForUrl."&sensor=false";
-            //bug($sUrlApiGeocode);
-            $oXml = simplexml_load_file($sUrlApiGeocode);
-            //bug($oXml); die;
-            
-            //Dependiendo de cuanto esté ocupado el servidor de google puede tardar mas ó menos. 
-            //Para asegurarnos que se cree correctamente el objeto xml con los detalles de la dirección pedida
-            //forzamos a que el archivo espere unos instantes
-            if($this->_useDelay) usleep($this->_iDelayTime);//microsegundos
-            
-            if($oXml!=false)
-            {
-                //bug($oXml,"oXml get_latlong_from_address");
-                $oXmlStatus = $oXml->status;
-                
-                //status ok. Se ha localizado la dirección
-                if(strcmp($oXmlStatus,"OK") == 0)
-                {
-                    $fLatitude = $oXml->result->geometry->location->lat;//v3
-                    $fLongitude = $oXml->result->geometry->location->lng;//v3
-                    $fLatitude = (float) $fLatitude;
-                    $fLongitude = (float) $fLongitude;
-                    //bug($fLatitude,"latitud X"); bug($fLongitude,"longitud Y");
-                    if($this->_doNarrowSearch)
-                    {    
-                        if($this->is_in_range_latlong($fLatitude, $fLongitude))
-                        {
-                            $arLl["latitude"]=$fLatitude; $arLl["longitude"]=$fLongitude;
-                            $this->_message = "Dirección encontrada";
-                        }
-                        //fuera de rango
-                        else
-                        {
-                            //bug("fuera de rango");
-                            $this->set_message_error("Dirección fuera de rango: Lat:$fLatitude, Long:$fLongitude");
-                        }
-                    }
-                    //No se usa acotación
-                    else
-                    {
-                        $arLl["latitude"]=$fLatitude; $arLl["longitude"]=$fLongitude;
-                        $this->_message = "Dirección encontrada";
-                    }
+                $distanceInKm = ((float)$timeDistance["distance"]["m"]) / 1000;
+                $distanceInKm = number_format($distanceInKm, 3);
+                $timeDistance["distance"]["fkm"] = $distanceInKm;
+                $timeDistance["distance"]["km"] = number_format((float)$distanceInKm, 2);
+                $timeDistance["distance"]["km"] = str_replace(".", ",", $timeDistance["distance"]["km"]);
+                $timeDistance["distance"]["km"] .= " km";
+                if (function_exists('writelog')) {
+                    writelog("bd_ask", $urlDistanceSigned, "distancematrix ok");
                 }
-                //status de xml fallido
-                else
-                {
-                    $this->set_message_error("La dirección $sAddrForUrl no se pudo geolocalizar. Estado=$oXmlStatus");
+            } else {
+                $this->setMessageError("Distance calculation failed. Status={$xmlStatus}");
+                if (function_exists('writelog')) {
+                    writelog("bd_ask", $urlDistanceSigned, "distancematrix xml status fallido");
                 }
             }
-            //error en simplexml_load_file
-            else
-            {
-                $this->set_message_error("No se ha podido crear xml desde: $sUrlApiGeocode");
+        } else {
+            $this->setMessageError("Could not create xml from: {$urlDistanceSigned}");
+            if (function_exists('writelog')) {
+                writelog("bd_ask", $urlDistanceSigned, "distancematrix error obtencion xml");
+            }
+        }
+        return $timeDistance;
+    }
+
+    public function sumDistance(): float
+    {
+        $point1 = ["latitude" => 0, "longitude" => 0];
+        $point2 = ["latitude" => 0, "longitude" => 0];
+        $numMarkers = count($this->markers);
+        $distance = 0;
+        for ($i = 0; $i < $numMarkers - 1; $i++) {
+            $point1["latitude"] = $this->markers[$i]["latitude"];
+            $point1["longitude"] = $this->markers[$i]["longitude"];
+            $point2["latitude"] = $this->markers[$i + 1]["latitude"];
+            $point2["longitude"] = $this->markers[$i + 1]["longitude"];
+            $distance += $this->distanceCalculation($point1, $point2);
+        }
+        return (float)$distance;
+    }
+
+    private function isDistanceInKm(string $text): bool
+    {
+        return strpos($text, "km") !== false;
+    }
+
+    private function encodeBase64UrlSafe(string $value): string
+    {
+        return str_replace(["+", "/"], ["-", "_"], base64_encode($value));
+    }
+
+    private function decodeBase64UrlSafe(string $value): string
+    {
+        return base64_decode(str_replace(["-", "_"], ["+", "/"], $value));
+    }
+
+    public function getEncodedSignature(string $urlEncoded, string $cryptokey): string
+    {
+        $urlComponents = parse_url($urlEncoded);
+        $urlPartToSign = $urlComponents["path"] . "?" . $urlComponents["query"];
+        $binDecodedCryptokey = $this->decodeBase64UrlSafe($cryptokey);
+        $signature = hash_hmac("sha1", $urlPartToSign, $binDecodedCryptokey, true);
+        return $this->encodeBase64UrlSafe($signature);
+    }
+
+    public function getUrlSigned(string $urlEncoded, string $cryptokey): string
+    {
+        $encodedSignature = $this->getEncodedSignature($urlEncoded, $cryptokey);
+        return $urlEncoded . "&signature=" . $encodedSignature;
+    }
+
+    private function getUrlByKeypriority(string $urlEncoded): string
+    {
+        if (!empty($urlEncoded)) {
+            if (!empty($this->signature) && $this->useSignature) {
+                $urlEncoded .= "&client={$this->clientId}&signature={$this->signature}";
+            } elseif (!empty($this->criptokey) && $this->useCriptoKey) {
+                $this->signature = $this->getEncodedSignature($urlEncoded, $this->criptokey);
+                $urlEncoded .= "&signature={$this->signature}";
+            } elseif (!empty($this->apikey) && $this->useApikey) {
+                $urlEncoded .= "&key={$this->apikey}";
+            }
+        }
+        return $urlEncoded;
+    }
+
+    public function showUrlByKeypriority(string $urlEncoded): void
+    {
+        echo $this->getUrlByKeypriority($urlEncoded);
+    }
+
+    public function showGoogleJqueryTag(): void
+    {
+        echo $this->getGoogleJquery();
+    }
+
+    public function showApikeyTag(): void
+    {
+        echo $this->getApikeyTag();
+    }
+
+    public function getMarkers(): string
+    {
+        return $this->markers;
+    }
+
+    public function echoIsMakersWithNumbers(): void
+    {
+        echo $this->useMakersNumbers ? "true" : "false";
+    }
+
+    public function echoDoDrawLines(): void
+    {
+        echo $this->drawLinesEnabled ? "true" : "false";
+    }
+
+    private function echoDoDrawRoutes(): void
+    {
+        echo $this->drawRoutesEnabled ? "true" : "false";
+    }
+
+    public function getLatlongFromAddress(array $address): array
+    {
+        $ll = ["latitude" => "", "longitude" => ""];
+
+        if (!empty($address)) {
+            $urlApiGeocode = $this->urlApiGeocode;
+            $addrForUrl = join(", ", $address);
+            $addrForUrl = utf8_encode($addrForUrl);
+            $addrForUrl = urldecode($addrForUrl);
+            $addrForUrl = str_replace(" ", "+", $addrForUrl);
+            $urlApiGeocode = $urlApiGeocode . "?address=" . $addrForUrl . "&sensor=false";
+            $xml = simplexml_load_file($urlApiGeocode);
+
+            if ($this->useDelay) {
+                usleep($this->delayTime);
             }
 
-        }
-        return $arLl;
-    }
-    
-    /**
-     * Determina si las coordenadas obtenidas de una dirección está dentro de los limites
-     * de acotación
-     * @param float $fLatitude 
-     * @param float $fLongitude
-     * @return boolean 
-     */
-    private function is_in_range_latlong($fLatitude=0.0,$fLongitude=0.0)
-    {
-        //bug($this->_arNarrowLat,"lat"); bug($fLatitude,"lat"); bug($this->_arNarrowLong,"long"); bug($fLongitude,"long");
-        //bug($this->compare_float($fLatitude,"<",$this->_arNarrowLat["max"]),"lat < latmax?");
-        //bug($this->compare_float($this->_arNarrowLat["min"],"<",$fLatitude),"latmin > latitude?");
-        //bug($this->compare_float($fLongitude,"<",$this->_arNarrowLong["max"]),"long < longmax?");
-        //bug($this->compare_float($this->_arNarrowLong["min"],"<",$fLongitude),"longmin > longitude?");
-        $isInRange = 
-        (
-            $this->compare_float($fLatitude,"<",$this->_arNarrowLat["max"]) &&
-            $this->compare_float($this->_arNarrowLat["min"],"<",$fLatitude) &&
+            if ($xml !== false) {
+                $xmlStatus = $xml->status;
+                if (strcmp($xmlStatus, "OK") === 0) {
+                    $latitude = (float)$xml->result->geometry->location->lat;
+                    $longitude = (float)$xml->result->geometry->location->lng;
 
-            $this->compare_float($fLongitude,"<",$this->_arNarrowLong["max"]) &&
-            $this->compare_float($this->_arNarrowLong["min"],"<",$fLongitude)                 
+                    if ($this->doNarrowSearch) {
+                        if ($this->isInRangeLatlong($latitude, $longitude)) {
+                            $ll["latitude"] = $latitude;
+                            $ll["longitude"] = $longitude;
+                            $this->message = "Address found";
+                        } else {
+                            $this->setMessageError("Address out of range: Lat:{$latitude}, Long:{$longitude}");
+                        }
+                    } else {
+                        $ll["latitude"] = $latitude;
+                        $ll["longitude"] = $longitude;
+                        $this->message = "Address found";
+                    }
+                } else {
+                    $this->setMessageError("Address could not be geolocated. Status={$xmlStatus}");
+                }
+            } else {
+                $this->setMessageError("Could not create xml from: {$urlApiGeocode}");
+            }
+        }
+        return $ll;
+    }
+
+    private function isInRangeLatlong(float $latitude = 0.0, float $longitude = 0.0): bool
+    {
+        return (
+            $this->compareFloat($latitude, "<", $this->narrowLat["max"]) &&
+            $this->compareFloat($this->narrowLat["min"], "<", $latitude) &&
+            $this->compareFloat($longitude, "<", $this->narrowLong["max"]) &&
+            $this->compareFloat($this->narrowLong["min"], "<", $longitude)
         );
-        return $isInRange;
     }
-    
-    /**
-     * Función para comparar números en coma flotante (eaf)
-     * La comparación de números en coma flotante no es tribial. No se puede 
-     * utilizar por ejemplo: $float1>$float2... es decir, los operadores comunes.
-     * Esta función pasa los numeros a binarios con una precision marcada
-     * @param float $float1
-     * @param char $cOperator =, <, >, <=, >= !=
-     * @param float $float2 
-     * @param integer $iPrecision 
-     * @return boolean o "operator error";
-     */
-    private function compare_float($float1,$cOperator="=",$float2,$iPrecision=10)
-    {
-        //Siempre la comparación se hace de float1 con respecto a float1
-        // si el resultado es: 0 son igulaes, -1 f1 menor, 1 f1 mayor
-        switch (trim($cOperator)) 
-        {
-            case "=":
-                return bccomp($float1, $float2, $iPrecision)==0;
-            break;
-            case "<":
-                return bccomp($float1, $float2, $iPrecision)==-1;
-            break;
-            case ">":
-                return bccomp($float1, $float2, $iPrecision)==1;
-            break;
-            case "!=":
-                return !(compare_float($float1,"=",$float2, $iPrecision));
-            break;        
-            case ">=":
-                return compare_float($float1,">",$float2, $iPrecision)
-                    ||compare_float($float1,"=",$float2, $iPrecision);
-            break;
-            case "<=":
-                return compare_float($float1,"<",$float2, $iPrecision)
-                    ||compare_float($float1,"=",$float2, $iPrecision);
-            break;
 
+    private function compareFloat(float $float1, string $operator = "=", float $float2 = 0.0, int $precision = 10): bool|string
+    {
+        switch (trim($operator)) {
+            case "=":
+                return bccomp($float1, $float2, $precision) === 0;
+            case "<":
+                return bccomp($float1, $float2, $precision) === -1;
+            case ">":
+                return bccomp($float1, $float2, $precision) === 1;
+            case "!=":
+                return !$this->compareFloat($float1, "=", $float2, $precision);
+            case ">=":
+                return $this->compareFloat($float1, ">", $float2, $precision)
+                    || $this->compareFloat($float1, "=", $float2, $precision);
+            case "<=":
+                return $this->compareFloat($float1, "<", $float2, $precision)
+                    || $this->compareFloat($float1, "=", $float2, $precision);
             default:
                 return "operator error";
-            break;
         }
     }
-    
-    /*
-     * Devuelve el string con tag script haciendo referencia al archivo jquery del repositorio de 
-     * google
-     */
-    public function get_google_jquery()
-    {
-        $sTagJquery = "<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js\"></script>\n";
-        return $sTagJquery;     
-    }
-    
-    public function get_apikey_tag()
-    {
-        $sApiUrl = "<script type=\"text/javascript\" src=\"noapikeysuplied\"></script>";
-        //bug($this->_sApikey);
-        if(!empty($this->_sApikey))
-            //http://maps.googleapis.com/maps/api/js?v3&key=YOUR_API_KEY&sensor=TRUE_OR_FALSE&callback=initialize
-            $sApiUrl = "<script type=\"text/javascript\" src=\"http://maps.googleapis.com/maps/api/js?v=3&sensor=false\"></script>\n";
-        return $sApiUrl;
-    }
-    
-    public function get_jsapi_v3_tag()
-    {
-        //https://developers.google.com/maps/documentation/business/guide#Accessing
-        //url demo:   http://maps.googleapis.com/maps/api/js?v=3&client=gme-yourclientid&sensor=true_or_false&channel=yourchannel
-        $sUrlJsApi = "http://maps.googleapis.com/maps/api/js?v=3&sensor=false";
-        if(!empty($this->_sClientId))$sUrlJsApi .= "&client=$this->_sClientId";
-        if(!empty($this->_sChannel)) $sUrlJsApi .= "&channel=$this->_sChannel";
-        //no es necesario usar firma
-        //$sUrlJsApi = $this->get_url_by_keypriority($sUrlJsApi);
-        $sKeyTag = "<script type=\"text/javascript\" src=\"$sUrlJsApi\"></script>\n";
-        return $sKeyTag;
-    }
-     
-    public function show_jsapi_v3_tag()
-    {
-        echo $this->get_jsapi_v3_tag();
-    }
-    
-    private function get_maptype(){echo $this->_sMapType;}
-    private function get_div_container(){echo $this->_sIdDivContainer;}
-    private function get_zoom(){echo $this->_iZoom;}
-    private function get_latitude(){ echo $this->_fLatitude; }
-    private function get_longitude(){ echo $this->_fLongitude; }
-    private function get_height(){echo $this->_iHeight;}
-    private function get_width(){echo $this->_iWidth;}
-    private function get_size_unit(){echo "'$this->_sUnitWH'";}
-    private function get_routetype(){echo "'$this->_sRouteMode'";}
-    private function get_route_color(){echo "'$this->_sRouteColor'";}
-    private function get_route_width(){echo $this->_iRouteWidth;}
-    private function get_route_alpha(){echo $this->_fRouteAlpha;}
-    private function get_marker_color(){echo "'$this->_sMarkerColor'";}
 
-    public function get_message(){return $this->_message;}
-    public function get_apikey(){ return $this->_sApikey;}    
-    public function get_signature(){ return $this->_sSignature;}
-    
-
-//======================    
-//       SETTERS
-//======================
-    
-    //TODO Corregir en el futuro
-    public function set_markers($arMarkers=[]){ $this->_arMarkers = $arMarkers; }
-    public function set_markers_numbers_off($isOn=false){$this->_useMakersNumbers = $isOn;}
-    
-    public function set_maptype($sValue){$this->_sMapType = strtolower("'$sValue'");}
-    public function set_div_container($sValue){ $this->_sIdDivContainer = "'$sValue'"; }
-    public function set_zoom($iZoom){ $this->_iZoom = $iZoom; }
-    public function set_latitude($fLatitude){ $this->_fLatitude = $fLatitude; }
-    public function set_longitude($fLongitude){ $this->_fLongitude = $fLongitude; }
-    public function draw_lines($isOn=true){ $this->_drawLines = $isOn; }
-    public function set_size_container($iWidth=800,$iHeight=600)
+    public function getGoogleJquery(): string
     {
-        if(!empty($iHeight))$this->_iHeight = $iHeight;
-        if(!empty($iWidth)) $this->_iWidth = $iWidth;        
+        return "<script type=\"text/javascript\" src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js\"></script>\n";
     }
-    public function set_size_unit($sType="pt"){ $this->_sUnitWH = $sType; }
-    public function add_address(array $arAddress){ $this->_arAddresses[] = $arAddress; }
-    public function draw_routes($isOn=true){ $this->_drawRoutes = $isOn; }
-    public function set_route_color($sColor="green"){$this->_sRouteColor = $sColor;}
-    public function set_marker_color($sColor="green"){$this->_sMarkerColor = $sColor;}
 
-    /**
-     * @param string $sType driving, walking, bicycling
-     */
-    public function set_routetype($sType="driving"){$this->_sRouteMode = $sType;}
-    
-    public function set_route_width($iWidth=3){$this->_iRouteWidth = $iWidth;}
-    public function set_route_alpha($fAlpha=0.5){$this->_fRouteAlpha = $fAlpha;}
-    
-    private function set_message_error($sMessage,$isError=true)
+    public function getApikeyTag(): string
     {
-        $this->_is_error = $isError;
-        $this->_message = $sMessage;
+        $apiUrl = "<script type=\"text/javascript\" src=\"noapikeysuplied\"></script>";
+        if (!empty($this->apikey)) {
+            $apiUrl = "<script type=\"text/javascript\" src=\"http://maps.googleapis.com/maps/api/js?v=3&sensor=false\"></script>\n";
+        }
+        return $apiUrl;
     }
-    /**
-     * Solo influye para recuperar latitud y longitud de direcciones. 
-     * No en el pintado de marcadores
-     * @param boolean $isOn     
-     */
-    public function no_narrow($isOn=false){ $this->_doNarrowSearch = $isOn; }
-    public function set_delay_time($iMicroSeconds){$this->_iDelayTime = $iMicroSeconds;}
-    public function no_dalay($isOn=false){ $this->_useDelay = $isOn; }
-    public function set_apikey($sApikey){$this->_sApikey = $sApikey;}
-    public function no_auto_apikey($isOn=false){$this->_useApikey = $isOn;}
-    public function no_google_jquery($isOn=false){$this->_useGoogleJquery = $isOn;}
-    public function set_signature($sValue){$this->_sSignature=$sValue;}
-    public function use_signature($isOn=true){$this->_useSignature = $isOn;}
-    public function set_cryptokey($sValue){$this->_sCriptokey=$sValue;}
-    public function use_cryptokey($isOn=true){$this->_useCriptoKey = $isOn;}    
-    public function set_clientid($sId){$this->_sClientId=$sId;}
-    public function set_channel($sChannelJs){$this->_sChannel=$sChannelJs;}
+
+    public function getJsapiV3Tag(): string
+    {
+        $urlJsApi = "http://maps.googleapis.com/maps/api/js?v=3&sensor=false";
+        if (!empty($this->clientId)) {
+            $urlJsApi .= "&client={$this->clientId}";
+        }
+        if (!empty($this->channel)) {
+            $urlJsApi .= "&channel={$this->channel}";
+        }
+        return "<script type=\"text/javascript\" src=\"{$urlJsApi}\"></script>\n";
+    }
+
+    public function showJsapiV3Tag(): void
+    {
+        echo $this->getJsapiV3Tag();
+    }
+
+    private function echoMaptype(): void
+    {
+        echo $this->mapType;
+    }
+
+    private function echoDivContainer(): void
+    {
+        echo $this->idDivContainer;
+    }
+
+    private function echoZoom(): void
+    {
+        echo $this->zoom;
+    }
+
+    private function echoLatitude(): void
+    {
+        echo $this->latitude;
+    }
+
+    private function echoLongitude(): void
+    {
+        echo $this->longitude;
+    }
+
+    private function echoHeight(): void
+    {
+        echo $this->height;
+    }
+
+    private function echoWidth(): void
+    {
+        echo $this->width;
+    }
+
+    private function echoSizeUnit(): void
+    {
+        echo "'{$this->unitWH}'";
+    }
+
+    private function echoRoutetype(): void
+    {
+        echo "'{$this->routeMode}'";
+    }
+
+    private function echoRouteColor(): void
+    {
+        echo "'{$this->routeColor}'";
+    }
+
+    private function echoRouteWidth(): void
+    {
+        echo $this->routeWidth;
+    }
+
+    private function echoRouteAlpha(): void
+    {
+        echo $this->routeAlpha;
+    }
+
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    public function getApikey(): string
+    {
+        return $this->apikey;
+    }
+
+    public function getSignature(): string
+    {
+        return $this->signature;
+    }
+
+    public function setMarkers(array $markers = []): void
+    {
+        $this->markers = $markers;
+    }
+
+    public function setMarkersNumbersOff(bool $isOn = false): void
+    {
+        $this->useMakersNumbers = $isOn;
+    }
+
+    public function setMaptype(string $value): void
+    {
+        $this->mapType = strtolower("'{$value}'");
+    }
+
+    public function setDivContainer(string $value): void
+    {
+        $this->idDivContainer = "'{$value}'";
+    }
+
+    public function setZoom(int $zoom): void
+    {
+        $this->zoom = $zoom;
+    }
+
+    public function setLatitude(float $latitude): void
+    {
+        $this->latitude = $latitude;
+    }
+
+    public function setLongitude(float $longitude): void
+    {
+        $this->longitude = $longitude;
+    }
+
+    public function drawLines(bool $isOn = true): void
+    {
+        $this->drawLinesEnabled = $isOn;
+    }
+
+    public function setSizeContainer(int $width = 800, int $height = 600): void
+    {
+        if (!empty($height)) {
+            $this->height = $height;
+        }
+        if (!empty($width)) {
+            $this->width = $width;
+        }
+    }
+
+    public function setSizeUnit(string $type = "pt"): void
+    {
+        $this->unitWH = $type;
+    }
+
+    public function addAddress(array $address): void
+    {
+        $this->addresses[] = $address;
+    }
+
+    public function drawRoutes(bool $isOn = true): void
+    {
+        $this->drawRoutesEnabled = $isOn;
+    }
+
+    public function setRouteColor(string $color = "green"): void
+    {
+        $this->routeColor = $color;
+    }
+
+    public function setMarkerColor(string $color = "green"): void
+    {
+        $this->markerColor = $color;
+    }
+
+    public function setRoutetype(string $type = "driving"): void
+    {
+        $this->routeMode = $type;
+    }
+
+    public function setRouteWidth(int $width = 3): void
+    {
+        $this->routeWidth = $width;
+    }
+
+    public function setRouteAlpha(float $alpha = 0.5): void
+    {
+        $this->routeAlpha = $alpha;
+    }
+
+    private function setMessageError(string $message, bool $isError = true): void
+    {
+        $this->isError = $isError;
+        $this->message = $message;
+    }
+
+    public function noNarrow(bool $isOn = false): void
+    {
+        $this->doNarrowSearch = $isOn;
+    }
+
+    public function setDelayTime(int $microSeconds): void
+    {
+        $this->delayTime = $microSeconds;
+    }
+
+    public function noDelay(bool $isOn = false): void
+    {
+        $this->useDelay = $isOn;
+    }
+
+    public function setApikey(string $apikey): void
+    {
+        $this->apikey = $apikey;
+    }
+
+    public function noAutoApikey(bool $isOn = false): void
+    {
+        $this->useApikey = $isOn;
+    }
+
+    public function noGoogleJquery(bool $isOn = false): void
+    {
+        $this->useGoogleJquery = $isOn;
+    }
+
+    public function setSignature(string $value): void
+    {
+        $this->signature = $value;
+    }
+
+    public function useSignature(bool $isOn = true): void
+    {
+        $this->useSignature = $isOn;
+    }
+
+    public function setCryptokey(string $value): void
+    {
+        $this->criptokey = $value;
+    }
+
+    public function useCryptokey(bool $isOn = true): void
+    {
+        $this->useCriptoKey = $isOn;
+    }
+
+    public function setClientid(string $id): void
+    {
+        $this->clientId = $id;
+    }
+
+    public function setChannel(string $channelJs): void
+    {
+        $this->channel = $channelJs;
+    }
 }
