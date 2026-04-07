@@ -36,14 +36,11 @@
     "autoload": {
         "psr-4": {
             "TheFramework\\Helpers\\": "theframework/helpers/src/"
-        },
-        "files": [
-            "theframework/helpers/functions_debug.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "TheFramework\\Helpers\\Tests\\": "tests/"
+            "TheFramework\\Helpers\\Tests\\": "theframework/helpers/tests/"
         }
     },
     "scripts": {

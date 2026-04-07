@@ -10,7 +10,7 @@
          failOnWarning="true">
     <testsuites>
         <testsuite name="Unit">
-            <directory>tests/Unit</directory>
+            <directory>theframework/helpers/tests/Unit</directory>
         </testsuite>
     </testsuites>
     <source>
