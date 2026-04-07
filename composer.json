@@ -1,15 +1,17 @@
 {
     "name": "theframework/helpers",
     "type": "library",
-    "description": "Library that helps you to create html elements using OOP",
+    "description": "PHP library for creating HTML elements using OOP. Includes helpers for forms, tables, buttons, scripts and more.",
     "minimum-stability": "stable",
     "keywords": [
         "helpers",
-        "html elements",
-        "view helpers",
+        "html",
+        "html-builder",
+        "html-elements",
+        "view-helpers",
+        "form-builder",
         "oop",
-        "php helpers",
-        "TheFramework"
+        "php"
     ],
     "homepage": "https://github.com/eacevedof/prj_theframework_helpers",
     "license": "MIT",
@@ -17,15 +19,19 @@
         {
             "name": "Eduardo Acevedo Farje",
             "email": "eacevedof@gmail.com",
-            "homepage": "http://eduardoaf.com",
+            "homepage": "https://eduardoaf.com",
             "role": "Developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/eacevedof/prj_theframework_helpers/issues",
+        "source": "https://github.com/eacevedof/prj_theframework_helpers"
+    },
     "require": {
-        "php": "^8.0"
+        "php": "^8.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^10.0"
     },
     "autoload": {
         "psr-4": {
@@ -34,5 +40,18 @@
         "files": [
             "theframework/helpers/functions_debug.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TheFramework\\Helpers\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
     }
 }

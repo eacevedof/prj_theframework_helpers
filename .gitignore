@@ -1,5 +1,35 @@
-.idea
-.vscode
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.claude/
+
+# Composer
+/vendor/
+composer.lock
+
+# Logs
 *.log
-/vendor
-.claude
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+/coverage/
+.phpunit.result.cache
+.phpunit.cache/
+
+# Build
+/build/
+/dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Cache
+*.cache
+/cache/
