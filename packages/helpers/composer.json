@@ -1,0 +1,39 @@
+{
+    "name": "theframework/helpers",
+    "type": "library",
+    "description": "PHP library for creating HTML elements using OOP. Includes helpers for forms, tables, buttons, scripts and more.",
+    "minimum-stability": "stable",
+    "keywords": [
+        "helpers",
+        "html",
+        "html-builder",
+        "html-elements",
+        "view-helpers",
+        "form-builder",
+        "oop",
+        "php"
+    ],
+    "homepage": "https://github.com/eacevedof/prj_theframework_helpers",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eduardo Acevedo Farje",
+            "email": "eacevedof@gmail.com",
+            "homepage": "https://eduardoaf.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "TheFramework\\Helpers\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TheFramework\\Helpers\\Tests\\": "tests/"
+        }
+    }
+}

@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name TheFramework\Helpers\Vendor\FpdfCell
  */
-namespace TheFramework\Helpers\Vendor;
+namespace TheFramework\Helpers\Vendor\FPDF;
 
 final class FpdfCell
 {

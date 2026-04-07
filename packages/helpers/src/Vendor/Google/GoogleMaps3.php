@@ -4,7 +4,7 @@
  * @link www.eduardoaf.com
  * @name TheFramework\Helpers\Vendor\GoogleMaps3
  */
-namespace TheFramework\Helpers\Vendor;
+namespace TheFramework\Helpers\Vendor\Google;
 
 use TheFramework\Helpers\Enums\ColorEnum;
 use TheFramework\Helpers\Enums\CompareOperatorEnum;

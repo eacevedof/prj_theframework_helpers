@@ -9,13 +9,17 @@
          failOnRisky="true"
          failOnWarning="true">
     <testsuites>
-        <testsuite name="Unit">
-            <directory>theframework/helpers/tests/Unit</directory>
+        <testsuite name="Helpers">
+            <directory>packages/helpers/tests</directory>
+        </testsuite>
+        <testsuite name="Components">
+            <directory>packages/components/tests</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
-            <directory>theframework/helpers/src</directory>
+            <directory>packages/helpers/src</directory>
+            <directory>packages/components/src</directory>
         </include>
     </source>
 </phpunit>
