@@ -220,4 +220,9 @@ final class Textarea extends AbstractHelper
         $this->readonly = $readonly;
         return $this;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

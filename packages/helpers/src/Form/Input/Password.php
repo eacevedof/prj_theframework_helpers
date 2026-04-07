@@ -172,4 +172,9 @@ final class Password extends AbstractHelper
     {
         return $this->readonly;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

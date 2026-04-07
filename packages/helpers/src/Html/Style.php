@@ -91,4 +91,9 @@ final class Style extends AbstractHelper
     {
         return $this->classInverse;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

@@ -104,4 +104,9 @@ final class Raw extends AbstractHelper
     {
         $this->labels = $labels;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

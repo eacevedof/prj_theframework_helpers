@@ -171,4 +171,9 @@ final class Td extends AbstractHelper
     {
         return $this->isHeader;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

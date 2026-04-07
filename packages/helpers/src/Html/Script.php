@@ -153,4 +153,9 @@ final class Script extends AbstractHelper
     {
         echo $this->getHtmlSrc();
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

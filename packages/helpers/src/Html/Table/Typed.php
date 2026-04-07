@@ -381,4 +381,9 @@ final class Typed extends Basic
     {
         $this->columnsRaw = $columns;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

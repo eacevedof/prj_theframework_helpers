@@ -115,4 +115,9 @@ final class Xl extends AbstractHelper
     {
         return $this->objLi;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

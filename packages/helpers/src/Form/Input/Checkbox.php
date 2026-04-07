@@ -240,4 +240,9 @@ final class Checkbox extends AbstractHelper
         $this->name = $value;
         return $this;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

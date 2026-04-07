@@ -30,4 +30,9 @@ final class Raw extends AbstractHelper
     {
         $this->setInnerHtml($rawHtml, !$asEntity);
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

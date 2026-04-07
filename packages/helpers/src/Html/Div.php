@@ -98,4 +98,9 @@ final class Div extends AbstractHelper
     {
         parent::showCloseTag();
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

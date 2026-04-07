@@ -88,4 +88,9 @@ final class Hidden extends AbstractHelper
     {
         return $asEntity ? htmlentities((string) $this->value) : $this->value;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

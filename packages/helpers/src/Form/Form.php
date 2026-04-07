@@ -180,4 +180,9 @@ final class Form extends AbstractHelper
         array_unshift($this->innerHelpers, $helper);
         return $this;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

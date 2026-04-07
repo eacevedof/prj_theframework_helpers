@@ -68,4 +68,9 @@ final class Link extends AbstractHelper
     {
         return $this->hrefs;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

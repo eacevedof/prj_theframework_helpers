@@ -84,4 +84,9 @@ final class Fieldset extends AbstractHelper
         $openTagParts[] = ">";
         return implode("", $openTagParts);
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

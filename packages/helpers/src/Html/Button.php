@@ -105,4 +105,9 @@ final class Button extends AbstractHelper
     {
         $this->icon = $iconClass;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

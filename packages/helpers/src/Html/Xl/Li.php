@@ -82,4 +82,9 @@ final class Li extends AbstractHelper
         $openTagParts[] = ">\n";
         return implode("", $openTagParts);
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

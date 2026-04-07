@@ -111,4 +111,9 @@ final class Label extends AbstractHelper
     {
         return $this->for;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

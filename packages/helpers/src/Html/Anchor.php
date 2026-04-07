@@ -114,4 +114,9 @@ final class Anchor extends AbstractHelper
     {
         $this->target = "_{$value}";
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

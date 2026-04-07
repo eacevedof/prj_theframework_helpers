@@ -179,4 +179,9 @@ final class File extends AbstractHelper
     {
         return $this->accept;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

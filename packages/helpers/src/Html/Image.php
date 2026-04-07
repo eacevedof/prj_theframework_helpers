@@ -121,4 +121,9 @@ final class Image extends AbstractHelper
     {
         parent::showCloseTag();
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

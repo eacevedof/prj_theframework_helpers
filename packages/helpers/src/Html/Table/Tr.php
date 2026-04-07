@@ -178,4 +178,9 @@ final class Tr extends AbstractHelper
     {
         return $this->numCols;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }
