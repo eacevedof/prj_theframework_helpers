@@ -214,4 +214,9 @@ final class FpdfCell
     {
         return $this->isResetColors;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

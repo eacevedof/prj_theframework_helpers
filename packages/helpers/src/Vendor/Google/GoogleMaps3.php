@@ -733,4 +733,9 @@ final class GoogleMaps3
     {
         $this->channel = $channelJs;
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }

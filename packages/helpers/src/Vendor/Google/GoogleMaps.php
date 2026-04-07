@@ -132,4 +132,9 @@ final class GoogleMaps
     {
         $this->center[0] = ["lat" => $lat, "long" => $long];
     }
+
+    public static function getInstance(): self
+    {
+        return new self();
+    }
 }
