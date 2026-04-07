@@ -7,9 +7,12 @@ namespace TheFramework\Helpers\Tests\Unit\Form;
 use PHPUnit\Framework\TestCase;
 use TheFramework\Helpers\Form\Select;
 use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use TheFramework\Helpers\Tests\Unit\Traits\HtmlAssertionsTrait;
 
 final class SelectTest extends TestCase
 {
+    use HtmlAssertionsTrait;
+
     public function testGetHtmlReturnsValidSelectElement(): void
     {
         $options = ['1' => 'Option 1', '2' => 'Option 2'];
@@ -17,34 +20,43 @@ final class SelectTest extends TestCase
 
         $html = $select->getHtml();
 
-        $this->assertStringContainsString('<' . HtmlTypeEnum::SELECT, $html);
-        $this->assertStringContainsString('</' . HtmlTypeEnum::SELECT . '>', $html);
-        $this->assertStringContainsString('id="test-select"', $html);
-        $this->assertStringContainsString('name="test_select"', $html);
+        $this->assertHtmlHasElement($html, HtmlTypeEnum::SELECT);
+        $this->assertHtmlElementHasId($html, HtmlTypeEnum::SELECT, 'test-select');
+        $this->assertHtmlElementHasName($html, HtmlTypeEnum::SELECT, 'test_select');
     }
 
-    public function testGetHtmlContainsOptions(): void
+    public function testGetHtmlContainsCorrectNumberOfOptions(): void
     {
-        $options = ['a' => 'Alpha', 'b' => 'Beta'];
+        $options = ['a' => 'Alpha', 'b' => 'Beta', 'c' => 'Gamma'];
         $select = new Select($options, 'my-select', 'my_select');
 
         $html = $select->getHtml();
 
-        $this->assertStringContainsString('<' . HtmlTypeEnum::OPTION, $html);
-        $this->assertStringContainsString('value="a"', $html);
-        $this->assertStringContainsString('Alpha', $html);
-        $this->assertStringContainsString('value="b"', $html);
-        $this->assertStringContainsString('Beta', $html);
+        $this->assertHtmlHasElementCount($html, HtmlTypeEnum::OPTION, 3);
+    }
+
+    public function testGetHtmlOptionsHaveCorrectValues(): void
+    {
+        $options = ['val1' => 'Text 1', 'val2' => 'Text 2'];
+        $select = new Select($options, 'sel', 'sel');
+
+        $html = $select->getHtml();
+
+        $this->assertHtmlHasElement($html, HtmlTypeEnum::OPTION);
+        $this->assertStringContainsString('value="val1"', $html);
+        $this->assertStringContainsString('value="val2"', $html);
+        $this->assertStringContainsString('Text 1', $html);
+        $this->assertStringContainsString('Text 2', $html);
     }
 
     public function testGetHtmlWithSelectedValue(): void
     {
-        $options = ['1' => 'One', '2' => 'Two'];
+        $options = ['1' => 'One', '2' => 'Two', '3' => 'Three'];
         $select = new Select($options, 'sel', 'sel', valueToSelect: '2');
 
         $html = $select->getHtml();
 
-        $this->assertStringContainsString('value="2" selected', $html);
+        $this->assertHtmlOptionSelected($html, '2');
     }
 
     public function testGetHtmlWithMultiple(): void
@@ -54,7 +66,49 @@ final class SelectTest extends TestCase
 
         $html = $select->getHtml();
 
-        $this->assertStringContainsString('multiple', $html);
-        $this->assertStringContainsString('name="sel[]"', $html);
+        $this->assertHtmlElementIsBooleanAttribute($html, HtmlTypeEnum::SELECT, 'multiple');
+        $this->assertHtmlElementHasName($html, HtmlTypeEnum::SELECT, 'sel[]');
+    }
+
+    public function testGetHtmlWithSize(): void
+    {
+        $options = ['1' => 'One', '2' => 'Two'];
+        $select = new Select($options, 'sel', 'sel', size: 5);
+
+        $html = $select->getHtml();
+
+        $this->assertHtmlElementHasAttribute($html, HtmlTypeEnum::SELECT, 'size', '5');
+    }
+
+    public function testGetHtmlWithDisabled(): void
+    {
+        $options = ['1' => 'One'];
+        $select = new Select($options, 'sel', 'sel');
+        $select->setDisabled();
+
+        $html = $select->getHtml();
+
+        $this->assertHtmlElementIsBooleanAttribute($html, HtmlTypeEnum::SELECT, 'disabled');
+    }
+
+    public function testGetHtmlWithRequired(): void
+    {
+        $options = ['1' => 'One'];
+        $select = new Select($options, 'sel', 'sel');
+        $select->setRequired();
+
+        $html = $select->getHtml();
+
+        $this->assertHtmlElementIsBooleanAttribute($html, HtmlTypeEnum::SELECT, 'required');
+    }
+
+    public function testGetHtmlWithCssClass(): void
+    {
+        $options = ['1' => 'One'];
+        $select = new Select($options, 'sel', 'sel', class: 'form-control');
+
+        $html = $select->getHtml();
+
+        $this->assertHtmlElementHasClass($html, HtmlTypeEnum::SELECT, 'form-control');
     }
 }
