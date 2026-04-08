@@ -1,5 +1,5 @@
 {
-    "name": "theframework/components",
+    "name": "eduardoaf/components",
     "type": "library",
     "description": "PHP components library for TheFramework.",
     "minimum-stability": "stable",
@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "TheFramework\\Components\\": "src/"
+            "EduardoAf\\Components\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TheFramework\\Components\\Tests\\": "tests/"
+            "EduardoAf\\Components\\Tests\\": "tests/"
         }
     }
 }

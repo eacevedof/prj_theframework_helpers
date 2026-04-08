@@ -1,15 +1,13 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Form\Input\Radio
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Form\Input;
+namespace EduardoAf\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
-use TheFramework\Helpers\Enums\InputTypeEnum;
-use TheFramework\Helpers\Form\Label;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\Enums\InputTypeEnum;
+use EduardoAf\Helpers\Form\Label;
 
 final class Radio extends AbstractHelper
 {

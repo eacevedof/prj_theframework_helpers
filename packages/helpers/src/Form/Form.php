@@ -1,13 +1,11 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Form\Form
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Form;
+namespace EduardoAf\Helpers\Form;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\InterfaceHelper;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\InterfaceHelper;
 
 final class Form extends AbstractHelper
 {

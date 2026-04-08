@@ -1,13 +1,11 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Table\Table
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html\Table;
+namespace EduardoAf\Helpers\Html\Table;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
 
 class Table extends AbstractHelper
 {

@@ -1,12 +1,10 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Xl\Xl
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html\Xl;
+namespace EduardoAf\Helpers\Html\Xl;
 
-use TheFramework\Helpers\AbstractHelper;
+use EduardoAf\Helpers\AbstractHelper;
 
 final class Xl extends AbstractHelper
 {

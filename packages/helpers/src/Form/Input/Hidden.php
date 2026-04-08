@@ -1,12 +1,10 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Form\Input\Hidden
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Form\Input;
+namespace EduardoAf\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbstractHelper;
+use EduardoAf\Helpers\AbstractHelper;
 
 final class Hidden extends AbstractHelper
 {

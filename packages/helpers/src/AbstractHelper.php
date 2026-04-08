@@ -1,13 +1,11 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
  * @link eduardoaf.com
- * @name TheFramework\Helpers\AbstractHelper
  */
-namespace TheFramework\Helpers;
+namespace EduardoAf\Helpers;
 
-use TheFramework\Helpers\Form\Label;
-use TheFramework\Helpers\Html\Style;
+use EduardoAf\Helpers\Form\Label;
+use EduardoAf\Helpers\Html\Style;
 
 abstract class AbstractHelper implements InterfaceHelper
 {

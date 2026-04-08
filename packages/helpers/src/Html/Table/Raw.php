@@ -1,12 +1,10 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Table\Raw
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html\Table;
+namespace EduardoAf\Helpers\Html\Table;
 
-use TheFramework\Helpers\AbstractHelper;
+use EduardoAf\Helpers\AbstractHelper;
 
 final class Raw extends AbstractHelper
 {

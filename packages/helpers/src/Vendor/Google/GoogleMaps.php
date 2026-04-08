@@ -1,10 +1,8 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Vendor\GoogleMaps
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Vendor\Google;
+namespace EduardoAf\Helpers\Vendor\Google;
 
 final class GoogleMaps
 {

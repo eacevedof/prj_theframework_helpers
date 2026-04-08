@@ -1,12 +1,10 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Form\Label
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Form;
+namespace EduardoAf\Helpers\Form;
 
-use TheFramework\Helpers\AbstractHelper;
+use EduardoAf\Helpers\AbstractHelper;
 
 final class Label extends AbstractHelper
 {

@@ -1,13 +1,11 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Form\Select
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Form;
+namespace EduardoAf\Helpers\Form;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
 
 final class Select extends AbstractHelper
 {

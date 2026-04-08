@@ -1,13 +1,11 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Form\Input\Date
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Form\Input;
+namespace EduardoAf\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Form\Label;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Form\Label;
 
 final class Date extends AbstractHelper
 {

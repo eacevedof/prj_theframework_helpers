@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TheFramework\Helpers\Tests\Unit\Html;
+namespace EduardoAf\Helpers\Tests\Unit\Html;
 
 use PHPUnit\Framework\TestCase;
-use TheFramework\Helpers\Html\Button;
-use TheFramework\Helpers\Enums\ButtonTypeEnum;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\Html\Button;
+use EduardoAf\Helpers\Enums\ButtonTypeEnum;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
 
 final class ButtonTest extends TestCase
 {

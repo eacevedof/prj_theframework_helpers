@@ -1,15 +1,13 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Form\Input\Checkbox
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Form\Input;
+namespace EduardoAf\Helpers\Form\Input;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Form\Label;
-use TheFramework\Helpers\Form\Legend;
-use TheFramework\Helpers\Form\Fieldset;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Form\Label;
+use EduardoAf\Helpers\Form\Legend;
+use EduardoAf\Helpers\Form\Fieldset;
 
 final class Checkbox extends AbstractHelper
 {

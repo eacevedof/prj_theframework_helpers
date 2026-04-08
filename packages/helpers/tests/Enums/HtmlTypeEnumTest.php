@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TheFramework\Helpers\Tests\Unit\Enums;
+namespace EduardoAf\Helpers\Tests\Unit\Enums;
 
 use PHPUnit\Framework\TestCase;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
 
 final class HtmlTypeEnumTest extends TestCase
 {

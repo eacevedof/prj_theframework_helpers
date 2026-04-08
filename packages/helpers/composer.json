@@ -1,5 +1,5 @@
 {
-    "name": "theframework/helpers",
+    "name": "eduardoaf/helpers",
     "type": "library",
     "description": "PHP library for creating HTML elements using OOP. Includes helpers for forms, tables, buttons, scripts and more.",
     "minimum-stability": "stable",
@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "TheFramework\\Helpers\\": "src/"
+            "EduardoAf\\Helpers\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TheFramework\\Helpers\\Tests\\": "tests/"
+            "EduardoAf\\Helpers\\Tests\\": "tests/"
         }
     }
 }

@@ -1,13 +1,11 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Script
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html;
+namespace EduardoAf\Helpers\Html;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
 
 final class Script extends AbstractHelper
 {

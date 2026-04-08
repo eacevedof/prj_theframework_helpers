@@ -1,15 +1,13 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Link
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html;
+namespace EduardoAf\Helpers\Html;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
-use TheFramework\Helpers\Enums\LinkRelEnum;
-use TheFramework\Helpers\Enums\MediaTypeEnum;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\Enums\LinkRelEnum;
+use EduardoAf\Helpers\Enums\MediaTypeEnum;
 
 final class Link extends AbstractHelper
 {

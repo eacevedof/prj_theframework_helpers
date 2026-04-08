@@ -1,10 +1,8 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Vendor\FpdfCell
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Vendor\FPDF;
+namespace EduardoAf\Helpers\Vendor\FPDF;
 
 final class FpdfCell
 {

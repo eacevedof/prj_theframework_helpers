@@ -1,12 +1,10 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Image
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html;
+namespace EduardoAf\Helpers\Html;
 
-use TheFramework\Helpers\AbstractHelper;
+use EduardoAf\Helpers\AbstractHelper;
 
 final class Image extends AbstractHelper
 {

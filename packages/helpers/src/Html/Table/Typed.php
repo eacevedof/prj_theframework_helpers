@@ -1,18 +1,16 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Table\Typed
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html\Table;
+namespace EduardoAf\Helpers\Html\Table;
 
-use TheFramework\Helpers\Form\Fieldset;
-use TheFramework\Helpers\Form\Form;
-use TheFramework\Helpers\Form\Select;
-use TheFramework\Helpers\Form\Input\Checkbox;
-use TheFramework\Helpers\Form\Input\Text;
-use TheFramework\Helpers\Html\Anchor;
-use TheFramework\Helpers\Html\Button;
+use EduardoAf\Helpers\Form\Fieldset;
+use EduardoAf\Helpers\Form\Form;
+use EduardoAf\Helpers\Form\Select;
+use EduardoAf\Helpers\Form\Input\Checkbox;
+use EduardoAf\Helpers\Form\Input\Text;
+use EduardoAf\Helpers\Html\Anchor;
+use EduardoAf\Helpers\Html\Button;
 
 final class Typed extends Basic
 {

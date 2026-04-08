@@ -1,6 +1,6 @@
 <?php
 
-namespace TheFramework\Helpers\Enums;
+namespace EduardoAf\Helpers\Enums;
 
 final class HtmlAttrEnum
 {

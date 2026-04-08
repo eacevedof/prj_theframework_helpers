@@ -1,6 +1,6 @@
 <?php
 
-namespace TheFramework\Helpers\Enums\GoogleMaps;
+namespace EduardoAf\Helpers\Enums\GoogleMaps;
 
 final class ApiStatusEnum
 {

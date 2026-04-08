@@ -1,15 +1,12 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Html\Button
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Html;
+namespace EduardoAf\Helpers\Html;
 
-use TheFramework\Helpers\AbstractHelper;
-use TheFramework\Helpers\Enums\ButtonTypeEnum;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\AbstractHelper;
+use EduardoAf\Helpers\Enums\ButtonTypeEnum;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
 
 final class Button extends AbstractHelper
 {

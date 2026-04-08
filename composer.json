@@ -1,7 +1,7 @@
 {
-    "name": "theframework/monorepo",
+    "name": "eduardoaf/monorepo",
     "type": "project",
-    "description": "Monorepo for TheFramework packages: helpers and components.",
+    "description": "Monorepo for EduardoAf packages: helpers and components.",
     "minimum-stability": "stable",
     "license": "MIT",
     "authors": [
@@ -20,14 +20,14 @@
     },
     "autoload": {
         "psr-4": {
-            "TheFramework\\Helpers\\": "packages/helpers/src/",
-            "TheFramework\\Components\\": "packages/components/src/"
+            "EduardoAf\\Helpers\\": "packages/helpers/src/",
+            "EduardoAf\\Components\\": "packages/components/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "TheFramework\\Helpers\\Tests\\": "packages/helpers/tests/",
-            "TheFramework\\Components\\Tests\\": "packages/components/tests/"
+            "EduardoAf\\Helpers\\Tests\\": "packages/helpers/tests/",
+            "EduardoAf\\Components\\Tests\\": "packages/components/tests/"
         }
     },
     "scripts": {

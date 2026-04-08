@@ -1,22 +1,20 @@
 <?php
 /**
- * @author Eduardo Acevedo Farje.
- * @link www.eduardoaf.com
- * @name TheFramework\Helpers\Vendor\GoogleMaps3
+ * @link eduardoaf.com
  */
-namespace TheFramework\Helpers\Vendor\Google;
+namespace EduardoAf\Helpers\Vendor\Google;
 
-use TheFramework\Helpers\Enums\ColorEnum;
-use TheFramework\Helpers\Enums\CompareOperatorEnum;
-use TheFramework\Helpers\Enums\RangeKeyEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\ApiStatusEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\MapTypeEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\MarkerFieldEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\PointKeyEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\RouteDataKeyEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\RouteModeEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\SizeUnitEnum;
-use TheFramework\Helpers\Enums\GoogleMaps\DistanceTimeKeyEnum;
+use EduardoAf\Helpers\Enums\ColorEnum;
+use EduardoAf\Helpers\Enums\CompareOperatorEnum;
+use EduardoAf\Helpers\Enums\RangeKeyEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\ApiStatusEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\MapTypeEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\MarkerFieldEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\PointKeyEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\RouteDataKeyEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\RouteModeEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\SizeUnitEnum;
+use EduardoAf\Helpers\Enums\GoogleMaps\DistanceTimeKeyEnum;
 
 final class GoogleMaps3
 {

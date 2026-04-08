@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace TheFramework\Helpers\Tests\Unit\Form;
+namespace EduardoAf\Helpers\Tests\Unit\Form;
 
 use PHPUnit\Framework\TestCase;
-use TheFramework\Helpers\Form\Select;
-use TheFramework\Helpers\Enums\HtmlTypeEnum;
+use EduardoAf\Helpers\Form\Select;
+use EduardoAf\Helpers\Enums\HtmlTypeEnum;
 
 final class SelectTest extends TestCase
 {
