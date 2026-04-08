@@ -47,7 +47,7 @@ final class ResponseDto
     {
         $responseCode = (string) $this->code;
         $two = "2";
-        if (substr($responseCode, 0, strlen($two)) === $two)
+        if (str_starts_with($responseCode, $two))
             return "success";
         return "error";
     }
