@@ -1,8 +1,8 @@
 <?php
 
-namespace application\modules\Shared\Components;
+namespace EduardoAf\Components;
 
-use application\modules\Shared\Components\Traits\LogTrait;
+use EduardoAf\Components\Traits\LogTrait;
 
 /**
 Los servidores DNS solo entienden ASCII: Los sistemas DNS tradicionales solo pueden trabajar con caracteres ASCII básicos (a-z, 0-9, guiones).

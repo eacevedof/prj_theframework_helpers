@@ -1,6 +1,6 @@
 <?php
 
-namespace application\modules\Shared\Components;
+namespace EduardoAf\Components;
 
 /**
  * @property int $code http status code

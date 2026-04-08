@@ -1,9 +1,9 @@
 <?php
 
-namespace application\modules\Shared\Components\Sanitizer;
+namespace EduardoAf\Components\Sanitizer;
 
-use application\modules\Shared\Components\Traits\MailTrait;
-use application\modules\Shared\Components\Traits\LogTrait;
+use EduardoAf\Components\Traits\MailTrait;
+use EduardoAf\Components\Traits\LogTrait;
 
 final class InputSanitizer
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace application\modules\Shared\Components;
+namespace EduardoAf\Components;
 
-use application\modules\Shared\Exceptions\ComponentException;
+use EduardoAf\Components\Exceptions\ComponentException;
 
 final class QueryWriteBuilder
 {
