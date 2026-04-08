@@ -93,47 +93,7 @@ final class Radio extends AbstractHelper
         if ($this->readonly) {
             $htmlParts[] = " readonly";
         }
-        if ($this->jsOnBlur) {
-            $htmlParts[] = " onblur=\"{$this->jsOnBlur}\"";
-        }
-        if ($this->jsOnChange) {
-            $htmlParts[] = " onchange=\"{$this->jsOnChange}\"";
-        }
-        if ($this->jsOnClick) {
-            $htmlParts[] = " onclick=\"{$this->jsOnClick}\"";
-        }
-        if ($this->jsOnKeypress) {
-            $htmlParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
-        }
-        if ($this->jsOnFocus) {
-            $htmlParts[] = " onfocus=\"{$this->jsOnFocus}\"";
-        }
-        if ($this->jsOnMouseover) {
-            $htmlParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
-        }
-        if ($this->jsOnMouseout) {
-            $htmlParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
-        }
-        $this->loadCssClass();
-        if ($this->class) {
-            $htmlParts[] = " class=\"{$this->class}\"";
-        }
-        $this->loadStyle();
-        if ($this->style) {
-            $htmlParts[] = " style=\"{$this->style}\"";
-        }
-        if ($this->attrDbfield) {
-            $htmlParts[] = " dbfield=\"{$this->attrDbfield}\"";
-        }
-        if ($this->attrDbtype) {
-            $htmlParts[] = " dbtype=\"{$this->attrDbtype}\"";
-        }
-        if ($this->isPrimaryKey) {
-            $htmlParts[] = " pk=\"pk\"";
-        }
-        if ($this->extras) {
-            $htmlParts[] = " " . $this->getExtras();
-        }
+        $htmlParts = array_merge($htmlParts, $this->getCommonAttributes());
         $htmlParts[] = " />\n";
         if ($label) {
             $htmlParts[] = $label->getHtml();

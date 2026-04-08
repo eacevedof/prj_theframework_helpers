@@ -44,18 +44,8 @@ final class Hidden extends AbstractHelper
         if ($this->maxLength) {
             $htmlParts[] = " maxlength=\"{$this->maxLength}\"";
         }
-        if ($this->attrDbfield) {
-            $htmlParts[] = " dbfield=\"{$this->attrDbfield}\"";
-        }
-        if ($this->attrDbtype) {
-            $htmlParts[] = " dbtype=\"{$this->attrDbtype}\"";
-        }
-        if ($this->isPrimaryKey) {
-            $htmlParts[] = " pk=\"pk\"";
-        }
-        if ($this->extras) {
-            $htmlParts[] = " " . $this->getExtras();
-        }
+        $htmlParts = array_merge($htmlParts, $this->getDataAttributes());
+        $htmlParts = array_merge($htmlParts, $this->getExtraAttributes());
         $htmlParts[] = ">\n";
         return implode("", $htmlParts);
     }

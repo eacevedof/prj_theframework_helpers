@@ -83,29 +83,9 @@ final class Form extends AbstractHelper
         if ($this->id) {
             $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
         }
-        if ($this->jsOnBlur) {
-            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
-        }
-        if ($this->jsOnChange) {
-            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
-        }
-        if ($this->jsOnClick) {
-            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
-        }
-        if ($this->jsOnKeypress) {
-            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
-        }
-        if ($this->jsOnFocus) {
-            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
-        }
+        $openTagParts = array_merge($openTagParts, $this->getJsEventAttributes());
         if ($this->jsOnSubmit) {
             $openTagParts[] = " onsubmit=\"{$this->jsOnSubmit}\"";
-        }
-        if ($this->jsOnMouseover) {
-            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
-        }
-        if ($this->jsOnMouseout) {
-            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
         }
         if ($this->method) {
             $openTagParts[] = " method=\"{$this->method}\"";
@@ -116,23 +96,9 @@ final class Form extends AbstractHelper
         if ($this->enctype) {
             $openTagParts[] = " enctype=\"{$this->enctype}\"";
         }
-        $this->loadCssClass();
-        if ($this->class) {
-            $openTagParts[] = " class=\"{$this->class}\"";
-        }
-        $this->loadStyle();
-        if ($this->style) {
-            $openTagParts[] = " style=\"{$this->style}\"";
-        }
-        if ($this->attrDbfield) {
-            $openTagParts[] = " dbfield=\"{$this->attrDbfield}\"";
-        }
-        if ($this->attrDbtype) {
-            $openTagParts[] = " dbtype=\"{$this->attrDbtype}\"";
-        }
-        if ($this->extras) {
-            $openTagParts[] = " " . $this->getExtras();
-        }
+        $openTagParts = array_merge($openTagParts, $this->getStyleAttributes());
+        $openTagParts = array_merge($openTagParts, $this->getDataAttributes());
+        $openTagParts = array_merge($openTagParts, $this->getExtraAttributes());
         $openTagParts[] = ">\n";
         return implode("", $openTagParts);
     }

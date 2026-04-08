@@ -48,44 +48,7 @@ final class Image extends AbstractHelper
         if ($this->id) {
             $htmlParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
         }
-        if ($this->jsOnBlur) {
-            $htmlParts[] = " onblur=\"{$this->jsOnBlur}\"";
-        }
-        if ($this->jsOnChange) {
-            $htmlParts[] = " onchange=\"{$this->jsOnChange}\"";
-        }
-        if ($this->jsOnClick) {
-            $htmlParts[] = " onclick=\"{$this->jsOnClick}\"";
-        }
-        if ($this->jsOnKeypress) {
-            $htmlParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
-        }
-        if ($this->jsOnFocus) {
-            $htmlParts[] = " onfocus=\"{$this->jsOnFocus}\"";
-        }
-        if ($this->jsOnMouseover) {
-            $htmlParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
-        }
-        if ($this->jsOnMouseout) {
-            $htmlParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
-        }
-        $this->loadCssClass();
-        if ($this->class) {
-            $htmlParts[] = " class=\"{$this->class}\"";
-        }
-        $this->loadStyle();
-        if ($this->style) {
-            $htmlParts[] = " style=\"{$this->style}\"";
-        }
-        if ($this->attrDbfield) {
-            $htmlParts[] = " dbfield=\"{$this->attrDbfield}\"";
-        }
-        if ($this->attrDbtype) {
-            $htmlParts[] = " dbtype=\"{$this->attrDbtype}\"";
-        }
-        if ($this->extras) {
-            $htmlParts[] = " " . $this->getExtras();
-        }
+        $htmlParts = array_merge($htmlParts, $this->getCommonAttributes());
         $htmlParts[] = ">";
         return implode("", $htmlParts);
     }

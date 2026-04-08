@@ -63,50 +63,13 @@ final class Text extends AbstractHelper
         if ($this->isRequired) {
             $htmlParts[] = " required";
         }
-        if ($this->jsOnBlur) {
-            $htmlParts[] = " onblur=\"{$this->jsOnBlur}\"";
-        }
-        if ($this->jsOnChange) {
-            $htmlParts[] = " onchange=\"{$this->jsOnChange}\"";
-        }
-        if ($this->jsOnClick) {
-            $htmlParts[] = " onclick=\"{$this->jsOnClick}\"";
-        }
-        if ($this->jsOnKeypress) {
-            $htmlParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
-        }
-        if ($this->jsOnFocus) {
-            $htmlParts[] = " onfocus=\"{$this->jsOnFocus}\"";
-        }
-        if ($this->jsOnMouseover) {
-            $htmlParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
-        }
-        if ($this->jsOnMouseout) {
-            $htmlParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
-        }
-        $this->loadCssClass();
-        if ($this->class) {
-            $htmlParts[] = " class=\"{$this->class}\"";
-        }
-        $this->loadStyle();
-        if ($this->style) {
-            $htmlParts[] = " style=\"{$this->style}\"";
-        }
+        $htmlParts = array_merge($htmlParts, $this->getJsEventAttributes());
+        $htmlParts = array_merge($htmlParts, $this->getStyleAttributes());
         if ($this->placeholder) {
             $htmlParts[] = " placeholder=\"{$this->placeholder}\"";
         }
-        if ($this->attrDbfield) {
-            $htmlParts[] = " dbfield=\"{$this->attrDbfield}\"";
-        }
-        if ($this->attrDbtype) {
-            $htmlParts[] = " dbtype=\"{$this->attrDbtype}\"";
-        }
-        if ($this->isPrimaryKey) {
-            $htmlParts[] = " pk=\"pk\"";
-        }
-        if ($this->extras) {
-            $htmlParts[] = " " . $this->getExtras();
-        }
+        $htmlParts = array_merge($htmlParts, $this->getDataAttributes());
+        $htmlParts = array_merge($htmlParts, $this->getExtraAttributes());
         $htmlParts[] = ">\n";
         return implode("", $htmlParts);
     }

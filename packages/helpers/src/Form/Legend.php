@@ -49,44 +49,7 @@ final class Legend extends AbstractHelper
         if ($this->id) {
             $openTagParts[] = " id=\"{$this->idPrefix}{$this->id}\"";
         }
-        if ($this->jsOnBlur) {
-            $openTagParts[] = " onblur=\"{$this->jsOnBlur}\"";
-        }
-        if ($this->jsOnChange) {
-            $openTagParts[] = " onchange=\"{$this->jsOnChange}\"";
-        }
-        if ($this->jsOnClick) {
-            $openTagParts[] = " onclick=\"{$this->jsOnClick}\"";
-        }
-        if ($this->jsOnKeypress) {
-            $openTagParts[] = " onkeypress=\"{$this->jsOnKeypress}\"";
-        }
-        if ($this->jsOnFocus) {
-            $openTagParts[] = " onfocus=\"{$this->jsOnFocus}\"";
-        }
-        if ($this->jsOnMouseover) {
-            $openTagParts[] = " onmouseover=\"{$this->jsOnMouseover}\"";
-        }
-        if ($this->jsOnMouseout) {
-            $openTagParts[] = " onmouseout=\"{$this->jsOnMouseout}\"";
-        }
-        $this->loadCssClass();
-        if ($this->class) {
-            $openTagParts[] = " class=\"{$this->class}\"";
-        }
-        $this->loadStyle();
-        if ($this->style) {
-            $openTagParts[] = " style=\"{$this->style}\"";
-        }
-        if ($this->attrDbfield) {
-            $openTagParts[] = " dbfield=\"{$this->attrDbfield}\"";
-        }
-        if ($this->attrDbtype) {
-            $openTagParts[] = " dbtype=\"{$this->attrDbtype}\"";
-        }
-        if ($this->extras) {
-            $openTagParts[] = " " . $this->getExtras();
-        }
+        $openTagParts = array_merge($openTagParts, $this->getCommonAttributes());
         $openTagParts[] = ">";
         return implode("", $openTagParts);
     }

@@ -6,9 +6,11 @@ namespace EduardoAf\Helpers;
 
 use EduardoAf\Helpers\Form\Label;
 use EduardoAf\Helpers\Html\Style;
+use EduardoAf\Helpers\Traits\HtmlAttributesTrait;
 
 abstract class AbstractHelper implements InterfaceHelper
 {
+    use HtmlAttributesTrait;
     protected string $comment = "";
     protected string $type = "";
     protected string $id = "";
