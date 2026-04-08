@@ -11,6 +11,7 @@ gitpush: ## git push m=any message
 server: ## localhost:3000
 	php -S localhost:3000 -t ./public
 
+
 CURRENT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 update-branch:  ## update main branches
 	git fetch --all;
