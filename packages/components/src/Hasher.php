@@ -1,12 +1,12 @@
 <?php
 
-namespace application\modules\shared\Components;
+namespace application\modules\Shared\Components;
 
 final class Hasher
 {
-    private const ENCRYPT_SALT = "3`(<516`]w6'C~sGjB]<^!Dpu[9?6`";
+    private const ENCRYPT_SALT = "3iQiZ^laZ*uDECE.geH&55628531498564_H`";
     private const ENCRYPT_ALGORITHM = "AES-256-CBC";
-    private const INITIALIZATION_VECTOR = "cdf86fc413278d46";
+    private const INITIALIZATION_VECTOR = "serecEVABoMAdINe63451230427560a";
 
     public static function getInstance(): self
     {
@@ -49,4 +49,19 @@ final class Hasher
     {
         return sodium_crypto_pwhash_str_verify($hashedPassword, $plainPassword);
     }
+
+    public function getUniqueRandomHashByLength(int $length = 32): string
+    {
+        return bin2hex(random_bytes($length));
+    }
+
+    public function getEncryptedPassword(string $newPassword): string
+    {
+        return sodium_crypto_pwhash_str(
+            $newPassword,
+            SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE,
+            SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE
+        );
+    }
+
 }

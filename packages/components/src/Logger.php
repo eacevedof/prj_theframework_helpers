@@ -1,6 +1,6 @@
 <?php
 
-namespace application\modules\shared\Components;
+namespace application\modules\Shared\Components;
 
 final class Logger
 {
@@ -32,11 +32,7 @@ final class Logger
 
         if ($ext === "sql") $content = $this->getNormalizedMarginForSql($content);
 
-        $isNewFile = !file_exists($logFilePath);
         file_put_contents($logFilePath, "\n[$now]\n$content", FILE_APPEND);
-        if ($isNewFile) {
-            chmod($logFilePath, 0666);
-        }
     }
 
     private function getNormalizedMarginForSql(string $content): string

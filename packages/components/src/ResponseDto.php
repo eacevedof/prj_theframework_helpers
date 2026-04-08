@@ -1,6 +1,6 @@
 <?php
 
-namespace application\modules\shared\Components;
+namespace application\modules\Shared\Components;
 
 /**
  * @property int $code http status code
@@ -13,14 +13,34 @@ final class ResponseDto
     private string $status;
     private string $message;
     private int $code;
-    private $data;
+    private ?object $data;
 
     public function __construct(array $primitives)
     {
         $this->code = (int)($primitives["code"] ?? 200);
         $this->status = $this->getStatusByCode();
         $this->message = (string)($primitives["message"] ?? "");
-        $this->data = $primitives["data"] ?? [];
+        $this->loadDataByStatus($primitives["data"] ?? null);
+    }
+
+    private function loadDataByStatus($anyValue): void
+    {
+        $this->data = null;
+        if ($this->status === "error") {
+            return;
+        }
+
+        if (is_object($anyValue)) {
+            $this->data = $anyValue;
+            return;
+        }
+
+        if (is_array($anyValue)) {
+            $this->data = (object)$anyValue;
+            return;
+        }
+
+        $this->data = new \stdClass();
     }
 
     private function getStatusByCode(): string
@@ -71,5 +91,4 @@ final class ResponseDto
     {
         return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE);
     }
-
 }

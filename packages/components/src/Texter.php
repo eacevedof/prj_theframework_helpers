@@ -1,6 +1,6 @@
 <?php
 
-namespace application\modules\shared\Components;
+namespace application\modules\Shared\Components;
 
 final class Texter
 {
@@ -18,27 +18,6 @@ final class Texter
             }
             return $value;
         }, $primitives);
-    }
-
-    public function getNoHtmlText(?string $text): string
-    {
-        if (is_null($text)) return "";
-        if (!trim($text)) return "";
-
-        $text = strip_tags($text);//remove html tags
-        $text = preg_replace("/[^\S\r\n]+/", " ", $text);
-        return trim($text);
-    }
-
-    public function getTrimLoweredText(?string $text): string
-    {
-        if (is_null($text)) return "";
-        if (!trim($text)) return "";
-
-        $text = strip_tags($text);//remove html tags
-        $text = preg_replace("/[^\S\r\n]+/", " ", $text);
-        $text = strtolower($text);
-        return trim($text);
     }
 
     public function getSanitizedText(?string $text): ?string

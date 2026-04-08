@@ -1,6 +1,6 @@
 <?php
 
-namespace application\modules\shared\Components;
+namespace application\modules\Shared\Components;
 
 final class Slugger
 {
