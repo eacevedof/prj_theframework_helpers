@@ -19,3 +19,38 @@ update-branch:  ## update main branches
 	git checkout develop; git reset --hard origin/develop;
 
 	git checkout $(CURRENT_BRANCH);
+
+# =============================================================================
+# Tests
+# =============================================================================
+
+test: ## Run all tests
+	./vendor/bin/phpunit
+
+test-helpers: ## Run only helpers tests
+	./vendor/bin/phpunit --testsuite Helpers
+
+test-components: ## Run only components tests
+	./vendor/bin/phpunit --testsuite Components
+
+test-coverage: ## Run tests with coverage report
+	./vendor/bin/phpunit --coverage-html coverage
+
+test-filter: ## Run filtered tests (make test-filter f=testName)
+	./vendor/bin/phpunit --filter $(f)
+
+test-verbose: ## Run tests with verbose output
+	./vendor/bin/phpunit -v
+
+# =============================================================================
+# Development
+# =============================================================================
+
+install: ## Install composer dependencies
+	composer install
+
+autoload: ## Regenerate autoload files
+	composer dump-autoload -o
+
+lint: ## Check PHP syntax errors
+	@find packages -name "*.php" -exec php -l {} \; 2>&1 | grep -v "No syntax errors" || echo "All files OK"
