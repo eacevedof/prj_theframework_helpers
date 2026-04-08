@@ -76,34 +76,32 @@ final class GoogleMaps
     <script>
     function initMap()
     {
-        var oInfoWindow = new google.maps.InfoWindow();
-
-        var oMarker, i;
-        var oRequest = {
+        const oInfoWindow = new google.maps.InfoWindow();
+        const oRequest = {
             travelMode: google.maps.TravelMode.DRIVING
         };
 
-        let arMarkers = <?= $this->getMarkersInjs(); ?>
-        let eDivMap = document.getElementById("<?= $this->div["id"]; ?>");
-        let oMap = new google.maps.Map(eDivMap,{
+        const arMarkers = <?= $this->getMarkersInjs(); ?>
+        const eDivMap = document.getElementById("<?= $this->div["id"]; ?>");
+        const oMap = new google.maps.Map(eDivMap,{
             zoom: 10,
             center: new google.maps.LatLng(<?= $this->center[0]["lat"]; ?>,<?= $this->center[0]["long"]; ?>),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-        for(i=0; i<arMarkers.length; i++)
+        for (let i = 0; i < arMarkers.length; i++)
         {
-            oMarker = new google.maps.Marker({
+            const oMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(arMarkers[i][1], arMarkers[i][2]),
                 map: oMap
             });
 
-            google.maps.event.addListener(oMarker,'click',(function(marker,i){
+            google.maps.event.addListener(oMarker, 'click', (function(marker, i) {
                 return function() {
                     oInfoWindow.setContent(arMarkers[i][0]);
-                    oInfoWindow.open(oMap,marker);
+                    oInfoWindow.open(oMap, marker);
                 }
-            })(oMarker,i));
+            })(oMarker, i));
         }
     }
     </script>
